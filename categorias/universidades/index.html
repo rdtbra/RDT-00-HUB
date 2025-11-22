@@ -1,57 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="pt-br" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RDT-00-HUB Launcher</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>Launcher – Universidades</title>
+<link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
 <header class="header">
-  <a href="index.html" class="back-btn">⬅ Voltar ao HUB</a>
-  <h1>Launcher</h1>
+  <a href="../../index.html" class="back-btn">⬅ Voltar ao HUB</a>
+  <h2>Launcher – Universidades</h2>
   <button id="themeToggle" class="theme-toggle">🌙</button>
 </header>
-<main>
-<!doctype html>
-<html lang="pt-br" data-theme="light">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI-UNI-Equipes – Launcher</title>
-  <meta name="theme-color" content="#4f46e5">
-  <style>
-    :root{--bg:#0b1020;--fg:#dce3ff;--muted:#97a0c6;--card:#0f152b;--border:#1e2a4a;--accent:#8b86ff}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.3 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
-    .container{max-width:1100px;margin:0 auto;padding:18px}
-    h1{margin:0 0 6px 0;font-size:24px;font-weight:800;letter-spacing:-0.01em}
-    .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:12px 0}
-    .btn{border:1px solid var(--border);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 12px;cursor:pointer}
-    .btn:hover{background:rgba(255,255,255,.08)}
-    .row{display:grid;grid-template-columns:1fr;gap:10px}
-    .card{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--accent);border-radius:14px;padding:12px;box-shadow:0 2px 6px rgba(2,6,23,.3)}
-    .card h2{margin:0;font-size:16px;display:flex;align-items:center;gap:10px}
-    .head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
-    .chip{width:10px;height:10px;border-radius:50%}
-    .gicon-wrap a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:inherit}
-    .gicon{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
-    .actions{display:flex;gap:6px;flex-wrap:wrap}
-    .grid{display:grid;grid-template-columns:1fr;gap:6px}
-    .item{display:grid;grid-template-columns:auto 1fr auto;gap:4px;align-items:center;border:1px solid var(--border);border-radius:10px;padding:2px 6px;background:transparent}
-    .left{display:flex;align-items:center;gap:4px;min-width:0}
-    
-    .composite{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-    .urlbox{display:flex;align-items:center;gap:6px}
-    .url{width:420px;max-width:60vw;border:1px solid var(--border);border-radius:8px;padding:6px;background:var(--card);color:var(--fg)}
-    @media (max-width:640px){ .url{max-width:52vw} }
-    .small{font-size:12px;color:var(--muted)}
-    .footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;color:var(--muted);font-size:12px}
-    .chev{cursor:pointer;user-select:none}
-    .hint{font-size:12px;color:var(--muted)}
-  </style>
-</head>
-<body>
+<main class="launcher-container">
+
   <div class="container">
     <h1>AI-UNI-Equipes – Launcher</h1>
     <div class="toolbar">
@@ -2516,8 +2478,8 @@ document.getElementById("import").addEventListener("click", importJson);
 document.getElementById("reset").addEventListener("click", ()=>{ if(confirm("Restaurar configuração padrão?")){ groups = DEFAULT_GROUPS; save(groups); render(); } });
 render();
 </script>
+
+</main>
+<script src="../../assets/script.js"></script>
 </body>
 </html>
-</main>
-<script src="assets/script.js"></script>
-</body></html>
