@@ -1,13 +1,146 @@
 <!DOCTYPE html>
-<html lang='pt-br'>
+<html lang="pt-br" data-theme="dark">
 <head>
-  <meta charset='utf-8'>
-  <title>Desenvolvimentos</title>
-  <link rel='stylesheet' href='../../assets/style.css'>
+  <meta charset="utf-8">
+  <title>AI-DV-Equipes – Launcher</title>
+  <link rel="stylesheet" href="../../assets/style.css">
 </head>
-<body>
-  <h1>Desenvolvimentos</h1>
-  <p>Conteúdo inicial da categoria.</p>
-  <a href='../../index.html'>Voltar</a>
+<body class="launcher">
+  <header class="header">
+    <a href="../../index.html" class="back-btn">⬅ Voltar ao HUB</a>
+    <span class="header-title">AI-DV-Equipes – Launcher</span>
+    <button id="themeToggle" class="theme-toggle">🌙</button>
+  </header>
+
+  <main class="launcher-main">
+
+  <div class="container">
+    <h1>AI-DV-Equipes – Launcher</h1>
+    <div class="toolbar">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <a class="btn" href="../index.html">⬅ Menu</a>
+        <button class="btn" id="openAll">Abrir TUDO</button>
+        <button class="btn" id="addGroup">+ Grupo</button>
+        <button class="btn" id="export">Exportar</button>
+        <button class="btn" id="import">Importar</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <label class="hint"><input type="checkbox" id="tmTitle" checked> Enviar título p/ Tampermonkey (#tabtitle)</label>
+        <div style="display:flex;align-items:center;gap:6px">
+          <label class="small">Atraso (ms)</label>
+          <input class="btn" style="width:100px" type="number" id="delay" min="0" step="50" value="0">
+        </div>
+      </div>
+    </div>
+
+    <div id="groups" class="row"></div>
+
+    <div class="footer">
+      <span>Configuração salva no navegador. Clique no título do grupo p/ minimizar/expandir.</span>
+      <button class="btn" id="reset">Restaurar padrão</button>
+    </div>
+  </div>
+
+<script>
+const KEY = "ia-launcher-config:" + "AI-DV-Equipes";
+const DEFAULT_GROUPS = [{"id": "dv-16-clp", "name": "DV-16-CLP - Clipper em C", "color": "#4f46e5", "icon": "assets/DV-16-CLP.png", "iconHref": "#", "collapsed": true, "items": [{"code": "M01", "label": "GPT-5", "provider": "Inner.AI", "url": "https://app.innerai.com/projects/fb8bc4b9-43fb-472a-896b-c673f120439b?sessionId=3cc9fd15-13f6-4e52-9d31-7cdf662ed37a", "checked": true, "img": ""}, {"code": "M02", "label": "Claude 4.5 Sonnet", "provider": "AdaptaONE26", "url": "https://agent.adapta.one/agentic-chat/0199e433-f580-73e9-84bb-e557d0c3af61", "checked": true, "img": ""}, {"code": "M03", "label": "Gemini 2.5 Flash", "provider": "AdaptaONE", "url": "https://app.adapta.one/chats/91c3dcaf-7d8e-4186-a19c-c291155db59c", "checked": true, "img": ""}, {"code": "M04", "label": "Sabiá 3.1", "provider": "Inner.AI", "url": "https://app.innerai.com/projects/fb8bc4b9-43fb-472a-896b-c673f120439b?sessionId=2ff28731-bc8a-4e70-a207-0189f1cdc5cc", "checked": true, "img": ""}, {"code": "M05", "label": "DeepSeek R1", "provider": "AdaptaONE", "url": "https://app.adapta.one/chats/964e813a-4729-492d-a644-ee053bc6266b", "checked": true, "img": ""}, {"code": "SUP", "label": "GPT-5", "provider": "openAI", "url": "https://chatgpt.com/g/g-p-68c463acefb08191beaf72e9beaf56ec/c/68c856cd-ac74-8325-a630-afd6edc77571", "checked": true, "img": ""}, {"code": "REV", "label": "Grok 3", "provider": "Inner.IA", "url": "https://app.innerai.com/projects/fb8bc4b9-43fb-472a-896b-c673f120439b?sessionId=eb2396d3-fa57-46d3-815b-7b8c10155cf4", "checked": true, "img": ""}]}];
+
+function compositeText(it, groupName){
+  const parts = [groupName || '', it.code || '', it.label || '', it.provider || ''].filter(Boolean);
+  return parts.join('|');
+}
+function buildUrlWithHash(u, title, useTM){
+  if(!useTM) return u;
+  const enc = encodeURIComponent(title);
+  return u + (u.includes('#') ? '&' : '#') + 'tabtitle=' + enc;
+}
+function load(){ try{ const j=localStorage.getItem(KEY); return j? JSON.parse(j): DEFAULT_GROUPS; }catch(e){ return DEFAULT_GROUPS; } }
+function save(groups){ try{ localStorage.setItem(KEY, JSON.stringify(groups)); }catch(e){} }
+
+let groups = load();
+const groupsEl = document.getElementById("groups");
+const delayEl = document.getElementById("delay");
+const tmEl = document.getElementById("tmTitle");
+
+function escapeHtml(s){ return (s||"").replace(/[&<>]/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]) ); }
+function escapeAttr(s){ return escapeHtml(s).replace(/"/g,"&quot;"); }
+
+function render(){
+  groupsEl.innerHTML = "";
+  groups.forEach((g, gi) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.borderLeftColor = g.color || "#8b86ff";
+    card.innerHTML = `
+      <div class="head">
+        <h2 class="chev" data-act="toggle">
+          <span class="gicon-wrap"><a href="${g.iconHref || '#'}" target="_blank" rel="noopener">
+            <img class="gicon" src="${g.icon || ''}" alt="icon"></a></span>
+          <span class="chip" style="background:${g.color || "#8b86ff"}"></span>${escapeHtml(g.name || "Grupo")}
+        </h2>
+        <div class="actions">
+          <button class="btn" data-act="open-group">Abrir todas</button>
+          <button class="btn" data-act="add-item">+ IA</button>
+          <button class="btn" data-act="edit-group">Editar</button>
+          <button class="btn" data-act="remove-group">Remover</button>
+        </div>
+      </div>
+      <div class="grid" data-role="grid" style="display:${g.collapsed ? 'none': 'grid'}"></div>
+    `;
+    const grid = card.querySelector("[data-role='grid']");
+    (g.items || []).forEach((it, ii) => {
+      const row = document.createElement("div");
+      row.className = "item";
+      const safeUrl = escapeAttr(it.url||"");
+      const imgSrc = escapeAttr(it.img || 'assets/default-thumb.png');
+      const text = [it.code || '', it.label || '', it.provider || ''].filter(Boolean).join(' | ');
+      row.innerHTML = `
+        <div class="left">
+          <input class="checkbox" type="checkbox" ${it.checked === false ? "" : "checked"} data-role="check">
+          <div class="composite" title="${escapeAttr(text)}">${escapeHtml(text)}</div>
+        </div>
+        <div class="urlbox">
+          <input class="url" type="text" value="${safeUrl}" placeholder="https://...">
+          <a class="btn" href="${safeUrl || '#'}" target="_blank" rel="noopener noreferrer">Abrir</a>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn" data-act="remove">Remover</button>
+        </div>
+      `;
+      row.querySelector("[data-role='check']").addEventListener("change", e => { g.items[ii].checked = e.target.checked; save(groups); });
+      const urlInput = row.querySelector(".url");
+      const openA = row.querySelector("a.btn");
+      urlInput.addEventListener("input", e=>{ g.items[ii].url = e.target.value; save(groups); openA.href = e.target.value || '#'; });
+      openA.addEventListener("click", ()=>{ if(!tmEl.checked) return; openA.href = buildUrlWithHash(g.items[ii].url, compositeText(g.items[ii], g.name), true); });
+      row.querySelector("[data-act='remove']").addEventListener("click", ()=>{ g.items.splice(ii,1); save(groups); render(); });
+      grid.appendChild(row);
+    });
+
+    card.querySelector("[data-act='add-item']").addEventListener("click", ()=>{ const url = prompt("Cole a URL (https://...)"); if(!url) return; const code = prompt("Código (ex.: M01)") || ""; const label = prompt("Nome da IA") || url; const provider = prompt("Empresa/Fornecedor", ""); g.items.push({label, url, code, provider, checked:true, img:""}); save(groups); render(); });
+    card.querySelector("[data-act='edit-group']").addEventListener("click", ()=>{ const name = prompt("Nome do grupo:", g.name || ""); if(name===null) return; const color = prompt("Cor (hex):", g.color || "#8b86ff"); if(color===null) return; const icon = prompt("Ícone (URL, ex.: assets/EMT-XX-YYY.png)", g.icon || ""); if(icon===null) return; const iconHref = prompt("Link do ícone (ex.: Google Drive):", g.iconHref || "#"); if(iconHref===null) return; g.name = name; g.color = color||"#8b86ff"; g.icon = icon; g.iconHref = iconHref || "#"; save(groups); render(); });
+    card.querySelector("[data-act='remove-group']").addEventListener("click", ()=>{ if(!confirm("Remover grupo?")) return; groups.splice(gi,1); save(groups); render(); });
+    card.querySelector("[data-act='open-group']").addEventListener("click", ()=>{ const urls = (g.items||[]).filter(i=>i.checked!==false && i.url).map(i=> buildUrlWithHash(i.url, compositeText(i, g.name), tmEl.checked)); openMany(urls, Number(delayEl.value||0)); });
+    card.querySelector("[data-act='toggle']").addEventListener("click", ()=>{ g.collapsed = !g.collapsed; save(groups); render(); });
+    groupsEl.appendChild(card);
+  });
+}
+
+function openMany(urls, delayMs=0){
+  if(!urls || !urls.length) { alert("Nenhuma URL selecionada."); return; }
+  (async ()=>{ for(const u of urls){ try{ window.open(u, "_blank", "noopener,noreferrer"); }catch(e){ console.error(e); } if(delayMs>0) await new Promise(r=>setTimeout(r, delayMs)); } })();
+}
+function exportJson(){ const blob = new Blob([JSON.stringify(groups,null,2)], {type:"application/json"}); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href=url; a.download="ia-launcher-config.json"; a.click(); URL.revokeObjectURL(url); }
+function importJson(){ const input = document.createElement("input"); input.type="file"; input.accept="application/json"; input.onchange = e => { const f = e.target.files && e.target.files[0]; if(!f) return; const rd = new FileReader(); rd.onload = () => { try{ const data = JSON.parse(rd.result); if(Array.isArray(data)){ groups=data; save(groups); render(); } else alert("JSON inválido"); } catch{ alert("Falha ao ler JSON"); } }; rd.readAsText(f); }; input.click(); }
+document.getElementById("openAll").addEventListener("click", ()=>{ const urls = []; groups.forEach(g=> (g.items||[]).forEach(i=>{ if(i.checked!==false && i.url) urls.push(buildUrlWithHash(i.url, compositeText(i, g.name), tmEl.checked)); })); openMany(urls, Number(delayEl.value||0)); });
+document.getElementById("addGroup").addEventListener("click", ()=>{ const name = prompt("Nome do grupo"); if(!name) return; const color = prompt("Cor (hex, ex.: #8b86ff)", "#8b86ff") || "#8b86ff"; const icon = prompt("Ícone (URL, ex.: assets/EMT-XX-YYY.png)", ""); const iconHref = prompt("Link do ícone (ex.: Google Drive)", "#") || "#"; groups.push({id:crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2), name, color, icon, iconHref, collapsed:true, items:[]}); save(groups); render(); });
+document.getElementById("export").addEventListener("click", exportJson);
+document.getElementById("import").addEventListener("click", importJson);
+document.getElementById("reset").addEventListener("click", ()=>{ if(confirm("Restaurar configuração padrão?")){ groups = DEFAULT_GROUPS; save(groups); render(); } });
+render();
+</script>
+
+  </main>
+
+  <script src="../../assets/script.js"></script>
 </body>
 </html>
