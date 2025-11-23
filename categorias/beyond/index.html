@@ -1,13 +1,59 @@
 <!DOCTYPE html>
-<html lang='pt-br'>
+<html lang="pt-br" data-theme="dark">
 <head>
-  <meta charset='utf-8'>
-  <title>Beyond</title>
-  <link rel='stylesheet' href='../../assets/style.css'>
+  <meta charset="utf-8">
+  <title>Beyond – BEY-01-JOY-HH</title>
+  <link rel="stylesheet" href="../../assets/style.css">
 </head>
-<body>
-  <h1>Beyond</h1>
-  <p>Conteúdo inicial da categoria.</p>
-  <a href='../../index.html'>Voltar</a>
+<body class="launcher">
+<header class="header">
+  <a href="../../index.html" class="back-btn">⬅ Voltar ao HUB</a>
+  <span class="header-title">Beyond – BEY-01-JOY-HH</span>
+  <button id="themeToggle" class="theme-toggle">🌙</button>
+</header>
+
+<main class="launcher-main">
+  <div class="container">
+    <h1>Beyond – BEY-01-JOY-HH</h1>
+
+    <div class="toolbar">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <a class="btn" href="../index.html">⬅ Menu</a>
+        <button class="btn" id="openAll">Abrir TUDO</button>
+      </div>
+    </div>
+
+    <div id="groups" class="row"></div>
+
+    <div class="footer">
+      <span>Configuração salva no navegador.</span>
+    </div>
+  </div>
+</main>
+
+<script>
+const KEY="ia-launcher-config:BEY-01-JOY-HH";
+const DEFAULT_GROUPS = [
+  {
+    id:"bey-01-joy-hh",
+    name:"BEY-01-JOY-HH",
+    color:"#8b86ff",
+    icon:"",
+    iconHref:"",
+    collapsed:false,
+    items:[
+      {label:"Perplexity",url:"https://www.perplexity.ai/search/bey-01-joy-hh-m01-perplexity-p-auoRdUzISvyRieODS5Ixow",checked:true},
+      {label:"Adapta Chat 1",url:"https://app.adapta.one/chats/c71e2585-c18f-4707-ac98-af562ce87f37",checked:true},
+      {label:"Adapta Chat 2",url:"https://agent.adapta.one/agentic-chat/019ab104-12f1-710b-b54c-41a0bbaf154a",checked:true},
+      {label:"InnerAI",url:"https://app.innerai.com/projects/0b515e17-03e4-4b37-b7de-48b5118678e1?sessionId=a572c262-4577-4049-8521-55929e55f12e",checked:true},
+      {label:"Tess Pareto",url:"https://tess.pareto.io/pt-BR/dashboard/user/ai/chat/ai-chat?tools=tools&temperature=1&model=gpt-4o-mini&_chat_id=13971923",checked:true},
+      {label:"ChatGPT Grupo",url:"https://chatgpt.com/g/g-p-68ef05b485cc81919c0970d156e3db12/c/68ef0663-e2c0-832d-9ac8-39bc326bd7f0",checked:true},
+      {label:"HuggingChat",url:"https://huggingface.co/chat/conversation/692315a0f0bcb3333f38f8b0",checked:true}
+    ]
+  }
+];
+</script>
+
+<script src="../../assets/script-launcher.js"></script>
 </body>
 </html>
