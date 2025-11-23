@@ -46,56 +46,6 @@
 const KEY = "ia-launcher-config:" + "Pessoal";
 const DEFAULT_GROUPS = [
   {
-    "id": "chatgpt-conversas",
-    "name": "ChatGPT e Conversas",
-    "color": "#4f46e5",
-    "icon": "assets/ChatGPT-Conversas.png",
-    "iconHref": "",
-    "collapsed": true,
-    "items": [
-      {
-        "code": "",
-        "label": "Hub[GPT5]",
-        "provider": "",
-        "url": "https://chatgpt.com",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "MEPCD-IA RDT-ORG GPT-5",
-        "provider": "",
-        "url": "https://chatgpt.com/g/g-p-68aa75d3e5948191877f11e7cad88ea9/c/69001337-154c-8332-83f4-df8d6172eb19",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Feridas 20251101",
-        "provider": "",
-        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/69062b8d-f858-8332-b81f-fb475188e23f",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Evac 202511",
-        "provider": "",
-        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/6906822f-a1e8-8331-9f64-6b5d7aa2e73e",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Planilha Financeira",
-        "provider": "",
-        "url": "https://chatgpt.com/g/g-p-68ef13e533608191aa8f17cb8e6a7b74/c/68f842d4-12f8-8332-97a5-77d188bb04ca",
-        "checked": true,
-        "img": ""
-      }
-    ]
-  },
-  {
     "id": "llm-geral",
     "name": "LLMs e Modelos Gerais",
     "color": "#0ea5e9",
@@ -259,6 +209,40 @@ const DEFAULT_GROUPS = [
     ]
   },
   {
+    "id": "chatgpt-saude-financas",
+    "name": "ChatGPT Saúde, Finanças",
+    "color": "#4f46e5",
+    "icon": "assets/ChatGPT-Conversas.png",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "Feridas 20251101",
+        "provider": "",
+        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/69062b8d-f858-8332-b81f-fb475188e23f",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Evac 202511",
+        "provider": "",
+        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/6906822f-a1e8-8331-9f64-6b5d7aa2e73e",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Planilha Financeira",
+        "provider": "",
+        "url": "https://chatgpt.com/g/g-p-68ef13e533608191aa8f17cb8e6a7b74/c/68f842d4-12f8-8332-97a5-77d188bb04ca",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },  
+  {
     "id": "MEPCD",
     "name": "MEPDCD",
     "color": "#8b5cf6",
@@ -267,7 +251,15 @@ const DEFAULT_GROUPS = [
     "collapsed": true,
     "items": [
       {
-        "code": "",
+        "code": "MEPCD|M01|gpt-oss-120b|HuggingFace,
+        "label": "gpt-oss-120b - MEPCD",
+        "provider": "",
+        "url": "https://huggingface.co/chat/conversation/69234941f0bcb3333f38ff76",
+        "checked": true,
+        "img": ""
+      },	
+      {
+        "code": "MEPCD|M02|Sabiá 3.1|Inner.AI,
         "label": "Inner - Sabiá 3.1",
         "provider": "",
         "url": "https://app.innerai.com/projects/4aa3e3d1-9ebd-4060-bc79-fb69ba98c499?sessionId=c3cdf193-9942-4451-9242-52849ff11a1e",
@@ -275,7 +267,7 @@ const DEFAULT_GROUPS = [
         "img": ""
       },
       {
-        "code": "",
+        "code": "MEPCD|M03|Gemini 2.5 Pro|Inner.AI",
         "label": "Inner - Gemini 2.5 Pro",
         "provider": "",
         "url": "https://app.innerai.com/projects/52863ffa-ca49-49b5-bd89-00d07c03a06d?sessionId=240ae05c-a43b-4135-981d-5651f10374ed",
@@ -283,7 +275,7 @@ const DEFAULT_GROUPS = [
         "img": ""
       },
       {
-        "code": "",
+        "code": "MEPCD|M04|Mistral Large 2|Inner.AI",
         "label": "Inner - Mistral Large 2",
         "provider": "",
         "url": "https://app.innerai.com/projects/93381bcb-129e-4810-8c2c-de4b5a7f6212?sessionId=af2190fc-c2e1-414c-8fa6-0a7a88f142d6",
@@ -291,7 +283,7 @@ const DEFAULT_GROUPS = [
         "img": ""
       },
       {
-        "code": "",
+        "code": "MEPCD|M05|Llama 4|Inner.AI",
         "label": "Inner - Llama 4 Scout",
         "provider": "",
         "url": "https://app.innerai.com/projects/d6968cce-fe56-4794-b07f-5876137aeaa9?sessionId=7c98f232-4f7a-495f-b7e9-d4c17ed2c152",
@@ -299,7 +291,15 @@ const DEFAULT_GROUPS = [
         "img": ""
       },
       {
-        "code": "",
+        "code": "MEPCD|SUP|GPT 5|openAI",
+        "label": "MEPCD|SUP|GPT 5|openAI",
+        "provider": "",
+        "url": "https://chatgpt.com/g/g-p-68aa75d3e5948191877f11e7cad88ea9/c/69001337-154c-8332-83f4-df8d6172eb19",
+        "checked": true,
+        "img": ""
+      },	  
+      {
+        "code": "MEPCD|REV|Qwen QwQ|Inner.AI",
         "label": "Inner - Qwen QwQ",
         "provider": "",
         "url": "https://app.innerai.com/projects/0f8ea742-4f54-4b45-8914-6df649993947?sessionId=bae3c612-00f2-4a32-b1a1-3fa018121d36",
