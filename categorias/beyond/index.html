@@ -5,7 +5,9 @@
   <title>Beyond – BEY-01-JOY-HH</title>
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
+
 <body class="launcher">
+
 <header class="header">
   <a href="../../index.html" class="back-btn">⬅ Voltar ao HUB</a>
   <span class="header-title">Beyond – BEY-01-JOY-HH</span>
@@ -13,26 +15,49 @@
 </header>
 
 <main class="launcher-main">
-  <div class="container">
-    <h1>Beyond – BEY-01-JOY-HH</h1>
+<div class="container">
 
-    <div class="toolbar">
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <a class="btn" href="../index.html">⬅ Menu</a>
-        <button class="btn" id="openAll">Abrir TUDO</button>
-      </div>
-    </div>
+<h1>Beyond – BEY-01-JOY-HH</h1>
 
-    <div id="groups" class="row"></div>
+<!-- TOOLBAR COMPLETA -->
+<div class="toolbar">
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <a class="btn" href="../index.html">⬅ Menu</a>
+    <button class="btn" id="openAll">Abrir TUDO</button>
+    <button class="btn" id="addGroup">+ Grupo</button>
+    <button class="btn" id="export">Exportar</button>
+    <button class="btn" id="import">Importar</button>
+  </div>
 
-    <div class="footer">
-      <span>Configuração salva no navegador.</span>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <label class="hint">
+      <input type="checkbox" id="tmTitle" checked>
+      Enviar título p/ Tampermonkey (#tabtitle)
+    </label>
+
+    <div style="display:flex;align-items:center;gap:6px">
+      <label class="small">Atraso (ms)</label>
+      <input class="btn" style="width:100px" type="number" id="delay" min="0" step="50" value="0">
     </div>
   </div>
+</div>
+
+<!-- AQUI OS GRUPOS SERÃO RENDERIZADOS -->
+<div id="groups" class="row"></div>
+
+<!-- FOOTER COMPLETO -->
+<div class="footer">
+  <span>Configuração salva no navegador. Clique no título do grupo p/ minimizar/expandir.</span>
+  <button class="btn" id="reset">Restaurar padrão</button>
+</div>
+
+</div>
 </main>
 
+<!-- DEFINIÇÃO DO GRUPO -->
 <script>
 const KEY="ia-launcher-config:BEY-01-JOY-HH";
+
 const DEFAULT_GROUPS = [
   {
     id:"bey-01-joy-hh",
@@ -54,6 +79,8 @@ const DEFAULT_GROUPS = [
 ];
 </script>
 
+<!-- SCRIPT PADRÃO DO LAUNCHER -->
 <script src="../../assets/script-launcher.js"></script>
+
 </body>
 </html>
