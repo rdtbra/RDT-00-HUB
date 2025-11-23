@@ -1,13 +1,369 @@
+
 <!DOCTYPE html>
-<html lang='pt-br'>
+<html lang="pt-br" data-theme="dark">
 <head>
-  <meta charset='utf-8'>
-  <title>Pessoal</title>
-  <link rel='stylesheet' href='../../assets/style.css'>
+<meta charset="utf-8">
+<title>Pessoal – Launcher</title>
+<link rel="stylesheet" href="../../assets/style.css">
 </head>
-<body>
-  <h1>Pessoal</h1>
-  <p>Conteúdo inicial da categoria.</p>
-  <a href='../../index.html'>Voltar</a>
+<body class="launcher">
+<header class="header">
+  <a href="../../index.html" class="back-btn">⬅ Voltar ao HUB</a>
+  <span class="header-title">Pessoal – Launcher</span>
+  <button id="themeToggle" class="theme-toggle">🌙</button>
+</header>
+
+<main class="launcher-main">
+<div class="container">
+<h1>Pessoal – Launcher</h1>
+
+<script>
+const KEY="ia-launcher-config:Pessoal";
+const DEFAULT_GROUPS = [
+  {
+    "id": "chatgpt-conversas",
+    "name": "ChatGPT e Conversas",
+    "color": "#4f46e5",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Hub[GPT5]",
+        "url": "https://chatgpt.com",
+        "checked": true
+      },
+      {
+        "label": "MEPCD-IA RDT-ORG GPT-5",
+        "url": "https://chatgpt.com/g/g-p-68aa75d3e5948191877f11e7cad88ea9/c/69001337-154c-8332-83f4-df8d6172eb19",
+        "checked": true
+      },
+      {
+        "label": "Feridas 20251101",
+        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/69062b8d-f858-8332-b81f-fb475188e23f",
+        "checked": true
+      },
+      {
+        "label": "Evac 202511",
+        "url": "https://chatgpt.com/g/g-p-676c16068dd08191bba762c0af111274/c/6906822f-a1e8-8331-9f64-6b5d7aa2e73e",
+        "checked": true
+      },
+      {
+        "label": "Planilha Financeira",
+        "url": "https://chatgpt.com/g/g-p-68ef13e533608191aa8f17cb8e6a7b74/c/68f842d4-12f8-8332-97a5-77d188bb04ca",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "llm-geral",
+    "name": "LLMs e Modelos Gerais",
+    "color": "#0ea5e9",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "ChatGPT",
+        "url": "https://chatgpt.com",
+        "checked": true
+      },
+      {
+        "label": "Perplexity",
+        "url": "https://perplexity.ai",
+        "checked": true
+      },
+      {
+        "label": "Claude",
+        "url": "https://claude.ai",
+        "checked": true
+      },
+      {
+        "label": "Gemini",
+        "url": "https://gemini.google.com",
+        "checked": true
+      },
+      {
+        "label": "Grok",
+        "url": "https://grok.com",
+        "checked": true
+      },
+      {
+        "label": "Llama",
+        "url": "https://meta.ai",
+        "checked": true
+      },
+      {
+        "label": "Mistral",
+        "url": "https://chat.mistral.ai",
+        "checked": true
+      },
+      {
+        "label": "Sabi\u00e1 3.1",
+        "url": "https://chat.maritaca.ai",
+        "checked": true
+      },
+      {
+        "label": "Kimi",
+        "url": "https://kimi.com",
+        "checked": true
+      },
+      {
+        "label": "Cohere",
+        "url": "https://dashboard.cohere.com/playground/chat",
+        "checked": true
+      },
+      {
+        "label": "Qwen",
+        "url": "https://chat.qwen.ai/",
+        "checked": true
+      },
+      {
+        "label": "Deepseek",
+        "url": "https://chat.deepseek.com",
+        "checked": true
+      },
+      {
+        "label": "Huggingface",
+        "url": "https://huggingface.co",
+        "checked": true
+      },
+      {
+        "label": "HuggingChat",
+        "url": "https://huggingface.co/chat/",
+        "checked": true
+      },
+      {
+        "label": "ChatHUB",
+        "url": "https://app.chathub.gg/?utm_source=chathub.gg&utm_medium=website&utm_campaign=features&utm_content=multi-model-comparison",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "innerai",
+    "name": "Inner.AI e Modelos",
+    "color": "#8b5cf6",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Inner - Sabi\u00e1 3.1",
+        "url": "https://app.innerai.com/projects/4aa3e3d1-9ebd-4060-bc79-fb69ba98c499?sessionId=c3cdf193-9942-4451-9242-52849ff11a1e",
+        "checked": true
+      },
+      {
+        "label": "Inner - Gemini 2.5 Pro",
+        "url": "https://app.innerai.com/projects/52863ffa-ca49-49b5-bd89-00d07c03a06d?sessionId=240ae05c-a43b-4135-981d-5651f10374ed",
+        "checked": true
+      },
+      {
+        "label": "Inner - Mistral Large 2",
+        "url": "https://app.innerai.com/projects/93381bcb-129e-4810-8c2c-de4b5a7f6212?sessionId=af2190fc-c2e1-414c-8fa6-0a7a88f142d6",
+        "checked": true
+      },
+      {
+        "label": "Inner - Llama 4 Scout",
+        "url": "https://app.innerai.com/projects/d6968cce-fe56-4794-b07f-5876137aeaa9?sessionId=7c98f232-4f7a-495f-b7e9-d4c17ed2c152",
+        "checked": true
+      },
+      {
+        "label": "Inner - Qwen QwQ",
+        "url": "https://app.innerai.com/projects/0f8ea742-4f54-4b45-8914-6df649993947?sessionId=bae3c612-00f2-4a32-b1a1-3fa018121d36",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "adapta",
+    "name": "AdaptaONE",
+    "color": "#10b981",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "TODO List Claude 4.5",
+        "url": "https://agent.adapta.one/agentic-chat/019a233d-65eb-77da-b95c-989cb5e5d262",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "color": "#ef4444",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "YouTube Playlists",
+        "url": "https://www.youtube.com/feed/playlists",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "color": "#6b7280",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "GitHub rdtbra Repos",
+        "url": "https://github.com/rdtbra?tab=repositories",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "leitura",
+    "name": "Leitura T\u00e9cnica",
+    "color": "#f59e0b",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "O'Reilly",
+        "url": "https://learning.oreilly.com/home/",
+        "checked": true
+      },
+      {
+        "label": "Perlego",
+        "url": "https://www.perlego.com/home",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "cursos",
+    "name": "Plataformas de Cursos",
+    "color": "#3b82f6",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Udemy",
+        "url": "https://www.udemy.com",
+        "checked": true
+      },
+      {
+        "label": "Udacity",
+        "url": "https://www.udacity.com/dashboard",
+        "checked": true
+      },
+      {
+        "label": "Coursera",
+        "url": "https://www.coursera.org",
+        "checked": true
+      },
+      {
+        "label": "edX",
+        "url": "https://home.edx.org/",
+        "checked": true
+      },
+      {
+        "label": "Pluralsight",
+        "url": "https://app.pluralsight.com/library/free",
+        "checked": true
+      },
+      {
+        "label": "Khan Academy",
+        "url": "https://pt.khanacademy.org/profile/me/courses",
+        "checked": true
+      },
+      {
+        "label": "Brilliant",
+        "url": "https://brilliant.org/home/",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "universidades",
+    "name": "Universidades",
+    "color": "#14b8a6",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Uninter",
+        "url": "https://univirtus.uninter.com/",
+        "checked": true
+      },
+      {
+        "label": "UAM",
+        "url": "https://estudantesuam.ead.br",
+        "checked": true
+      },
+      {
+        "label": "Unisul",
+        "url": "https://estudantesunisul.ead.br",
+        "checked": true
+      },
+      {
+        "label": "Colaborar",
+        "url": "https://colaboraread.com.br",
+        "checked": true
+      },
+      {
+        "label": "Anhanguera",
+        "url": "https://www.anhanguera.com/",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "redes-sociais",
+    "name": "Redes Sociais",
+    "color": "#ec4899",
+    "icon": "",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Facebook",
+        "url": "https://facebook.com/",
+        "checked": true
+      },
+      {
+        "label": "Instagram",
+        "url": "https://instagram.com",
+        "checked": true
+      },
+      {
+        "label": "X",
+        "url": "https://x.com",
+        "checked": true
+      },
+      {
+        "label": "TikTok",
+        "url": "https://tiktok.com",
+        "checked": true
+      },
+      {
+        "label": "YouTube",
+        "url": "https://youtube.com",
+        "checked": true
+      }
+    ]
+  }
+];
+</script>
+
+<script src="../../assets/script.js"></script>
+<script>
+// launcher core script inserted?
+</script>
+
+</div>
+</main>
 </body>
 </html>
