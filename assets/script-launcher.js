@@ -125,19 +125,19 @@
         const safeUrl = escapeAttr(item.url || "");
         const text = [item.code || "", item.label || "", item.provider || ""].filter(Boolean).join(" | ");
 
-        row.innerHTML = [
-          '<div class="left">',
-          '  <input class="checkbox" type="checkbox" ' + (item.checked === false ? "" : "checked") + ' data-role="check">',
-          '  <div class="composite" title="' + escapeAttr(text) + '">' + escapeHtml(text) + "</div>",
-          "</div>",
-          '<div class="urlbox">',
-          '  <input class="url" type="text" value="' + safeUrl + '" placeholder="https://...">',
-          '  <a class="btn" href="' + (safeUrl || "#") + '" target="_blank" rel="noopener noreferrer">Abrir</a>',
-          "</div>",
-          '<div style="display:flex;gap:6px">',
-          '  <button class="btn" data-act="remove">Remover</button>',
-          "</div>"
-        ].join("");
+		row.innerHTML = [
+			'<div class="left">',
+			'  <input class="checkbox" type="checkbox" ' + (item.checked === false ? "" : "checked") + ' data-role="check">',
+			'  <div class="composite" title="' + escapeAttr(text) + '">' + escapeHtml(text) + "</div>",
+			"</div>",
+			'<div class="urlbox">',
+			'  <input class="url" type="text" value="' + safeUrl + '" placeholder="https://...">',
+			"</div>",
+			'<div style="display:flex;gap:6px">',
+			'  <a class="btn" data-role="open" href="' + (safeUrl || "#") + '" target="_blank" rel="noopener noreferrer">Abrir</a>',
+			'  <button class="btn" data-act="remove">Remover</button>',
+			"</div>"
+		].join("");
 
         // checkbox
         const checkEl = row.querySelector("[data-role='check']");
