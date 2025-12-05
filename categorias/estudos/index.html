@@ -25,7 +25,8 @@
         <button class="btn" id="import">Importar</button>
       </div>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <label class="hint"><input type="checkbox" id="tmTitle" checked> Enviar título p/ Tampermonkey (#tabtitle)</label>
+<label class="hint"><input type="checkbox" id="openCoverLast" checked> Abrir capa como última aba</label>
+        
         <div style="display:flex;align-items:center;gap:6px">
           <label class="small">Atraso (ms)</label>
           <input class="btn" style="width:100px" type="number" id="delay" min="0" step="50" value="0">
@@ -44,6 +45,8 @@
   
 <script>
 const KEY = "ia-launcher-config:" + "AI-EMT-Equipes";
+const GROUP_COVER_PAGE="estudos.html";
+const COVER_KEY=KEY;
 const DEFAULT_GROUPS = [
   {
     "id": "emt-01-es",
