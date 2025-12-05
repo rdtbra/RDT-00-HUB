@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>AF – Capa do Grupo</title>
+
+  <link rel="stylesheet" href="../../assets/style.css">
+
+  <style>
+    body.cover-page {
+      padding: 0;
+    }
+
+    .cover-card {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card-bg);
+      padding: 28px 34px;
+      border-radius: 14px;
+      box-shadow: 0 0 16px rgba(0,0,0,0.32);
+      color: var(--text-primary);
+      margin: 40px auto 0;
+    }
+
+    .cover-header {
+      display: flex;
+      gap: 26px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .cover-image {
+      width: 120px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    }
+
+    .cover-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .cover-link {
+      color: #4ea1ff;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .cover-description {
+      margin: 8px 0 16px 0;
+      white-space: pre-line;
+      line-height: 1.55;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .cover-section-title {
+      font-size: 1.15rem;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .ia-list {
+      margin-left: 18px;
+    }
+
+    .ia-list a {
+      color: #89b6ff;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body class="launcher cover-page">
+  <!-- BANNER SUPERIOR -->
+  <header class="header">
+    <a href="./index.html" class="back-btn">⬅ Voltar ao launcher de AF</a>
+    <span class="header-title">AF – Capa do Grupo</span>
+    <button id="themeToggle" class="theme-toggle">🌙</button>
+  </header>
+
+  <main class="launcher-main">
+    <div id="coverCard" class="cover-card">
+
+      <div class="cover-header">
+        <img id="coverImage" class="cover-image" src="" alt="Imagem">
+        <div>
+          <h2 id="coverTitle" class="cover-title">Carregando...</h2>
+          <a id="coverRefLink" class="cover-link" href="#" target="_blank">
+            Abrir material de referência
+          </a>
+        </div>
+      </div>
+
+      <p id="coverDescription" class="cover-description">Carregando descrição...</p>
+
+      <div>
+        <div class="cover-section-title">Abas / IAs do grupo</div>
+        <ul id="iaList" class="ia-list"></ul>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../assets/script.js"></script>
+  <script src="../../assets/script-cover.js"></script>
+</body>
+</html>
