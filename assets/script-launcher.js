@@ -2,7 +2,7 @@
 // Lógica compartilhada dos launchers (EMT, DV, PRJ, Pessoal, Beyond, etc.).
 // Requer duas variáveis globais definidas ANTES deste script:
 //   const KEY = "ia-launcher-config:AlgumaCoisa";
-//   const DEFAULT_GROUPS = [ ... ];
+//   const GROUPS = [ ... ];
 
 (function () {
   // --- Validação ---
@@ -10,8 +10,8 @@
     console.error("[launcher] Variável global KEY não definida.");
     return;
   }
-  if (typeof DEFAULT_GROUPS === "undefined") {
-    console.error("[launcher] DEFAULT_GROUPS não definida.");
+  if (typeof GROUPS === "undefined") {
+    console.error("[launcher] GROUPS não definida.");
     return;
   }
 
@@ -19,13 +19,13 @@
   function load() {
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return DEFAULT_GROUPS;
+      if (!raw) return GROUPS;
       const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return DEFAULT_GROUPS;
+      if (!Array.isArray(parsed)) return GROUPS;
       return parsed;
     } catch (e) {
       console.warn("[launcher] Falha ao carregar storage.", e);
-      return DEFAULT_GROUPS;
+      return GROUPS;
     }
   }
 
@@ -336,7 +336,7 @@
 
   if (resetBtn) resetBtn.addEventListener("click", () => {
     if (!confirm("Restaurar configuração padrão?")) return;
-    groups = DEFAULT_GROUPS;
+    groups = GROUPS;
     save(groups);
     render();
   });
