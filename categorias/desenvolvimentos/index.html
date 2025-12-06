@@ -27,20 +27,21 @@
           <button class="btn" id="import">Importar</button>
         </div>
 
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:6px">
-            <label class="small">Atraso (ms)</label>
-            <input class="btn" style="width:100px" type="number" id="delay" min="0" step="50" value="0">
-          </div>
+       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <label class="hint"><input type="checkbox" id="openCoverLast" checked> Abrir capa como última aba</label>
+        
+        <div style="display:flex;align-items:center;gap:6px">
+          <label class="small">Atraso (ms)</label>
+          <input class="btn" style="width:100px" type="number" id="delay" min="0" step="50" value="0">
         </div>
       </div>
+    </div>
 
-      <div id="groups" class="row"></div>
+    <div id="groups" class="row"></div>
 
-      <div class="footer">
+    <div class="footer">
         <span>Configuração salva no navegador. Clique no título do grupo p/ minimizar/expandir.</span>
         <button class="btn" id="reset">Restaurar padrão</button>
-      </div>
     </div>
   </main>
 
