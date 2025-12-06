@@ -4,7 +4,8 @@
 // description = name (como solicitado)
 // ============================================================================
 
-const GROUPS = [
+const GROUPS = {
+  "emt-01-es":
   {
     "id": "emt-01-es",
     "name": "EMT-01-ES - Rumsey - Probability for Dummies 2ed",
@@ -71,6 +72,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-02-fs":
   {
     "id": "emt-02-fs",
     "name": "EMT-02-FS - Tipler&Mosca - Physics for Scientists and Engineers 6ed",
@@ -137,6 +139,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-03-ma":
   {
     "id": "emt-03-ma",
     "name": "EMT-03-MA - Axler - Precalculus a Prelude to Calculus 3ed",
@@ -203,6 +206,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-04-ma":
   {
     "id": "emt-04-ma",
     "name": "EMT-04-MA - Stewart - Calculus 9ed",
@@ -269,6 +273,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-05-ee":
   {
     "id": "emt-05-ee",
     "name": "EMT-05-EE - Boylestad&Nashelsky - Electronic Devices and Circuit Theory 11ed",
@@ -335,6 +340,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-06-ee":
   {
     "id": "emt-06-ee",
     "name": "EMT-06-EE - Boylestad&Olivari - Introductory Circuit Analysis 14ed GE",
@@ -401,6 +407,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-07-em":
   {
     "id": "emt-07-em",
     "name": "EMT-07-EM - Çengel&Outros - Thermodynamics An Engineering Approach 10ed",
@@ -467,6 +474,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-08-ma":
   {
     "id": "emt-08-ma",
     "name": "EMT-08-MA - Anton&Rorres - Elementary Linear Algebra with Applications 12ed",
@@ -533,6 +541,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-09-ec":
   {
     "id": "emt-09-ec",
     "name": "EMT-09-EC - Hyde - The Art of 64 bit Assembly",
@@ -599,6 +608,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-10-ec":
   {
     "id": "emt-10-ec",
     "name": "EMT-10-EC - Silberschatz&Galvin - Operating System Concepts 10ed",
@@ -665,6 +675,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-11-es":
   {
     "id": "emt-11-es",
     "name": "EMT-11-ES - Miller - The Probability Lifesaver",
@@ -731,6 +742,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-12-ec":
   {
     "id": "emt-12-ec",
     "name": "EMT-12-EC - Aho - Compilers Principles Techiques and Tools 2ed",
@@ -797,6 +809,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-13-ec":
   {
     "id": "emt-13-ec",
     "name": "EMT-13-EC - CLRS - Introduction to Algorithms 4ed",
@@ -861,64 +874,9 @@ const GROUPS = [
         "checked": true,
         "img": ""
       },
-      {
-        "code": "M01",
-        "label": "GPT-4o",
-        "provider": "AdaptaONE",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "M02",
-        "label": "Claude 4.5 Sonnet Thinking",
-        "provider": "Inner.IA",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "M03",
-        "label": "Gemini 2.5 Pro",
-        "provider": "AdaptaONE",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "M04",
-        "label": "Deepseek 3.1",
-        "provider": "Inner.IA",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "M05",
-        "label": "Mistral Large 2",
-        "provider": "Inner.IA",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "SUP",
-        "label": "GPT-5",
-        "provider": "openAI",
-        "url": "",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "REV",
-        "label": "Amazon Nova Premier",
-        "provider": "Inner.IA",
-        "url": "",
-        "checked": true,
-        "img": ""
-      }
     ]
   },
+  "emt-14-es":
   {
     "id": "emt-14-es",
     "name": "EMT-14-ES - Anderson&Outros - Statistics for Business and Economics 14ed MV",
@@ -985,6 +943,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-15-ma":
   {
     "id": "emt-15-ma",
     "name": "EMT-15-MA - Kreyszig - Advanced Engineering Mathematics 10ed",
@@ -1051,6 +1010,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-16-ec":
   {
     "id": "emt-16-ec",
     "name": "EMT-16-EC - Jang&Orsaria - RHCSA - Red Hat Enterprise Linux 9",
@@ -1117,6 +1077,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-17-ee":
   {
     "id": "emt-17-ee",
     "name": "EMT-17-EE - Sadiku - Elements of Electromagnetics 7ed",
@@ -1183,6 +1144,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-18-ma":
   {
     "id": "emt-18-ma",
     "name": "EMT-18-MA - Zill - A First Course in Differential Eq with Modeling Applic 12ed",
@@ -1249,6 +1211,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-19-ec":
   {
     "id": "emt-19-ec",
     "name": "EMT-19-EC - Cooper&Torczon - Engineering a Compiler 3ed",
@@ -1315,6 +1278,7 @@ const GROUPS = [
       }
     ]
   },
+  "emt-20-cd":
   {
     "id": "emt-20-cd",
     "name": "EMT-20-CD - Russell&Norvig - Artificial Intelligence A Modern Approach 4ed",
