@@ -10,99 +10,89 @@
 
   <!-- Estilos específicos da capa -->
   <style>
-    body.cover-page {
-      padding: 96px 30px 30px;  /* espaço extra no topo para o banner fixo */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-    }
+	  body.cover-page {
+		padding-top: 80px; /* espaço para o header fixo do style.css */
+		padding-left: 30px;
+		padding-right: 30px;
+		padding-bottom: 30px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+	  }
 
-    /* Banner fixo ocupando toda a largura no topo */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      background: rgba(15, 23, 42, 0.9);        /* fundo escuro com leve transparência */
-      backdrop-filter: blur(8px);                /* efeito vidro fosco */
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4); /* sombra sob o banner */
-      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-      z-index: 1000;
-      box-sizing: border-box;
-    }
+	  /* Mantém somente o necessário: o header deve ser fixo. 
+		 O RESTO do estilo vem do style.css, como no index.html */
+	  .header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 1000;
+	  }
 
-    .back-link {
-      align-self: flex-start;
-      font-size: 1rem;
-      margin-bottom: -10px;
-    }
+	  /* Mantém o restante do seu layout igual */
+	  .cover-card {
+		width: 100%;
+		max-width: 900px;
+		background: var(--card-bg);
+		padding: 28px 34px;
+		border-radius: 14px;
+		box-shadow: 0 0 16px rgba(0, 0, 0, 0.32);
+		color: var(--text-primary);
+	  }
 
-    .cover-card {
-      width: 100%;
-      max-width: 900px;
-      background: var(--card-bg);
-      padding: 28px 34px;
-      border-radius: 14px;
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.32);
-      color: var(--text-primary);
-    }
+	  .cover-header {
+		display: flex;
+		gap: 26px;
+		align-items: flex-start;
+		margin-bottom: 14px;
+	  }
 
-    .cover-header {
-      display: flex;
-      gap: 26px;
-      align-items: flex-start;
-      margin-bottom: 14px;
-    }
+	  .cover-image {
+		width: 120px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+	  }
 
-    .cover-image {
-      width: 120px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    }
+	  .cover-title {
+		font-size: 1.45rem;
+		font-weight: 700;
+		margin-bottom: 6px;
+	  }
 
-    .cover-title {
-      font-size: 1.45rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
+	  .cover-link {
+		color: #4ea1ff;
+		font-size: 0.95rem;
+		display: inline-block;
+		margin-bottom: 10px;
+	  }
 
-    .cover-link {
-      color: #4ea1ff;
-      font-size: 0.95rem;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
+	  .cover-description {
+		margin: 8px 0 16px 0;
+		white-space: pre-line;
+		line-height: 1.55;
+		font-size: 1rem;
+		color: var(--text-secondary);
+	  }
 
-    .cover-description {
-      margin: 8px 0 16px 0;
-      white-space: pre-line;
-      line-height: 1.55;
-      font-size: 1rem;
-      color: var(--text-secondary);
-    }
+	  .cover-section-title {
+		font-size: 1.15rem;
+		margin-top: 14px;
+		margin-bottom: 6px;
+		font-weight: 600;
+	  }
 
-    .cover-section-title {
-      font-size: 1.15rem;
-      margin-top: 14px;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+	  .ia-list {
+		margin-left: 18px;
+	  }
 
-    .ia-list {
-      margin-left: 18px;
-    }
-
-    .ia-list a {
-      color: #89b6ff;
-      font-size: 1rem;
-    }
+	  .ia-list a {
+		color: #89b6ff;
+		font-size: 1rem;
+	  }
   </style>
+
 </head>
 
 <body class="cover-page">
