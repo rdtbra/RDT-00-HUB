@@ -1,4 +1,4 @@
-[
+window.GROUPS = [
   {
     "id": "prj-01-erp",
     "name": "PRJ-01-ERP - Simulação de ERP",
