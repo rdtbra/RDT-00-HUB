@@ -47,15 +47,19 @@
       </div>
     </div>
   </main>
+  <!-- Arquivo que define window.GROUPS (array de grupos) -->
+  <script src="././assets/AFgroups.js"></script>
 
   <script>
     const KEY = "ia-launcher-config:" + "AI-AF-Equipes";
-    const GROUP_COVER_PAGE = "af.html";   // capa genérica da categoria AF
+    const GROUP_COVER_PAGE = "af.html";
     const COVER_KEY = KEY;
+
+    // agora o DEFAULT_GROUPS vem do arquivo AFgroups.js
+    const DEFAULT_GROUPS = window.GROUPS || [];
   </script>
 
-  <script src="../../assets/script.js"></script> 
-  <script src="assets/AFgroups.js"></script>
-  <script src="../../assets/script-launcher.js"></script>
+  <script src="././assets/script-launcher.js"></script>
+  <script src="././assets/script.js"></script>
 </body>
 </html>

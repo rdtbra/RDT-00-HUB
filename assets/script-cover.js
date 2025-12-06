@@ -2,26 +2,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
 
-  // GROUPS deve ter sido definido antes por um arquivo específico da categoria
-  if (!window.GROUPS || !groupId || !GROUPS[groupId]) {
-    const titleEl = document.getElementById("coverTitle");
+  const allGroups = Array.isArray(window.GROUPS) ? window.GROUPS : [];
+
+  const titleEl = document.getElementById("coverTitle");
+  const imgEl   = document.getElementById("coverImage");
+  const linkEl  = document.getElementById("coverRefLink");
+  const descEl  = document.getElementById("coverDescription");
+  const iaList  = document.getElementById("iaList");
+
+  if (!groupId) {
     if (titleEl) titleEl.textContent = "Grupo não encontrado";
     return;
   }
 
-  const group = GROUPS[groupId];
+  const group = allGroups.find(g => g.id === groupId);
+
+  if (!group) {
+    if (titleEl) titleEl.textContent = "Grupo não encontrado";
+    return;
+  }
 
   // Título, imagem, link
-  const titleEl = document.getElementById("coverTitle");
-  const imgEl = document.getElementById("coverImage");
-  const linkEl = document.getElementById("coverRefLink");
-
   if (titleEl) titleEl.textContent = group.name || group.id;
-  if (imgEl) imgEl.src = group.icon || "";
-  if (linkEl) linkEl.href = group.iconHref || "#";
+  if (imgEl)   imgEl.src = group.icon || "";
+  if (linkEl)  linkEl.href = group.iconHref || "#";
 
   // Descrição vinda de TXT (se existir)
-  const descEl = document.getElementById("coverDescription");
   if (descEl) {
     const descPath = `descriptions/${groupId}.txt`;
     fetch(descPath)
@@ -35,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Lista de IAs
-  const iaList = document.getElementById("iaList");
   if (iaList && Array.isArray(group.items)) {
     iaList.innerHTML = "";
     group.items.forEach(item => {
