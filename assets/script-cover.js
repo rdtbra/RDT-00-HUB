@@ -1,32 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Lê parâmetros da URL: ?group=af-01-ib6
+  // Lê parâmetro da URL: ?group=af-01-ib6
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
 
-  // Chave usada no launcher
-  const configKey = "ia-launcher-config:AI-AF-Equipes";
-  const config = JSON.parse(localStorage.getItem(configKey) || "{}");
-
-  if (!groupId || !config.groups) {
+  if (!groupId || !AF_GROUPS[groupId]) {
     document.getElementById("coverTitle").textContent = "Grupo não encontrado";
     return;
   }
 
-  // Encontra o grupo
-  const group = config.groups.find(g => g.id === groupId);
-
-  if (!group) {
-    document.getElementById("coverTitle").textContent = "Grupo não encontrado";
-    return;
-  }
+  // Obtém o grupo diretamente do AFgroups.js
+  const group = AF_GROUPS[groupId];
 
   // Preenche dados básicos da capa
   document.getElementById("coverTitle").textContent = group.name;
   document.getElementById("coverImage").src = group.icon || "";
   document.getElementById("coverRefLink").href = group.iconHref || "#";
 
-  // Carregar descrição do TXT correspondente
+  // Carrega descrição do TXT correspondente
   const descPath = `descriptions/${groupId}.txt`;
 
   fetch(descPath)
@@ -44,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Nenhuma descrição disponível.";
     });
 
-  // Carregar lista das IAs
+  // Carrega lista das IAs
   const iaList = document.getElementById("iaList");
 
   group.items.forEach(item => {
