@@ -294,9 +294,9 @@ const GROUPS = {
 
   // ---------------------------------------------------------------------------
   // AF-17-R – R
-  // (mantendo o id exatamente como está no index.html, com o caractere inicial)
+  // 
   // ---------------------------------------------------------------------------
-  "﻿af-17-r": {
+  "af-17-r": {
     id: "﻿af-17-r",
     name: "﻿AF-17-R - R",
     description: "﻿AF-17-R - R",
@@ -427,9 +427,9 @@ const GROUPS = {
 
   // ---------------------------------------------------------------------------
   // AF-52-LLV – LLVM
-  // (mantendo id exatamente como no index.html)
+  // 
   // ---------------------------------------------------------------------------
-  "﻿af-52-llv": {
+  "af-52-llv": {
     id: "﻿af-52-llv",
     name: "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
     description: "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
@@ -447,7 +447,6 @@ const GROUPS = {
       { code: "REV", label: "Sabiá 3.1",                  provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=16083a89-4f84-485a-95ab-5b0c6ac919de", checked: true, img: "" }
     ]
   }
-
 };
 // ============================================================================
 // Fim de AFgroups.js
