@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>AI-AF-Equipes – Capa do Grupo</title>
+  <title>Grupo de Análise de Códigos fonte</title>
 
   <link rel="stylesheet" href="../../assets/style.css">
 
@@ -16,31 +16,31 @@
     <button id="themeToggle" class="theme-toggle">🌙</button>
   </header>
 
-  <!-- Card principal -->
-  <div id="coverCard" class="cover-card">
+  <main class="launcher-main">
+	<div id="coverCard" class="cover-card">
 
-    <div class="cover-header">
-      <img id="coverImage" class="cover-image" src="" alt="Imagem do material">
+      <div class="cover-header">
+        <img id="coverImage" class="cover-image" src="" alt="Imagem do material">
+
+        <div>
+          <h2 id="coverTitle" class="cover-title">Carregando...</h2>
+          <a id="coverRefLink" class="cover-link" href="#" target="_blank">
+            Abrir material de referência
+          </a>
+        </div>
+      </div>
+
+      <p id="coverDescription" class="cover-description">
+        Carregando descrição...
+      </p>
 
       <div>
-        <h2 id="coverTitle" class="cover-title">Carregando...</h2>
-        <a id="coverRefLink" class="cover-link" href="#" target="_blank">
-          Abrir material de referência
-        </a>
+        <div class="cover-section-title">Abas / IAs do grupo</div>
+        <ul id="iaList" class="ia-list"></ul>
       </div>
     </div>
+  </main>	
 
-    <p id="coverDescription" class="cover-description">
-      Carregando descrição...
-    </p>
-
-    <div>
-      <div class="cover-section-title">Abas / IAs do grupo</div>
-      <ul id="iaList" class="ia-list"></ul>
-    </div>
-  </div>
-
-  <!-- Script dos grupos AF -->
   <script src="../../assets/script.js"></script>  
   <script src="assets/AFgroups.js"></script>
   <script src="../../assets/script-cover.js"></script>
