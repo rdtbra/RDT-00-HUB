@@ -1,47 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  // Lê parâmetro da URL: ?group=af-01-ib6
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
 
-  if (!groupId || !AF_GROUPS[groupId]) {
-    document.getElementById("coverTitle").textContent = "Grupo não encontrado";
+  // GROUPS deve ter sido definido antes por um arquivo específico da categoria
+  if (!window.GROUPS || !groupId || !GROUPS[groupId]) {
+    const titleEl = document.getElementById("coverTitle");
+    if (titleEl) titleEl.textContent = "Grupo não encontrado";
     return;
   }
 
-  // Obtém o grupo diretamente do AFgroups.js
-  const group = AF_GROUPS[groupId];
+  const group = GROUPS[groupId];
 
-  // Preenche dados básicos da capa
-  document.getElementById("coverTitle").textContent = group.name;
-  document.getElementById("coverImage").src = group.icon || "";
-  document.getElementById("coverRefLink").href = group.iconHref || "#";
+  // Título, imagem, link
+  const titleEl = document.getElementById("coverTitle");
+  const imgEl = document.getElementById("coverImage");
+  const linkEl = document.getElementById("coverRefLink");
 
-  // Carrega descrição do TXT correspondente
-  const descPath = `descriptions/${groupId}.txt`;
+  if (titleEl) titleEl.textContent = group.name || group.id;
+  if (imgEl) imgEl.src = group.icon || "";
+  if (linkEl) linkEl.href = group.iconHref || "#";
 
-  fetch(descPath)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Arquivo não encontrado");
-      }
-      return response.text();
-    })
-    .then(text => {
-      document.getElementById("coverDescription").textContent = text.trim();
-    })
-    .catch(() => {
-      document.getElementById("coverDescription").textContent =
-        "Nenhuma descrição disponível.";
-    });
+  // Descrição vinda de TXT (se existir)
+  const descEl = document.getElementById("coverDescription");
+  if (descEl) {
+    const descPath = `descriptions/${groupId}.txt`;
+    fetch(descPath)
+      .then(r => (r.ok ? r.text() : Promise.reject()))
+      .then(text => {
+        descEl.textContent = (text || "").trim() || "Nenhuma descrição disponível.";
+      })
+      .catch(() => {
+        descEl.textContent = "Nenhuma descrição disponível.";
+      });
+  }
 
-  // Carrega lista das IAs
+  // Lista de IAs
   const iaList = document.getElementById("iaList");
-
-  group.items.forEach(item => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="${item.url}" target="_blank">${item.code} - ${item.label} • ${item.provider}</a>`;
-    iaList.appendChild(li);
-  });
-
+  if (iaList && Array.isArray(group.items)) {
+    iaList.innerHTML = "";
+    group.items.forEach(item => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${item.url}" target="_blank">${item.code} - ${item.label} • ${item.provider}</a>`;
+      iaList.appendChild(li);
+    });
+  }
 });
