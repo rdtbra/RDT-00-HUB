@@ -461,3 +461,12 @@ body.cover-page {
   color: #89b6ff;
   font-size: 1rem;
 }
+
+/* Ocultar scrollbar apenas na linha de botões */
+.launcher .actions {
+  scrollbar-width: none;      /* Firefox */
+}
+
+.launcher .actions::-webkit-scrollbar {
+  display: none;              /* Chrome, Edge, Safari */
+}
