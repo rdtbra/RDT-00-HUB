@@ -77,7 +77,7 @@ window.GROUPS = [
         "code": "M01",
         "label": "MiniMax M2",
         "provider": "[ChatHub]",
-        "url": "[https://app.chathub.gg/chat/cloud-minimax-m2?cid=e69bf14f-11f0-4133-9e73-9d4c0f629b0d",
+        "url": "https://app.chathub.gg/chat/cloud-minimax-m2?cid=e69bf14f-11f0-4133-9e73-9d4c0f629b0d",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M01|MiniMax M2|ChatHub"
@@ -86,7 +86,7 @@ window.GROUPS = [
         "code": "M02",
         "label": "GPT-o3",
         "provider": "[MyHUB.AI]",
-        "url": "[https://myhub.ia.br/chat/36Uv4nmHVmIfSZNskuJ1ImCdJZw",
+        "url": "https://myhub.ia.br/chat/36Uv4nmHVmIfSZNskuJ1ImCdJZw",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M02|GPT-o3|MyHUB.AI"
@@ -95,7 +95,7 @@ window.GROUPS = [
         "code": "M03",
         "label": "Alibaba Qwen 3 Max",
         "provider": "[MyHUB.AI]",
-        "url": "[https://myhub.ia.br/chat/36UvPvIKl0wxFVsxISil2mPna0q",
+        "url": "https://myhub.ia.br/chat/36UvPvIKl0wxFVsxISil2mPna0q",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M03|Alibaba Qwen 3 Max|MyHUB.AI"
@@ -104,7 +104,7 @@ window.GROUPS = [
         "code": "M04",
         "label": "Mistral Large 2",
         "provider": "[Inner.AI]",
-        "url": "[https://app.innerai.com/projects/9518fc91-c819-4959-ae45-ea80dab1c4f7?sessionId=63f6a767-a648-48cf-822d-662a920d6e3e",
+        "url": "https://app.innerai.com/projects/9518fc91-c819-4959-ae45-ea80dab1c4f7?sessionId=63f6a767-a648-48cf-822d-662a920d6e3e",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M04|Mistral Large 2|Inner.AI"
@@ -113,7 +113,7 @@ window.GROUPS = [
         "code": "M05",
         "label": "Gemini 3 Pro",
         "provider": "[AdaptaONE26]",
-        "url": "[https://agent.adapta.one/agentic-chat/019aee5d-c09f-74d5-be05-34bac1fb1cfd",
+        "url": "https://agent.adapta.one/agentic-chat/019aee5d-c09f-74d5-be05-34bac1fb1cfd",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M05|Gemini 3 Pro|AdaptaONE26"
@@ -122,7 +122,7 @@ window.GROUPS = [
         "code": "SUP",
         "label": "ChatGPT-5.1",
         "provider": "[openAI]",
-        "url": "[https://chatgpt.com/g/g-p-6934e636ece881919c8cd6fa28a149b4-ai-prj-equipes/c/6934e66d-99c4-832a-88cc-9897bcbc9901",
+        "url": "https://chatgpt.com/g/g-p-6934e636ece881919c8cd6fa28a149b4-ai-prj-equipes/c/6934e66d-99c4-832a-88cc-9897bcbc9901",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|SUP|ChatGPT-5.1|openAI"
@@ -131,7 +131,7 @@ window.GROUPS = [
         "code": "REV",
         "label": "L3-Lunaris-v1",
         "provider": "[HuggingFace]",
-        "url": "[https://huggingface.co/chat/conversation/6934e7db62e2e96b2a996fb3",
+        "url": "https://huggingface.co/chat/conversation/6934e7db62e2e96b2a996fb3",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|REV|L3-Lunaris-v1|HuggingFace"
