@@ -93,13 +93,22 @@ body.hub{min-height:100vh;}
 .hub .category-subtitle{font-size:14px;color:var(--muted);}
 
 /* LAUNCHER */
-body.launcher{min-height:100vh;}
-.launcher .launcher-main{
-  max-width:1800px;margin:0 auto;padding:18px 18px 32px;
+body.launcher{
+  min-height:100vh;
 }
 
-.launcher .container{max-width:1800px;margin:0 auto;padding:18px 0 32px;}
-.launcher .container h1{display:none;}
+/* Aplica largura máxima, mas sem quebrar o mobile */
+.launcher .launcher-main,
+.launcher .container{
+  width: 100%;
+  max-width: min(1800px, 95vw);
+  margin: 0 auto;
+  padding: 18px 18px 32px;
+}
+
+.launcher .container h1{
+  display:none;
+}
 
 .launcher .toolbar{
   display:flex;flex-wrap:wrap;gap:8px;
