@@ -263,22 +263,43 @@ body.cover-page {
   font-size: 1rem;
 }
 
-/* ---------- AJUSTE MOBILE PARA OS BOTÕES DO LAUNCHER ---------- */
+/* ============================
+   AJUSTE REAL DE MOBILE
+   Reduz largura máxima no celular
+   ============================ */
 @media (max-width: 768px) {
+
+  /* O container não pode ter 1800px no mobile */
+  .launcher .launcher-main,
+  .launcher .container {
+    max-width: 100% !important;
+    padding: 12px !important;
+  }
+
+  /* Cada card deve se adaptar totalmente à tela */
+  .launcher .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px;
+  }
+
+  /* Título em cima, botões embaixo */
+  .launcher .head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  /* Botões em linha horizontal rolável */
   .launcher .actions {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
     width: 100%;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    gap: 8px;
+    padding-bottom: 6px;
   }
 
   .launcher .actions .btn {
-    flex: 0 0 auto;
-  }
-
-  .launcher .head {
-    flex-direction: column;
-    align-items: flex-start;
+    flex: 0 0 auto !important;
   }
 }
