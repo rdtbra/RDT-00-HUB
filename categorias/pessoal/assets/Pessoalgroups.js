@@ -215,7 +215,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	  {
+	    {
         "code": "Mindomo",
         "label": "Mindomo",
         "provider": "",
@@ -223,14 +223,22 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	  {
+	    {
         "code": "n8n",
         "label": "n8n",
         "provider": "",
         "url": "https://rdtbra.app.n8n.cloud/home/workflows",
         "checked": true,
         "img": ""
-      }	  
+      },
+	    {
+        "code": "ElevenLabs",
+        "label": "ElevenLabs",
+        "provider": "",
+        "url": "https://elevenlabs.io/app/home",
+        "checked": true,
+        "img": ""
+      }
     ]
   },
   {
