@@ -712,30 +712,6 @@ window.GROUPS = [
         "url": "https://www.canva.com/",
         "checked": true,
         "img": ""
-      },
-      {
-        "code": "",
-        "label": "Postman",
-        "provider": "Postman Inc.",
-        "url": "https://www.postman.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Insomnia",
-        "provider": "Kong Inc.",
-        "url": "https://insomnia.rest/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Zotero",
-        "provider": "Corporation for Digital Scholarship",
-        "url": "https://www.zotero.org/",
-        "checked": true,
-        "img": ""
       }
     ]
   },
