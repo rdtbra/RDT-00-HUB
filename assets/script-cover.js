@@ -22,6 +22,29 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // 🔘 Botão "Abrir todas" na capa
+  const openAllBtn = document.getElementById("openAllCover");
+  if (openAllBtn && Array.isArray(group.items)) {
+    openAllBtn.addEventListener("click", () => {
+      const urls = group.items
+        .filter(item => item && item.url)
+        .map(item => item.url);
+
+      if (!urls.length) {
+        alert("Nenhuma URL configurada para este grupo.");
+        return;
+      }
+
+      urls.forEach(url => {
+        try {
+          window.open(url, "_blank", "noopener,noreferrer");
+        } catch (e) {
+          console.error("[COVER] Erro ao abrir URL:", url, e);
+        }
+      });
+    });
+  }
+
   // Título, imagem, link
   if (titleEl) titleEl.textContent = group.name || group.id;
   if (imgEl)   imgEl.src = group.icon || "";
