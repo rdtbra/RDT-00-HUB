@@ -108,6 +108,7 @@
             ${escapeHtml(g.name || "Grupo")}
           </h2>
           <div class="actions">
+            <button class="btn" data-act="open-cover">Abrir capa</button>          
             <button class="btn" data-act="open-group">Abrir todas</button>
             <button class="btn" data-act="add-item">+ Item</button>
             <button class="btn" data-act="edit-group">Editar</button>
@@ -168,12 +169,22 @@
       });
 
       // Ações do grupo
+      const openCoverBtn = card.querySelector("[data-act='open-cover']");
       const addItemBtn = card.querySelector("[data-act='add-item']");
       const editGroupBtn = card.querySelector("[data-act='edit-group']");
       const removeGroupBtn = card.querySelector("[data-act='remove-group']");
       const openGroupBtn = card.querySelector("[data-act='open-group']");
       const toggleHead = card.querySelector("[data-act='toggle']");
 
+      openCoverBtn.addEventListener("click", () => {
+        if (!GROUP_COVER_PAGE) {
+          alert("Nenhuma capa configurada para este hub.");
+          return;
+        }
+        const coverUrl = GROUP_COVER_PAGE + "?group=" + encodeURIComponent(g.id || "");
+        window.open(coverUrl, "_blank", "noopener,noreferrer");
+      });
+      
       addItemBtn.addEventListener("click", () => {
         const url = prompt("Cole a URL (https://...)");
         if (!url) return;
