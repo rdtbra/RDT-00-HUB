@@ -285,3 +285,34 @@ body.cover-page {
     flex: 0 0 auto;         /* cada botão mantém seu tamanho */
   }
 }
+
+/* ============================================
+   CORREÇÃO ABSOLUTA PARA MOBILE – BOTÕES
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* Força os botões a ficarem em linha e roláveis */
+  .launcher .card .actions,
+  .launcher .card .head + div,
+  .launcher .card-buttons,
+  .launcher .card .btn-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 8px;
+    width: 100%;
+    padding-bottom: 6px;
+  }
+
+  /* Faz cada botão manter seu tamanho */
+  .launcher .card button,
+  .launcher .card .btn {
+    flex: 0 0 auto !important;
+  }
+
+  /* Garante que o topo do card não quebre o título */
+  .launcher .card .head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
