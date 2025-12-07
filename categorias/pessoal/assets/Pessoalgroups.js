@@ -603,6 +603,38 @@ window.GROUPS = [
       },
       {
         "code": "",
+        "label": "Midjourney",
+        "provider": "Midjourney",
+        "url": "https://www.midjourney.com/",
+        "checked": true,
+        "img": ""
+      }, 
+      {
+        "code": "",
+        "label": "Kling AI",
+        "provider": "Kling AI",
+        "url": "https://app.klingai.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Meta EMU",
+        "provider": "Meta",
+        "url": "https://emu-video.metademolab.com/",
+        "checked": true,
+        "img": ""
+      },
+	    {
+        "code": "",
+        "label": "Luma",
+        "provider": "",
+        "url": "https://dream-machine.lumalabs.ai/account",
+        "checked": true,
+        "img": ""
+      },      
+      {
+        "code": "",
         "label": "Synthesia.io",
         "provider": "",
         "url": "https://app.synthesia.io/",
@@ -625,22 +657,6 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },	
-	  {
-        "code": "",
-        "label": "Luma",
-        "provider": "",
-        "url": "https://dream-machine.lumalabs.ai/account",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Freepik",
-        "provider": "Freepik Company",
-        "url": "https://www.freepik.com/",
-        "checked": true,
-        "img": ""
-      },
       {
         "code": "",
         "label": "Lucidchart",
