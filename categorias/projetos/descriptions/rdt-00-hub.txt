@@ -5,3 +5,42 @@ Este é o projeto que trata das modificações aqui no próprio hub. Todas as no
 --- RDT: 2025-12-06
 
 Criação do arquivo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Quero saber, se o arquivo tiver muitas linhas, como ficará.
