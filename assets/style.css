@@ -233,10 +233,11 @@ body.launcher { min-height: 100vh; }
   border: 1px solid var(--border);
 }
 
-.launcher .actions {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap; /* só usa wrap no desktop */
+.launcher .actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:nowrap;   /* não quebra de linha */
+  overflow-x:auto;    /* se faltar espaço, rola na horizontal */
 }
 
 .launcher .grid {
