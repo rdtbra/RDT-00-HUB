@@ -188,7 +188,39 @@ window.GROUPS = [
         "url": "https://notebooklm.google.com",
         "checked": true,
         "img": ""
-      }	  
+      },
+      {
+        "code": "",
+        "label": "ElevenLabs",
+        "provider": "ElevenLabs",
+        "url": "https://elevenlabs.io/app/home",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Midjourney",
+        "provider": "Midjourney",
+        "url": "https://www.midjourney.com/",
+        "checked": true,
+        "img": ""
+      }, 
+      {
+        "code": "",
+        "label": "Kling AI",
+        "provider": "Kling AI",
+        "url": "https://app.klingai.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "HeyGen",
+        "provider": "HeyGen",
+        "url": "https://app.heygen.com/home",
+        "checked": true,
+        "img": ""
+      }  
     ]
   },
   {
@@ -593,30 +625,6 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },	  
-      {
-        "code": "",
-        "label": "ElevenLabs",
-        "provider": "ElevenLabs",
-        "url": "https://elevenlabs.io/app/home",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Midjourney",
-        "provider": "Midjourney",
-        "url": "https://www.midjourney.com/",
-        "checked": true,
-        "img": ""
-      }, 
-      {
-        "code": "",
-        "label": "Kling AI",
-        "provider": "Kling AI",
-        "url": "https://app.klingai.com/",
-        "checked": true,
-        "img": ""
-      },
       {
         "code": "",
         "label": "Meta EMU",
