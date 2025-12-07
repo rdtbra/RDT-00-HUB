@@ -96,7 +96,7 @@ body.hub{min-height:100vh;}
 /* LAUNCHER */
 body.launcher{min-height:100vh;}
 .launcher .launcher-main{
-  max-width:1100px;margin:0 auto;padding:18px 18px 32px;
+  max-width:1500px;margin:0 auto;padding:18px 18px 32px;
 }
 
 .launcher .container{max-width:1100px;margin:0 auto;padding:18px 0 32px;}
