@@ -47,7 +47,7 @@ window.GROUPS = [
         "code": "M05",
         "label": "Gemini 3 Pro",
         "provider": "[AdaptaONE26]",
-        "url": "https://agent.adapta.one/agentic-chat/019aee5d-c09f-74d5-be05-34bac1fb1cfd",
+        "url": "https://agent.adapta.one/agentic-chat/019afa18-f79a-7529-ba68-553198a0028c",
         "checked": true,
         "img": "",
         "TabTitle": "RDT-00-HUB|M05|Gemini 3 Pro|AdaptaONE26"
