@@ -1,0 +1,7 @@
+RDT-00-HUB
+
+Este é o projeto que trata das modificações aqui no próprio hub. Todas as novas implementações poderão ser documentadas, incluindo neste arquivo texto.
+
+--- RDT: 2025-12-06
+
+Criação do arquivo.
