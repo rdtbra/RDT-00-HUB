@@ -62,7 +62,7 @@ window.GROUPS = [
         label:"ChatGPT 5.1",
         provider: "openAI",
         url:"https://chatgpt.com/g/g-p-68ef05b485cc81919c0970d156e3db12/c/68ef0663-e2c0-832d-9ac8-39bc326bd7f0",
-        checked:true
+        checked:true,
         img: "",
         TabTitle: ""
       },
