@@ -1,0 +1,5 @@
+LLMs e Modelos Gerais
+
+--- RDT: 2025-12-06
+
+Este grupo é para explorar modelos, Hubs e recursos de vários produtos de inteligência artificial, incluindo os que tenho assinatura e os que não tenho também. Inclui ferramentas de imagem, texto, TTS. 
