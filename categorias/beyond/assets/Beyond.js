@@ -33,7 +33,7 @@ window.GROUPS = [
       {
         code: "M03",
         label:"Gemini 3.5 Pro",
-        provider="AdaptaONE26",
+        provider:"AdaptaONE26",
         url:"https://agent.adapta.one/agentic-chat/019ab104-12f1-710b-b54c-41a0bbaf154a",
         checked:true,
         img: "",
@@ -42,6 +42,7 @@ window.GROUPS = [
       {
         code: "M04",
         label:"Claude 4.5 Haiku",
+        provider: "Inner.AI",
         url:"https://app.innerai.com/projects/0b515e17-03e4-4b37-b7de-48b5118678e1?sessionId=a572c262-4577-4049-8521-55929e55f12e",
         checked:true,
         img: "",
@@ -50,6 +51,7 @@ window.GROUPS = [
       {
         code: "M05",
         label:"ChatGPT 4o mini",
+        provider: "Tess.AI",
         url:"https://tess.pareto.io/pt-BR/dashboard/user/ai/chat/ai-chat?tools=tools&temperature=1&model=gpt-4o-mini&_chat_id=13971923",
         checked:true,
         img: "",
