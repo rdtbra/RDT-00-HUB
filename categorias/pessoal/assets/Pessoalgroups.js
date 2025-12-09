@@ -86,6 +86,14 @@ window.GROUPS = [
       },
       {
         "code": "",
+        "label": "Poe.com",
+        "provider": "Quora",
+        "url": "https://poe.com/",
+        "checked": true,
+        "img": ""
+      },      
+      {
+        "code": "",
         "label": "Claude",
         "provider": "Anthropic",
         "url": "https://claude.ai",
