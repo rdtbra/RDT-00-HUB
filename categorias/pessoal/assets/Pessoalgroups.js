@@ -76,7 +76,14 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	  
+      {
+        "code": "",
+        "label": "Otimizz.ai",
+        "provider": "Otimizz",
+        "url": "https://chat.otimizz.ai/chat",
+        "checked": true,
+        "img": ""
+      },
       {
         "code": "",
         "label": "Claude",
