@@ -853,5 +853,239 @@ window.GROUPS = [
         "img": ""
       }   
     ]
+  },
+  {
+    "id": "AINews",
+    "name": "Notícias de IA - acompanhar",
+    "color": "#0ea5e9",
+    "icon": "assets/AI-News.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "TechCrunch – IA News",
+        "provider": "TechCrunch",
+        "url": "https://techcrunch.com/tag/artificial-intelligence/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "The Verge – AI News",
+        "provider": "The Verge",
+        "url": "https://www.theverge.com/artificial-intelligence",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "MIT Technology Review – AI",
+        "provider": "MIT Technology Review",
+        "url": "https://www.technologyreview.com/ai/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – AI (cs.AI)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.AI/recent",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – NLP (cs.CL)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.CL/recent",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – Machine Learning (cs.LG)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.LG/recent",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Papers With Code – New Papers",
+        "provider": "PapersWithCode",
+        "url": "https://paperswithcode.com/papers",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Papers With Code – Trending",
+        "provider": "PapersWithCode",
+        "url": "https://paperswithcode.com/trending",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Hugging Face – Models",
+        "provider": "HuggingFace",
+        "url": "https://huggingface.co/models",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Hugging Face – Papers",
+        "provider": "HuggingFace",
+        "url": "https://huggingface.co/papers",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Google DeepMind – Blog",
+        "provider": "DeepMind",
+        "url": "https://deepmind.google/discover/blog/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "OpenAI – Blog",
+        "provider": "OpenAI",
+        "url": "https://openai.com/blog",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Meta AI – Research Blog",
+        "provider": "Meta",
+        "url": "https://ai.meta.com/blog/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Anthropic – News & Research",
+        "provider": "Anthropic",
+        "url": "https://www.anthropic.com/news",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LMSYS – Chatbot Arena Ranking",
+        "provider": "LMSYS",
+        "url": "https://chat.lmsys.org/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Hugging Face – Open LLM Leaderboard",
+        "provider": "HuggingFace",
+        "url": "https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "OpenAI – Evals",
+        "provider": "OpenAI",
+        "url": "https://evals.openai.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Ben’s Bites – Newsletter",
+        "provider": "BensBites",
+        "url": "https://www.bensbites.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Latent Space – AI Engineer",
+        "provider": "LatentSpace",
+        "url": "https://www.latent.space/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Import AI – Newsletter",
+        "provider": "JackClark",
+        "url": "https://jack-clark.net/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – Two Minute Papers",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@TwoMinutePapers",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – Yannic Kilcher",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@YannicKilcher",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – Matthew Berman",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@matthew_berman",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – Fireship",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@Fireship",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Perplexity – Discover",
+        "provider": "Perplexity",
+        "url": "https://www.perplexity.ai/discover",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Reddit – MachineLearning",
+        "provider": "Reddit",
+        "url": "https://www.reddit.com/r/MachineLearning/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Reddit – LocalLLaMA",
+        "provider": "Reddit",
+        "url": "https://www.reddit.com/r/LocalLLaMA/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Reddit – Artificial",
+        "provider": "Reddit",
+        "url": "https://www.reddit.com/r/Artificial/",
+        "checked": true,
+        "img": ""
+      }
+    ]
   }  
 ];
