@@ -874,7 +874,7 @@ window.GROUPS = [
         "code": "",
         "label": "The Verge – AI News",
         "provider": "The Verge",
-        "url": "https://www.theverge.com/artificial-intelligence",
+        "url": "https://www.theverge.com/ai-artificial-intelligence",
         "checked": true,
         "img": ""
       },
@@ -882,31 +882,7 @@ window.GROUPS = [
         "code": "",
         "label": "MIT Technology Review – AI",
         "provider": "MIT Technology Review",
-        "url": "https://www.technologyreview.com/ai/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – AI (cs.AI)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.AI/recent",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – NLP (cs.CL)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.CL/recent",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – Machine Learning (cs.LG)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.LG/recent",
+        "url": "https://www.technologyreview.com/",
         "checked": true,
         "img": ""
       },
@@ -978,7 +954,7 @@ window.GROUPS = [
         "code": "",
         "label": "LMSYS – Chatbot Arena Ranking",
         "provider": "LMSYS",
-        "url": "https://chat.lmsys.org/",
+        "url": "https://lmsys.org/",
         "checked": true,
         "img": ""
       },
@@ -1085,7 +1061,331 @@ window.GROUPS = [
         "url": "https://www.reddit.com/r/Artificial/",
         "checked": true,
         "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – AI (cs.AI)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.AI/recent",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – NLP (cs.CL)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.CL/recent",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "arXiv – Machine Learning (cs.LG)",
+        "provider": "arXiv",
+        "url": "https://arxiv.org/list/cs.LG/recent",
+        "checked": true,
+        "img": ""
       }
     ]
   }  
+  {
+    "id": "AINews - Mídias Sociais",
+    "name": "Notícias de IA - acompanhar nas Mídias Sociais",
+    "color": "#0ea5e9",
+    "icon": "assets/AI-NewsSocialMedia.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "X – Andrej Karpathy",
+        "provider": "X.com",
+        "url": "https://x.com/karpathy",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Yann LeCun",
+        "provider": "X.com",
+        "url": "https://x.com/ylecun",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Sam Altman",
+        "provider": "X.com",
+        "url": "https://x.com/sama",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Ilya Sutskever",
+        "provider": "X.com",
+        "url": "https://x.com/ilyasut",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Jeff Dean",
+        "provider": "X.com",
+        "url": "https://x.com/JeffDean",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Omer Ben Saadon",
+        "provider": "X.com",
+        "url": "https://x.com/omerbensaadon",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – goodside (LLM demos)",
+        "provider": "X.com",
+        "url": "https://x.com/goodside",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – LMSYS (Chatbot Arena)",
+        "provider": "X.com",
+        "url": "https://x.com/lmsysorg",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – OpenAI (oficial)",
+        "provider": "X.com",
+        "url": "https://x.com/OpenAI",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Google DeepMind (oficial)",
+        "provider": "X.com",
+        "url": "https://x.com/GoogleDeepMind",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Meta AI (oficial)",
+        "provider": "X.com",
+        "url": "https://x.com/MetaAI",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Anthropic (oficial)",
+        "provider": "X.com",
+        "url": "https://x.com/AnthropicAI",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Hugging Face (oficial)",
+        "provider": "X.com",
+        "url": "https://x.com/HuggingFace",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – Scale AI",
+        "provider": "X.com",
+        "url": "https://x.com/Scale_AI",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "X – ElevenLabs",
+        "provider": "X.com",
+        "url": "https://x.com/ElevenLabs",
+        "checked": true,
+        "img": ""
+      },
+
+      {
+        "code": "",
+        "label": "Instagram – FutureTools",
+        "provider": "Instagram",
+        "url": "https://www.instagram.com/futuretools.io/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Instagram – The Rundown AI",
+        "provider": "Instagram",
+        "url": "https://www.instagram.com/therundown.ai/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Instagram – The Real Tarzana (IA & tech)",
+        "provider": "Instagram",
+        "url": "https://www.instagram.com/therealtarzana/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Instagram – AI Explained",
+        "provider": "Instagram",
+        "url": "https://www.instagram.com/ai.explained/",
+        "checked": true,
+        "img": ""
+      },
+
+      {
+        "code": "",
+        "label": "TikTok – mattvidpro (IA & vídeo)",
+        "provider": "TikTok",
+        "url": "https://www.tiktok.com/@mattvidpro",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "TikTok – AI Explained",
+        "provider": "TikTok",
+        "url": "https://www.tiktok.com/@ai.explained",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "TikTok – TristaMate",
+        "provider": "TikTok",
+        "url": "https://www.tiktok.com/@tristamate",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "TikTok – Nicholas Whittaker (IA)",
+        "provider": "TikTok",
+        "url": "https://www.tiktok.com/@nicholaswhittaker.ai",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Facebook – OpenAI Research (página oficial)",
+        "provider": "Facebook",
+        "url": "https://www.facebook.com/openai.research",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Facebook – Google DeepMind (página oficial)",
+        "provider": "Facebook",
+        "url": "https://www.facebook.com/GoogleDeepMind",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Facebook – Meta AI Research (página oficial)",
+        "provider": "Facebook",
+        "url": "https://www.facebook.com/MetaAIResearch",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Facebook – Grupo Machine Learning",
+        "provider": "Facebook",
+        "url": "https://www.facebook.com/groups/machinelearninggroup",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Facebook – Grupo Artificial Intelligence Society",
+        "provider": "Facebook",
+        "url": "https://www.facebook.com/groups/ArtificialIntelligenceSociety",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LinkedIn – OpenAI (página oficial)",
+        "provider": "LinkedIn",
+        "url": "https://www.linkedin.com/company/openai/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LinkedIn – Google DeepMind (página oficial)",
+        "provider": "LinkedIn",
+        "url": "https://www.linkedin.com/company/googledeepmind/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LinkedIn – Meta AI (página oficial)",
+        "provider": "LinkedIn",
+        "url": "https://www.linkedin.com/company/metaai/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LinkedIn – Anthropic (página oficial)",
+        "provider": "LinkedIn",
+        "url": "https://www.linkedin.com/company/anthropic-ai/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LinkedIn – Hugging Face (página oficial)",
+        "provider": "LinkedIn",
+        "url": "https://www.linkedin.com/company/huggingface/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – AI Explained",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@AIExplained",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – The AI Era",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@TheAIEra",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "YouTube – ColdFusion (tecnologia & IA)",
+        "provider": "YouTube",
+        "url": "https://www.youtube.com/@ColdFusion",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  }
 ];
