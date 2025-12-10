@@ -1138,14 +1138,6 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "X – Omer Ben Saadon",
-        "provider": "X.com",
-        "url": "https://x.com/omerbensaadon",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "X – goodside (LLM demos)",
         "provider": "X.com",
         "url": "https://x.com/goodside",
@@ -1226,22 +1218,6 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "Instagram – The Rundown AI",
-        "provider": "Instagram",
-        "url": "https://www.instagram.com/therundown.ai/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Instagram – The Real Tarzana (IA & tech)",
-        "provider": "Instagram",
-        "url": "https://www.instagram.com/therealtarzana/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "Instagram – AI Explained",
         "provider": "Instagram",
         "url": "https://www.instagram.com/ai.explained/",
@@ -1261,62 +1237,6 @@ window.GROUPS = [
         "label": "TikTok – AI Explained",
         "provider": "TikTok",
         "url": "https://www.tiktok.com/@ai.explained",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "TikTok – TristaMate",
-        "provider": "TikTok",
-        "url": "https://www.tiktok.com/@tristamate",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "TikTok – Nicholas Whittaker (IA)",
-        "provider": "TikTok",
-        "url": "https://www.tiktok.com/@nicholaswhittaker.ai",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Facebook – OpenAI Research (página oficial)",
-        "provider": "Facebook",
-        "url": "https://www.facebook.com/openai.research",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Facebook – Google DeepMind (página oficial)",
-        "provider": "Facebook",
-        "url": "https://www.facebook.com/GoogleDeepMind",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Facebook – Meta AI Research (página oficial)",
-        "provider": "Facebook",
-        "url": "https://www.facebook.com/MetaAIResearch",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Facebook – Grupo Machine Learning",
-        "provider": "Facebook",
-        "url": "https://www.facebook.com/groups/machinelearninggroup",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Facebook – Grupo Artificial Intelligence Society",
-        "provider": "Facebook",
-        "url": "https://www.facebook.com/groups/ArtificialIntelligenceSociety",
         "checked": true,
         "img": ""
       },
@@ -1348,7 +1268,7 @@ window.GROUPS = [
         "code": "",
         "label": "LinkedIn – Anthropic (página oficial)",
         "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/anthropic-ai/",
+        "url": "https://www.linkedin.com/company/anthropicresearch",
         "checked": true,
         "img": ""
       },
