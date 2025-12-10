@@ -1087,7 +1087,7 @@ window.GROUPS = [
         "img": ""
       }
     ]
-  }  
+  },
   {
     "id": "AINews - Mídias Sociais",
     "name": "Notícias de IA - acompanhar nas Mídias Sociais",
@@ -1216,7 +1216,6 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-
       {
         "code": "",
         "label": "Instagram – FutureTools",
@@ -1249,7 +1248,6 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-
       {
         "code": "",
         "label": "TikTok – mattvidpro (IA & vídeo)",
