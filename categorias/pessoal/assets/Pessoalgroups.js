@@ -619,7 +619,7 @@ window.GROUPS = [
   {
     "id": "produtos-avaliar",
     "name": "Produtos a Avaliar",
-    "color": "#3b82f6",  // Azul tecnológico (tailwind-600)
+    "color": "#3b82f6",  
     "icon": "assets/Produtos-Avaliar.svg",
     "iconHref": "",
     "collapsed": true,
