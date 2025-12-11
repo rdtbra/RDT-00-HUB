@@ -1172,7 +1172,7 @@ window.GROUPS = [
         "code": "",
         "label": "X – Meta AI (oficial)",
         "provider": "X.com",
-        "url": "https://x.com/MetaAI",
+        "url": "https://x.com/AIatMeta",
         "checked": true,
         "img": ""
       },
@@ -1210,25 +1210,9 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "Instagram – FutureTools",
-        "provider": "Instagram",
-        "url": "https://www.instagram.com/futuretools.io/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "Instagram – AI Explained",
         "provider": "Instagram",
         "url": "https://www.instagram.com/ai.explained/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "TikTok – mattvidpro (IA & vídeo)",
-        "provider": "TikTok",
-        "url": "https://www.tiktok.com/@mattvidpro",
         "checked": true,
         "img": ""
       },
@@ -1277,22 +1261,6 @@ window.GROUPS = [
         "label": "LinkedIn – Hugging Face (página oficial)",
         "provider": "LinkedIn",
         "url": "https://www.linkedin.com/company/huggingface/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – AI Explained",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@AIExplained",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – The AI Era",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@TheAIEra",
         "checked": true,
         "img": ""
       },
