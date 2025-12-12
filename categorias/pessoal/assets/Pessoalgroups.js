@@ -864,15 +864,31 @@ window.GROUPS = [
     "items": [
       {
         "code": "",
-        "label": "TechCrunch – IA News",
-        "provider": "TechCrunch",
-        "url": "https://techcrunch.com/tag/artificial-intelligence/",
+        "label": "MIT Technology Review – Artificial Intelligence",
+        "provider": "MIT",
+        "url": "https://www.technologyreview.com/artificial-intelligence/",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "The Verge – AI News",
+        "label": "Reuters – Artificial Intelligence News",
+        "provider": "Reuters",
+        "url": "https://www.reuters.com/technology/artificial-intelligence/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Financial Times – Artificial Intelligence",
+        "provider": "Financial Times",
+        "url": "https://www.ft.com/artificial-intelligence",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "The Verge – AI and Machine Learning Coverage",
         "provider": "The Verge",
         "url": "https://www.theverge.com/ai-artificial-intelligence",
         "checked": true,
@@ -880,55 +896,7 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "MIT Technology Review – AI",
-        "provider": "MIT Technology Review",
-        "url": "https://www.technologyreview.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Papers With Code – New Papers",
-        "provider": "PapersWithCode",
-        "url": "https://paperswithcode.com/papers",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Papers With Code – Trending",
-        "provider": "PapersWithCode",
-        "url": "https://paperswithcode.com/trending",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Hugging Face – Models",
-        "provider": "HuggingFace",
-        "url": "https://huggingface.co/models",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Hugging Face – Papers",
-        "provider": "HuggingFace",
-        "url": "https://huggingface.co/papers",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Google DeepMind – Blog",
-        "provider": "DeepMind",
-        "url": "https://deepmind.google/discover/blog/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "OpenAI – Blog",
+        "label": "OpenAI Blog – Official AI Research and Product Updates",
         "provider": "OpenAI",
         "url": "https://openai.com/blog",
         "checked": true,
@@ -936,339 +904,65 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "Meta AI – Research Blog",
-        "provider": "Meta",
-        "url": "https://ai.meta.com/blog/",
+        "label": "Google DeepMind Blog – AI Research and Breakthroughs",
+        "provider": "Google",
+        "url": "https://deepmind.google/discover/blog/",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "Anthropic – News & Research",
-        "provider": "Anthropic",
-        "url": "https://www.anthropic.com/news",
+        "label": "Hugging Face Blog – Open Source AI Models and Tools",
+        "provider": "Hugging Face",
+        "url": "https://huggingface.co/blog",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "LMSYS – Chatbot Arena Ranking",
-        "provider": "LMSYS",
-        "url": "https://lmsys.org/",
+        "label": "Ben’s Bites – Daily AI News and Product Updates",
+        "provider": "Bens Bites",
+        "url": "https://www.bensbites.co/",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "Hugging Face – Open LLM Leaderboard",
-        "provider": "HuggingFace",
-        "url": "https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard",
+        "label": "Import AI – AI Policy and Strategic Analysis",
+        "provider": "Import AI",
+        "url": "https://importai.substack.com/",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "OpenAI – Evals",
-        "provider": "OpenAI",
-        "url": "https://evals.openai.com/",
+        "label": "The Rundown AI – Daily AI News Briefing",
+        "provider": "The Rundown AI",
+        "url": "https://www.therundown.ai/",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "Ben’s Bites – Newsletter",
-        "provider": "BensBites",
-        "url": "https://www.bensbites.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Latent Space – AI Engineer",
-        "provider": "LatentSpace",
-        "url": "https://www.latent.space/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Import AI – Newsletter",
-        "provider": "JackClark",
-        "url": "https://jack-clark.net/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – Two Minute Papers",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@TwoMinutePapers",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – Yannic Kilcher",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@YannicKilcher",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – Matthew Berman",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@matthew_berman",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – Fireship",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@Fireship",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Perplexity – Discover",
-        "provider": "Perplexity",
-        "url": "https://www.perplexity.ai/discover",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Reddit – MachineLearning",
-        "provider": "Reddit",
-        "url": "https://www.reddit.com/r/MachineLearning/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Reddit – LocalLLaMA",
-        "provider": "Reddit",
-        "url": "https://www.reddit.com/r/LocalLLaMA/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Reddit – Artificial",
-        "provider": "Reddit",
-        "url": "https://www.reddit.com/r/Artificial/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – AI (cs.AI)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.AI/recent",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – NLP (cs.CL)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.CL/recent",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "arXiv – Machine Learning (cs.LG)",
-        "provider": "arXiv",
-        "url": "https://arxiv.org/list/cs.LG/recent",
-        "checked": true,
-        "img": ""
-      }
-    ]
-  },
-  {
-    "id": "AINews - Mídias Sociais",
-    "name": "Notícias de IA - acompanhar nas Mídias Sociais",
-    "color": "#0ea5e9",
-    "icon": "assets/AI-NewsSocialMedia.svg",
-    "iconHref": "",
-    "collapsed": true,
-    "items": [
-      {
-        "code": "",
-        "label": "X – Andrej Karpathy",
-        "provider": "X.com",
+        "label": "Andrej Karpathy – AI Engineering Insights",
+        "provider": "X",
         "url": "https://x.com/karpathy",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "X – Yann LeCun",
-        "provider": "X.com",
+        "label": "Yann LeCun – AI Research and Critical Perspectives",
+        "provider": "X",
         "url": "https://x.com/ylecun",
         "checked": true,
         "img": ""
       },
       {
         "code": "",
-        "label": "X – Sam Altman",
-        "provider": "X.com",
-        "url": "https://x.com/sama",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Ilya Sutskever",
-        "provider": "X.com",
-        "url": "https://x.com/ilyasut",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Jeff Dean",
-        "provider": "X.com",
-        "url": "https://x.com/JeffDean",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – goodside (LLM demos)",
-        "provider": "X.com",
-        "url": "https://x.com/goodside",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – LMSYS (Chatbot Arena)",
-        "provider": "X.com",
-        "url": "https://x.com/lmsysorg",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – OpenAI (oficial)",
-        "provider": "X.com",
-        "url": "https://x.com/OpenAI",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Google DeepMind (oficial)",
-        "provider": "X.com",
-        "url": "https://x.com/GoogleDeepMind",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Meta AI (oficial)",
-        "provider": "X.com",
-        "url": "https://x.com/AIatMeta",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Anthropic (oficial)",
-        "provider": "X.com",
-        "url": "https://x.com/AnthropicAI",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Hugging Face (oficial)",
-        "provider": "X.com",
-        "url": "https://x.com/HuggingFace",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – Scale AI",
-        "provider": "X.com",
-        "url": "https://x.com/Scale_AI",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "X – ElevenLabs",
-        "provider": "X.com",
-        "url": "https://x.com/ElevenLabs",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Instagram – AI Explained",
-        "provider": "Instagram",
-        "url": "https://www.instagram.com/ai.explained/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "TikTok – AI Explained",
-        "provider": "TikTok",
-        "url": "https://www.tiktok.com/@ai.explained",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "LinkedIn – OpenAI (página oficial)",
-        "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/openai/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "LinkedIn – Google DeepMind (página oficial)",
-        "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/googledeepmind/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "LinkedIn – Meta AI (página oficial)",
-        "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/metaai/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "LinkedIn – Anthropic (página oficial)",
-        "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/anthropicresearch",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "LinkedIn – Hugging Face (página oficial)",
-        "provider": "LinkedIn",
-        "url": "https://www.linkedin.com/company/huggingface/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "YouTube – ColdFusion (tecnologia & IA)",
-        "provider": "YouTube",
-        "url": "https://www.youtube.com/@ColdFusion",
+        "label": "Jeremy Howard – Practical AI and fast.ai",
+        "provider": "fast.ai",
+        "url": "https://www.fast.ai/",
         "checked": true,
         "img": ""
       }
