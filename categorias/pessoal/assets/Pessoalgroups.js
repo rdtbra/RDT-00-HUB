@@ -224,7 +224,6 @@ window.GROUPS = [
     "iconHref": "",
     "collapsed": true,
     "items": [     
-      {      
       {
         "code": "",
         "label": "ElevenLabs",
@@ -307,7 +306,7 @@ window.GROUPS = [
     "iconHref": "",
     "collapsed": true,
     "items": [
-	  {
+	    {
         "code": "Notion",
         "label": "Notion",
         "provider": "",
