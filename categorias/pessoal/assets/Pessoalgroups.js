@@ -5,10 +5,10 @@
 
 window.GROUPS = [
   {
-    "id": "llm-geral",
-    "name": "LLMs e Modelos Gerais",
+    "id": "llm-conversacionallic",
+    "name": "LLMs conversasionais pagas",
     "color": "#0ea5e9",
-    "icon": "assets/LLMs-ModelosGerais.png",
+    "icon": "assets/LLMs-ConversacionalLic.png",
     "iconHref": "",
     "collapsed": true,
     "items": [
@@ -123,7 +123,17 @@ window.GROUPS = [
         "url": "https://poe.com/",
         "checked": true,
         "img": ""
-      },      
+      }
+    ]
+  },
+  {
+    "id": "llm-conversacional",
+    "name": "LLMs conversacionais",
+    "color": "#0ea5e9",
+    "icon": "assets/LLMs-Conversacional.png",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [     
       {
         "code": "",
         "label": "Claude",
@@ -235,7 +245,47 @@ window.GROUPS = [
         "url": "https://app.heygen.com/home",
         "checked": true,
         "img": ""
-      }  
+      },
+      {
+        "code": "",
+        "label": "Meta EMU",
+        "provider": "Meta",
+        "url": "https://emu-video.metademolab.com/",
+        "checked": true,
+        "img": ""
+      },
+	    {
+        "code": "",
+        "label": "Luma",
+        "provider": "",
+        "url": "https://dream-machine.lumalabs.ai/account",
+        "checked": true,
+        "img": ""
+      },      
+      {
+        "code": "",
+        "label": "Synthesia.io",
+        "provider": "",
+        "url": "https://app.synthesia.io/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Runwayml",
+        "provider": "",
+        "url": "https://app.runwayml.com/video-tools/teams/rdtbra/ai-tools/generate?utm_medium=sem&utm_source=google&utm_campaign=branded&utm_content=ad&mode=tools",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Pika",
+        "provider": "",
+        "url": "https://pika.art/",
+        "checked": true,
+        "img": ""
+      },	      
     ]
   },
   {
@@ -275,14 +325,6 @@ window.GROUPS = [
         "label": "n8n",
         "provider": "",
         "url": "https://rdtbra.app.n8n.cloud/home/workflows",
-        "checked": true,
-        "img": ""
-      },
-	    {
-        "code": "ElevenLabs",
-        "label": "ElevenLabs",
-        "provider": "",
-        "url": "https://elevenlabs.io/app/home",
         "checked": true,
         "img": ""
       }
@@ -642,46 +684,6 @@ window.GROUPS = [
       },	  
       {
         "code": "",
-        "label": "Meta EMU",
-        "provider": "Meta",
-        "url": "https://emu-video.metademolab.com/",
-        "checked": true,
-        "img": ""
-      },
-	    {
-        "code": "",
-        "label": "Luma",
-        "provider": "",
-        "url": "https://dream-machine.lumalabs.ai/account",
-        "checked": true,
-        "img": ""
-      },      
-      {
-        "code": "",
-        "label": "Synthesia.io",
-        "provider": "",
-        "url": "https://app.synthesia.io/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Runwayml",
-        "provider": "",
-        "url": "https://app.runwayml.com/video-tools/teams/rdtbra/ai-tools/generate?utm_medium=sem&utm_source=google&utm_campaign=branded&utm_content=ad&mode=tools",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Pika",
-        "provider": "",
-        "url": "https://pika.art/",
-        "checked": true,
-        "img": ""
-      },	
-      {
-        "code": "",
         "label": "Lucidchart",
         "provider": "Lucid Software",
         "url": "https://www.lucidchart.com/",
@@ -965,7 +967,15 @@ window.GROUPS = [
         "url": "https://www.fast.ai/",
         "checked": true,
         "img": ""
-      }
+      },
+      {
+        "code": "",
+        "label": "PowerfulAI",
+        "provider": "PowerfulAI",
+        "url": "https://www.powerfulai.tools/?filter=",
+        "checked": true,
+        "img": ""
+      }      
     ]
   }
 ];
