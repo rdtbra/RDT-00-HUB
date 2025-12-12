@@ -102,14 +102,6 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "NotebookLM",
-        "provider": "",
-        "url": "https://notebooklm.google.com",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "Otimizz.ai",
         "provider": "Otimizz",
         "url": "https://chat.otimizz.ai/chat",
@@ -123,7 +115,15 @@ window.GROUPS = [
         "url": "https://poe.com/",
         "checked": true,
         "img": ""
-      }
+      },
+      {
+        "code": "",
+        "label": "NotebookLM",
+        "provider": "",
+        "url": "https://notebooklm.google.com",
+        "checked": true,
+        "img": ""
+      }      
     ]
   },
   {
