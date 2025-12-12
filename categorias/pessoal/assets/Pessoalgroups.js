@@ -8,7 +8,7 @@ window.GROUPS = [
     "id": "llm-conversacionallic",
     "name": "LLMs conversasionais pagas",
     "color": "#0ea5e9",
-    "icon": "assets/LLMs-ConversacionalLic.png",
+    "icon": "assets/LLMs-ConversacionalLic.svg",
     "iconHref": "",
     "collapsed": true,
     "items": [
@@ -130,7 +130,7 @@ window.GROUPS = [
     "id": "llm-conversacional",
     "name": "LLMs conversacionais",
     "color": "#0ea5e9",
-    "icon": "assets/LLMs-Conversacional.png",
+    "icon": "assets/LLMs-Conversacional.svg",
     "iconHref": "",
     "collapsed": true,
     "items": [     
@@ -213,7 +213,18 @@ window.GROUPS = [
         "url": "https://chat.deepseek.com",
         "checked": true,
         "img": ""
-      },
+      }
+    ]
+  },
+  {
+    "id": "llm-som-imagem-video",
+    "name": "LLMs Som Imagem e Vídeos",
+    "color": "#0ea5e9",
+    "icon": "assets/LLMs-som-imagem-video.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [     
+      {      
       {
         "code": "",
         "label": "ElevenLabs",
@@ -285,7 +296,7 @@ window.GROUPS = [
         "url": "https://pika.art/",
         "checked": true,
         "img": ""
-      },	      
+      }
     ]
   },
   {
@@ -330,6 +341,88 @@ window.GROUPS = [
       }
     ]
   },
+  {
+    "id": "produtos-avaliar",
+    "name": "Produtos a Avaliar",
+    "color": "#3b82f6",  
+    "icon": "assets/Produtos-Avaliar.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "Google AI Studio",
+        "provider": "Google",
+        "url": "https://aistudio.google.com/apps?source=showcase&showcaseTag=featured",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Google Labs",
+        "provider": "Google",
+        "url": "https://labs.google/",
+        "checked": true,
+        "img": ""
+      },	  
+      {
+        "code": "",
+        "label": "Lucidchart",
+        "provider": "Lucid Software",
+        "url": "https://www.lucidchart.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Mermaid Chart",
+        "provider": "Mermaid JS",
+        "url": "https://www.mermaidchart.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Diagrams.net (Draw.io)",
+        "provider": "JGraph",
+        "url": "https://app.diagrams.net/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "PlantUML",
+        "provider": "PlantUML Team",
+        "url": "https://plantuml.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Excalidraw",
+        "provider": "Excalidraw Community",
+        "url": "https://excalidraw.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "AnkiWeb",
+        "provider": "Ankit",
+        "url": "https://apps.ankiweb.net/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "canva.com",
+        "provider": "Canva.com",
+        "url": "https://www.canva.com/",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },  
   {
     "id": "chatgpt-saude-financas",
     "name": "ChatGPT Saúde, Finanças",
@@ -487,6 +580,32 @@ window.GROUPS = [
         "label": "Perlego",
         "provider": "",
         "url": "https://www.perlego.com/home",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "leituraNãoTecnica",
+    "name": "Leitura não Técnica",
+    "color": "#f59e0b",
+    "icon": "assets/Leitura-nao-Tecnica.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "Marvel",
+        "provider": "",
+        "url": "https://www.marvel.com/comics/unlimited/home?&options%255Boffset%255D=0&totalcount=12",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Kindle",
+        "provider": "",
+        "url": "https://ler.amazon.com.br/kindle-library",
         "checked": true,
         "img": ""
       }
@@ -656,114 +775,6 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }	  
-    ]
-  },
-  {
-    "id": "produtos-avaliar",
-    "name": "Produtos a Avaliar",
-    "color": "#3b82f6",  
-    "icon": "assets/Produtos-Avaliar.svg",
-    "iconHref": "",
-    "collapsed": true,
-    "items": [
-      {
-        "code": "",
-        "label": "Google AI Studio",
-        "provider": "Google",
-        "url": "https://aistudio.google.com/apps?source=showcase&showcaseTag=featured",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Google Labs",
-        "provider": "Google",
-        "url": "https://labs.google/",
-        "checked": true,
-        "img": ""
-      },	  
-      {
-        "code": "",
-        "label": "Lucidchart",
-        "provider": "Lucid Software",
-        "url": "https://www.lucidchart.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Mermaid Chart",
-        "provider": "Mermaid JS",
-        "url": "https://www.mermaidchart.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Diagrams.net (Draw.io)",
-        "provider": "JGraph",
-        "url": "https://app.diagrams.net/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "PlantUML",
-        "provider": "PlantUML Team",
-        "url": "https://plantuml.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Excalidraw",
-        "provider": "Excalidraw Community",
-        "url": "https://excalidraw.com/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "AnkiWeb",
-        "provider": "Ankit",
-        "url": "https://apps.ankiweb.net/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "canva.com",
-        "provider": "Canva.com",
-        "url": "https://www.canva.com/",
-        "checked": true,
-        "img": ""
-      }
-    ]
-  },
-  {
-    "id": "leituraNãoTecnica",
-    "name": "Leitura não Técnica",
-    "color": "#f59e0b",
-    "icon": "assets/Leitura-nao-Tecnica.svg",
-    "iconHref": "",
-    "collapsed": true,
-    "items": [
-      {
-        "code": "",
-        "label": "Marvel",
-        "provider": "",
-        "url": "https://www.marvel.com/comics/unlimited/home?&options%255Boffset%255D=0&totalcount=12",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Kindle",
-        "provider": "",
-        "url": "https://ler.amazon.com.br/kindle-library",
-        "checked": true,
-        "img": ""
-      }
     ]
   },
   {
@@ -976,6 +987,48 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }      
+    ]
+  },
+  {
+    "id": "News",
+    "name": "Notícias",
+    "color": "#0ea5e9",
+    "icon": "assets/News.svg",
+    "iconHref": "",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "",
+        "label": "Uol",
+        "provider": "Uol",
+        "url": "https://www.uol.com.br",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "FoxNews",
+        "provider": "FoxNews",
+        "url": "https://www.foxnews.com",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "CNN",
+        "provider": "CNN",
+        "url": "https://www.cnn.com",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "JovemPan",
+        "provider": "JP",
+        "url": "http://www.jp.com.br",
+        "checked": true,
+        "img": ""
+      }
     ]
   }
 ];
