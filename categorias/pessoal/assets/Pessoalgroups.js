@@ -6,7 +6,7 @@
 window.GROUPS = [
   {
     "id": "llm-conversacionallic",
-    "name": "LLMs conversasionais pagas",
+    "name": "LLMs conversacionais pagas",
     "color": "#0ea5e9",
     "icon": "assets/LLMs-ConversacionalLic.svg",
     "iconHref": "",
