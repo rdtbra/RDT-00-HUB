@@ -78,6 +78,38 @@ window.GROUPS = [
       },
       {
         "code": "",
+        "label": "ChatHUB",
+        "provider": "",
+        "url": "https://app.chathub.gg/?utm_source=chathub.gg&utm_medium=website&utm_campaign=features&utm_content=multi-model-comparison",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Huggingface",
+        "provider": "",
+        "url": "https://huggingface.co",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "HuggingChat",
+        "provider": "",
+        "url": "https://huggingface.co/chat/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "NotebookLM",
+        "provider": "",
+        "url": "https://notebooklm.google.com",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
         "label": "Otimizz.ai",
         "provider": "Otimizz",
         "url": "https://chat.otimizz.ai/chat",
@@ -169,38 +201,6 @@ window.GROUPS = [
         "label": "Deepseek",
         "provider": "",
         "url": "https://chat.deepseek.com",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Huggingface",
-        "provider": "",
-        "url": "https://huggingface.co",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "HuggingChat",
-        "provider": "",
-        "url": "https://huggingface.co/chat/",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "ChatHUB",
-        "provider": "",
-        "url": "https://app.chathub.gg/?utm_source=chathub.gg&utm_medium=website&utm_campaign=features&utm_content=multi-model-comparison",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "NotebookLM",
-        "provider": "",
-        "url": "https://notebooklm.google.com",
         "checked": true,
         "img": ""
       },
