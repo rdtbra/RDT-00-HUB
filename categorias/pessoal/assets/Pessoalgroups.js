@@ -123,6 +123,14 @@ window.GROUPS = [
         "url": "https://notebooklm.google.com",
         "checked": true,
         "img": ""
+      },      
+      {
+        "code": "",
+        "label": "WolframAlpha",
+        "provider": "WolframAlpha",
+        "url": "https://notebooklm.google.com",
+        "checked": true,
+        "img": ""
       }      
     ]
   },
@@ -165,7 +173,15 @@ window.GROUPS = [
         "url": "https://copilot.microsoft.com",
         "checked": true,
         "img": ""
-      },	  
+      },
+      {
+        "code": "",
+        "label": "Copilot (BT)",
+        "provider": "",
+        "url": "https://m365.cloud.microsoft/chat/?auth=2",
+        "checked": true,
+        "img": ""
+      },	
       {
         "code": "",
         "label": "Mistral",
@@ -417,6 +433,46 @@ window.GROUPS = [
         "label": "canva.com",
         "provider": "Canva.com",
         "url": "https://www.canva.com/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Wolfram Mathematica",
+        "provider": "Wolfram Research",
+        "url": "https://www.wolfram.com/mathematica/pricing/students/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Maple",
+        "provider": "Maplesoft",
+        "url": "https://store.maplesoft.com/products/usd-maple-student/?_gl=1*14dm98n*_gcl_au*ODA5NjQ4MDAyLjE3NjU1ODQ1MTI.",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "MathLAB and Symulink",
+        "provider": "Mathworks",
+        "url": "https://www.mathworks.com/store/link/products/student/SV?s_tid=ac_buy_sv_but1",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "KiCAD",
+        "provider": "Kicad.org",
+        "url": "https://www.kicad.org",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "LTSpice",
+        "provider": "Analog.com",
+        "url": "https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html",
         "checked": true,
         "img": ""
       }
