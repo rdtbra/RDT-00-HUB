@@ -128,7 +128,7 @@ window.GROUPS = [
         "code": "",
         "label": "WolframAlpha",
         "provider": "WolframAlpha",
-        "url": "https://notebooklm.google.com",
+        "url": "https://www.wolframalpha.com",
         "checked": true,
         "img": ""
       }      
