@@ -118,7 +118,7 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "Chatbox.com",
+        "label": "Chatbox.ai",
         "provider": "Chatbox",
         "url": "https://chatboxai.app/",
         "checked": true,
