@@ -120,7 +120,15 @@ window.GROUPS = [
         "code": "",
         "label": "Chatbox.ai",
         "provider": "Chatbox",
-        "url": "https://chatboxai.app/",
+        "url": "https://web.chatboxai.app/",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "OpenRouter",
+        "provider": "OpenRouter.AI",
+        "url": "https://openrouter.ai/chat",
         "checked": true,
         "img": ""
       },      
