@@ -118,6 +118,14 @@ window.GROUPS = [
       },
       {
         "code": "",
+        "label": "Chatbox.com",
+        "provider": "Chatbox",
+        "url": "https://chatboxai.app/",
+        "checked": true,
+        "img": ""
+      },      
+      {
+        "code": "",
         "label": "NotebookLM",
         "provider": "",
         "url": "https://notebooklm.google.com",
@@ -473,6 +481,22 @@ window.GROUPS = [
         "label": "LTSpice",
         "provider": "Analog.com",
         "url": "https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "HeyGen",
+        "provider": "HeyGen.com",
+        "url": "https://app.heygen.com/home",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "D-ID",
+        "provider": "D-ID.com",
+        "url": "https://studio.d-id.com",
         "checked": true,
         "img": ""
       }
