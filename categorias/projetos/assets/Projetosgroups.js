@@ -124,7 +124,7 @@ window.GROUPS = [
         "code": "SUP",
         "label": "GPT-5",
         "provider": "openAI",
-        "url": "https://chatgpt.com/g/g-p-676c2a25f388819195a4e3b63221ac06-prj-01-erp/c/6907f46a-4338-832e-b5d6-3bb3ead6b72f",
+        "url": "https://chatgpt.com/g/g-p-6934e636ece881919c8cd6fa28a149b4-ai-prj-equipes/c/69437ed5-bdac-832d-bb96-abc8b6a81c52",
         "checked": true,
         "img": ""
       },
