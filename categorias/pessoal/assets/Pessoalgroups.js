@@ -245,6 +245,14 @@ window.GROUPS = [
         "url": "https://chat.deepseek.com",
         "checked": true,
         "img": ""
+      },
+      {
+        "code": "",
+        "label": "Granite",
+        "provider": "IBM",
+        "url": "https://www.ibm.com/granite/playground",
+        "checked": true,
+        "img": ""
       }
     ]
   },
