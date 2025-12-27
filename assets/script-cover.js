@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * AI-EMT-Equipes / HUB Pessoal
+ * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-cover.js
  * Tipo: Cover Page Controller
@@ -23,7 +23,7 @@
  * Persistência:
  * - localStorage (configurações globais do HUB)
  *
- * Autor: AI-EMT-Equipes
+ * Autor: RDT-00-HUB - Equipe
  * Supervisor: ChatGPT (SUP)
  * ============================================================
  */
