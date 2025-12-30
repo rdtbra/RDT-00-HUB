@@ -72,7 +72,7 @@ window.GROUPS = [
         "code": "",
         "label": "Tess.AI",
         "provider": "Tess Pareto",
-        "url": "https://tess.pareto.io",
+        "url": "https://tess.im",
         "checked": true,
         "img": ""
       },
