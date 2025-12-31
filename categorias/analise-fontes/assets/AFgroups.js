@@ -156,7 +156,7 @@ window.GROUPS = [
       { code: "M04", label: "Claude 4 Sonnet",  provider: "AdaptaONE",   url: "https://app.adapta.one/chats/602757f1-8299-42f5-82cd-d5a20f662c51", checked: true, img: "" },
       { code: "M05", label: "GPT 4o-mini",      provider: "AdaptaONE",   url: "https://app.adapta.one/chats/0331ad6e-ddc4-4741-9df9-7dfa5d3f1660", checked: true, img: "" },
       { code: "SUP", label: "GPT-5",            provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910c8b5d2f8819193267c9e223b871a-af-07-gnm/c/6910c8ce-7728-8333-84c7-49388cf19ee1", checked: true, img: "" },
-      { code: "REV", label: "Llama 4 Maverick", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a698d-6c0b-76a2-9023-24a0a1062700", checked: true, img: "" }
+      { code: "REV", label: "Llama 4 Maverick", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a03-a781-73bc-b561-a0da03d9e1f1", checked: true, img: "" }
     ]
   },
 
