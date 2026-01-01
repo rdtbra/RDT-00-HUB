@@ -72,7 +72,7 @@ window.GROUPS = [
         "code": "",
         "label": "Tess.AI",
         "provider": "Tess Pareto",
-        "url": "https://tess.im",
+        "url": "https://tess.im/pt-BR/dashboard/user/ai/chat/ai-chat?tools=tools&temperature=1&model=auto",
         "checked": true,
         "img": ""
       },
