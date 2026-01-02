@@ -404,9 +404,9 @@ window.GROUPS = [
       },
       	    {
         "code": "Notion",
-        "label": "Atividades de Tarefas",
+        "label": "Atividades de Tarefas - Andamento",
         "provider": "",
-        "url": "https://www.notion.so/2bfdfc26ac7e80c2bbd4cab0c0713369?v=2bfdfc26ac7e80dbbcb7000cf36da0d2",
+        "url": "https://www.notion.so/2bfdfc26ac7e80c2bbd4cab0c0713369?v=2dcdfc26ac7e8063a6b9000cb51d4559",
         "checked": true,
         "img": ""
       },
