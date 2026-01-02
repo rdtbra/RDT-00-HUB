@@ -347,34 +347,74 @@ window.GROUPS = [
     "collapsed": true,
     "items": [
 	    {
-        "code": "Notion",
+        "code": "Notion - Boot Cognitivo",
         "label": "Notion",
         "provider": "",
-        "url": "https://www.notion.so/inexpensive-joggers-cf4",
+        "url": "https://www.notion.so/Boot-Cognitivo-2dcdfc26ac7e80f5977ad5b881fcc7e4",
         "checked": true,
         "img": ""
-      },	
+      },
+	    {
+        "code": "Notion",
+        "label": "Notion - Terefas Gerais",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2bbdfc26ac7e80758f7f000c5fe7d378",
+        "checked": true,
+        "img": ""
+      },      
+	    {
+        "code": "Notion",
+        "label": "Notion - Terefas Gerais - Investigação",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2dcdfc26ac7e80928548000cd83ac2d3",
+        "checked": true,
+        "img": ""
+      },      
+	    {
+        "code": "Notion",
+        "label": "Notion - Tarefas Gerais - Arquitetura",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2dcdfc26ac7e8071b08e000cc015e472",
+        "checked": true,
+        "img": ""
+      },
+	    {
+        "code": "Notion",
+        "label": "Notion - Tarefas Gerais - Planejamento",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2dcdfc26ac7e806aa551000c4ce97b7b",
+        "checked": true,
+        "img": ""
+      },
+	    {
+        "code": "Notion",
+        "label": "Notion - Tarefas Gerais - Pronto para Execução",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2badfc26ac7e80e69f4a000c19af469d",
+        "checked": true,
+        "img": ""
+      },
+	    {
+        "code": "Notion",
+        "label": "Notion - Tarefas Gerais - Backlog",
+        "provider": "",
+        "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2dcdfc26ac7e80bfbebf000cf0d99e60",
+        "checked": true,
+        "img": ""
+      },
+      	    {
+        "code": "Notion",
+        "label": "Notion - Atividades de Tarefas",
+        "provider": "",
+        "url": "https://www.notion.so/2bfdfc26ac7e80c2bbd4cab0c0713369?v=2bfdfc26ac7e80dbbcb7000cf36da0d2",
+        "checked": true,
+        "img": ""
+      },
       {
         "code": "",
         "label": "Miro",
         "provider": "",
         "url": "https://www.miro.com",
-        "checked": true,
-        "img": ""
-      },
-	    {
-        "code": "Mindomo",
-        "label": "Mindomo",
-        "provider": "",
-        "url": "https://www.mindomo.com",
-        "checked": true,
-        "img": ""
-      },
-	    {
-        "code": "n8n",
-        "label": "n8n",
-        "provider": "",
-        "url": "https://rdtbra.app.n8n.cloud/home/workflows",
         "checked": true,
         "img": ""
       }
