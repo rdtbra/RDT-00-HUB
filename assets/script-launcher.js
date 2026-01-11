@@ -1,14 +1,12 @@
-// script-launcher.js
-// Lógica compartilhada dos launchers (EMT, DV, PRJ, Pessoal, Beyond, etc.).
-// Requer variáveis globais definidas ANTES deste script:
-//   const KEY = "ia-launcher-config:AlgumaCoisa";
-//   const DEFAULT_GROUPS = [ ... ];
-//
-// (NOVO) Caso DEFAULT_GROUPS não exista, tentamos usar window.GROUPS como fallback.
-// (NOVO) Implementa o botão +Grupo (#addGroup) para criar grupo inteiro via UI,
-//       com opção de pré-criar a equipe padrão (M01..M05, SUP, REV).
+/**
+ * ============================================================
+ * RDT-00-HUB / HUB Pessoal
+ * ------------------------------------------------------------
+ * Arquivo: script-launcher.js
+ * Função: Orquestrador Modular com Exportação Geral e Segurança
+ * ============================================================
+ */
 
-// script-launcher.js - Versão com Sincronização Automática Capa -> Launcher
 (function () {
   if (typeof KEY === "undefined") return;
 
@@ -44,32 +42,39 @@
     return g; 
   }
 
-  // --- Exportação ---
+  // --- Funções de Exportação ---
 
-  function exportModular(g) {
-    const header = { id: g.id, name: g.name, color: g.color, icon: g.icon, iconHref: g.iconHref };
-    downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
-    const items = { items: g.items || [] };
-    downloadFile(`${g.id}.items.json`, JSON.stringify(items, null, 2));
-  }
-
-  function downloadFile(filename, content) {
-    const blob = new Blob([content], { type: "application/json" });
+  function downloadFile(filename, content, type = "application/json") {
+    const blob = new Blob([content], { type: type });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = filename;
     a.click();
+    URL.revokeObjectURL(a.href);
   }
 
-  // --- Renderização e Interface ---
+  // --- Inicialização e Renderização ---
 
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
+  const exportAllBtn = document.getElementById("exportAll"); // Novo botão no HTML
 
   async function init() {
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
     render();
+    setupGlobalActions();
+  }
+
+  function setupGlobalActions() {
+    if (exportAllBtn) {
+      exportAllBtn.onclick = () => {
+        // Gera o conteúdo compatível com seus arquivos .js originais
+        const content = `/** Backup Gerado pelo HUB **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
+        downloadFile("meus-estudos-groups.js", content, "text/javascript");
+        alert("Arquivo 'meus-estudos-groups.js' gerado com sucesso!");
+      };
+    }
   }
 
   function render() {
@@ -94,14 +99,13 @@
           </h2>
           <div class="actions">
             <button class="btn" data-act="open-cover">Capa</button>
-            <button class="btn" data-act="export">Exportar Disco</button>
+            <button class="btn" data-act="export-disco">Exportar Disco</button>
           </div>
         </div>
         <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}; gap:5px; padding:10px;">
           </div>
       `;
 
-      // --- Inserção dos Itens (As IAs que você viu sumir) ---
       const grid = card.querySelector("[data-role='grid']");
       (g.items || []).forEach((item) => {
         const row = document.createElement("div");
@@ -120,17 +124,20 @@
         grid.appendChild(row);
       });
 
-      // --- Eventos ---
-      
-      // Abre a capa usando a variável correta do seu HUB
+      // Ação da Capa
       card.querySelector("[data-act='open-cover']").onclick = () => {
         const coverPage = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "index.html";
         window.open(`${coverPage}?group=${encodeURIComponent(g.id)}`, "_blank");
       };
 
-      card.querySelector("[data-act='export']").onclick = () => exportModular(g);
+      // Exportação individual (Modular)
+      card.querySelector("[data-act='export-disco']").onclick = () => {
+        const header = { id: g.id, name: g.name, color: g.color, icon: g.icon, iconHref: g.iconHref };
+        downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
+        downloadFile(`${g.id}.items.json`, JSON.stringify({ items: g.items || [] }, null, 2));
+      };
 
-      // Abre/Fecha a lista de IAs ao clicar no nome
+      // Toggle do Grid
       card.querySelector("[data-act='toggle']").onclick = () => {
         g.collapsed = !g.collapsed;
         grid.style.display = g.collapsed ? "none" : "grid";
