@@ -1855,7 +1855,7 @@ window.GROUPS = [
   },
   {
     "id": "emt-29-fs",
-    "name": "EMT-29-fs - Phillips - Physics I for Dummies 4ed",
+    "name": "EMT-29-FS - Phillips - Physics I for Dummies 4ed",
     "color": "#0ea5e9",
     "icon": "https://img.perlego.com/book-covers/5324301/9781394367153_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/5324301/5?page_number=7",
