@@ -10,6 +10,11 @@
  * - Carrega título, imagem, descrição e lista de recursos
  * - Gerencia abertura em massa de abas (Abrir todas)
  * - Atualiza dinamicamente o título da aba do navegador
+ * - (NOVO) Editor in-page para equipes/itens do grupo:
+ *   - Editar / Inserir item inteiro (M01..REV etc.)
+ *   - Salvar no localStorage (override)
+ *   - Exportar / Importar JSON
+ *   - Limpar override (voltar para JSON/JS)
  *
  * Contexto:
  * Sistema HUB profissional e pessoal para estudos,
@@ -92,12 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const norm = items
       .filter(it => it && typeof it === "object")
       .map(it => ({
-        code: (it.code ?? "").toString(),
-        label: (it.label ?? "").toString(),
-        provider: (it.provider ?? "").toString(),
-        url: (it.url ?? "").toString(),
+        code: (it.code ?? "").toString().trim(),
+        label: (it.label ?? "").toString().trim(),
+        provider: (it.provider ?? "").toString().trim(),
+        url: (it.url ?? "").toString().trim(),
         checked: (typeof it.checked === "boolean") ? it.checked : true,
-        img: (it.img ?? "").toString(),
+        img: (it.img ?? "").toString().trim(),
       }))
       .filter(it => it.url); // só itens que tenham URL
 
@@ -210,28 +215,321 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================================
+  //  Editor UI (injetado via JS; sem mudar HTML)
+  // =========================================
+
+  let activeItems = []; // fonte atual (após resolver LS/JSON/JS)
+
+  function downloadTextFile(filename, content, mime = "application/json;charset=utf-8") {
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function createEl(tag, attrs = {}, children = []) {
+    const el = document.createElement(tag);
+    Object.entries(attrs).forEach(([k, v]) => {
+      if (k === "class") el.className = v;
+      else if (k === "style") el.setAttribute("style", v);
+      else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v);
+    });
+    (Array.isArray(children) ? children : [children]).forEach(c => {
+      if (c == null) return;
+      if (typeof c === "string") el.appendChild(document.createTextNode(c));
+      else el.appendChild(c);
+    });
+    return el;
+  }
+
+  function ensureEditorButton() {
+    const openAllBtn = document.getElementById("openAllCover");
+    if (!openAllBtn) return;
+
+    // Evita duplicar
+    if (document.getElementById("editTeamBtn")) return;
+
+    const editBtn = createEl("button", {
+      id: "editTeamBtn",
+      class: openAllBtn.className || "btn cover-open-all",
+      type: "button",
+      style: "margin-top:8px;",
+    }, "✏️ Editar equipe (itens)");
+
+    // Insere logo após o botão "Abrir todas as abas"
+    openAllBtn.insertAdjacentElement("afterend", editBtn);
+
+    editBtn.addEventListener("click", () => openEditorModal());
+  }
+
+  function openEditorModal() {
+    // Overlay
+    const overlay = createEl("div", {
+      id: "teamEditorOverlay",
+      style: [
+        "position:fixed",
+        "inset:0",
+        "background:rgba(0,0,0,.6)",
+        "z-index:9999",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "padding:16px",
+      ].join(";")
+    });
+
+    // Modal
+    const modal = createEl("div", {
+      style: [
+        "width:min(920px, 96vw)",
+        "max-height:90vh",
+        "overflow:auto",
+        "background:var(--card-bg, #111827)",
+        "color:var(--text, #e5e7eb)",
+        "border:1px solid rgba(255,255,255,.12)",
+        "border-radius:12px",
+        "box-shadow:0 16px 50px rgba(0,0,0,.5)",
+        "padding:14px",
+      ].join(";")
+    });
+
+    const header = createEl("div", { style: "display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px;" }, [
+      createEl("div", {}, [
+        createEl("div", { style: "font-weight:700;font-size:16px;" }, `Editor de equipe — ${group.name || group.id}`),
+        createEl("div", { style: "opacity:.8;font-size:12px;margin-top:2px;" },
+          `Chave: ${LS_ITEMS_KEY}`
+        ),
+      ]),
+      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;", onclick: () => overlay.remove() }, "✖ Fechar")
+    ]);
+
+    // Área de ações
+    const actions = createEl("div", { style: "display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;" });
+
+    const btnSave = createEl("button", { type: "button", class: "btn" }, "💾 Salvar (local)");
+    const btnExport = createEl("button", { type: "button", class: "btn" }, "⬇️ Exportar .items.json");
+    const btnImport = createEl("button", { type: "button", class: "btn" }, "⬆️ Importar .items.json");
+    const btnClear = createEl("button", { type: "button", class: "btn" }, "♻️ Limpar override (local)");
+    const btnReload = createEl("button", { type: "button", class: "btn" }, "🔄 Recarregar do HUB");
+
+    actions.append(btnSave, btnExport, btnImport, btnClear, btnReload);
+
+    // Import file input (hidden)
+    const fileInput = createEl("input", { type: "file", accept: "application/json,.json", style: "display:none" });
+    btnImport.addEventListener("click", () => fileInput.click());
+
+    // Editor JSON (fonte de verdade)
+    const textarea = createEl("textarea", {
+      id: "teamEditorTextarea",
+      style: [
+        "width:100%",
+        "min-height:220px",
+        "font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        "font-size:12px",
+        "line-height:1.4",
+        "background:rgba(0,0,0,.25)",
+        "color:inherit",
+        "border:1px solid rgba(255,255,255,.16)",
+        "border-radius:10px",
+        "padding:10px",
+        "box-sizing:border-box",
+      ].join(";")
+    });
+
+    function setTextareaFromItems(items) {
+      textarea.value = JSON.stringify(items || [], null, 2);
+    }
+
+    function getItemsFromTextarea() {
+      const parsed = safeJsonParse(textarea.value);
+      const norm = normalizeItems(parsed);
+      return norm || [];
+    }
+
+    // Seção "Inserir item"
+    const addTitle = createEl("div", { style: "margin-top:10px;font-weight:700;" }, "Inserir item (linha completa)");
+    const grid = createEl("div", {
+      style: [
+        "display:grid",
+        "grid-template-columns:repeat(6, minmax(0, 1fr))",
+        "gap:8px",
+        "margin-top:8px",
+      ].join(";")
+    });
+
+    const inCode = createEl("input", { placeholder: "code (ex: M01)", style: "padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:inherit;" });
+    const inLabel = createEl("input", { placeholder: "label", style: "padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:inherit;" });
+    const inProvider = createEl("input", { placeholder: "provider", style: "padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:inherit;" });
+    const inUrl = createEl("input", { placeholder: "url (https://...)", style: "padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:inherit;grid-column:span 2;" });
+    const inChecked = createEl("select", { style: "padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:inherit;" }, [
+      createEl("option", { value: "true" }, "checked: true"),
+      createEl("option", { value: "false" }, "checked: false"),
+    ]);
+
+    const btnAdd = createEl("button", { type: "button", class: "btn", style: "white-space:nowrap;" }, "➕ Inserir");
+
+    // Responsivo: em telas pequenas, a grid vira coluna
+    const responsiveHint = createEl("div", { style: "opacity:.75;font-size:12px;margin-top:6px;" },
+      "Dica: você pode editar direto no JSON acima, ou usar o bloco de inserção para adicionar uma linha completa."
+    );
+
+    // Ajuste grid para mobile via JS (sem CSS externo)
+    if (window.matchMedia && window.matchMedia("(max-width: 700px)").matches) {
+      grid.style.gridTemplateColumns = "1fr";
+      inUrl.style.gridColumn = "span 1";
+    }
+
+    grid.append(inCode, inLabel, inProvider, inUrl, inChecked, btnAdd);
+
+    btnAdd.addEventListener("click", () => {
+      const item = {
+        code: (inCode.value || "").trim(),
+        label: (inLabel.value || "").trim(),
+        provider: (inProvider.value || "").trim(),
+        url: (inUrl.value || "").trim(),
+        checked: inChecked.value === "true",
+        img: "",
+      };
+
+      if (!item.url) {
+        alert("Informe uma URL válida para inserir o item.");
+        return;
+      }
+
+      const items = getItemsFromTextarea();
+      items.push(item);
+      setTextareaFromItems(items);
+
+      // limpa inputs básicos
+      inCode.value = "";
+      inLabel.value = "";
+      inProvider.value = "";
+      inUrl.value = "";
+      inChecked.value = "true";
+    });
+
+    // Rodapé de status
+    const status = createEl("div", { style: "margin-top:10px;font-size:12px;opacity:.85;" }, "");
+
+    function setStatus(msg) {
+      status.textContent = msg || "";
+    }
+
+    // Ações
+    btnSave.addEventListener("click", () => {
+      const items = getItemsFromTextarea();
+      localStorage.setItem(LS_ITEMS_KEY, JSON.stringify(items));
+      activeItems = items;
+
+      renderIAList(activeItems);
+      bindOpenAllButton(activeItems);
+
+      setStatus("✅ Salvo no localStorage (override ativo).");
+    });
+
+    btnExport.addEventListener("click", () => {
+      const items = getItemsFromTextarea();
+      const content = JSON.stringify({ items }, null, 2);
+      downloadTextFile(`${groupId}.items.json`, content, "application/json;charset=utf-8");
+      setStatus("⬇️ Exportado. (Agora é só subir esse arquivo no GitHub, se quiser versionar.)");
+    });
+
+    btnClear.addEventListener("click", () => {
+      localStorage.removeItem(LS_ITEMS_KEY);
+      setStatus("♻️ Override removido. Recarregando fonte padrão...");
+      overlay.remove();
+      location.reload();
+    });
+
+    btnReload.addEventListener("click", async () => {
+      const lsItems = loadItemsFromLocalStorage();
+      if (lsItems) {
+        setTextareaFromItems(lsItems);
+        setStatus("🔄 Recarregado do localStorage (override ativo).");
+        return;
+      }
+      const fileItems = await loadItemsFromJsonFile();
+      if (fileItems) {
+        setTextareaFromItems(fileItems);
+        setStatus("🔄 Recarregado do arquivo .items.json.");
+        return;
+      }
+      const fallback = normalizeItems(group.items) || [];
+      setTextareaFromItems(fallback);
+      setStatus("🔄 Recarregado do fallback (group.items do JS).");
+    });
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const raw = (reader.result || "").toString();
+        const data = safeJsonParse(raw);
+
+        const candidate = Array.isArray(data) ? data : data?.items;
+        const norm = normalizeItems(candidate);
+
+        if (!norm) {
+          alert("Arquivo inválido. Esperado: { items: [...] } ou [...]");
+          return;
+        }
+
+        setTextareaFromItems(norm);
+        setStatus("⬆️ Importado. Agora clique em “Salvar (local)” para ativar o override.");
+      };
+      reader.readAsText(file);
+    });
+
+    // Conteúdo inicial do editor: preferir a fonte ativa (activeItems).
+    setTextareaFromItems(activeItems);
+
+    modal.append(header, actions, fileInput, textarea, addTitle, grid, responsiveHint, status);
+    overlay.appendChild(modal);
+
+    // Fecha ao clicar fora do modal
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    document.body.appendChild(overlay);
+  }
+
+  // =========================================
   //  Load items using Option 3 priority
   // =========================================
   (async () => {
     // 1) LocalStorage override
     const lsItems = loadItemsFromLocalStorage();
     if (lsItems) {
-      renderIAList(lsItems);
-      bindOpenAllButton(lsItems);
+      activeItems = lsItems;
+      renderIAList(activeItems);
+      bindOpenAllButton(activeItems);
+      ensureEditorButton();
       return;
     }
 
     // 2) JSON file override (descriptions/<groupId>.items.json)
     const fileItems = await loadItemsFromJsonFile();
     if (fileItems) {
-      renderIAList(fileItems);
-      bindOpenAllButton(fileItems);
+      activeItems = fileItems;
+      renderIAList(activeItems);
+      bindOpenAllButton(activeItems);
+      ensureEditorButton();
       return;
     }
 
     // 3) Fallback to JS group.items (se existir)
-    const fallback = normalizeItems(group.items) || [];
-    renderIAList(fallback);
-    bindOpenAllButton(fallback);
+    activeItems = normalizeItems(group.items) || [];
+    renderIAList(activeItems);
+    bindOpenAllButton(activeItems);
+    ensureEditorButton();
   })();
 });
