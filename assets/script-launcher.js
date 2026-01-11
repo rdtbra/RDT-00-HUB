@@ -3,7 +3,7 @@
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-launcher.js
- * Função: Orquestrador Final - Sem campos de estado (collapsed)
+ * Função: Orquestrador Final - Exportação window.GROUPS e Sem Lixo
  * ============================================================
  */
 
@@ -190,9 +190,9 @@
     if (addGroupBtn) addGroupBtn.onclick = () => openModal("create");
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        // Remove 'collapsed' de todos os itens antes de exportar o backup .js
+        // Remove 'collapsed' e exporta como window.GROUPS
         const cleanGroups = activeGroups.map(({ collapsed, ...rest }) => rest);
-        const content = `/** Backup Consolidado **/\nconst GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
+        const content = `/** Backup Consolidado **/\nwindow.GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
         downloadFile("estudos-groups.js", content, "text/javascript");
       };
     }
@@ -247,7 +247,6 @@
       };
 
       card.querySelector("[data-act='export-disco']").onclick = () => {
-        // Exportação individual estritamente sem campos de UI
         const h = {id:g.id, name:g.name, color:g.color, icon:g.icon, iconHref:g.iconHref};
         downloadFile(`${g.id}.group.json`, JSON.stringify(h, null, 2));
         downloadFile(`${g.id}.items.json`, JSON.stringify({items:g.items}, null, 2));
