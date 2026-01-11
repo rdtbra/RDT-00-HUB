@@ -188,59 +188,107 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeItems = [];
 
-  function openEditorModal() {
+function openEditorModal() {
     setEditorState({ open: true, draft: getEditorState()?.draft || null });
 
     const overlay = createEl("div", {
       id: "teamEditorOverlay",
-      style: "position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;"
+      style: "position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;"
     });
 
     const modal = createEl("div", {
-      style: "width:min(920px, 96vw);max-height:90vh;overflow:auto;background:var(--card-bg, #111827);color:var(--text, #e5e7eb);border:1px solid rgba(255,255,255,.12);border-radius:12px;box-shadow:0 16px 50px rgba(0,0,0,.5);padding:14px;"
+      style: "width:min(920px, 96vw);max-height:90vh;overflow:auto;background:var(--card-bg, #111827);color:var(--text, #e5e7eb);border:1px solid rgba(255,255,255,.12);border-radius:12px;box-shadow:0 16px 50px rgba(0,0,0,.5);padding:20px;display:flex;flex-direction:column;gap:15px;"
     });
 
-    // CORREÇÃO: Removido o stopPropagation que travava a janela!
-    
-    const header = createEl("div", { style: "display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px;" }, [
+    const header = createEl("div", { style: "display:flex;align-items:center;justify-content:space-between;" }, [
       createEl("div", {}, [
-        createEl("div", { style: "font-weight:700;font-size:16px;" }, `Editor de equipe — ${group.name || group.id}`),
-        createEl("div", { style: "opacity:.8;font-size:11px;" }, `Chave: ${LS_ITEMS_KEY}`),
+        createEl("div", { style: "font-weight:700;font-size:1.2rem;" }, `Editor de Equipe: ${group.name || group.id}`),
+        createEl("div", { style: "opacity:.6;font-size:0.8rem;" }, `ID do Grupo: ${groupId}`)
       ]),
-      createEl("button", { type: "button", class: "btn", onclick: () => { clearEditorState(); overlay.remove(); } }, "✖ Fechar")
+      createEl("button", { type: "button", class: "btn", onclick: () => { clearEditorState(); overlay.remove(); } }, "✖")
     ]);
 
+    // --- Bloco de Inserção Automática ---
+    const insertBox = createEl("div", { style: "background:rgba(255,255,255,0.05);padding:15px;border-radius:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;" });
+    
+    const inCode = createEl("input", { placeholder: "Cód (M01)", style: "flex:1;min-width:60px;padding:8px;background:#000;border:1px solid #444;color:#fff;border-radius:5px;" });
+    const inLabel = createEl("input", { placeholder: "Label (ChatGPT)", style: "flex:2;min-width:120px;padding:8px;background:#000;border:1px solid #444;color:#fff;border-radius:5px;" });
+    const inProv = createEl("input", { placeholder: "Provider", style: "flex:1;min-width:100px;padding:8px;background:#000;border:1px solid #444;color:#fff;border-radius:5px;" });
+    const inUrl = createEl("input", { placeholder: "URL (https://...)", style: "flex:3;min-width:180px;padding:8px;background:#000;border:1px solid #444;color:#fff;border-radius:5px;" });
+    
+    const btnInsert = createEl("button", { type: "button", class: "btn", style: "background:var(--accent, #8b86ff);", onclick: () => {
+      if (!inUrl.value) return alert("A URL é obrigatória!");
+      const newItem = {
+        code: inCode.value || "M00",
+        label: inLabel.value || "Novo Item",
+        provider: inProv.value || "",
+        url: inUrl.value,
+        checked: true
+      };
+      const currentItems = safeJsonParse(textarea.value) || [];
+      currentItems.push(newItem);
+      textarea.value = JSON.stringify(currentItems, null, 2);
+      inUrl.value = ""; inCode.value = ""; inLabel.value = ""; // Limpa
+    }}, "➕ Inserir Item");
+
+    insertBox.append(inCode, inLabel, inProv, inUrl, btnInsert);
+
+    // --- Área do JSON ---
     const textarea = createEl("textarea", {
-      style: "width:100%;min-height:220px;font-family:monospace;font-size:12px;background:rgba(0,0,0,.3);color:inherit;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;box-sizing:border-box;"
+      style: "width:100%;min-height:250px;font-family:monospace;font-size:12px;background:#0a0a0a;color:#8b86ff;border:1px solid #333;border-radius:8px;padding:12px;box-sizing:border-box;resize:vertical;"
     });
-
     textarea.value = JSON.stringify(activeItems, null, 2);
-    textarea.addEventListener("input", () => setEditorState({ open: true, draft: textarea.value }));
 
-    const actions = createEl("div", { style: "display:flex;gap:8px;margin:12px 0;justify-content:flex-end;" }, [
-      createEl("button", { type: "button", class: "btn", onclick: () => overlay.remove() }, "Cancelar"),
-      createEl("button", { type: "button", class: "btn", style: "background:#8b86ff", onclick: () => {
-        const parsed = safeJsonParse(textarea.value);
-        const norm = normalizeItems(parsed);
-        if (norm) {
-          localStorage.setItem(LS_ITEMS_KEY, JSON.stringify(norm));
-          activeItems = norm;
-          renderIAList(activeItems);
-          bindOpenAllButton(activeItems);
-          alert("✅ Salvo com sucesso!");
-          clearEditorState();
-          overlay.remove();
-        } else {
-          alert("Erro: JSON inválido.");
-        }
-      }}, "💾 Salvar")
-    ]);
+    // --- Botões de Ação Inferiores ---
+    const footer = createEl("div", { style: "display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;" });
+    
+    const leftActions = createEl("div", { style: "display:flex;gap:8px;" });
+    const btnImport = createEl("button", { type: "button", class: "btn", onclick: () => {
+      const fin = createEl("input", { type: "file", accept: ".json" });
+      fin.onchange = e => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const data = safeJsonParse(reader.result);
+          textarea.value = JSON.stringify(Array.isArray(data) ? data : data?.items || [], null, 2);
+        };
+        reader.readAsText(e.target.files[0]);
+      };
+      fin.click();
+    }}, "⬆️ Importar JSON");
 
-    modal.append(header, textarea, actions);
+    const btnExport = createEl("button", { type: "button", class: "btn", onclick: () => {
+      const content = JSON.stringify({ items: safeJsonParse(textarea.value) }, null, 2);
+      const blob = new Blob([content], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${groupId}.items.json`;
+      a.click();
+    }}, "⬇️ Exportar .items.json");
+
+    leftActions.append(btnImport, btnExport);
+
+    const rightActions = createEl("div", { style: "display:flex;gap:8px;" });
+    const btnCancel = createEl("button", { type: "button", class: "btn", onclick: () => overlay.remove() }, "Cancelar");
+    const btnSave = createEl("button", { type: "button", class: "btn", style: "background:#22c55e;color:#fff;", onclick: () => {
+      const norm = normalizeItems(safeJsonParse(textarea.value));
+      if (norm) {
+        localStorage.setItem(LS_ITEMS_KEY, JSON.stringify(norm));
+        activeItems = norm;
+        renderIAList(activeItems);
+        bindOpenAllButton(activeItems);
+        overlay.remove();
+        alert("Configuração salva no navegador!");
+      } else { alert("Erro: JSON inválido."); }
+    }}, "💾 Salvar Local");
+
+    rightActions.append(btnCancel, btnSave);
+    footer.append(leftActions, rightActions);
+
+    modal.append(header, insertBox, textarea, footer);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
   }
-
+  
   function ensureEditorButton() {
     if (document.getElementById("editTeamBtn")) return;
     const openAllBtn = document.getElementById("openAllCover");
