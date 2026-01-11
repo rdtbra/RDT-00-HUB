@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-cover.js (VERSÃO FINAL CONSOLIDADA)
+ * Arquivo: script-cover.js (Correção de Duplicação de Aba)
  * ============================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,32 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupId = params.get("group");
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  // --- 1. Sincronização de Dados (Identidade do Grupo) ---
+  // --- 1. Sincronização de Identidade ---
   function loadGroupData() {
-    // Tenta primeiro o LocalStorage (edições feitas no Launcher)
     const localHeader = localStorage.getItem(`ia-launcher-config:Estudos:group:${groupId}`);
     if (localHeader) return JSON.parse(localHeader);
-    
-    // Fallback para window.GROUPS (Pessoalgroups.js / Estudogroups.js)
     const groups = Array.isArray(window.GROUPS) ? window.GROUPS : [];
     return groups.find(g => g.id === groupId);
   }
 
   const group = loadGroupData();
-  if (!groupId || !group) {
-    const t = document.getElementById("coverTitle") || document.getElementById("groupTitle");
-    if (t) t.textContent = "Grupo não encontrado";
-    return;
-  }
+  if (!groupId || !group) return;
 
   const LS_ITEMS_KEY = `ia-launcher-config:${APP_ID}:items:${groupId}`;
 
-  // Elementos da UI principal
+  // Elementos da Interface
   const titleEl = document.getElementById("coverTitle") || document.getElementById("groupTitle");
   const imgEl   = document.getElementById("coverImage") || document.getElementById("groupIcon");
   const iaList  = document.getElementById("iaList");
 
-  // Aplicar Identidade Visual (Nome e Cor)
   if (titleEl) {
     titleEl.textContent = group.name;
     titleEl.style.color = group.color || "#8b86ff";
@@ -43,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (imgEl) imgEl.src = group.icon || "";
   document.title = group.name || "Capa";
 
-  // --- 2. Lógica de Gestão de Itens (IAs) ---
+  // --- 2. Lógica de Itens ---
   const safeJsonParse = (str) => { try { return JSON.parse(str); } catch { return null; } };
   
   function loadItems() {
@@ -55,59 +47,53 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderIAList(items) {
     if (!iaList) return;
     iaList.innerHTML = "";
-    if (!items.length) {
-      iaList.innerHTML = "<li>Nenhum recurso configurado.</li>";
-      return;
-    }
     items.forEach(item => {
       const li = document.createElement("li");
       li.className = "ia-item-row";
-      li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.code} - ${item.label}</a>`;
+      li.innerHTML = `<a href="${item.url}" target="_blank">${item.code} - ${item.label}</a>`;
       iaList.appendChild(li);
     });
   }
 
-  // --- 3. CORREÇÃO: Ações dos Botões Específicos ---
+  // --- 3. CORREÇÃO: Bloqueio do comportamento padrão (Evita abrir capa de novo) ---
 
-  // Botão Abrir Todas as Abas
-  const btnOpenAll = document.getElementById("openAllCover") || Array.from(document.querySelectorAll('a, button')).find(el => el.textContent.includes('Abrir todas'));
+  // Botão Abrir Tudo
+  const btnOpenAll = document.getElementById("openAllCover");
   if (btnOpenAll) {
     btnOpenAll.onclick = (e) => {
-      e.preventDefault();
+      e.preventDefault(); // IMPEDE A CAPA DE ABRIR NOVAMENTE
       const items = loadItems();
       const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
       
-      if (urls.length === 0) return alert("Nenhuma URL válida encontrada na lista.");
+      if (urls.length === 0) return alert("Nenhuma URL disponível.");
 
-      // Delay de 300ms entre aberturas para evitar bloqueio de pop-up do navegador
       urls.forEach((url, index) => {
-        setTimeout(() => { window.open(url, "_blank", "noopener,noreferrer"); }, index * 300);
+        setTimeout(() => { window.open(url, "_blank"); }, index * 300);
       });
     };
   }
 
-  // Botão Abrir Material de Referência (Livro/Documento)
-  const btnRef = document.getElementById("coverRefLink") || document.getElementById("openReference") || Array.from(document.querySelectorAll('a')).find(el => el.textContent.includes('material de referência'));
+  // Botão Material de Referência (Livro)
+  const btnRef = document.getElementById("openReference");
   if (btnRef) {
     btnRef.onclick = (e) => {
-      // Prioriza iconHref (definido no launcher) ou campos alternativos de livro
+      e.preventDefault(); // IMPEDE A CAPA DE ABRIR NOVAMENTE
       const refUrl = group.iconHref || group.book || group.reference;
-      if (refUrl && refUrl !== "#") {
-        window.open(refUrl, "_blank", "noopener,noreferrer");
+      if (refUrl && refUrl !== "#" && refUrl !== "") {
+        window.open(refUrl, "_blank");
       } else {
-        e.preventDefault();
-        alert("Nenhum material de referência (URL do livro) cadastrado para este grupo.");
+        alert("Nenhum material de referência cadastrado.");
       }
     };
   }
 
-  // --- 4. Sistema Auxiliar de UI ---
+  // --- 4. Auxiliares e Editor Híbrido ---
   function createEl(tag, attrs = {}, children = []) {
     const el = document.createElement(tag);
     Object.entries(attrs).forEach(([k, v]) => {
       if (k === "onclick") el.onclick = v;
       else if (k === "style" && typeof v === "object") Object.assign(el.style, v);
-      else el.setAttribute(k === "class" ? "class" : k, v);
+      else el.setAttribute(k, v);
     });
     (Array.isArray(children) ? children : [children]).forEach(c => {
       if (typeof c === "string") el.appendChild(document.createTextNode(c));
@@ -116,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return el;
   }
 
-  // --- 5. Editor Híbrido (Campos de Inserção + Edição JSON Direta) ---
   window.openEditorModal = function() {
     const activeItems = loadItems();
     const overlay = createEl("div", { style: "position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" });
@@ -124,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modal.innerHTML = `<h3 style="margin:0">🛠️ Editor Híbrido: ${group.name}</h3>`;
 
-    // Campos para inserção rápida
     const inputRow = createEl("div", { style: "display:grid;grid-template-columns:80px 1fr 1fr 2fr 100px;gap:10px;background:#111;padding:15px;border-radius:8px;" });
     const inCode = createEl("input", { placeholder: "Cód", style: "background:#222;border:1px solid #444;color:#fff;padding:8px;" });
     const inLabel = createEl("input", { placeholder: "Nome", style: "background:#222;border:1px solid #444;color:#fff;padding:8px;" });
@@ -132,33 +116,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const inUrl = createEl("input", { placeholder: "URL", style: "background:#222;border:1px solid #444;color:#fff;padding:8px;" });
     
     const btnAdd = createEl("button", { class: "btn", style: "background:#8b86ff;", onclick: () => {
-      if (!inUrl.value) return alert("A URL é obrigatória para inserir.");
+      if (!inUrl.value) return alert("URL necessária");
       const current = safeJsonParse(txtArea.value) || [];
-      current.push({ code: inCode.value || "M00", label: inLabel.value || "Novo Item", provider: inProv.value || "", url: inUrl.value, checked: true });
+      current.push({ code: inCode.value, label: inLabel.value, provider: inProv.value, url: inUrl.value, checked: true });
       txtArea.value = JSON.stringify(current, null, 2);
       inCode.value = ""; inLabel.value = ""; inUrl.value = "";
     }}, "➕ Inserir");
 
     inputRow.append(inCode, inLabel, inProv, inUrl, btnAdd);
 
-    // Área de Texto JSON para controle total
-    const txtArea = createEl("textarea", { id: "jsonEd", style: "width:100%;height:350px;background:#000;color:#8b86ff;font-family:monospace;padding:15px;border:1px solid #333;font-size:13px;resize:vertical;" });
+    const txtArea = createEl("textarea", { id: "jsonEd", style: "width:100%;height:350px;background:#000;color:#8b86ff;font-family:monospace;padding:15px;border:1px solid #333;font-size:13px;" });
     txtArea.value = JSON.stringify(activeItems, null, 2);
 
-    const footer = createEl("div", { style: "display:flex;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:10px;" }, [
+    const footer = createEl("div", { style: "display:flex;justify-content:space-between;margin-top:10px;" }, [
       createEl("div", { style: "display:flex;gap:10px;" }, [
         createEl("button", { class: "btn", onclick: () => {
-          const fin = createEl("input", { type: "file", accept: ".json" });
-          fin.onchange = e => {
+          const fin = createEl("input", { type: "file" });
+          fin.onchange = ev => {
             const reader = new FileReader();
             reader.onload = () => txtArea.value = JSON.stringify(safeJsonParse(reader.result), null, 2);
-            reader.readAsText(e.target.files[0]);
+            reader.readAsText(ev.target.files[0]);
           };
           fin.click();
         }}, "⬆️ Importar"),
         createEl("button", { class: "btn", onclick: () => {
-          const content = JSON.stringify({ items: safeJsonParse(txtArea.value) }, null, 2);
-          const blob = new Blob([content], {type: "application/json"});
+          const blob = new Blob([txtArea.value], {type: "application/json"});
           const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${groupId}.items.json`; a.click();
         }}, "⬇️ Exportar")
       ]),
@@ -166,11 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
         createEl("button", { class: "btn", style: "background:#444;", onclick: () => overlay.remove() }, "Cancelar"),
         createEl("button", { class: "btn", style: "background:#22c55e;font-weight:bold;", onclick: () => {
           const data = safeJsonParse(txtArea.value);
-          if (!data) return alert("JSON inválido!");
+          if (!data) return alert("JSON inválido");
           localStorage.setItem(LS_ITEMS_KEY, JSON.stringify(data));
           renderIAList(data);
           overlay.remove();
-        }}, "💾 Salvar Alterações")
+        }}, "💾 Salvar Local")
       ])
     ]);
 
@@ -179,16 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(overlay);
   };
 
-  // --- 6. Inicialização ---
+  // --- 5. Inicialização ---
   (async () => {
     const items = loadItems();
     renderIAList(items);
     
-    // Inserir botão de edição ao lado do "Abrir todas as abas"
-    const openBtnRef = document.getElementById("openAllCover") || Array.from(document.querySelectorAll('a, button')).find(el => el.textContent.includes('Abrir todas'));
-    if (openBtnRef && !document.getElementById("editTeamBtn")) {
+    const openAllBtnTrigger = document.getElementById("openAllCover");
+    if (openAllBtnTrigger && !document.getElementById("editTeamBtn")) {
       const btn = createEl("button", { id: "editTeamBtn", class: "btn", style: "margin-left:10px;", onclick: openEditorModal }, "✏️ Editar itens");
-      openBtnRef.insertAdjacentElement("afterend", btn);
+      openAllBtnTrigger.insertAdjacentElement("afterend", btn);
     }
   })();
 });
