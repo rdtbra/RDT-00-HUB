@@ -471,9 +471,6 @@
           }
         });
       });
-        save(groups);
-        render();
-      });
 
       editGroupBtn.addEventListener("click", () => {
         openGroupFormModal({
