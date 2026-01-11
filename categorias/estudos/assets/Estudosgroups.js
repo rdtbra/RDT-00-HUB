@@ -2295,6 +2295,41 @@ window.GROUPS = [
         "provider": "Chathubgg",
         "url": "https://app.chathub.gg/chat/cloud-grok-4?cid=046a560b-d065-4a1b-89fd-8b140c379fe3",
         "checked": true
+      },
+      {
+        "code": "M03",
+        "label": "Gemini 3 Pro",
+        "provider": "Optmiz.AI",
+        "url": "https://chat.otimizz.ai/chat?conversationId=a421e574-ae34-4a32-a7fb-c7b1e3d8ffe5",
+        "checked": true
+      },
+      {
+        "code": "M04",
+        "label": "Claude Sonnet 4.5",
+        "provider": "Poe.com",
+        "url": "https://poe.com/chat/35kgjzxk8nyyhqs6sf",
+        "checked": true
+      },
+      {
+        "code": "M05",
+        "label": "zai-org/GLM-4.7",
+        "provider": "HuggingFace",
+        "url": "https://huggingface.co/chat/conversation/696430ecd51771ff73b48766",
+        "checked": true
+      },
+      {
+        "code": "SUP",
+        "label": "ChatGPT 5.2",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6934e636ece881919c8cd6fa28a149b4/c/6964315c-5244-832f-8823-f461409d6c1e",
+        "checked": true
+      },
+      {
+        "code": "REV",
+        "label": "Qwen3 Coder 480B",
+        "provider": "ChatBox.AI",
+        "url": "https://web.chatboxai.app/session/0f822158-30bf-49eb-bcdb-e0999dbbdfa8",
+        "checked": true
       }
     ]
   }
