@@ -1,12 +1,8 @@
 // script-launcher.js
 // Lógica compartilhada dos launchers (EMT, DV, PRJ, Pessoal, Beyond, etc.).
-// Requer variáveis globais definidas ANTES deste script:
+// Requer duas variáveis globais definidas ANTES deste script:
 //   const KEY = "ia-launcher-config:AlgumaCoisa";
 //   const DEFAULT_GROUPS = [ ... ];
-//
-// (NOVO) Caso DEFAULT_GROUPS não exista, tentamos usar window.GROUPS como fallback.
-// (NOVO) Implementa o botão +Grupo (#addGroup) para criar grupo inteiro via UI,
-//       com opção de pré-criar a equipe padrão (M01..M05, SUP, REV).
 
 (function () {
   // --- Validação ---
@@ -14,27 +10,22 @@
     console.error("[launcher] Variável global KEY não definida.");
     return;
   }
-
-  // Fallback: se DEFAULT_GROUPS não foi definido no HTML, tentamos window.GROUPS.
-  // Mantém compatibilidade com hubs antigos e evita o erro "DEFAULT_GROUPS is not defined".
-  const DEFAULT_GROUPS_SAFE = (function () {
-    if (typeof DEFAULT_GROUPS !== "undefined" && Array.isArray(DEFAULT_GROUPS)) return DEFAULT_GROUPS;
-    if (Array.isArray(window.GROUPS)) return window.GROUPS;
-    console.error("[launcher] DEFAULT_GROUPS não definida e window.GROUPS não disponível.");
-    return [];
-  })();
+  if (typeof DEFAULT_GROUPS === "undefined") {
+    console.error("[launcher] DEFAULT_GROUPS não definida.");
+    return;
+  }
 
   // --- Storage ---
   function load() {
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return DEFAULT_GROUPS_SAFE;
+      if (!raw) return DEFAULT_GROUPS;
       const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return DEFAULT_GROUPS_SAFE;
+      if (!Array.isArray(parsed)) return DEFAULT_GROUPS;
       return parsed;
     } catch (e) {
       console.warn("[launcher] Falha ao carregar storage.", e);
-      return DEFAULT_GROUPS_SAFE;
+      return DEFAULT_GROUPS;
     }
   }
 
@@ -78,47 +69,9 @@
     return new Promise(r => setTimeout(r, ms));
   }
 
-  function slugifyId(input) {
-    return (input || "")
-      .toString()
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9\-_.]/g, "")
-      .replace(/\-+/g, "-")
-      .replace(/^\-|\-$/g, "");
-  }
-
   // --- Estado ---
   let groups = load();
   save(groups);
-
-  function isIdAvailable(id) {
-    return !groups.some(g => (g.id || "") === id);
-  }
-
-  function makeUniqueId(base) {
-    const b = slugifyId(base) || "grupo";
-    if (isIdAvailable(b)) return b;
-    for (let i = 2; i < 9999; i++) {
-      const candidate = `${b}-${i}`;
-      if (isIdAvailable(candidate)) return candidate;
-    }
-    return `${b}-${Date.now()}`;
-  }
-
-  function teamTemplate7() {
-    // URLs começam vazias: você preenche depois pelo +Item ou editando os campos.
-    return [
-      { code: "M01", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "M02", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "M03", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "M04", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "M05", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "SUP", label: "", provider: "", url: "", checked: true, img: "" },
-      { code: "REV", label: "", provider: "", url: "", checked: true, img: "" }
-    ];
-  }
 
   // --- DOM ---
   const groupsEl = document.getElementById("groups");
@@ -231,7 +184,7 @@
         const coverUrl = GROUP_COVER_PAGE + "?group=" + encodeURIComponent(g.id || "");
         window.open(coverUrl, "_blank", "noopener,noreferrer");
       });
-
+      
       addItemBtn.addEventListener("click", () => {
         const url = prompt("Cole a URL (https://...)");
         if (!url) return;
@@ -239,7 +192,6 @@
         const label = prompt("Nome da IA/site") || url;
         const provider = prompt("Empresa/Fornecedor", "");
 
-        g.items = Array.isArray(g.items) ? g.items : [];
         g.items.push({
           code,
           label,
@@ -261,23 +213,6 @@
         if (icon === null) return;
         const iconHref = prompt("Link do ícone:", g.iconHref || "#");
         if (iconHref === null) return;
-
-        // id só se você quiser mudar — mantém estável por padrão
-        const changeId = confirm("Deseja alterar o ID do grupo? (Isso afeta links de capa e arquivos descriptions/)");
-        if (changeId) {
-          const newIdRaw = prompt("Novo ID (ex.: emt-99-xx):", g.id || "");
-          if (newIdRaw === null) return;
-          const newId = slugifyId(newIdRaw);
-          if (!newId) {
-            alert("ID inválido.");
-            return;
-          }
-          if (newId !== g.id && !isIdAvailable(newId)) {
-            alert("Esse ID já existe. Escolha outro.");
-            return;
-          }
-          g.id = newId;
-        }
 
         g.name = name;
         g.color = color || "#8b86ff";
@@ -365,52 +300,6 @@
     });
   }
 
-  // --- Botão +Grupo (global) ---
-  if (addGroupBtn) {
-    addGroupBtn.addEventListener("click", () => {
-      const name = prompt("Nome do novo grupo:", "Novo Grupo");
-      if (name === null) return;
-
-      const suggestedId = makeUniqueId(name);
-      const idRaw = prompt("ID do grupo (ex.: emt-99-xx):", suggestedId);
-      if (idRaw === null) return;
-
-      const id = slugifyId(idRaw) || makeUniqueId("grupo");
-      if (!isIdAvailable(id)) {
-        alert("Esse ID já existe. Escolha outro.");
-        return;
-      }
-
-      const color = prompt("Cor (hex):", "#8b86ff");
-      if (color === null) return;
-
-      const icon = prompt("Ícone (URL ou path):", "");
-      if (icon === null) return;
-
-      const iconHref = prompt("Link do ícone/material (Google Drive etc.):", "#");
-      if (iconHref === null) return;
-
-      const prefill = confirm("Criar equipe padrão (M01..M05, SUP, REV) agora?");
-      const items = prefill ? teamTemplate7() : [];
-
-      const g = {
-        id,
-        name: name || "Grupo",
-        color: color || "#8b86ff",
-        icon: icon || "",
-        iconHref: iconHref || "#",
-        collapsed: false,
-        items
-      };
-
-      groups.unshift(g);
-      save(groups);
-      render();
-
-      alert("✅ Grupo criado! Você pode adicionar URLs com “+ Item” ou editar no grid.");
-    });
-  }
-
   // --- Exportar / Importar ---
   if (exportBtn) exportBtn.addEventListener("click", () => {
     try {
@@ -458,7 +347,7 @@
 
   if (resetBtn) resetBtn.addEventListener("click", () => {
     if (!confirm("Restaurar configuração padrão?")) return;
-    groups = DEFAULT_GROUPS_SAFE;
+    groups = DEFAULT_GROUPS;
     save(groups);
     render();
   });
