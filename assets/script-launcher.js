@@ -592,12 +592,11 @@
     });
   }
 
-// --- Lógica Corrigida do Botão +Grupo ---
+// --- Lógica Corrigida do Botão +Grupo (Com campo de ID) ---
   if (addGroupBtn) {
     addGroupBtn.addEventListener("click", () => {
-      // 1. Criamos o overlay
       const overlay = document.createElement("div");
-      overlay.id = "addGroupOverlay"; // ID importante para remoção
+      overlay.id = "addGroupOverlay"; 
       Object.assign(overlay.style, {
         position: "fixed", inset: "0", background: "rgba(0,0,0,0.8)",
         zIndex: "10000", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px"
@@ -610,15 +609,28 @@
         position: "relative"
       });
 
-      // 2. Adicionamos os três botões: Salvar, Cancelar e um 'X' de Fechar
+      // Geramos um ID inicial baseado no nome padrão para o campo não vir vazio
+      const initialId = makeUniqueId("Novo Grupo");
+
       modal.innerHTML = `
         <button id="mCloseX" style="position:absolute; top:10px; right:10px; background:none; border:none; color:#888; cursor:pointer; font-size:20px;">&times;</button>
         <h3 style="margin-top:0">🚀 Novo Grupo</h3>
         <div style="display:flex; flex-direction:column; gap:10px">
-          <label>Nome:</label><input id="mName" type="text" value="Novo Grupo" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
-          <label>Cor:</label><input id="mColor" type="color" value="#8b86ff" style="width:100%; height:40px; background:none; border:none">
-          <label>Ícone (URL):</label><input id="mIcon" type="text" placeholder="descriptions/img/icon.png" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
-          <label>Link Material:</label><input id="mIconHref" type="text" value="#" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          <label>Nome do Grupo:</label>
+          <input id="mName" type="text" value="Novo Grupo" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          
+          <label>ID do Grupo (Slug):</label>
+          <input id="mId" type="text" value="${initialId}" style="padding:8px; background:#111; border:1px solid #444; color:#aaa; font-family:monospace;" title="O ID deve ser único">
+          
+          <label>Cor:</label>
+          <input id="mColor" type="color" value="#8b86ff" style="width:100%; height:40px; background:none; border:none">
+          
+          <label>Ícone (URL):</label>
+          <input id="mIcon" type="text" placeholder="descriptions/img/icon.png" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          
+          <label>Link Material:</label>
+          <input id="mIconHref" type="text" value="#" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          
           <label><input type="checkbox" id="mPrefill" checked> Criar equipe padrão (M01..REV)</label>
         </div>
         <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end">
@@ -629,14 +641,29 @@
       overlay.appendChild(modal);
       document.body.appendChild(overlay);
 
+      // --- COMPORTAMENTO DINÂMICO ---
+      const inputName = document.getElementById("mName");
+      const inputId = document.getElementById("mId");
+
+      // Sugere um novo ID automaticamente enquanto você digita o nome
+      inputName.oninput = () => {
+        inputId.value = makeUniqueId(inputName.value);
+      };
+
       // --- FUNÇÕES DOS BOTÕES ---
 
-      // Botão SALVAR
       document.getElementById("mSave").onclick = () => {
-        const nameInput = document.getElementById("mName").value;
+        const finalId = slugifyId(inputId.value) || makeUniqueId(inputName.value);
+        
+        // Verificação final de ID único (por segurança)
+        if (!isIdAvailable(finalId)) {
+          alert("Erro: Este ID já está em uso. Por favor, escolha outro.");
+          return;
+        }
+
         const newGroup = {
-          id: makeUniqueId(nameInput),
-          name: nameInput || "Grupo Sem Nome",
+          id: finalId,
+          name: inputName.value || "Grupo Sem Nome",
           color: document.getElementById("mColor").value,
           icon: document.getElementById("mIcon").value,
           iconHref: document.getElementById("mIconHref").value,
@@ -645,20 +672,13 @@
         };
         
         groups.push(newGroup);
-        save(groups); // Salva no LocalStorage
-        render();     // Atualiza a tela
-        overlay.remove(); // Fecha a janela
-      };
-
-      // Botão CANCELAR
-      document.getElementById("mCancel").onclick = () => {
+        save(groups); 
+        render();     
         overlay.remove();
       };
 
-      // Botão FECHAR (o 'X' no topo)
-      document.getElementById("mCloseX").onclick = () => {
-        overlay.remove();
-      };
+      document.getElementById("mCancel").onclick = () => overlay.remove();
+      document.getElementById("mCloseX").onclick = () => overlay.remove();
     });
   }
 
