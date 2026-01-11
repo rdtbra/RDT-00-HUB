@@ -69,6 +69,225 @@
     return escapeHtml(str).replace(/"/g, "&quot;");
   }
 
+  // =========================================================
+  // UI Helpers: Modal FIXO (substitui prompt/confirm)
+  // - Não fecha ao clicar fora
+  // - Não some ao mudar foco/janelas (dentro do possível)
+  // =========================================================
+  function createEl(tag, attrs = {}, children = []) {
+    const el = document.createElement(tag);
+    Object.entries(attrs).forEach(([k, v]) => {
+      if (k === "class") el.className = v;
+      else if (k === "style") el.setAttribute("style", v);
+      else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2), v);
+      else if (v !== undefined && v !== null) el.setAttribute(k, v);
+    });
+    (Array.isArray(children) ? children : [children]).forEach(c => {
+      if (c == null) return;
+      if (typeof c === "string") el.appendChild(document.createTextNode(c));
+      else el.appendChild(c);
+    });
+    return el;
+  }
+
+  function openFixedModal({ title, subtitle, contentEl, onClose }) {
+    const overlay = createEl("div", {
+      style: [
+        "position:fixed",
+        "inset:0",
+        "background:rgba(0,0,0,.6)",
+        "z-index:9999",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "padding:16px",
+      ].join(";")
+    });
+
+    const modal = createEl("div", {
+      style: [
+        "width:min(720px, 96vw)",
+        "max-height:90vh",
+        "overflow:auto",
+        "background:var(--card-bg, #111827)",
+        "color:var(--text, #e5e7eb)",
+        "border:1px solid rgba(255,255,255,.12)",
+        "border-radius:12px",
+        "box-shadow:0 16px 50px rgba(0,0,0,.5)",
+        "padding:14px",
+      ].join(";")
+    });
+
+    // FIXO: não fecha ao clicar fora
+    overlay.addEventListener("click", (e) => {
+      // intencionalmente não fecha
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
+
+    // Evita vazamento de eventos
+    modal.addEventListener("click", (e) => e.stopPropagation(), true);
+    modal.addEventListener("mousedown", (e) => e.stopPropagation(), true);
+    modal.addEventListener("contextmenu", (e) => e.stopPropagation(), true);
+
+    const header = createEl("div", { style: "display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:10px;" }, [
+      createEl("div", {}, [
+        createEl("div", { style: "font-weight:700;font-size:16px;" }, title || "Editor"),
+        subtitle ? createEl("div", { style: "opacity:.85;font-size:12px;margin-top:2px;" }, subtitle) : null,
+      ]),
+      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;" }, "✖ Fechar"),
+    ]);
+
+    const closeBtn = header.querySelector("button");
+    function close() {
+      try { overlay.remove(); } catch {}
+      if (typeof onClose === "function") onClose();
+    }
+    closeBtn.addEventListener("click", close);
+
+    modal.appendChild(header);
+    if (contentEl) modal.appendChild(contentEl);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    return { overlay, modal, close };
+  }
+
+  function buildFormRow(label, inputEl, hint) {
+    const wrap = createEl("div", { style: "display:flex;flex-direction:column;gap:4px;" });
+    wrap.appendChild(createEl("div", { style: "font-size:12px;opacity:.9;" }, label));
+    wrap.appendChild(inputEl);
+    if (hint) wrap.appendChild(createEl("div", { style: "font-size:11px;opacity:.75;" }, hint));
+    return wrap;
+  }
+
+  function inputBaseStyle(extra = "") {
+    return [
+      "padding:8px",
+      "border-radius:10px",
+      "border:1px solid rgba(255,255,255,.16)",
+      "background:rgba(0,0,0,.25)",
+      "color:inherit",
+      "box-sizing:border-box",
+      extra
+    ].filter(Boolean).join(";");
+  }
+
+  function openGroupFormModal({ mode, group, suggestedId, onSubmit }) {
+    const isEdit = mode === "edit";
+    const title = isEdit ? "Editar grupo" : "Criar novo grupo";
+    const subtitle = isEdit ? (group?.id || "") : "Preencha os campos e clique em Salvar";
+
+    const name = createEl("input", { value: group?.name || "", placeholder: "Ex.: EMT-99-XX - Novo tópico", style: inputBaseStyle() });
+    const id = createEl("input", { value: group?.id || suggestedId || "", placeholder: "ex.: emt-99-xx", style: inputBaseStyle() });
+    const color = createEl("input", { value: group?.color || "#8b86ff", placeholder: "#8b86ff", style: inputBaseStyle(), type: "text" });
+    const icon = createEl("input", { value: group?.icon || "", placeholder: "assets/EMT-99-XX.png ou https://...", style: inputBaseStyle() });
+    const iconHref = createEl("input", { value: group?.iconHref || "#", placeholder: "https://drive.google.com/...", style: inputBaseStyle() });
+
+    const prefillWrap = createEl("label", { style: "display:flex;gap:8px;align-items:center;margin-top:6px;user-select:none;" }, [
+      createEl("input", { type: "checkbox", checked: true }),
+      createEl("span", { style: "font-size:12px;opacity:.9;" }, "Criar equipe padrão (M01..M05, SUP, REV)")
+    ]);
+
+    // Em modo edit, não altera items por padrão
+    if (isEdit) prefillWrap.style.display = "none";
+
+    const actions = createEl("div", { style: "display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;" });
+    const saveBtn = createEl("button", { type: "button", class: "btn" }, "💾 Salvar");
+    const cancelBtn = createEl("button", { type: "button", class: "btn" }, "Cancelar");
+    actions.append(cancelBtn, saveBtn);
+
+    const grid = createEl("div", {
+      style: [
+        "display:grid",
+        "grid-template-columns:repeat(2, minmax(0, 1fr))",
+        "gap:10px"
+      ].join(";")
+    }, [
+      buildFormRow("Nome", name),
+      buildFormRow("ID", id, "Usado em links de capa e arquivo descriptions/<id>.txt"),
+      buildFormRow("Cor (hex)", color, "Ex.: #0ea5e9"),
+      buildFormRow("Ícone (path/URL)", icon),
+      buildFormRow("Link do ícone/material", iconHref),
+    ]);
+
+    if (window.matchMedia && window.matchMedia("(max-width: 700px)").matches) {
+      grid.style.gridTemplateColumns = "1fr";
+    }
+
+    const body = createEl("div", {}, [grid, prefillWrap, actions]);
+
+    const modal = openFixedModal({ title, subtitle, contentEl: body });
+
+    cancelBtn.addEventListener("click", modal.close);
+
+    saveBtn.addEventListener("click", () => {
+      const data = {
+        name: (name.value || "").trim(),
+        id: slugifyId((id.value || "").trim()),
+        color: (color.value || "").trim() || "#8b86ff",
+        icon: (icon.value || "").trim(),
+        iconHref: (iconHref.value || "").trim() || "#",
+        prefillTeam: !isEdit && !!prefillWrap.querySelector("input")?.checked,
+      };
+      onSubmit(data, modal);
+    });
+
+    // foco inicial
+    setTimeout(() => name.focus(), 0);
+  }
+
+  function openItemFormModal({ groupName, onSubmit }) {
+    const url = createEl("input", { placeholder: "https://...", style: inputBaseStyle() });
+    const code = createEl("input", { placeholder: "M01", style: inputBaseStyle() });
+    const label = createEl("input", { placeholder: "Nome da IA/site", style: inputBaseStyle() });
+    const provider = createEl("input", { placeholder: "Fornecedor (AdaptaONE, openAI, etc.)", style: inputBaseStyle() });
+
+    const checkedWrap = createEl("label", { style: "display:flex;gap:8px;align-items:center;margin-top:6px;user-select:none;" }, [
+      createEl("input", { type: "checkbox", checked: true }),
+      createEl("span", { style: "font-size:12px;opacity:.9;" }, "Marcado (abrir em Abrir todas)")
+    ]);
+
+    const actions = createEl("div", { style: "display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;" });
+    const saveBtn = createEl("button", { type: "button", class: "btn" }, "💾 Inserir");
+    const cancelBtn = createEl("button", { type: "button", class: "btn" }, "Cancelar");
+    actions.append(cancelBtn, saveBtn);
+
+    const grid = createEl("div", {
+      style: [
+        "display:grid",
+        "grid-template-columns:repeat(2, minmax(0, 1fr))",
+        "gap:10px"
+      ].join(";")
+    }, [
+      buildFormRow("URL", url),
+      buildFormRow("Código", code),
+      buildFormRow("Label", label),
+      buildFormRow("Provider", provider),
+    ]);
+
+    if (window.matchMedia && window.matchMedia("(max-width: 700px)").matches) {
+      grid.style.gridTemplateColumns = "1fr";
+    }
+
+    const body = createEl("div", {}, [grid, checkedWrap, actions]);
+    const modal = openFixedModal({ title: "Adicionar item", subtitle: groupName || "", contentEl: body });
+
+    cancelBtn.addEventListener("click", modal.close);
+    saveBtn.addEventListener("click", () => {
+      const data = {
+        url: (url.value || "").trim(),
+        code: (code.value || "").trim(),
+        label: (label.value || "").trim(),
+        provider: (provider.value || "").trim(),
+        checked: !!checkedWrap.querySelector("input")?.checked,
+      };
+      onSubmit(data, modal);
+    });
+
+    setTimeout(() => url.focus(), 0);
+  }
+
   // Tampermonkey removido. Mantemos a função por compatibilidade interna.
   function buildUrlWithHash(url, title, useTM) {
     return url || "";
@@ -233,59 +452,52 @@
       });
 
       addItemBtn.addEventListener("click", () => {
-        const url = prompt("Cole a URL (https://...)");
-        if (!url) return;
-        const code = prompt("Código (ex.: M01)") || "";
-        const label = prompt("Nome da IA/site") || url;
-        const provider = prompt("Empresa/Fornecedor", "");
-
-        g.items = Array.isArray(g.items) ? g.items : [];
-        g.items.push({
-          code,
-          label,
-          provider,
-          url,
-          checked: true,
-          img: ""
+        openItemFormModal({
+          groupName: g.name,
+          onSubmit: (data, modal) => {
+            if (!data.url) { alert("Informe uma URL válida."); return; }
+            g.items = Array.isArray(g.items) ? g.items : [];
+            g.items.push({
+              code: data.code || "",
+              label: data.label || data.url,
+              provider: data.provider || "",
+              url: data.url,
+              checked: data.checked !== false,
+              img: ""
+            });
+            save(groups);
+            render();
+            modal.close();
+          }
         });
+      });
         save(groups);
         render();
       });
 
       editGroupBtn.addEventListener("click", () => {
-        const name = prompt("Nome do grupo:", g.name || "");
-        if (name === null) return;
-        const color = prompt("Cor (hex):", g.color || "#8b86ff");
-        if (color === null) return;
-        const icon = prompt("Ícone (URL):", g.icon || "");
-        if (icon === null) return;
-        const iconHref = prompt("Link do ícone:", g.iconHref || "#");
-        if (iconHref === null) return;
-
-        // id só se você quiser mudar — mantém estável por padrão
-        const changeId = confirm("Deseja alterar o ID do grupo? (Isso afeta links de capa e arquivos descriptions/)");
-        if (changeId) {
-          const newIdRaw = prompt("Novo ID (ex.: emt-99-xx):", g.id || "");
-          if (newIdRaw === null) return;
-          const newId = slugifyId(newIdRaw);
-          if (!newId) {
-            alert("ID inválido.");
-            return;
+        openGroupFormModal({
+          mode: "edit",
+          group: g,
+          suggestedId: g.id || makeUniqueId(g.name || "grupo"),
+          onSubmit: (data, modal) => {
+            if (!data.name) { alert("Informe um nome."); return; }
+            if (!data.id) { alert("ID inválido."); return; }
+            // Se mudar ID, checa colisão
+            if (data.id !== (g.id || "") && !isIdAvailable(data.id)) {
+              alert("Esse ID já existe. Escolha outro.");
+              return;
+            }
+            g.name = data.name;
+            g.id = data.id;
+            g.color = data.color || "#8b86ff";
+            g.icon = data.icon || "";
+            g.iconHref = data.iconHref || "#";
+            save(groups);
+            render();
+            modal.close();
           }
-          if (newId !== g.id && !isIdAvailable(newId)) {
-            alert("Esse ID já existe. Escolha outro.");
-            return;
-          }
-          g.id = newId;
-        }
-
-        g.name = name;
-        g.color = color || "#8b86ff";
-        g.icon = icon;
-        g.iconHref = iconHref || "#";
-
-        save(groups);
-        render();
+        });
       });
 
       removeGroupBtn.addEventListener("click", () => {
@@ -368,46 +580,35 @@
   // --- Botão +Grupo (global) ---
   if (addGroupBtn) {
     addGroupBtn.addEventListener("click", () => {
-      const name = prompt("Nome do novo grupo:", "Novo Grupo");
-      if (name === null) return;
+      const suggestedId = makeUniqueId("novo-grupo");
+      openGroupFormModal({
+        mode: "create",
+        group: { name: "", id: "", color: "#8b86ff", icon: "", iconHref: "#" },
+        suggestedId,
+        onSubmit: (data, modal) => {
+          if (!data.name) { alert("Informe um nome."); return; }
+          if (!data.id) { alert("ID inválido."); return; }
+          if (!isIdAvailable(data.id)) { alert("Esse ID já existe. Escolha outro."); return; }
 
-      const suggestedId = makeUniqueId(name);
-      const idRaw = prompt("ID do grupo (ex.: emt-99-xx):", suggestedId);
-      if (idRaw === null) return;
+          const items = data.prefillTeam ? teamTemplate7() : [];
 
-      const id = slugifyId(idRaw) || makeUniqueId("grupo");
-      if (!isIdAvailable(id)) {
-        alert("Esse ID já existe. Escolha outro.");
-        return;
-      }
+          const g = {
+            id: data.id,
+            name: data.name,
+            color: data.color || "#8b86ff",
+            icon: data.icon || "",
+            iconHref: data.iconHref || "#",
+            collapsed: false,
+            items
+          };
 
-      const color = prompt("Cor (hex):", "#8b86ff");
-      if (color === null) return;
-
-      const icon = prompt("Ícone (URL ou path):", "");
-      if (icon === null) return;
-
-      const iconHref = prompt("Link do ícone/material (Google Drive etc.):", "#");
-      if (iconHref === null) return;
-
-      const prefill = confirm("Criar equipe padrão (M01..M05, SUP, REV) agora?");
-      const items = prefill ? teamTemplate7() : [];
-
-      const g = {
-        id,
-        name: name || "Grupo",
-        color: color || "#8b86ff",
-        icon: icon || "",
-        iconHref: iconHref || "#",
-        collapsed: false,
-        items
-      };
-
-      groups.push(g);
-      save(groups);
-      render();
-
-      alert("✅ Grupo criado! Você pode adicionar URLs com “+ Item” ou editar no grid.");
+          // cria no final da lista
+          groups.push(g);
+          save(groups);
+          render();
+          modal.close();
+        }
+      });
     });
   }
 
