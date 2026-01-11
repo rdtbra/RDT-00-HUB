@@ -33,6 +33,25 @@
  * ============================================================
  */
 
+
+// ============================================================
+// 🔒 Modal FIXO: bloqueia remoção acidental do editor (teamEditorOverlay)
+// - O modal só fecha quando você clicar em ✖ Fechar ou Limpar override.
+// - Isso evita sumir por cliques fora, foco entre janelas, extensões, etc.
+// ============================================================
+(function lockTeamEditorOverlayRemovalOnce(){
+  if (window.__TEAM_EDITOR_OVERLAY_LOCK_INSTALLED__) return;
+  window.__TEAM_EDITOR_OVERLAY_LOCK_INSTALLED__ = true;
+
+  const origRemove = Element.prototype.remove;
+  Element.prototype.remove = function () {
+    if (this && this.id === "teamEditorOverlay" && this.dataset && this.dataset.locked === "1") {
+      return; // Bloqueado
+    }
+    return origRemove.apply(this, arguments);
+  };
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
@@ -295,21 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openEditorModal() {
-    
-(() => {
-  const orig = Element.prototype.remove;
-  Element.prototype.remove = function () {
-    if (this && this.id === "teamEditorOverlay") {
-      console.log("?? removeram o overlay! stack:");
-      console.trace();
-      debugger;
-    }
-    return orig.apply(this, arguments);
-  };
-  console.log("? spy de remove instalado");
-})();
-    
-    // Overlay
+// Overlay
     const overlay = createEl("div", {
       id: "teamEditorOverlay",
       style: [
@@ -323,6 +328,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "padding:16px",
       ].join(";")
     });
+
+
+    // 🔒 trava o modal (só fecha via botões explícitos)
+    overlay.dataset.locked = "1";
 
     // Modal
     const modal = createEl("div", {
@@ -339,14 +348,20 @@ document.addEventListener("DOMContentLoaded", () => {
       ].join(";")
     });
 
-    const header = createEl("div", { style: "display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px;" }, [
+    
+
+    // Evita que interações dentro do modal "vazem" para o overlay
+    modal.addEventListener("mousedown", (e) => e.stopPropagation(), true);
+    modal.addEventListener("click", (e) => e.stopPropagation(), true);
+    modal.addEventListener("contextmenu", (e) => e.stopPropagation(), true);
+const header = createEl("div", { style: "display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px;" }, [
       createEl("div", {}, [
         createEl("div", { style: "font-weight:700;font-size:16px;" }, `Editor de equipe — ${group.name || group.id}`),
         createEl("div", { style: "opacity:.8;font-size:12px;margin-top:2px;" },
           `Chave: ${LS_ITEMS_KEY}`
         ),
       ]),
-      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;", onclick: () => overlay.remove() }, "✖ Fechar")
+      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;", onclick: () => { overlay.dataset.locked = "0"; overlay.remove(); } }, "✖ Fechar")
     ]);
 
     // Área de ações
@@ -483,6 +498,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnClear.addEventListener("click", () => {
       localStorage.removeItem(LS_ITEMS_KEY);
       setStatus("♻️ Override removido. Recarregando fonte padrão...");
+      overlay.dataset.locked = "0";
       overlay.remove();
       location.reload();
     });
