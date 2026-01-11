@@ -3,7 +3,7 @@
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-launcher.js
- * Função: Orquestrador Final - Exportação window.GROUPS e Sem Lixo
+ * Função: Orquestrador Final - Sincronização Bi-direcional
  * ============================================================
  */
 
@@ -12,16 +12,20 @@
 
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  // --- Lógica de Prioridade (Cascata) ---
+  // --- Lógica de Prioridade e Sincronização ---
   async function getGroupData(g) {
     const id = g.id;
+    // Prioridade 1: LocalStorage (Alterações feitas na CAPA ou no Launcher agora)
     const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
     const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
     
-    if (localHeader && localItems) {
-      return { ...JSON.parse(localHeader), items: JSON.parse(localItems) };
+    if (localHeader || localItems) {
+      const header = localHeader ? JSON.parse(localHeader) : g;
+      const items = localItems ? JSON.parse(localItems) : (g.items || []);
+      return { ...header, items: Array.isArray(items) ? items : (items.items || []) };
     }
 
+    // Prioridade 2: FileSystem
     try {
       const respH = await fetch(`descriptions/${id}.group.json`);
       if (respH.ok) {
@@ -35,23 +39,12 @@
       }
     } catch (e) {}
 
+    // Prioridade 3: JS Original
     return g; 
   }
 
-  // --- Migração de Dados ---
-  function migrateData(oldId, newId) {
-    if (!oldId || !newId || oldId === newId) return;
-    const oldKey = `ia-launcher-config:${APP_ID}:items:${oldId}`;
-    const newKey = `ia-launcher-config:${APP_ID}:items:${newId}`;
-    const data = localStorage.getItem(oldKey);
-    if (data) {
-      localStorage.setItem(newKey, data);
-      localStorage.removeItem(oldKey);
-    }
-  }
-
-  // --- Helpers de Download ---
-  function downloadFile(filename, content, type = "application/json") {
+  // --- Helpers ---
+  function downloadFile(filename, content, type = "text/javascript") {
     const blob = new Blob([content], { type: type });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -64,29 +57,6 @@
     return (input || "").toString().trim().toLowerCase()
       .replace(/\s+/g, "-").replace(/[^a-z0-9\-_.]/g, "")
       .replace(/\-+/g, "-").replace(/^\-|\-$/g, "");
-  }
-
-  function makeUniqueId(base, groups, currentId = null) {
-    const b = slugifyId(base) || "grupo";
-    const exists = (id) => groups.some(g => g.id === id && g.id !== currentId);
-    if (!exists(b)) return b;
-    for (let i = 2; i < 999; i++) {
-      const candidate = `${b}-${i}`;
-      if (!exists(candidate)) return candidate;
-    }
-    return `${b}-${Date.now()}`;
-  }
-
-  function teamTemplate7() {
-    return [
-      { code: "M01", label: "", provider: "", url: "", checked: true },
-      { code: "M02", label: "", provider: "", url: "", checked: true },
-      { code: "M03", label: "", provider: "", url: "", checked: true },
-      { code: "M04", label: "", provider: "", url: "", checked: true },
-      { code: "M05", label: "", provider: "", url: "", checked: true },
-      { code: "SUP", label: "", provider: "", url: "", checked: true },
-      { code: "REV", label: "", provider: "", url: "", checked: true }
-    ];
   }
 
   // --- Inicialização ---
@@ -121,18 +91,13 @@
         <label style="font-size:11px; color:#aaa;">NOME:</label>
         <input id="mName" type="text" value="${isEdit ? groupData.name : "Novo Grupo"}" style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
         <label style="font-size:11px; color:#aaa;">ID (SLUG):</label>
-        <input id="mId" type="text" value="${isEdit ? groupData.id : makeUniqueId("Novo Grupo", activeGroups)}" style="padding:8px; background:#111; border:1px solid #444; color:#8b86ff;">
+        <input id="mId" type="text" value="${isEdit ? groupData.id : ""}" style="padding:8px; background:#111; border:1px solid #444; color:#8b86ff;">
         <label style="font-size:11px; color:#aaa;">URL DO ÍCONE:</label>
-        <input id="mIcon" type="text" value="${isEdit ? (groupData.icon || "") : ""}" placeholder="https://..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
+        <input id="mIcon" type="text" value="${isEdit ? (groupData.icon || "") : ""}" style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
         <label style="font-size:11px; color:#aaa;">URL DO MATERIAL (DESTINO):</label>
-        <input id="mIconHref" type="text" value="${isEdit ? (groupData.iconHref || "") : ""}" placeholder="https://..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
+        <input id="mIconHref" type="text" value="${isEdit ? (groupData.iconHref || "") : ""}" style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
         <label style="font-size:11px; color:#aaa;">COR:</label>
         <input id="mColor" type="color" value="${isEdit ? (groupData.color || "#8b86ff") : "#8b86ff"}" style="width:100%; height:35px; background:none; border:none; cursor:pointer;">
-        ${!isEdit ? `
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input type="checkbox" id="mPrefill" checked>
-          <label for="mPrefill" style="font-size:12px;">Preencher equipe padrão (M01-REV)</label>
-        </div>` : ""}
       </div>
       <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
         <button id="mCancel" class="btn" style="background:#444;">Cancelar</button>
@@ -143,43 +108,28 @@
     document.body.appendChild(overlay);
     overlay.appendChild(modal);
 
-    const nameIn = document.getElementById("mName");
-    const idIn = document.getElementById("mId");
-    if (!isEdit) nameIn.oninput = () => { idIn.value = makeUniqueId(nameIn.value, activeGroups); };
-
     document.getElementById("mSave").onclick = () => {
-      const newId = slugifyId(idIn.value);
-      if (isEdit) {
-        migrateData(oldId, newId);
-        groupData.id = newId;
-        groupData.name = nameIn.value;
-        groupData.color = document.getElementById("mColor").value;
-        groupData.icon = document.getElementById("mIcon").value;
-        groupData.iconHref = document.getElementById("mIconHref").value;
-        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify({
-          id: groupData.id,
-          name: groupData.name,
-          color: groupData.color,
-          icon: groupData.icon,
-          iconHref: groupData.iconHref
-        }));
-      } else {
-        const newG = { 
-          id: newId, 
-          name: nameIn.value, 
-          color: document.getElementById("mColor").value, 
-          icon: document.getElementById("mIcon").value, 
-          iconHref: document.getElementById("mIconHref").value, 
-          items: document.getElementById("mPrefill").checked ? teamTemplate7() : [] 
-        };
-        activeGroups.push(newG);
-        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify({
-          id: newG.id, name: newG.name, color: newG.color, icon: newG.icon, iconHref: newG.iconHref
-        }));
-        localStorage.setItem(`ia-launcher-config:${APP_ID}:items:${newId}`, JSON.stringify(newG.items));
+      const newId = slugifyId(document.getElementById("mId").value);
+      const updatedData = {
+        id: newId,
+        name: document.getElementById("mName").value,
+        color: document.getElementById("mColor").value,
+        icon: document.getElementById("mIcon").value,
+        iconHref: document.getElementById("mIconHref").value
+      };
+
+      if (isEdit && oldId !== newId) {
+        // Migra itens da capa se o ID mudou
+        const items = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${oldId}`);
+        if (items) {
+          localStorage.setItem(`ia-launcher-config:${APP_ID}:items:${newId}`, items);
+          localStorage.removeItem(`ia-launcher-config:${APP_ID}:items:${oldId}`);
+        }
+        localStorage.removeItem(`${KEY}:group:${oldId}`);
       }
-      render();
-      overlay.remove();
+
+      localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify(updatedData));
+      location.reload(); // Recarrega para aplicar a cascata corretamente
     };
 
     document.getElementById("mCancel").onclick = () => overlay.remove();
@@ -190,7 +140,6 @@
     if (addGroupBtn) addGroupBtn.onclick = () => openModal("create");
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        // Remove 'collapsed' e exporta como window.GROUPS
         const cleanGroups = activeGroups.map(({ collapsed, ...rest }) => rest);
         const content = `/** Backup Consolidado **/\nwindow.GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
         downloadFile("estudos-groups.js", content, "text/javascript");
@@ -220,10 +169,19 @@
             <button class="btn" data-act="export-disco">Exportar Disco</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}; gap:5px; padding:10px;"></div>
+        <div class="grid" data-role="grid" style="display:none; gap:5px; padding:10px;"></div>
       `;
 
       card.querySelector("[data-act='edit-material']").onclick = () => openModal("edit", g);
+      card.querySelector("[data-act='open-cover']").onclick = () => {
+        const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "index.html";
+        window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
+      };
+      
+      card.querySelector("[data-act='export-disco']").onclick = () => {
+        downloadFile(`${g.id}.group.json`, JSON.stringify({id:g.id, name:g.name, color:g.color, icon:g.icon, iconHref:g.iconHref}, null, 2));
+        downloadFile(`${g.id}.items.json`, JSON.stringify({items:g.items}, null, 2));
+      };
 
       const grid = card.querySelector("[data-role='grid']");
       (g.items || []).forEach((item) => {
@@ -241,20 +199,8 @@
         grid.appendChild(row);
       });
 
-      card.querySelector("[data-act='open-cover']").onclick = () => {
-        const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "index.html";
-        window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
-      };
-
-      card.querySelector("[data-act='export-disco']").onclick = () => {
-        const h = {id:g.id, name:g.name, color:g.color, icon:g.icon, iconHref:g.iconHref};
-        downloadFile(`${g.id}.group.json`, JSON.stringify(h, null, 2));
-        downloadFile(`${g.id}.items.json`, JSON.stringify({items:g.items}, null, 2));
-      };
-
       card.querySelector("[data-act='toggle']").onclick = () => {
-        g.collapsed = !g.collapsed;
-        grid.style.display = g.collapsed ? "none" : "grid";
+        grid.style.display = grid.style.display === "none" ? "grid" : "none";
       };
 
       groupsEl.appendChild(card);
