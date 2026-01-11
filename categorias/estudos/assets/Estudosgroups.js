@@ -2366,7 +2366,6 @@ const GROUPS = [
         "url": "",
         "checked": true
       }
-    ],
-    "collapsed": true
+    ]
   }
 ];
