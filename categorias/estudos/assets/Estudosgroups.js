@@ -206,7 +206,7 @@ window.GROUPS = [
   {
     "id": "emt-04-ma",
     "name": "EMT-04-MA - Stewart - Calculus 9ed",
-    "color": "#8b5cf6",
+    "color": "#06b6d4",
     "icon": "assets/EMT-04-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QbEfyLwn1ahyf-FQqFvg5INYS_Z006vH&usp=drive_fs",
     "collapsed": true,
@@ -470,7 +470,7 @@ window.GROUPS = [
   {
     "id": "emt-08-ma",
     "name": "EMT-08-MA - Anton&Rorres - Elementary Linear Algebra with Applications 12ed",
-    "color": "#84cc16",
+    "color": "#06b6d4",
     "icon": "assets/EMT-08-MA.png",
     "iconHref": "https://drive.google.com/open?id=1Q_Ka5Xe3-dtQ2hozasjDIACbpT8krs1K&usp=drive_fs",
     "collapsed": true,
@@ -932,7 +932,7 @@ window.GROUPS = [
   {
     "id": "emt-15-ma",
     "name": "EMT-15-MA - Kreyszig - Advanced Engineering Mathematics 10ed IE",
-    "color": "#6366f1",
+    "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/2583042/9781118855447_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/2583042/22",
     "collapsed": true,
@@ -1130,7 +1130,7 @@ window.GROUPS = [
   {
     "id": "emt-18-ma",
     "name": "EMT-18-MA - Zill - A First Course in Differential Eq with Modeling Applic 12ed",
-    "color": "#ff9770",
+    "color": "#06b6d4",
     "icon": "assets/EMT-18-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QazfSX8utUj0V3Ouz-EqVPAGO1i8iQAc&usp=drive_fs",
     "collapsed": true,
@@ -1328,7 +1328,7 @@ window.GROUPS = [
   {
     "id": "emt-21-ma",
     "name": "EMT-21-MA - Ryan - Calculus for Dummies 2ed",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118791332/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/calculus-for-dummies/9781118791332/xhtml/07_9781118791295-ch03.xhtml#a2",
     "collapsed": true,
@@ -1394,7 +1394,7 @@ window.GROUPS = [
   {
     "id": "emt-22-ma",
     "name": "EMT-22-MA - Sterling - Trigonometry for Dummies 3ed",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394168552/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/trigonometry-for-dummies/9781394168552/cover.xhtml",
     "collapsed": true,
@@ -1460,7 +1460,7 @@ window.GROUPS = [
   {
     "id": "emt-23-ma",
     "name": "EMT-23-MA - Sterling - Linear Algebra for Dummies",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/2770646/9780470538166_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/2770646/21",
     "collapsed": true,
@@ -1526,7 +1526,7 @@ window.GROUPS = [
   {
     "id": "emt-24-ma",
     "name": "EMT-24-MA - Ryan - Geometry for Dummies 3ed",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/997687/9781119181644_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/997687/5?page_number=7",
     "collapsed": true,
@@ -1592,7 +1592,7 @@ window.GROUPS = [
   {
     "id": "emt-25-ma",
     "name": "EMT-25-MA - Sterling - Algebra I for Dummies 3ed",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/1011240/9781119297567_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/1011240/5?page_number=9",
     "collapsed": true,
@@ -1658,7 +1658,7 @@ window.GROUPS = [
   {
     "id": "emt-26-ma",
     "name": "EMT-26-MA - Sterling - Algebra II for Dummies 2ed",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119543145/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/algebra-ii-for/9781119543145/cover.xhtml",
     "collapsed": true,
@@ -1724,7 +1724,7 @@ window.GROUPS = [
   {
     "id": "emt-27-ma",
     "name": "EMT-27-MA - Sterling - All In One Pre-Calculus for Dummies",
-    "color": "#118ab2",
+    "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/4234021/9781394201259_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/4234021/25",
     "collapsed": true,
@@ -1925,6 +1925,336 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://img.perlego.com/book-covers/1010304/9780470640678_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/1010304/5",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5 mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=3fe71ad7-bc9e-498e-83d7-f232a0fb1969",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64b7-9f25-771b-91e6-1f70e0f2f97d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ea72c0ec-c905-491c-9afd-7352b18b7723",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64ba-2a4e-70ff-8e82-22a7e47bc798",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=b38d280a-943c-4e58-a86f-32fd1f7a7d68",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-690f8c14d7f481919f10ae75d5a4b962-emt-20-cd/c/690f8c24-8868-8332-b028-d68f845636fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64bb-85a1-76bf-91be-87cee6067a3c",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "emt-31-em",
+    "name": "EMT-31-EM - Allen III - Statics for Dummies",
+    "color": "#0ea5e9",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780470598948/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/statics-for-dummies/9780470598948/ch01.html",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5 mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=3fe71ad7-bc9e-498e-83d7-f232a0fb1969",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64b7-9f25-771b-91e6-1f70e0f2f97d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ea72c0ec-c905-491c-9afd-7352b18b7723",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64ba-2a4e-70ff-8e82-22a7e47bc798",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=b38d280a-943c-4e58-a86f-32fd1f7a7d68",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-690f8c14d7f481919f10ae75d5a4b962-emt-20-cd/c/690f8c24-8868-8332-b028-d68f845636fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64bb-85a1-76bf-91be-87cee6067a3c",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "emt-32-ia",
+    "name": "EMT-32-IA - Mueller&Massaron - Artificial Intelligence for Dummies 2ed",
+    "color": "#0ea5e9",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119796763/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/artificial-intelligence-for/9781119796763/c01.xhtml",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5 mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=3fe71ad7-bc9e-498e-83d7-f232a0fb1969",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64b7-9f25-771b-91e6-1f70e0f2f97d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ea72c0ec-c905-491c-9afd-7352b18b7723",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64ba-2a4e-70ff-8e82-22a7e47bc798",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=b38d280a-943c-4e58-a86f-32fd1f7a7d68",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-690f8c14d7f481919f10ae75d5a4b962-emt-20-cd/c/690f8c24-8868-8332-b028-d68f845636fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64bb-85a1-76bf-91be-87cee6067a3c",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "emt-33-ia",
+    "name": "EMT-33-IA - Mueller&Massaron - Machine Learning for Dummies 3ed",
+    "color": "#0ea5e9",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394373222/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/machine-learning-for/9781394373222/c01.xhtml",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5 mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=3fe71ad7-bc9e-498e-83d7-f232a0fb1969",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64b7-9f25-771b-91e6-1f70e0f2f97d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ea72c0ec-c905-491c-9afd-7352b18b7723",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64ba-2a4e-70ff-8e82-22a7e47bc798",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=b38d280a-943c-4e58-a86f-32fd1f7a7d68",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-690f8c14d7f481919f10ae75d5a4b962-emt-20-cd/c/690f8c24-8868-8332-b028-d68f845636fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64bb-85a1-76bf-91be-87cee6067a3c",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "emt-34-ia",
+    "name": "EMT-34-IA - Pierson - Data Science for Dummies 3ed",
+    "color": "#0ea5e9",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119811558/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9781119811558/c01.xhtml",
+    "collapsed": true,
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5 mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=3fe71ad7-bc9e-498e-83d7-f232a0fb1969",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64b7-9f25-771b-91e6-1f70e0f2f97d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ea72c0ec-c905-491c-9afd-7352b18b7723",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64ba-2a4e-70ff-8e82-22a7e47bc798",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/05ccaeca-a0e1-4b8d-b424-d0be69da5b3f?sessionId=b38d280a-943c-4e58-a86f-32fd1f7a7d68",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-690f8c14d7f481919f10ae75d5a4b962-emt-20-cd/c/690f8c24-8868-8332-b028-d68f845636fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a64bb-85a1-76bf-91be-87cee6067a3c",
+        "checked": true,
+        "img": ""
+      }
+    ]
+  },
+  {
+    "id": "emt-35-ia",
+    "name": "EMT-35-IA - Baker - Generative AI for Dummies",
+    "color": "#0ea5e9",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394270743/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/generative-ai-for/9781394270743/c01.xhtml",
     "collapsed": true,
     "items": [
       {
