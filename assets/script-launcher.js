@@ -592,38 +592,73 @@
     });
   }
 
-  // --- Botão +Grupo (global) ---
+// --- Lógica Corrigida do Botão +Grupo ---
   if (addGroupBtn) {
     addGroupBtn.addEventListener("click", () => {
-      const suggestedId = makeUniqueId("novo-grupo");
-      openGroupFormModal({
-        mode: "create",
-        group: { name: "", id: "", color: "#8b86ff", icon: "", iconHref: "#" },
-        suggestedId,
-        onSubmit: (data, modal) => {
-          if (!data.name) { alert("Informe um nome."); return; }
-          if (!data.id) { alert("ID inválido."); return; }
-          if (!isIdAvailable(data.id)) { alert("Esse ID já existe. Escolha outro."); return; }
-
-          const items = data.prefillTeam ? teamTemplate7() : [];
-
-          const g = {
-            id: data.id,
-            name: data.name,
-            color: data.color || "#8b86ff",
-            icon: data.icon || "",
-            iconHref: data.iconHref || "#",
-            collapsed: false,
-            items
-          };
-
-          // cria no final da lista
-          groups.push(g);
-          save(groups);
-          render();
-          modal.close();
-        }
+      // 1. Criamos o overlay
+      const overlay = document.createElement("div");
+      overlay.id = "addGroupOverlay"; // ID importante para remoção
+      Object.assign(overlay.style, {
+        position: "fixed", inset: "0", background: "rgba(0,0,0,0.8)",
+        zIndex: "10000", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px"
       });
+
+      const modal = document.createElement("div");
+      Object.assign(modal.style, {
+        background: "var(--card-bg, #1e1e2e)", padding: "25px", borderRadius: "12px",
+        width: "100%", maxWidth: "450px", border: "1px solid rgba(255,255,255,0.1)", color: "#fff",
+        position: "relative"
+      });
+
+      // 2. Adicionamos os três botões: Salvar, Cancelar e um 'X' de Fechar
+      modal.innerHTML = `
+        <button id="mCloseX" style="position:absolute; top:10px; right:10px; background:none; border:none; color:#888; cursor:pointer; font-size:20px;">&times;</button>
+        <h3 style="margin-top:0">🚀 Novo Grupo</h3>
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <label>Nome:</label><input id="mName" type="text" value="Novo Grupo" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          <label>Cor:</label><input id="mColor" type="color" value="#8b86ff" style="width:100%; height:40px; background:none; border:none">
+          <label>Ícone (URL):</label><input id="mIcon" type="text" placeholder="descriptions/img/icon.png" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          <label>Link Material:</label><input id="mIconHref" type="text" value="#" style="padding:8px; background:#111; border:1px solid #444; color:#fff">
+          <label><input type="checkbox" id="mPrefill" checked> Criar equipe padrão (M01..REV)</label>
+        </div>
+        <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end">
+          <button id="mCancel" class="btn" style="background:#444">Cancelar</button>
+          <button id="mSave" class="btn" style="background:#8b86ff">Salvar</button>
+        </div>
+      `;
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      // --- FUNÇÕES DOS BOTÕES ---
+
+      // Botão SALVAR
+      document.getElementById("mSave").onclick = () => {
+        const nameInput = document.getElementById("mName").value;
+        const newGroup = {
+          id: makeUniqueId(nameInput),
+          name: nameInput || "Grupo Sem Nome",
+          color: document.getElementById("mColor").value,
+          icon: document.getElementById("mIcon").value,
+          iconHref: document.getElementById("mIconHref").value,
+          collapsed: false,
+          items: document.getElementById("mPrefill").checked ? teamTemplate7() : []
+        };
+        
+        groups.push(newGroup);
+        save(groups); // Salva no LocalStorage
+        render();     // Atualiza a tela
+        overlay.remove(); // Fecha a janela
+      };
+
+      // Botão CANCELAR
+      document.getElementById("mCancel").onclick = () => {
+        overlay.remove();
+      };
+
+      // Botão FECHAR (o 'X' no topo)
+      document.getElementById("mCloseX").onclick = () => {
+        overlay.remove();
+      };
     });
   }
 
