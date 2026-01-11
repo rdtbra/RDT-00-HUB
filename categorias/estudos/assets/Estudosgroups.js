@@ -6,7 +6,6 @@ window.GROUPS = [
     "color": "#4f46e5",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394281886/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/probability-for-dummies/9781394281886/cover.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -72,7 +71,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/EMT-02-FS.png",
     "iconHref": "https://drive.google.com/open?id=1RUG3FUjgMC7wAuwkXPUi3CrTH07-e2jU&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -138,7 +136,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/3866265/9781119334767_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/3866265/28",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -204,7 +201,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "assets/EMT-04-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QbEfyLwn1ahyf-FQqFvg5INYS_Z006vH&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -270,7 +266,6 @@ window.GROUPS = [
     "color": "#f97316",
     "icon": "assets/EMT-05-EE.png",
     "iconHref": "https://drive.google.com/open?id=1RBBYkoy2zeRPEPN0Yz8izVGb24CbsTdH&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -336,7 +331,6 @@ window.GROUPS = [
     "color": "#22c55e",
     "icon": "assets/EMT-06-EE.png",
     "iconHref": "https://drive.google.com/open?id=1QjsryFwTPP2HZvGi4Q6DJRhX8vx_I_nf&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -402,7 +396,6 @@ window.GROUPS = [
     "color": "#eab308",
     "icon": "assets/EMT-07-EM.png",
     "iconHref": "https://drive.google.com/open?id=1RaGMJqZLGyRGIS4B-2t6NIYIkrj7wXj_&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -468,7 +461,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "assets/EMT-08-MA.png",
     "iconHref": "https://drive.google.com/open?id=1Q_Ka5Xe3-dtQ2hozasjDIACbpT8krs1K&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -534,7 +526,6 @@ window.GROUPS = [
     "color": "#ef4444",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781098129798/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/the-art-of/9781098129798/c01.xhtml#h1-501089c01-0008",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -600,7 +591,6 @@ window.GROUPS = [
     "color": "#a855f7",
     "icon": "https://img.perlego.com/book-covers/3866214/9781119124894_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/3866214/31",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -666,7 +656,6 @@ window.GROUPS = [
     "color": "#3b82f6",
     "icon": "https://img.perlego.com/book-covers/739787/9781400885381_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/739787/28",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -732,7 +721,6 @@ window.GROUPS = [
     "color": "#f59e0b",
     "icon": "assets/EMT-12-EC.png",
     "iconHref": "https://drive.google.com/open?id=1VfMVTIRIuKDKtwGVGY1YMsKK5S-WzuIk&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -798,7 +786,6 @@ window.GROUPS = [
     "color": "#10b981",
     "icon": "assets/EMT-13-EC.png",
     "iconHref": "https://drive.google.com/open?id=1Ve_ZXuqoMU_QBnBpzn8uv31UXgzksId-&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -864,7 +851,6 @@ window.GROUPS = [
     "color": "#14b8a6",
     "icon": "assets/EMT-14-ES.png",
     "iconHref": "https://drive.google.com/open?id=1SbTiMPXbjbLPXo_LuRkUOmOb6rA7MpwE&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -930,7 +916,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/2583042/9781118855447_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/2583042/22",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -996,7 +981,6 @@ window.GROUPS = [
     "color": "#f43f5e",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781260462081/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/rhcsa-red-hat/9781260462081/cover.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1062,7 +1046,6 @@ window.GROUPS = [
     "color": "#06d6a0",
     "icon": "assets/EMT-17-EE.png",
     "iconHref": "https://drive.google.com/open?id=1UmVD6dMKE6ZcsDSdO-6cV4Gul8VI2Dsl&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1128,7 +1111,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "assets/EMT-18-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QazfSX8utUj0V3Ouz-EqVPAGO1i8iQAc&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1194,7 +1176,6 @@ window.GROUPS = [
     "color": "#ffd166",
     "icon": "assets/EMT-19-EC.png",
     "iconHref": "https://drive.google.com/open?id=1VjYk_Ax3h9th56-umjj4mR-sZu9oaAA3&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1260,7 +1241,6 @@ window.GROUPS = [
     "color": "#118ab2",
     "icon": "assets/EMT-20-CD.png",
     "iconHref": "https://drive.google.com/open?id=1S0mXuugoCYR4BdOdbXaG4jECAdbH6MXw&usp=drive_fs",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1326,7 +1306,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118791332/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/calculus-for-dummies/9781118791332/xhtml/07_9781118791295-ch03.xhtml#a2",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1392,7 +1371,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394168552/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/trigonometry-for-dummies/9781394168552/cover.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1458,7 +1436,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/2770646/9780470538166_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/2770646/21",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1524,7 +1501,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/997687/9781119181644_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/997687/5?page_number=7",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1590,7 +1566,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/1011240/9781119297567_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/1011240/5?page_number=9",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1656,7 +1631,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119543145/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/algebra-ii-for/9781119543145/cover.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1722,7 +1696,6 @@ window.GROUPS = [
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/4234021/9781394201259_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/4234021/25",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1788,7 +1761,6 @@ window.GROUPS = [
     "color": "#eab308",
     "icon": "https://img.perlego.com/book-covers/4918223/9781394323517_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/4918223/25",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1854,7 +1826,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://img.perlego.com/book-covers/5324301/9781394367153_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/5324301/5?page_number=7",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1920,7 +1891,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://img.perlego.com/book-covers/1010304/9780470640678_300_450.webp",
     "iconHref": "https://ereader.perlego.com/1/book/1010304/5",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -1986,7 +1956,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780470598948/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/statics-for-dummies/9780470598948/ch01.html",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -2052,7 +2021,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119796763/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/artificial-intelligence-for/9781119796763/c01.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -2118,7 +2086,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394373222/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/machine-learning-for/9781394373222/c01.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -2184,7 +2151,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119811558/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9781119811558/c01.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -2250,7 +2216,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394270743/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/generative-ai-for/9781394270743/c01.xhtml",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -2319,51 +2284,16 @@ window.GROUPS = [
     "items": [
       {
         "code": "M01",
-        "label": "",
-        "provider": "",
-        "url": "",
+        "label": "GPT-OSS 120B",
+        "provider": "MyHUB.IA",
+        "url": "https://myhub.ia.br/chat/387ykfK4NQZzWRqCYb0T5PoN4yt",
         "checked": true
       },
       {
         "code": "M02",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M03",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M04",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M05",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "SUP",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "REV",
-        "label": "",
-        "provider": "",
-        "url": "",
+        "label": "Grok-4.1",
+        "provider": "Chathubgg",
+        "url": "https://app.chathub.gg/chat/cloud-grok-4?cid=046a560b-d065-4a1b-89fd-8b140c379fe3",
         "checked": true
       }
     ]
