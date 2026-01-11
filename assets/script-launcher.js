@@ -3,7 +3,7 @@
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-launcher.js
- * Função: Orquestrador Modular com Exportação Geral e Segurança
+ * Função: Orquestrador com Cascata de Prioridade e Export Geral
  * ============================================================
  */
 
@@ -24,7 +24,7 @@
       return { ...JSON.parse(localHeader), items: JSON.parse(localItems) };
     }
 
-    // 2. FileSystem
+    // 2. FileSystem (Busca modular)
     try {
       const respH = await fetch(`descriptions/${id}.group.json`);
       if (respH.ok) {
@@ -38,7 +38,7 @@
       }
     } catch (e) {}
 
-    // 3. JS Original
+    // 3. Fallback: Arquivo JS Original
     return g; 
   }
 
@@ -57,22 +57,22 @@
 
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
-  const exportAllBtn = document.getElementById("exportAll"); // Novo botão no HTML
+  const exportAllBtn = document.getElementById("exportAll"); 
 
   async function init() {
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
     render();
-    setupGlobalActions();
+    setupExportAll();
   }
 
-  function setupGlobalActions() {
+  function setupExportAll() {
+    // Configura o botão global de exportar tudo para recriar o arquivo .js
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        // Gera o conteúdo compatível com seus arquivos .js originais
-        const content = `/** Backup Gerado pelo HUB **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
-        downloadFile("meus-estudos-groups.js", content, "text/javascript");
-        alert("Arquivo 'meus-estudos-groups.js' gerado com sucesso!");
+        const content = `/** Backup Consolidado do HUB **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
+        downloadFile("estudos-groups.js", content, "text/javascript");
+        alert("Arquivo 'estudos-groups.js' gerado. Salve-o sobre o original para consolidar as mudanças.");
       };
     }
   }
@@ -124,20 +124,20 @@
         grid.appendChild(row);
       });
 
-      // Ação da Capa
+      // Abre a capa com base na variável global do HUB
       card.querySelector("[data-act='open-cover']").onclick = () => {
         const coverPage = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "index.html";
         window.open(`${coverPage}?group=${encodeURIComponent(g.id)}`, "_blank");
       };
 
-      // Exportação individual (Modular)
+      // Exporta os dois arquivos JSON (cabeçalho e itens) para a pasta descriptions
       card.querySelector("[data-act='export-disco']").onclick = () => {
         const header = { id: g.id, name: g.name, color: g.color, icon: g.icon, iconHref: g.iconHref };
         downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
         downloadFile(`${g.id}.items.json`, JSON.stringify({ items: g.items || [] }, null, 2));
       };
 
-      // Toggle do Grid
+      // Toggle para mostrar/esconder itens
       card.querySelector("[data-act='toggle']").onclick = () => {
         g.collapsed = !g.collapsed;
         grid.style.display = g.collapsed ? "none" : "grid";
