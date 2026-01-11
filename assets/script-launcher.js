@@ -403,7 +403,7 @@
         items
       };
 
-      groups.unshift(g);
+      groups.push(g);
       save(groups);
       render();
 
