@@ -55,33 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return "Pessoal";
   })();
 
-  function loadGroupsForCover() {
-    // 1) Se o launcher definiu KEY global, usamos ele (mesma chave do launcher).
-    try {
-      if (typeof KEY !== "undefined" && typeof KEY === "string" && KEY.trim()) {
-        const raw = localStorage.getItem(KEY.trim());
-        const parsed = raw ? JSON.parse(raw) : null;
-        if (Array.isArray(parsed)) return parsed;
-      }
-    } catch (e) {
-      console.warn("[COVER] Falha ao ler grupos via KEY do launcher.", e);
-    }
-
-    // 2) Fallback: padrão por APP_ID (caso você prefira não expor KEY na capa)
-    try {
-      const k = `ia-launcher-config:${APP_ID}`;
-      const raw = localStorage.getItem(k);
-      const parsed = raw ? JSON.parse(raw) : null;
-      if (Array.isArray(parsed)) return parsed;
-    } catch (e) {
-      console.warn("[COVER] Falha ao ler grupos via APP_ID.", e);
-    }
-
-    // 3) Fallback final: grupos do JS (window.GROUPS)
-    return Array.isArray(window.GROUPS) ? window.GROUPS : [];
-  }
-
-  const allGroups = loadGroupsForCover();
+  const allGroups = Array.isArray(window.GROUPS) ? window.GROUPS : [];
 
   const titleEl = document.getElementById("coverTitle");
   const imgEl   = document.getElementById("coverImage");
