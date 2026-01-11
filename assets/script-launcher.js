@@ -3,7 +3,7 @@
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-launcher.js
- * Função: Orquestrador com Edição de Itens e Migração de ID
+ * Função: Orquestrador Final - Sem campos de estado (collapsed)
  * ============================================================
  */
 
@@ -38,7 +38,7 @@
     return g; 
   }
 
-  // --- Migração de Dados ao alterar ID (Para não quebrar a Capa) ---
+  // --- Migração de Dados ---
   function migrateData(oldId, newId) {
     if (!oldId || !newId || oldId === newId) return;
     const oldKey = `ia-launcher-config:${APP_ID}:items:${oldId}`;
@@ -47,11 +47,10 @@
     if (data) {
       localStorage.setItem(newKey, data);
       localStorage.removeItem(oldKey);
-      console.log(`[Migração] Itens transferidos de ${oldId} para ${newId}`);
     }
   }
 
-  // --- Helpers ---
+  // --- Helpers de Download ---
   function downloadFile(filename, content, type = "application/json") {
     const blob = new Blob([content], { type: type });
     const a = document.createElement("a");
@@ -78,6 +77,18 @@
     return `${b}-${Date.now()}`;
   }
 
+  function teamTemplate7() {
+    return [
+      { code: "M01", label: "", provider: "", url: "", checked: true },
+      { code: "M02", label: "", provider: "", url: "", checked: true },
+      { code: "M03", label: "", provider: "", url: "", checked: true },
+      { code: "M04", label: "", provider: "", url: "", checked: true },
+      { code: "M05", label: "", provider: "", url: "", checked: true },
+      { code: "SUP", label: "", provider: "", url: "", checked: true },
+      { code: "REV", label: "", provider: "", url: "", checked: true }
+    ];
+  }
+
   // --- Inicialização ---
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
@@ -86,7 +97,6 @@
   const resetBtn = document.getElementById("reset");
 
   async function init() {
-    // Remove botão perigoso se existir
     const openAllGhost = document.getElementById("openAll") || Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Abrir TUDO'));
     if (openAllGhost) openAllGhost.remove();
 
@@ -96,14 +106,11 @@
     setupActions();
   }
 
-  // --- JANELA MODAL (Criação e Edição) ---
   function openModal(mode, groupData = null) {
     const isEdit = mode === "edit";
     const oldId = isEdit ? groupData.id : null;
-    
     const overlay = document.createElement("div");
     overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
-    
     const modal = document.createElement("div");
     modal.style = "background:var(--card-bg, #1e1e2e); padding:25px; border-radius:12px; width:100%; max-width:500px; border:1px solid #444; color:#fff; position:relative;";
     
@@ -113,22 +120,23 @@
       <div style="display:flex; flex-direction:column; gap:10px;">
         <label style="font-size:11px; color:#aaa;">NOME:</label>
         <input id="mName" type="text" value="${isEdit ? groupData.name : "Novo Grupo"}" style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-        
         <label style="font-size:11px; color:#aaa;">ID (SLUG):</label>
         <input id="mId" type="text" value="${isEdit ? groupData.id : makeUniqueId("Novo Grupo", activeGroups)}" style="padding:8px; background:#111; border:1px solid #444; color:#8b86ff;">
-
         <label style="font-size:11px; color:#aaa;">URL DO ÍCONE:</label>
         <input id="mIcon" type="text" value="${isEdit ? (groupData.icon || "") : ""}" placeholder="https://..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-
-        <label style="font-size:11px; color:#aaa;">URL DO ITEM (DESTINO):</label>
+        <label style="font-size:11px; color:#aaa;">URL DO MATERIAL (DESTINO):</label>
         <input id="mIconHref" type="text" value="${isEdit ? (groupData.iconHref || "") : ""}" placeholder="https://..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-
         <label style="font-size:11px; color:#aaa;">COR:</label>
         <input id="mColor" type="color" value="${isEdit ? (groupData.color || "#8b86ff") : "#8b86ff"}" style="width:100%; height:35px; background:none; border:none; cursor:pointer;">
+        ${!isEdit ? `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="mPrefill" checked>
+          <label for="mPrefill" style="font-size:12px;">Preencher equipe padrão (M01-REV)</label>
+        </div>` : ""}
       </div>
       <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
         <button id="mCancel" class="btn" style="background:#444;">Cancelar</button>
-        <button id="mSave" class="btn" style="background:#8b86ff; font-weight:bold;">Salvar Alterações</button>
+        <button id="mSave" class="btn" style="background:#8b86ff; font-weight:bold;">Salvar</button>
       </div>
     `;
 
@@ -137,24 +145,24 @@
 
     const nameIn = document.getElementById("mName");
     const idIn = document.getElementById("mId");
-
-    // Gerar ID automático apenas se for criação nova
-    if (!isEdit) {
-      nameIn.oninput = () => { idIn.value = makeUniqueId(nameIn.value, activeGroups); };
-    }
+    if (!isEdit) nameIn.oninput = () => { idIn.value = makeUniqueId(nameIn.value, activeGroups); };
 
     document.getElementById("mSave").onclick = () => {
       const newId = slugifyId(idIn.value);
       if (isEdit) {
-        // Se mudou o ID, migra os itens da capa para o novo ID
         migrateData(oldId, newId);
         groupData.id = newId;
         groupData.name = nameIn.value;
         groupData.color = document.getElementById("mColor").value;
         groupData.icon = document.getElementById("mIcon").value;
         groupData.iconHref = document.getElementById("mIconHref").value;
-        // Salva no LocalStorage como override do cabeçalho
-        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify(groupData));
+        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify({
+          id: groupData.id,
+          name: groupData.name,
+          color: groupData.color,
+          icon: groupData.icon,
+          iconHref: groupData.iconHref
+        }));
       } else {
         const newG = { 
           id: newId, 
@@ -162,10 +170,13 @@
           color: document.getElementById("mColor").value, 
           icon: document.getElementById("mIcon").value, 
           iconHref: document.getElementById("mIconHref").value, 
-          items: [] 
+          items: document.getElementById("mPrefill").checked ? teamTemplate7() : [] 
         };
         activeGroups.push(newG);
-        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify(newG));
+        localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify({
+          id: newG.id, name: newG.name, color: newG.color, icon: newG.icon, iconHref: newG.iconHref
+        }));
+        localStorage.setItem(`ia-launcher-config:${APP_ID}:items:${newId}`, JSON.stringify(newG.items));
       }
       render();
       overlay.remove();
@@ -179,7 +190,9 @@
     if (addGroupBtn) addGroupBtn.onclick = () => openModal("create");
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        const content = `/** Backup Consolidado **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
+        // Remove 'collapsed' de todos os itens antes de exportar o backup .js
+        const cleanGroups = activeGroups.map(({ collapsed, ...rest }) => rest);
+        const content = `/** Backup Consolidado **/\nconst GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
         downloadFile("estudos-groups.js", content, "text/javascript");
       };
     }
@@ -210,7 +223,6 @@
         <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}; gap:5px; padding:10px;"></div>
       `;
 
-      // Vincular botão de edição do material
       card.querySelector("[data-act='edit-material']").onclick = () => openModal("edit", g);
 
       const grid = card.querySelector("[data-role='grid']");
@@ -235,6 +247,7 @@
       };
 
       card.querySelector("[data-act='export-disco']").onclick = () => {
+        // Exportação individual estritamente sem campos de UI
         const h = {id:g.id, name:g.name, color:g.color, icon:g.icon, iconHref:g.iconHref};
         downloadFile(`${g.id}.group.json`, JSON.stringify(h, null, 2));
         downloadFile(`${g.id}.items.json`, JSON.stringify({items:g.items}, null, 2));
