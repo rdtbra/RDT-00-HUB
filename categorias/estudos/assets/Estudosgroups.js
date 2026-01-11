@@ -999,8 +999,8 @@ window.GROUPS = [
     "id": "emt-16-ec",
     "name": "EMT-16-EC - Jang&Orsaria - RHCSA - Red Hat Enterprise Linux 9",
     "color": "#f43f5e",
-    "icon": "assets/EMT-16-EC.png",
-    "iconHref": "https://drive.google.com/open?id=1SVhJljJaOya2QyhQSaukhV0gQfbjlYt8&usp=drive_fs",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781260462081/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/rhcsa-red-hat/9781260462081/cover.xhtml",
     "collapsed": true,
     "items": [
       {
