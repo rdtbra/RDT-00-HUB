@@ -521,9 +521,9 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.appendChild(modal);
 
     // Fecha ao clicar fora do modal
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) overlay.remove();
-    });
+ //   overlay.addEventListener("click", (e) => {
+ //     if (e.target === overlay) overlay.remove();
+ //   });
 
     document.body.appendChild(overlay);
   }
