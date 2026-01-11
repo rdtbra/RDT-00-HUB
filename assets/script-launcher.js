@@ -19,12 +19,11 @@
   async function getGroupData(g) {
     const id = g.id;
 
-    // Prioridade 1: LocalStorage (Override temporário)
+    // Prioridade 1: LocalStorage (Override manual recente)
     const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
     const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
     
     if (localHeader && localItems) {
-      console.log(`[Prioridade 1] Carregando ${id} do LocalStorage`);
       return { ...JSON.parse(localHeader), items: JSON.parse(localItems) };
     }
 
@@ -34,27 +33,24 @@
       if (respH.ok) {
         const header = await respH.json();
         const respI = await fetch(`descriptions/${id}.items.json`);
-        // Se encontrar o arquivo de itens, usa. Se não, tenta os itens do JS.
         const itemsData = respI.ok ? await respI.json() : null;
         
-        if (itemsData) {
-          console.log(`[Prioridade 2] Carregando ${id} do FileSystem`);
-          return { ...header, items: Array.isArray(itemsData) ? itemsData : itemsData.items };
-        }
+        return { 
+          ...header, 
+          items: itemsData ? (Array.isArray(itemsData) ? itemsData : itemsData.items) : (g.items || [])
+        };
       }
     } catch (e) {
-      console.warn(`[FS] Falha ao tentar buscar arquivos para ${id}`);
+      console.warn(`[FS] Erro ao buscar arquivos para ${id}`);
     }
 
     // Prioridade 3: JS Original (Fallback)
-    console.log(`[Prioridade 3] Carregando ${id} do arquivo JS Original`);
     return g; 
   }
 
-  // --- Funções de Exportação ---
+  // --- Exportação Modular ---
 
   function exportModular(g) {
-    // 1. Exporta o Cabeçalho (.group.json)
     const header = { 
       id: g.id, 
       name: g.name, 
@@ -64,8 +60,7 @@
     };
     downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
 
-    // 2. Exporta os Itens (.items.json)
-    const items = g.items || [];
+    const items = { items: g.items || [] };
     downloadFile(`${g.id}.items.json`, JSON.stringify(items, null, 2));
   }
 
@@ -83,12 +78,8 @@
   const groupsEl = document.getElementById("groups");
 
   async function init() {
-    // Pega a lista original (aqueles 35 itens que você mencionou no JS)
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
-    
-    // Resolve a prioridade para cada um deles
     activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
-    
     render();
   }
 
@@ -101,16 +92,25 @@
       card.className = "card";
       card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
       
+      // RESTAURADO: Estrutura de ícones gicon-wrap e gicon
       card.innerHTML = `
         <div class="head">
-          <h2><span class="chip" style="background:${g.color}"></span> ${g.name}</h2>
+          <h2 class="chev">
+            <span class="gicon-wrap">
+              <a href="${g.iconHref || "#"}" target="_blank">
+                <img class="gicon" src="${g.icon || ""}" alt="ícone" onerror="this.style.display='none'">
+              </a>
+            </span>
+            <span class="chip" style="background:${g.color}"></span> 
+            ${g.name}
+          </h2>
           <div class="actions">
             <button class="btn" data-act="open-cover">Capa</button>
             <button class="btn" data-act="export">Exportar Disco</button>
           </div>
         </div>
         <div class="grid" style="display:grid; gap:5px; padding:10px;">
-          <small style="color:#666">ID: ${g.id} | Itens: ${g.items ? g.items.length : 0}</small>
+          <small style="color:#666">ID: ${g.id} | Itens carregados: ${g.items ? g.items.length : 0}</small>
         </div>
       `;
 
