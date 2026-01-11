@@ -295,6 +295,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openEditorModal() {
+    
+(() => {
+  const orig = Element.prototype.remove;
+  Element.prototype.remove = function () {
+    if (this && this.id === "teamEditorOverlay") {
+      console.log("?? removeram o overlay! stack:");
+      console.trace();
+      debugger;
+    }
+    return orig.apply(this, arguments);
+  };
+  console.log("? spy de remove instalado");
+})();
+    
     // Overlay
     const overlay = createEl("div", {
       id: "teamEditorOverlay",
