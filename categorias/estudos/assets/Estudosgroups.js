@@ -9,8 +9,8 @@ window.GROUPS = [
     "id": "emt-01-es",
     "name": "EMT-01-ES - Rumsey - Probability for Dummies 2ed",
     "color": "#4f46e5",
-    "icon": "assets/EMT-01-ES.png",
-    "iconHref": "https://drive.google.com/open?id=1q54w5ZOAwk6af8_414Psuz8Cre81wR2m&usp=drive_fs",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394281886/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/probability-for-dummies/9781394281886/cover.xhtml",
     "collapsed": true,
     "items": [
       {
@@ -141,8 +141,8 @@ window.GROUPS = [
     "id": "emt-03-ma",
     "name": "EMT-03-MA - Axler - Precalculus a Prelude to Calculus 3ed",
     "color": "#06b6d4",
-    "icon": "assets/EMT-03-MA.png",
-    "iconHref": "https://drive.google.com/open?id=1QW1zLB139rJT5_WSWZgxFEhueirVgl3Q&usp=drive_fs",
+    "icon": "https://img.perlego.com/book-covers/3866265/9781119334767_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/3866265/28",
     "collapsed": true,
     "items": [
       {
@@ -537,8 +537,8 @@ window.GROUPS = [
     "id": "emt-09-ec",
     "name": "EMT-09-EC - Hyde - The Art of 64 bit Assembly",
     "color": "#ef4444",
-    "icon": "assets/EMT-09-EC.png",
-    "iconHref": "https://drive.google.com/open?id=1UZ95Qmt-xh9FjalOkj3UHo0FUNf-bgMl&usp=drive_fs",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781098129798/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/the-art-of/9781098129798/c01.xhtml#h1-501089c01-0008",
     "collapsed": true,
     "items": [
       {
@@ -603,8 +603,8 @@ window.GROUPS = [
     "id": "emt-10-ec",
     "name": "EMT-10-EC - Silberschatz&Galvin - Operating System Concepts 10ed",
     "color": "#a855f7",
-    "icon": "assets/EMT-10-EC.png",
-    "iconHref": "https://drive.google.com/open?id=1VU9zS51rjCpfyTqII28CeGJJNnQnOzWh&usp=drive_fs",
+    "icon": "https://img.perlego.com/book-covers/3866214/9781119124894_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/3866214/31",
     "collapsed": true,
     "items": [
       {
@@ -669,8 +669,8 @@ window.GROUPS = [
     "id": "emt-11-es",
     "name": "EMT-11-ES - Miller - The Probability Lifesaver",
     "color": "#3b82f6",
-    "icon": "assets/EMT-11-ES.png",
-    "iconHref": "https://drive.google.com/open?id=1qBCaBWZN9PrGkjY5MeGO2NOvovQKiFQD&usp=drive_fs",
+    "icon": "https://img.perlego.com/book-covers/739787/9781400885381_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/739787/28",
     "collapsed": true,
     "items": [
       {
@@ -931,10 +931,10 @@ window.GROUPS = [
   },
   {
     "id": "emt-15-ma",
-    "name": "EMT-15-MA - Kreyszig - Advanced Engineering Mathematics 10ed",
+    "name": "EMT-15-MA - Kreyszig - Advanced Engineering Mathematics 10ed IE",
     "color": "#6366f1",
-    "icon": "assets/EMT-15-MA.png",
-    "iconHref": "https://drive.google.com/open?id=1oNaW7e6aS7mA0dokx0DZTijhg5AB8ZEf&usp=drive_fs",
+    "icon": "https://img.perlego.com/book-covers/2583042/9781118855447_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/2583042/22",
     "collapsed": true,
     "items": [
       {
