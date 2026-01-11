@@ -1,5 +1,5 @@
 /** Backup Consolidado **/
-const GROUPS = [
+window.GROUPS = [
   {
     "id": "emt-01-es",
     "name": "EMT-01-ES - Rumsey - Probability for Dummies 2ed",
