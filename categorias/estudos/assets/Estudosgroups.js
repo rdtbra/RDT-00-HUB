@@ -1324,7 +1324,7 @@ window.GROUPS = [
         "img": ""
       }
     ]
-  }
+  },
   {
     "id": "emt-21-ma",
     "name": "EMT-21-MA - Ryan - Calculus for Dummies 2ed",
