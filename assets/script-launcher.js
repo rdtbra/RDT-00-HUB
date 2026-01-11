@@ -3,7 +3,7 @@
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
  * Arquivo: script-launcher.js
- * Função: Orquestrador Modular com Export Geral e Botão Reset
+ * Função: Orquestrador Final - Cascata, Export Geral e +Grupo
  * ============================================================
  */
 
@@ -16,15 +16,13 @@
 
   async function getGroupData(g) {
     const id = g.id;
-
-    // 1. LocalStorage
     const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
     const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
+    
     if (localHeader && localItems) {
       return { ...JSON.parse(localHeader), items: JSON.parse(localItems) };
     }
 
-    // 2. FileSystem (Busca modular)
     try {
       const respH = await fetch(`descriptions/${id}.group.json`);
       if (respH.ok) {
@@ -38,11 +36,10 @@
       }
     } catch (e) {}
 
-    // 3. Fallback: Arquivo JS Original
     return g; 
   }
 
-  // --- Funções de Exportação e Utilidades ---
+  // --- Helpers e Utilidades ---
 
   function downloadFile(filename, content, type = "application/json") {
     const blob = new Blob([content], { type: type });
@@ -53,43 +50,121 @@
     URL.revokeObjectURL(a.href);
   }
 
+  function slugifyId(input) {
+    return (input || "").toString().trim().toLowerCase()
+      .replace(/\s+/g, "-").replace(/[^a-z0-9\-_.]/g, "")
+      .replace(/\-+/g, "-").replace(/^\-|\-$/g, "");
+  }
+
+  function makeUniqueId(base, groups) {
+    const b = slugifyId(base) || "grupo";
+    const exists = (id) => groups.some(g => g.id === id);
+    if (!exists(b)) return b;
+    for (let i = 2; i < 999; i++) {
+      const candidate = `${b}-${i}`;
+      if (!exists(candidate)) return candidate;
+    }
+    return `${b}-${Date.now()}`;
+  }
+
+  function teamTemplate7() {
+    return [
+      { code: "M01", label: "", provider: "", url: "", checked: true },
+      { code: "M02", label: "", provider: "", url: "", checked: true },
+      { code: "M03", label: "", provider: "", url: "", checked: true },
+      { code: "M04", label: "", provider: "", url: "", checked: true },
+      { code: "M05", label: "", provider: "", url: "", checked: true },
+      { code: "SUP", label: "", provider: "", url: "", checked: true },
+      { code: "REV", label: "", provider: "", url: "", checked: true }
+    ];
+  }
+
   // --- Inicialização e Renderização ---
 
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
+  const addGroupBtn = document.getElementById("addGroup");
   const exportAllBtn = document.getElementById("exportAll") || document.getElementById("export"); 
   const resetBtn = document.getElementById("reset");
 
   async function init() {
-    // Remove fisicamente o botão perigoso "Abrir TUDO" se ele existir no HTML
+    // Remove o botão "Abrir TUDO" por segurança
     const openAllGhost = document.getElementById("openAll") || Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Abrir TUDO'));
     if (openAllGhost) openAllGhost.remove();
 
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
     render();
-    setupGlobalActions();
+    setupActions();
   }
 
-  function setupGlobalActions() {
-    // Configura o botão de Exportar Tudo (Backup Consolidado)
-    if (exportAllBtn) {
-      exportAllBtn.onclick = () => {
-        const content = `/** Backup Consolidado do HUB **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
-        downloadFile("estudos-groups.js", content, "text/javascript");
-        alert("Arquivo 'estudos-groups.js' gerado para o seu filesystem.");
+  function setupActions() {
+    // Restaurado: Botão +Grupo com a janela completa
+    if (addGroupBtn) {
+      addGroupBtn.onclick = () => {
+        const overlay = document.createElement("div");
+        overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
+        const modal = document.createElement("div");
+        modal.style = "background:var(--card-bg, #1e1e2e); padding:25px; border-radius:12px; width:100%; max-width:450px; border:1px solid #444; color:#fff; position:relative;";
+        
+        const initialId = makeUniqueId("Novo Grupo", activeGroups);
+
+        modal.innerHTML = `
+          <button id="mCloseX" style="position:absolute; top:10px; right:10px; background:none; border:none; color:#888; cursor:pointer; font-size:24px;">&times;</button>
+          <h3 style="margin-top:0; margin-bottom:20px;">🚀 Novo Grupo</h3>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <label style="font-size:12px;">Nome do Grupo:</label>
+            <input id="mName" type="text" value="Novo Grupo" style="padding:10px; background:#111; border:1px solid #444; color:#fff; border-radius:6px;">
+            <label style="font-size:12px;">ID (Slug):</label>
+            <input id="mId" type="text" value="${initialId}" style="padding:10px; background:#111; border:1px solid #444; color:#aaa; font-family:monospace; border-radius:6px;">
+            <label style="font-size:12px;">Cor:</label>
+            <input id="mColor" type="color" value="#8b86ff" style="width:100%; height:40px; background:none; border:none; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="mPrefill" checked>
+              <label for="mPrefill" style="font-size:13px;">Criar equipe padrão (M01..REV)</label>
+            </div>
+          </div>
+          <div style="margin-top:25px; display:flex; gap:10px; justify-content:flex-end;">
+            <button id="mCancel" class="btn" style="background:#444;">Cancelar</button>
+            <button id="mSave" class="btn" style="background:#8b86ff; font-weight:bold;">Salvar</button>
+          </div>
+        `;
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        const nameIn = document.getElementById("mName");
+        const idIn = document.getElementById("mId");
+        nameIn.oninput = () => { idIn.value = makeUniqueId(nameIn.value, activeGroups); };
+
+        document.getElementById("mSave").onclick = () => {
+          const id = slugifyId(idIn.value);
+          const newGroup = {
+            id,
+            name: nameIn.value,
+            color: document.getElementById("mColor").value,
+            items: document.getElementById("mPrefill").checked ? teamTemplate7() : []
+          };
+          activeGroups.push(newGroup);
+          localStorage.setItem(`${KEY}:group:${id}`, JSON.stringify(newGroup));
+          localStorage.setItem(`ia-launcher-config:${APP_ID}:items:${id}`, JSON.stringify(newGroup.items));
+          render();
+          overlay.remove();
+        };
+        document.getElementById("mCancel").onclick = () => overlay.remove();
+        document.getElementById("mCloseX").onclick = () => overlay.remove();
       };
     }
 
-    // REATIVADO: Botão Restaurar Padrão
+    if (exportAllBtn) {
+      exportAllBtn.onclick = () => {
+        const content = `/** Backup Consolidado **/\nconst GROUPS = ${JSON.stringify(activeGroups, null, 2)};`;
+        downloadFile("estudos-groups.js", content, "text/javascript");
+      };
+    }
+
     if (resetBtn) {
       resetBtn.onclick = () => {
-        if (confirm("Deseja realmente restaurar o padrão? Suas alterações no navegador serão perdidas.")) {
-          localStorage.removeItem(KEY);
-          // Remove também os overrides de capa para limpeza total
-          activeGroups.forEach(g => localStorage.removeItem(`ia-launcher-config:${APP_ID}:items:${g.id}`));
-          location.reload();
-        }
+        if (confirm("Restaurar padrão?")) { localStorage.clear(); location.reload(); }
       };
     }
   }
@@ -97,30 +172,22 @@
   function render() {
     if (!groupsEl) return;
     groupsEl.innerHTML = "";
-
-    activeGroups.forEach((g, gi) => {
+    activeGroups.forEach((g) => {
       const card = document.createElement("div");
       card.className = "card";
       card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
-      
       card.innerHTML = `
         <div class="head">
           <h2 class="chev" style="cursor:pointer" data-act="toggle">
-            <span class="gicon-wrap">
-              <a href="${g.iconHref || "#"}" target="_blank">
-                <img class="gicon" src="${g.icon || ""}" alt="ícone" onerror="this.style.display='none'">
-              </a>
-            </span>
-            <span class="chip" style="background:${g.color}"></span> 
-            ${g.name}
+            <span class="gicon-wrap"><img class="gicon" src="${g.icon || ""}" onerror="this.style.display='none'"></span>
+            <span class="chip" style="background:${g.color}"></span> ${g.name}
           </h2>
           <div class="actions">
             <button class="btn" data-act="open-cover">Capa</button>
             <button class="btn" data-act="export-disco">Exportar Disco</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}; gap:5px; padding:10px;">
-          </div>
+        <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}; gap:5px; padding:10px;"></div>
       `;
 
       const grid = card.querySelector("[data-role='grid']");
@@ -133,9 +200,7 @@
             <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
             <div class="composite" style="font-size:12px;">${item.code} | ${item.label}</div>
           </div>
-          <div class="urlbox" style="flex: 2;">
-            <input class="url" type="text" value="${item.url || ""}" style="width:100%; padding:2px 5px; background:#111; color:#ccc; border:1px solid #333;">
-          </div>
+          <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333;"></div>
           <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px;">Abrir</a>
         `;
         grid.appendChild(row);
@@ -147,9 +212,8 @@
       };
 
       card.querySelector("[data-act='export-disco']").onclick = () => {
-        const header = { id: g.id, name: g.name, color: g.color, icon: g.icon, iconHref: g.iconHref };
-        downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
-        downloadFile(`${g.id}.items.json`, JSON.stringify({ items: g.items || [] }, null, 2));
+        downloadFile(`${g.id}.group.json`, JSON.stringify({id:g.id, name:g.name, color:g.color, icon:g.icon}, null, 2));
+        downloadFile(`${g.id}.items.json`, JSON.stringify({items:g.items}, null, 2));
       };
 
       card.querySelector("[data-act='toggle']").onclick = () => {
