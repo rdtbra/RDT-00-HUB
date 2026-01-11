@@ -118,14 +118,23 @@
       ].join(";")
     });
 
-    // FIXO: não fecha ao clicar fora
-    overlay.addEventListener("click", (e) => {
-      // intencionalmente não fecha
-      e.preventDefault();
-      e.stopPropagation();
+    // FIXO: não fecha ao clicar fora (mas deixa botões funcionarem!)
+    // Só "consome" o evento quando o clique for no fundo (overlay), não no modal.
+    overlay.addEventListener("mousedown", (e) => {
+      if (e.target === overlay) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }, true);
 
-    // Evita vazamento de eventos
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // Evita vazamento de eventos do modal para o overlay
     modal.addEventListener("click", (e) => e.stopPropagation(), true);
     modal.addEventListener("mousedown", (e) => e.stopPropagation(), true);
     modal.addEventListener("contextmenu", (e) => e.stopPropagation(), true);
