@@ -101,6 +101,7 @@
         "align-items:center",
         "justify-content:center",
         "padding:16px",
+        "pointer-events:auto",
       ].join(";")
     });
 
@@ -115,6 +116,7 @@
         "border-radius:12px",
         "box-shadow:0 16px 50px rgba(0,0,0,.5)",
         "padding:14px",
+        "pointer-events:auto",
       ].join(";")
     });
 
@@ -150,9 +152,16 @@
     const closeBtn = header.querySelector("button");
     function close() {
       try { overlay.remove(); } catch {}
+      window.removeEventListener("keydown", onKeyDown, true);
       if (typeof onClose === "function") onClose();
     }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") close();
+    }
+
     closeBtn.addEventListener("click", close);
+    window.addEventListener("keydown", onKeyDown, true);
 
     modal.appendChild(header);
     if (contentEl) modal.appendChild(contentEl);
