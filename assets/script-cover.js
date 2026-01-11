@@ -34,24 +34,6 @@
  */
 
 
-// ============================================================
-// 🔒 Modal FIXO: bloqueia remoção acidental do editor (teamEditorOverlay)
-// - O modal só fecha quando você clicar em ✖ Fechar ou Limpar override.
-// - Isso evita sumir por cliques fora, foco entre janelas, extensões, etc.
-// ============================================================
-(function lockTeamEditorOverlayRemovalOnce(){
-  if (window.__TEAM_EDITOR_OVERLAY_LOCK_INSTALLED__) return;
-  window.__TEAM_EDITOR_OVERLAY_LOCK_INSTALLED__ = true;
-
-  const origRemove = Element.prototype.remove;
-  Element.prototype.remove = function () {
-    if (this && this.id === "teamEditorOverlay" && this.dataset && this.dataset.locked === "1") {
-      return; // Bloqueado
-    }
-    return origRemove.apply(this, arguments);
-  };
-})();
-
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
@@ -73,6 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (p.includes("/profissional/")) return "Profissional";
     return "Pessoal";
   })();
+
+  // =========================================================
+  // Persistência do editor (anti-sumiço por reload/foco/extensões)
+  // - Se a página recarregar/navegar e voltar, reabrimos o editor
+  // - Mantém rascunho do JSON enquanto você digita
+  // =========================================================
+  const EDITOR_STATE_KEY = `ia-launcher-config:${APP_ID}:cover-editor-state:${groupId}`;
+  function setEditorState(state) {
+    try { sessionStorage.setItem(EDITOR_STATE_KEY, JSON.stringify(state)); } catch {}
+  }
+  function getEditorState() {
+    try {
+      const raw = sessionStorage.getItem(EDITOR_STATE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  }
+  function clearEditorState() {
+    try { sessionStorage.removeItem(EDITOR_STATE_KEY); } catch {}
+  }
+
 
   function loadGroupsForCover() {
     // 1) Se o launcher definiu KEY global, usamos ele (mesma chave do launcher).
@@ -314,6 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openEditorModal() {
+    // Marca o editor como aberto (para reabrir automaticamente após reload)
+    setEditorState({ open: true, draft: getEditorState()?.draft || null });
 // Overlay
     const overlay = createEl("div", {
       id: "teamEditorOverlay",
@@ -329,9 +333,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ].join(";")
     });
 
-
-    // 🔒 trava o modal (só fecha via botões explícitos)
-    overlay.dataset.locked = "1";
 
     // Modal
     const modal = createEl("div", {
@@ -361,7 +362,7 @@ const header = createEl("div", { style: "display:flex;gap:12px;align-items:cente
           `Chave: ${LS_ITEMS_KEY}`
         ),
       ]),
-      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;", onclick: () => { overlay.dataset.locked = "0"; overlay.remove(); } }, "✖ Fechar")
+      createEl("button", { type: "button", class: "btn", style: "padding:8px 10px;", onclick: () => { clearEditorState(); overlay.remove(); } }, "✖ Fechar")
     ]);
 
     // Área de ações
@@ -498,7 +499,7 @@ const header = createEl("div", { style: "display:flex;gap:12px;align-items:cente
     btnClear.addEventListener("click", () => {
       localStorage.removeItem(LS_ITEMS_KEY);
       setStatus("♻️ Override removido. Recarregando fonte padrão...");
-      overlay.dataset.locked = "0";
+      clearEditorState();
       overlay.remove();
       location.reload();
     });
@@ -547,6 +548,12 @@ const header = createEl("div", { style: "display:flex;gap:12px;align-items:cente
     // Conteúdo inicial do editor: preferir a fonte ativa (activeItems).
     setTextareaFromItems(activeItems);
 
+    // Persistência do rascunho
+    setEditorState({ open: true, draft: textarea.value });
+    textarea.addEventListener("input", () => {
+      setEditorState({ open: true, draft: textarea.value });
+    });
+
     modal.append(header, actions, fileInput, textarea, addTitle, grid, responsiveHint, status);
     overlay.appendChild(modal);
 
@@ -569,6 +576,13 @@ const header = createEl("div", { style: "display:flex;gap:12px;align-items:cente
       renderIAList(activeItems);
       bindOpenAllButton(activeItems);
       ensureEditorButton();
+      const st = getEditorState();
+      if (st && st.open) {
+        // abre e repõe rascunho
+        openEditorModal();
+        const ta = document.getElementById("teamEditorTextarea");
+        if (ta && typeof st.draft === "string") ta.value = st.draft;
+      }
       return;
     }
 
@@ -579,6 +593,13 @@ const header = createEl("div", { style: "display:flex;gap:12px;align-items:cente
       renderIAList(activeItems);
       bindOpenAllButton(activeItems);
       ensureEditorButton();
+      const st = getEditorState();
+      if (st && st.open) {
+        // abre e repõe rascunho
+        openEditorModal();
+        const ta = document.getElementById("teamEditorTextarea");
+        if (ta && typeof st.draft === "string") ta.value = st.draft;
+      }
       return;
     }
 
