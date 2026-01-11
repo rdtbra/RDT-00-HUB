@@ -9,239 +9,122 @@
 //       com opção de pré-criar a equipe padrão (M01..M05, SUP, REV).
 
 // script-launcher.js - Versão com Sincronização Automática Capa -> Launcher
-Exatamente. Esse é um ponto crucial: se você altera o ID no Launcher, a Capa (que depende desse ID via URL ?group=novo-id) pode "quebrar" ou perder o vínculo com os itens salvos anteriormente se não tomarmos cuidado.
-
-Para que essa troca de ID seja segura e as alterações se propaguem corretamente, fiz dois ajustes importantes no código abaixo:
-
-Migração Automática de Dados: Se você renomear um ID (ex: de old-id para new-id), o script agora tenta mover os itens salvos no localStorage da chave antiga para a nova.
-
-Consistência de URL: O Launcher garante que, ao clicar em "Abrir Capa", você seja levado para a URL com o ID novo.
-
-Aqui está o script-launcher.js atualizado com essa inteligência de migração:
-
-JavaScript
-
-/**
- * ============================================================
- * RDT-00-HUB / HUB Pessoal
- * ------------------------------------------------------------
- * Arquivo: script-launcher.js
- * Função: Gerenciador com Migração de IDs e Sincronização
- * ============================================================
- */
-
 (function () {
-  if (typeof KEY === "undefined") {
-    console.error("[launcher] Variável KEY não definida.");
-    return;
-  }
+  if (typeof KEY === "undefined") return;
 
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  const DEFAULT_GROUPS_SAFE = (function () {
-    if (typeof DEFAULT_GROUPS !== "undefined" && Array.isArray(DEFAULT_GROUPS)) return DEFAULT_GROUPS;
-    if (Array.isArray(window.GROUPS)) return window.GROUPS;
-    return [];
-  })();
+  // --- Lógica de Prioridade (Cascata) ---
 
-  // --- Persistência e Sincronização ---
+  async function getGroupData(g) {
+    const id = g.id;
 
-  function load() {
+    // Prioridade 1: LocalStorage (Override temporário)
+    const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
+    const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
+    
+    if (localHeader && localItems) {
+      console.log(`[Prioridade 1] Carregando ${id} do LocalStorage`);
+      return { ...JSON.parse(localHeader), items: JSON.parse(localItems) };
+    }
+
+    // Prioridade 2: FileSystem (descriptions/id.group.json e id.items.json)
     try {
-      const raw = localStorage.getItem(KEY);
-      let loadedGroups = DEFAULT_GROUPS_SAFE;
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) loadedGroups = parsed;
+      const respH = await fetch(`descriptions/${id}.group.json`);
+      if (respH.ok) {
+        const header = await respH.json();
+        const respI = await fetch(`descriptions/${id}.items.json`);
+        // Se encontrar o arquivo de itens, usa. Se não, tenta os itens do JS.
+        const itemsData = respI.ok ? await respI.json() : null;
+        
+        if (itemsData) {
+          console.log(`[Prioridade 2] Carregando ${id} do FileSystem`);
+          return { ...header, items: Array.isArray(itemsData) ? itemsData : itemsData.items };
+        }
       }
-      return syncItemsFromCovers(loadedGroups);
     } catch (e) {
-      return DEFAULT_GROUPS_SAFE;
+      console.warn(`[FS] Falha ao tentar buscar arquivos para ${id}`);
     }
+
+    // Prioridade 3: JS Original (Fallback)
+    console.log(`[Prioridade 3] Carregando ${id} do arquivo JS Original`);
+    return g; 
   }
 
-  function syncItemsFromCovers(allGroups) {
-    return allGroups.map(g => {
-      const coverKey = `ia-launcher-config:${APP_ID}:items:${g.id}`;
-      const rawCoverItems = localStorage.getItem(coverKey);
-      if (rawCoverItems) {
-        try {
-          const coverItems = JSON.parse(rawCoverItems);
-          if (Array.isArray(coverItems)) return { ...g, items: coverItems };
-        } catch (e) {}
-      }
-      return g;
-    });
+  // --- Funções de Exportação ---
+
+  function exportModular(g) {
+    // 1. Exporta o Cabeçalho (.group.json)
+    const header = { 
+      id: g.id, 
+      name: g.name, 
+      color: g.color, 
+      icon: g.icon, 
+      iconHref: g.iconHref 
+    };
+    downloadFile(`${g.id}.group.json`, JSON.stringify(header, null, 2));
+
+    // 2. Exporta os Itens (.items.json)
+    const items = g.items || [];
+    downloadFile(`${g.id}.items.json`, JSON.stringify(items, null, 2));
   }
 
-  function save(groups) {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(groups));
-    } catch (e) {}
+  function downloadFile(filename, content) {
+    const blob = new Blob([content], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
   }
 
-  // --- FUNÇÃO DE MIGRAÇÃO DE ID (O Pulo do Gato para a Capa) ---
-  function migrateCoverData(oldId, newId) {
-    if (!oldId || !newId || oldId === newId) return;
-    
-    const oldKey = `ia-launcher-config:${APP_ID}:items:${oldId}`;
-    const newKey = `ia-launcher-config:${APP_ID}:items:${newId}`;
-    
-    const data = localStorage.getItem(oldKey);
-    if (data) {
-      localStorage.setItem(newKey, data); // Copia dados para o novo ID
-      localStorage.removeItem(oldKey);    // Remove rastro do antigo
-      console.log(`[migração] Dados movidos de ${oldId} para ${newId}`);
-    }
-  }
+  // --- Inicialização e Renderização ---
 
-  // --- Helpers ---
-
-  function escapeHtml(str) {
-    return (str || "").replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
-  }
-
-  function slugifyId(input) {
-    return (input || "").toString().trim().toLowerCase()
-      .replace(/\s+/g, "-").replace(/[^a-z0-9\-_.]/g, "")
-      .replace(/\-+/g, "-").replace(/^\-|\-$/g, "");
-  }
-
-  let groups = load();
-
-  function isIdAvailable(id, currentId = null) {
-    if (id === currentId) return true;
-    return !groups.some(g => (g.id || "") === id);
-  }
-
-  function makeUniqueId(base) {
-    const b = slugifyId(base) || "grupo";
-    if (isIdAvailable(b)) return b;
-    for (let i = 2; i < 99; i++) {
-      const candidate = `${b}-${i}`;
-      if (isIdAvailable(candidate)) return candidate;
-    }
-    return `${b}-${Date.now()}`;
-  }
-
-  // --- Renderização ---
-
+  let activeGroups = [];
   const groupsEl = document.getElementById("groups");
-  const delayEl = document.getElementById("delay");
-  const addGroupBtn = document.getElementById("addGroup");
+
+  async function init() {
+    // Pega a lista original (aqueles 35 itens que você mencionou no JS)
+    const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
+    
+    // Resolve a prioridade para cada um deles
+    activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
+    
+    render();
+  }
 
   function render() {
     if (!groupsEl) return;
     groupsEl.innerHTML = "";
 
-    groups.forEach((g, gi) => {
+    activeGroups.forEach((g, gi) => {
       const card = document.createElement("div");
       card.className = "card";
-      card.style.borderLeftColor = g.color || "#8b86ff";
-
+      card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
+      
       card.innerHTML = `
         <div class="head">
-          <h2 class="chev" data-act="toggle">
-            <span class="gicon-wrap">
-              <img class="gicon" src="${g.icon || ""}" alt="">
-            </span>
-            <span class="chip" style="background:${g.color || "#8b86ff"}"></span>
-            ${escapeHtml(g.name || "Grupo")}
-          </h2>
+          <h2><span class="chip" style="background:${g.color}"></span> ${g.name}</h2>
           <div class="actions">
-            <button class="btn" data-act="open-cover">Abrir capa</button>          
-            <button class="btn" data-act="open-group">Abrir todas</button>
-            <button class="btn" data-act="edit-group">Editar</button>
-            <button class="btn" data-act="remove-group">Remover</button>
+            <button class="btn" data-act="open-cover">Capa</button>
+            <button class="btn" data-act="export">Exportar Disco</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:${g.collapsed ? "none" : "grid"}"></div>
+        <div class="grid" style="display:grid; gap:5px; padding:10px;">
+          <small style="color:#666">ID: ${g.id} | Itens: ${g.items ? g.items.length : 0}</small>
+        </div>
       `;
 
-      const grid = card.querySelector("[data-role='grid']");
-      (g.items || []).forEach((item, ii) => {
-        const row = document.createElement("div");
-        row.className = "item";
-        row.innerHTML = `
-          <div class="left">
-            <input class="checkbox" type="checkbox" ${item.checked !== false ? "checked" : ""}>
-            <div class="composite">${escapeHtml([item.code, item.label].filter(Boolean).join(" | "))}</div>
-          </div>
-          <div class="urlbox"><input class="url" type="text" value="${item.url || ""}"></div>
-          <div style="display:flex; gap:6px;"><a class="btn" href="${item.url || "#"}" target="_blank">Abrir</a></div>
-        `;
-        grid.appendChild(row);
-      });
-
       card.querySelector("[data-act='open-cover']").onclick = () => {
-        window.open(`${GROUP_COVER_PAGE}?group=${encodeURIComponent(g.id)}`, "_blank");
+        window.open(`cover.html?group=${encodeURIComponent(g.id)}`, "_blank");
       };
 
-      card.querySelector("[data-act='edit-group']").onclick = () => openGroupModal("edit", g);
-      
-      card.querySelector("[data-act='toggle']").onclick = () => {
-        g.collapsed = !g.collapsed;
-        save(groups);
-        render();
+      card.querySelector("[data-act='export']").onclick = () => {
+        exportModular(g);
       };
 
       groupsEl.appendChild(card);
     });
   }
 
-  function openGroupModal(mode, groupData = null) {
-    const isEdit = mode === "edit";
-    const oldId = isEdit ? groupData.id : null;
-    
-    const overlay = document.createElement("div");
-    overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
-    
-    const modal = document.createElement("div");
-    modal.style = "background:var(--card-bg, #1e1e2e); padding:25px; border-radius:12px; width:100%; max-width:400px; border:1px solid #444; color:#fff;";
-    
-    modal.innerHTML = `
-      <h3>${isEdit ? "Editar Grupo" : "Novo Grupo"}</h3>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <label>Nome:</label><input id="mName" type="text" value="${isEdit ? groupData.name : ""}" style="padding:8px; background:#111; color:#fff; border:1px solid #444;">
-        <label>ID (Slug):</label><input id="mId" type="text" value="${isEdit ? groupData.id : ""}" style="padding:8px; background:#111; color:#aaa; border:1px solid #444;">
-        <label>Cor:</label><input id="mColor" type="color" value="${isEdit ? groupData.color : "#8b86ff"}" style="width:100%;">
-      </div>
-      <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
-        <button id="mCancel" class="btn">Cancelar</button>
-        <button id="mSave" class="btn" style="background:#8b86ff">Salvar</button>
-      </div>
-    `;
-
-    document.body.appendChild(overlay);
-    overlay.appendChild(modal);
-
-    const nameIn = document.getElementById("mName");
-    const idIn = document.getElementById("mId");
-
-    document.getElementById("mSave").onclick = () => {
-      const newId = slugifyId(idIn.value);
-      if (!isIdAvailable(newId, oldId)) return alert("ID em uso!");
-
-      if (isEdit) {
-        // Se o ID mudou, migra os dados da capa para não perder os itens salvos
-        if (oldId !== newId) migrateCoverData(oldId, newId);
-        
-        groupData.name = nameIn.value;
-        groupData.id = newId;
-        groupData.color = document.getElementById("mColor").value;
-      } else {
-        groups.push({ id: newId, name: nameIn.value, color: document.getElementById("mColor").value, items: [] });
-      }
-
-      save(groups);
-      render();
-      overlay.remove();
-    };
-
-    document.getElementById("mCancel").onclick = () => overlay.remove();
-  }
-
-  if (addGroupBtn) addGroupBtn.onclick = () => openGroupModal("create");
-
-  render();
+  init();
 })();
