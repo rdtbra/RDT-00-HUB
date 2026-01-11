@@ -1,5 +1,10 @@
-/** Backup Consolidado **/
-const GROUPS = [
+// ============================================================================
+// Estudosgroups.js
+// Estrutura completa para todos os 20 grupos AF
+// description = name (como solicitado)
+// ============================================================================
+
+window.GROUPS = [
   {
     "id": "emt-01-es",
     "name": "EMT-01-ES - Rumsey - Probability for Dummies 2ed",
@@ -855,7 +860,7 @@ const GROUPS = [
         "url": "https://app.innerai.com/projects/62873919-5fc1-4fd4-9741-ef64c0b796b2?sessionId=51453e82-92bf-4384-a1a2-31a181c027a2",
         "checked": true,
         "img": ""
-      }
+      },
     ]
   },
   {
@@ -2309,64 +2314,5 @@ const GROUPS = [
         "img": ""
       }
     ]
-  },
-  {
-    "id": "emt-36-cd",
-    "name": "EMT-36-CD - Mueller&Massaron - Python for Data Science for Dummies 3ed",
-    "color": "#8b86ff",
-    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394213146/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/python-for-data/9781394213146/c01.xhtml",
-    "items": [
-      {
-        "code": "M01",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M02",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M03",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M04",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "M05",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "SUP",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      },
-      {
-        "code": "REV",
-        "label": "",
-        "provider": "",
-        "url": "",
-        "checked": true
-      }
-    ],
-    "collapsed": true
   }
 ];
