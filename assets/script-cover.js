@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-cover.js (CORREÇÃO CRÍTICA DO LINK DO LIVRO)
+ * Arquivo: script-cover.js (CORREÇÃO DEFINITIVA DE NAVEGAÇÃO)
  * ============================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupId = params.get("group");
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  // --- 1. Sincronização de Dados ---
+  // --- 1. Sincronização de Identidade ---
   function loadGroupData() {
     const localHeader = localStorage.getItem(`ia-launcher-config:Estudos:group:${groupId}`);
     if (localHeader) return JSON.parse(localHeader);
@@ -23,11 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const LS_ITEMS_KEY = `ia-launcher-config:${APP_ID}:items:${groupId}`;
 
-  // Elementos da Interface
+  // Aplicar Identidade Visual
   const titleEl = document.getElementById("coverTitle") || document.getElementById("groupTitle");
   const imgEl   = document.getElementById("coverImage") || document.getElementById("groupIcon");
-  const iaList  = document.getElementById("iaList");
-
   if (titleEl) {
     titleEl.textContent = group.name;
     titleEl.style.color = group.color || "#8b86ff";
@@ -37,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 2. Lógica de Itens ---
   const safeJsonParse = (str) => { try { return JSON.parse(str); } catch { return null; } };
-  
   function loadItems() {
     const raw = localStorage.getItem(LS_ITEMS_KEY);
     const items = raw ? safeJsonParse(raw) : group.items;
@@ -45,54 +42,57 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderIAList(items) {
+    const iaList = document.getElementById("iaList");
     if (!iaList) return;
     iaList.innerHTML = "";
     items.forEach(item => {
       const li = document.createElement("li");
       li.className = "ia-item-row";
-      li.innerHTML = `<a href="${item.url}" target="_blank">${item.code} - ${item.label}</a>`;
+      li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener">${item.code} - ${item.label}</a>`;
       iaList.appendChild(li);
     });
   }
 
-  // --- 3. CORREÇÃO DE LINKS (Ação Única) ---
-
-  // Botão Abrir Tudo
-  const btnOpenAll = document.getElementById("openAllCover");
-  if (btnOpenAll) {
-    btnOpenAll.onclick = function(e) {
+  // --- 3. CORREÇÃO BRUTA: Interceptação de Eventos ---
+  
+  // Função mestre para abrir URLs sem deixar a página atual agir
+  function forceOpen(e, url) {
+    if (e) {
       e.preventDefault();
-      e.stopImmediatePropagation(); // Garante que nenhum outro script interfira
-      const items = loadItems();
-      const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
-      
-      if (urls.length === 0) return alert("Nenhuma URL disponível.");
-
-      urls.forEach((url, index) => {
-        setTimeout(() => { window.open(url, "_blank"); }, index * 300);
-      });
-      return false;
-    };
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+    if (url && url !== "#" && url !== "") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      alert("URL não encontrada ou inválida.");
+    }
+    return false;
   }
 
-  // Botão Material de Referência (O LIVRO)
-  const btnRef = document.getElementById("openReference");
-  if (btnRef) {
-    btnRef.onclick = function(e) {
+  // Seleção e Atribuição dos botões
+  const btnOpenAll = document.getElementById("openAllCover");
+  if (btnOpenAll) {
+    btnOpenAll.addEventListener("click", (e) => {
+      const items = loadItems();
+      const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
+      if (urls.length === 0) return alert("Nenhuma URL disponível.");
+      
       e.preventDefault();
       e.stopImmediatePropagation();
       
-      // O link do livro vem do iconHref que você preencheu no Launcher
+      urls.forEach((url, index) => {
+        setTimeout(() => { window.open(url, "_blank", "noopener"); }, index * 300);
+      });
+    }, true); // O 'true' aqui captura o evento antes de qualquer outro comportamento
+  }
+
+  const btnRef = document.getElementById("openReference");
+  if (btnRef) {
+    btnRef.addEventListener("click", (e) => {
       const refUrl = group.iconHref || group.book || group.reference;
-      
-      if (refUrl && refUrl !== "#" && refUrl !== "") {
-        console.log("Abrindo material:", refUrl);
-        window.open(refUrl, "_blank");
-      } else {
-        alert("Nenhum link de livro/material cadastrado para este grupo.");
-      }
-      return false;
-    };
+      forceOpen(e, refUrl);
+    }, true);
   }
 
   // --- 4. Auxiliares e Editor Híbrido ---
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(attrs).forEach(([k, v]) => {
       if (k === "onclick") el.onclick = v;
       else if (k === "style" && typeof v === "object") Object.assign(el.style, v);
-      else el.setAttribute(k, v);
+      else el.setAttribute(k === "class" ? "class" : k, v);
     });
     (Array.isArray(children) ? children : [children]).forEach(c => {
       if (typeof c === "string") el.appendChild(document.createTextNode(c));
