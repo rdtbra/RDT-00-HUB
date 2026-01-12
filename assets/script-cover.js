@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-cover.js (FIX: Ref Link + Itens + Descrição)
+ * Arquivo: script-cover.js (CORRIGIDO: Ref Link + Itens + Descrição)
  * ============================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -84,14 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, true);
   }
 
-  const btnRef = document.getElementById("openReference");
+  // ✅ CORRIGIDO: Agora procura "coverRefLink" (que existe no HTML)
+  const btnRef = document.getElementById("coverRefLink");
   if (btnRef) {
     btnRef.addEventListener("click", function(e) {
       e.preventDefault(); 
       e.stopImmediatePropagation();
       const refUrl = group.iconHref || group.book || group.reference;
-      if (refUrl && refUrl !== "#" && refUrl !== "") window.open(refUrl, "_blank", "noopener,noreferrer");
-      else alert("Nenhum material de referência cadastrado.");
+      if (refUrl && refUrl !== "#" && refUrl !== "") {
+        window.open(refUrl, "_blank", "noopener,noreferrer");
+      } else {
+        alert("Nenhum material de referência cadastrado.\n\nVerifique se 'iconHref' está configurado no grupo.");
+      }
     }, true);
   }
 
