@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-cover.js (CORREÇÃO DEFINITIVA DE NAVEGAÇÃO)
+ * Arquivo: script-cover.js (CORREÇÃO: Link de Referência)
  * ============================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupId = params.get("group");
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  // --- 1. Sincronização de Identidade ---
+  // --- 1. Sincronização de Identidade (Launcher <-> Capa) ---
   function loadGroupData() {
     const localHeader = localStorage.getItem(`ia-launcher-config:Estudos:group:${groupId}`);
     if (localHeader) return JSON.parse(localHeader);
@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Aplicar Identidade Visual
   const titleEl = document.getElementById("coverTitle") || document.getElementById("groupTitle");
   const imgEl   = document.getElementById("coverImage") || document.getElementById("groupIcon");
+  const iaList  = document.getElementById("iaList");
+
   if (titleEl) {
     titleEl.textContent = group.name;
     titleEl.style.color = group.color || "#8b86ff";
@@ -42,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderIAList(items) {
-    const iaList = document.getElementById("iaList");
     if (!iaList) return;
     iaList.innerHTML = "";
     items.forEach(item => {
@@ -53,49 +54,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 3. CORREÇÃO BRUTA: Interceptação de Eventos ---
+  // --- 3. CORREÇÃO: Material de Referência e Abrir Tudo ---
   
-  // Função mestre para abrir URLs sem deixar a página atual agir
-  function forceOpen(e, url) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-    }
-    if (url && url !== "#" && url !== "") {
-      window.open(url, "_blank", "noopener,noreferrer");
-    } else {
-      alert("URL não encontrada ou inválida.");
-    }
-    return false;
-  }
-
-  // Seleção e Atribuição dos botões
-  const btnOpenAll = document.getElementById("openAllCover");
-  if (btnOpenAll) {
-    btnOpenAll.addEventListener("click", (e) => {
-      const items = loadItems();
-      const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
-      if (urls.length === 0) return alert("Nenhuma URL disponível.");
-      
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      
-      urls.forEach((url, index) => {
-        setTimeout(() => { window.open(url, "_blank", "noopener"); }, index * 300);
-      });
-    }, true); // O 'true' aqui captura o evento antes de qualquer outro comportamento
-  }
-
-  const btnRef = document.getElementById("openReference");
+  // Captura o clique no link "Abrir material de referência"
+  // Ele usa o campo iconHref que você preencheu na criação do material no Launcher
+  const btnRef = document.getElementById("openReference") || document.getElementById("coverRefLink");
   if (btnRef) {
-    btnRef.addEventListener("click", (e) => {
+    btnRef.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
       const refUrl = group.iconHref || group.book || group.reference;
-      forceOpen(e, refUrl);
+      
+      if (refUrl && refUrl !== "#" && refUrl !== "") {
+        window.open(refUrl, "_blank", "noopener,noreferrer");
+      } else {
+        alert("Nenhum link de material de referência (livro) cadastrado.");
+      }
     }, true);
   }
 
-  // --- 4. Auxiliares e Editor Híbrido ---
+  // Abrir Tudo (Abas das IAs)
+  const btnOpenAll = document.getElementById("openAllCover");
+  if (btnOpenAll) {
+    btnOpenAll.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const items = loadItems();
+      const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
+      
+      if (urls.length === 0) return alert("Nenhuma URL disponível.");
+
+      urls.forEach((url, index) => {
+        setTimeout(() => { window.open(url, "_blank", "noopener"); }, index * 300);
+      });
+    }, true);
+  }
+
+  // --- 4. Auxiliares e Editor Híbrido (PRESERVADOS) ---
   function createEl(tag, attrs = {}, children = []) {
     const el = document.createElement(tag);
     Object.entries(attrs).forEach(([k, v]) => {
