@@ -720,7 +720,7 @@ window.GROUPS = [
     "name": "EMT-12-EC - Aho - Compilers Principles Techiques and Tools 2ed",
     "color": "#f59e0b",
     "icon": "assets/EMT-12-EC.png",
-    "iconHref": "https://drive.google.com/open?id=1VfMVTIRIuKDKtwGVGY1YMsKK5S-WzuIk&usp=drive_fs",
+    "iconHref": "https://ler.amazon.com.br/?asin=B0CYHDX2RG&ref_=kwl_kr_sea_1",
     "items": [
       {
         "code": "M01",
