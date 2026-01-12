@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-cover.js (Correção de Duplicação de Aba)
+ * Arquivo: script-cover.js (CORREÇÃO CRÍTICA DO LINK DO LIVRO)
  * ============================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupId = params.get("group");
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
 
-  // --- 1. Sincronização de Identidade ---
+  // --- 1. Sincronização de Dados ---
   function loadGroupData() {
     const localHeader = localStorage.getItem(`ia-launcher-config:Estudos:group:${groupId}`);
     if (localHeader) return JSON.parse(localHeader);
@@ -55,13 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 3. CORREÇÃO: Bloqueio do comportamento padrão (Evita abrir capa de novo) ---
+  // --- 3. CORREÇÃO DE LINKS (Ação Única) ---
 
   // Botão Abrir Tudo
   const btnOpenAll = document.getElementById("openAllCover");
   if (btnOpenAll) {
-    btnOpenAll.onclick = (e) => {
-      e.preventDefault(); // IMPEDE A CAPA DE ABRIR NOVAMENTE
+    btnOpenAll.onclick = function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation(); // Garante que nenhum outro script interfira
       const items = loadItems();
       const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
       
@@ -70,20 +71,27 @@ document.addEventListener("DOMContentLoaded", () => {
       urls.forEach((url, index) => {
         setTimeout(() => { window.open(url, "_blank"); }, index * 300);
       });
+      return false;
     };
   }
 
-  // Botão Material de Referência (Livro)
+  // Botão Material de Referência (O LIVRO)
   const btnRef = document.getElementById("openReference");
   if (btnRef) {
-    btnRef.onclick = (e) => {
-      e.preventDefault(); // IMPEDE A CAPA DE ABRIR NOVAMENTE
+    btnRef.onclick = function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      // O link do livro vem do iconHref que você preencheu no Launcher
       const refUrl = group.iconHref || group.book || group.reference;
+      
       if (refUrl && refUrl !== "#" && refUrl !== "") {
+        console.log("Abrindo material:", refUrl);
         window.open(refUrl, "_blank");
       } else {
-        alert("Nenhum material de referência cadastrado.");
+        alert("Nenhum link de livro/material cadastrado para este grupo.");
       }
+      return false;
     };
   }
 
