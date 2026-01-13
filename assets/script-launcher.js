@@ -281,7 +281,11 @@
 
       const key = `${KEY}:group:${newId}`;
       localStorage.setItem(key, JSON.stringify(updatedData));
-      
+
+      // ✅ NOVO: Salvar items separadamente para a capa ler
+      const itemsKey = `ia-launcher-config:${APP_ID}:items:${newId}`;
+      localStorage.setItem(itemsKey, JSON.stringify(updatedData.items || []));
+
       console.log("💾 Salvou no localStorage:", key);
       console.log("📦 Dados salvos:", updatedData);
 
