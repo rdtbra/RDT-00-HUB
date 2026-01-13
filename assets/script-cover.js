@@ -82,10 +82,23 @@ document.addEventListener("DOMContentLoaded", () => {
     btnOpenAll.addEventListener("click", function(e) {
       e.preventDefault(); 
       e.stopImmediatePropagation();
-      const items = loadItems();
-      const urls = items.filter(it => it.url && it.url !== "#").map(it => it.url);
+    
+      // ✅ CORREÇÃO: Ler direto da lista HTML existente
+      const iaList = document.getElementById("iaList");
+      if (!iaList) return alert("Lista não encontrada.");
+    
+      const links = iaList.querySelectorAll('a[href]');
+      const urls = Array.from(links)
+        .map(link => link.href)
+        .filter(url => url && url !== "#" && url !== "");
+    
       if (urls.length === 0) return alert("Nenhuma URL disponível.");
-      urls.forEach((url, index) => { setTimeout(() => { window.open(url, "_blank", "noopener"); }, index * 300); });
+    
+      urls.forEach((url, index) => { 
+        setTimeout(() => { 
+          window.open(url, "_blank", "noopener"); 
+        }, index * 300); 
+      });
     }, true);
   }
 
