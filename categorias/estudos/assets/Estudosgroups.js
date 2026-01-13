@@ -2369,6 +2369,13 @@ window.GROUPS = [
         "provider": "AdaptaONE26",
         "url": "https://agent.adapta.one/agentic-chat/019bb857-78f5-723e-a79d-c8de0e30dca0",
         "checked": true
+      },
+      {
+        "code": "M02",
+        "label": "Qwen QwQ",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/0fb002d8-0727-4afe-a28d-3939e16f836f?sessionId=e35502d6-b467-404f-855f-1818a3b084f9",
+        "checked": true
       }
     ]
   }
