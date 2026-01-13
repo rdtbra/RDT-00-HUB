@@ -1305,7 +1305,7 @@ window.GROUPS = [
     "name": "EMT-21-MA - Ryan - Calculus for Dummies 2ed",
     "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118791332/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/calculus-for-dummies/9781118791332/xhtml/07_9781118791295-ch03.xhtml#a2",
+    "iconHref": "https://learning.oreilly.com/library/view/calculus-for-dummies/9781118791332/xhtml/08_9781118791295-pp02.xhtml",
     "items": [
       {
         "code": "M01",
