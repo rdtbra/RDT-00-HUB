@@ -8,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
-  const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
+  const APP_ID = "Estudos";
 
   // --- 1. Sincronização de Identidade ---
   function loadGroupData() {
