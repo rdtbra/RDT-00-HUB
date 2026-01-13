@@ -2342,8 +2342,9 @@ window.GROUPS = [
     "items": [
       {
         "code": "M01",
-        "label": "Nova IA",
-        "url": "",
+        "label": "Claude Sonnet 4",
+        "provider": "MyHUB.IA",
+        "url": "https://myhub.ia.br/chat/38BdDbsJbtXAckVSoIp5BvXL2lc",
         "checked": true
       }
     ]
