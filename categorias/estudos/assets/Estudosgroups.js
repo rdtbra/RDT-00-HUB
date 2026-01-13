@@ -2378,5 +2378,63 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-39-en",
+    "name": "EMT-39-EN - Pepall&Outros - Microeconomics for Dummies",
+    "color": "#4dad25",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119184393/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microeconomics-for-dummies/9781119184393/04_9781119184393-ch01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Doubao Seed 1.8",
+        "provider": "Chathub.gg",
+        "url": "https://app.chathub.gg/chat/cloud-doubao-seed-1.8?cid=e914d180-7d69-4cd7-8704-4e3ba065fcdb",
+        "checked": true
+      },
+      {
+        "code": "M02",
+        "label": "Grok 4.1 Fast",
+        "provider": "Otimiz.AI",
+        "url": "https://chat.otimizz.ai/chat?conversationId=8552a94f-0202-4659-9786-41765c2c54f1",
+        "checked": true
+      },
+      {
+        "code": "M03",
+        "label": "NVidia-Nemotron-3-Nano-30B-A3B-FP8",
+        "provider": "HuggingFace",
+        "url": "https://huggingface.co/chat/conversation/6966a70fac1df5325ea64439",
+        "checked": true
+      },
+      {
+        "code": "M04",
+        "label": "Claude Sonnet 4.5 Thinking",
+        "provider": "ChatBox.AI",
+        "url": "https://web.chatboxai.app/session/068325cc-9843-4940-966f-60c978c31ed1",
+        "checked": true
+      },
+      {
+        "code": "M05",
+        "label": "GLM-4.6",
+        "provider": "poe.com",
+        "url": "https://poe.com/chat/2zfjo15g79blj4qde1",
+        "checked": true
+      },
+      {
+        "code": "SUP",
+        "label": "ChatGPT 5.2",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6911041963f48191bb501a771f7cada8/c/6966a78f-a688-832f-8c8c-fd182b1ac77e",
+        "checked": true
+      },
+      {
+        "code": "REV",
+        "label": "Kimi K2",
+        "provider": "MyHUB.IA",
+        "url": "https://myhub.ia.br/chat/38DYgiGr3MN7L4e47jccSnvcdit",
+        "checked": true
+      }
+    ]
   }
 ];
