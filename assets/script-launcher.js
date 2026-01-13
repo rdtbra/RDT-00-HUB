@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (DEBUG + CORREÇÃO)
+ * Arquivo: script-launcher.js (CORRIGIDO: Novos grupos aparecem!)
  * ============================================================
  */
 
@@ -16,36 +16,6 @@
 
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
   console.log("📦 APP_ID:", APP_ID);
-
-  // --- Lógica de Prioridade e Sincronização ---
-  async function getGroupData(g) {
-    const id = g.id;
-    const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
-    const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
-    
-    if (localHeader || localItems) {
-      const header = localHeader ? JSON.parse(localHeader) : g;
-      const items = localItems ? JSON.parse(localItems) : (g.items || []);
-      return { ...header, items: Array.isArray(items) ? items : (items.items || []) };
-    }
-
-    try {
-      const respH = await fetch(`descriptions/${id}.group.json`);
-      if (respH.ok) {
-        const header = await respH.json();
-        const respI = await fetch(`descriptions/${id}.items.json`);
-        const itemsData = respI.ok ? await respI.json() : null;
-        return { 
-          ...header, 
-          items: itemsData ? (Array.isArray(itemsData) ? itemsData : itemsData.items) : (g.items || [])
-        };
-      }
-    } catch (e) {
-      console.log("⚠️ fetch falhou para:", id);
-    }
-
-    return g; 
-  }
 
   // --- Helpers ---
   function downloadFile(filename, content, type = "text/javascript") {
@@ -62,15 +32,6 @@
     if (!slug) return null;
     const valid = /^[a-zA-Z0-9][a-zA-Z0-9\-_.]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$/.test(slug);
     return valid ? slug : null;
-  }
-
-  function isIdUnique(newId) {
-    const existsInActive = activeGroups.some(g => g.id === newId);
-    if (existsInActive) return false;
-    
-    const keys = Object.keys(localStorage);
-    const existsInLS = keys.some(k => k === `${KEY}:group:${newId}`);
-    return !existsInLS;
   }
 
   function showFeedback(msg, type = "info") {
@@ -105,6 +66,64 @@
     }, 4000);
   }
 
+  // ✅ CORRIGIDO: Busca grupos do localStorage
+  function getLocalGroups() {
+    const groups = [];
+    const prefix = `${KEY}:group:`;
+    
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith(prefix)) {
+        try {
+          const data = JSON.parse(localStorage.getItem(key));
+          if (data && data.id) {
+            groups.push(data);
+          }
+        } catch (e) {
+          console.warn("⚠️ Erro ao parsear:", key);
+        }
+      }
+    });
+    
+    return groups;
+  }
+
+  // --- Lógica de Sincronização ---
+  async function getGroupData(g) {
+    const id = g.id;
+    
+    // Prioridade 1: LocalStorage
+    const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
+    const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
+    
+    if (localHeader || localItems) {
+      const header = localHeader ? JSON.parse(localHeader) : g;
+      const items = localItems ? JSON.parse(localItems) : (g.items || []);
+      return { 
+        ...header, 
+        items: Array.isArray(items) ? items : (items.items || []),
+        source: 'localStorage'
+      };
+    }
+
+    // Prioridade 2: FileSystem
+    try {
+      const respH = await fetch(`descriptions/${id}.group.json`);
+      if (respH.ok) {
+        const header = await respH.json();
+        const respI = await fetch(`descriptions/${id}.items.json`);
+        const itemsData = respI.ok ? await respI.json() : null;
+        return { 
+          ...header, 
+          items: itemsData ? (Array.isArray(itemsData) ? itemsData : itemsData.items) : (g.items || []),
+          source: 'filesystem'
+        };
+      }
+    } catch (e) {}
+
+    // Prioridade 3: JS Original
+    return { ...g, source: 'javascript' };
+  }
+
   // --- Inicialização ---
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
@@ -114,9 +133,7 @@
 
   console.log("🎯 Elementos encontrados:", {
     groupsEl: !!groupsEl,
-    addGroupBtn: !!addGroupBtn,
-    exportAllBtn: !!exportAllBtn,
-    resetBtn: !!resetBtn
+    addGroupBtn: !!addGroupBtn
   });
 
   async function init() {
@@ -128,12 +145,32 @@
       openAllGhost.remove();
     }
 
+    // ✅ CORRIGIDO: Busca grupos do JS original
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
-    console.log(`📥 Carregando ${originalGroups.length} grupos originais`);
+    console.log(`📥 ${originalGroups.length} grupos do JS original`);
 
-    activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
+    // ✅ CORRIGIDO: Busca grupos do localStorage
+    const localGroups = getLocalGroups();
+    console.log(`📥 ${localGroups.length} grupos do localStorage`);
+
+    // ✅ CORRIGIDO: Mescla - grupos do localStorage substituem os do JS
+    const allGroupsMap = new Map();
+    
+    // Primeiro, adiciona os do JS
+    originalGroups.forEach(g => allGroupsMap.set(g.id, g));
+    
+    // Depois, substitui com os do localStorage (sobrescreve)
+    localGroups.forEach(g => allGroupsMap.set(g.id, g));
+    
+    // Converte para array
+    const allGroups = Array.from(allGroupsMap.values());
+    console.log(`📊 ${allGroups.length} grupos totais (após mescla)`);
+
+    // Carrega dados completos de cada grupo
+    activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
+    
     console.log(`✅ ${activeGroups.length} grupos carregados`);
-    console.log("📋 IDs dos grupos:", activeGroups.map(g => g.id));
+    console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [${g.source || '?'}]`));
 
     render();
     setupActions();
@@ -228,12 +265,6 @@
         return;
       }
 
-      if (newId !== oldId && !isIdUnique(newId)) {
-        errorDiv.innerText = `⚠️ O ID "${newId}" já existe! Escolha outro.`;
-        errorDiv.style.display = "block";
-        return;
-      }
-
       console.log("✅ Validação passou, salvando...");
 
       const updatedData = {
@@ -245,16 +276,6 @@
         collapsed: true,
         items: isEdit ? groupData.items : []
       };
-
-      // Migração se ID mudou
-      if (isEdit && oldId !== newId) {
-        const items = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${oldId}`);
-        if (items) {
-          localStorage.setItem(`ia-launcher-config:${APP_ID}:items:${newId}`, items);
-          localStorage.removeItem(`ia-launcher-config:${APP_ID}:items:${oldId}`);
-        }
-        localStorage.removeItem(`${KEY}:group:${oldId}`);
-      }
 
       // Salvando no localStorage
       const key = `${KEY}:group:${newId}`;
@@ -308,7 +329,7 @@
 
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        const cleanGroups = activeGroups.map(({ collapsed, ...rest }) => rest);
+        const cleanGroups = activeGroups.map(({ collapsed, source, ...rest }) => rest);
         const content = `/** Backup Consolidado **/\nwindow.GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
         downloadFile("estudos-groups.js", content, "text/javascript");
       };
@@ -340,7 +361,7 @@
     console.log(`📋 Renderizando ${activeGroups.length} grupos`);
     
     activeGroups.forEach((g, index) => {
-      console.log(`  ${index + 1}. ${g.id}`);
+      console.log(`  ${index + 1}. ${g.id} [${g.source || '?'}]`);
       
       const card = document.createElement("div");
       card.className = "card";
@@ -349,6 +370,9 @@
       card.style.background = "#252535";
       card.style.borderRadius = "12px";
       
+      // ✅ Mostrar badge de origem
+      const sourceBadge = g.source === 'localStorage' ? '<span style="background:#22c55e; font-size:10px; padding:2px 6px; border-radius:4px; margin-left:8px;">NOVO</span>' : '';
+
       card.innerHTML = `
         <div class="head" style="padding:15px 20px;">
           <h2 style="margin:0; font-size:18px; display:flex; align-items:center; gap:12px;">
@@ -357,6 +381,7 @@
             </span>
             <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block;"></span>
             ${g.name}
+            ${sourceBadge}
           </h2>
           <div class="actions" style="display:flex; gap:8px; margin-top:12px;">
             <button class="btn" data-act="open-cover" style="font-size:12px; padding:6px 12px; background:#333;">📄 Capa</button>
