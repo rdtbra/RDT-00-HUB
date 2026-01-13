@@ -2355,5 +2355,21 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-38-ee",
+    "name": "EMT-38-EE - Wickert - Signals&Systems for Dummies",
+    "color": "#55d3c4",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118475669/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/signals-and-systems/9781118475669/05_9781118475669-ch01.html",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Deepseek V3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019bb857-78f5-723e-a79d-c8de0e30dca0",
+        "checked": true
+      }
+    ]
   }
 ];
