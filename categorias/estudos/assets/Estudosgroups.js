@@ -2332,5 +2332,20 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-37-ee",
+    "name": "EMT-37-EE - Santiago - Circuit Analysis for Dummies",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118590560/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/circuit-analysis-for/9781118590560/05_9781118590560-ch01.html",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
