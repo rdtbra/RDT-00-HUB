@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Verificações de null)
+ * Arquivo: script-launcher.js (CORRIGIDO: Layout original + clique no nome)
  * ============================================================
  */
 
@@ -66,7 +66,7 @@
     }, 4000);
   }
 
-  // ✅ CORRIGIDO: Busca grupos do localStorage
+  // ✅ Busca grupos do localStorage
   function getLocalGroups() {
     const groups = [];
     const prefix = `${KEY}:group:`;
@@ -145,22 +145,22 @@
       openAllGhost.remove();
     }
 
-    // ✅ CORRIGIDO: Busca grupos do JS original
+    // Grupos do JS original
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     console.log(`📥 ${originalGroups.length} grupos do JS original`);
 
-    // ✅ CORRIGIDO: Busca grupos do localStorage
+    // Grupos do localStorage
     const localGroups = getLocalGroups();
     console.log(`📥 ${localGroups.length} grupos do localStorage`);
 
-    // ✅ CORRIGIDO: Mescla - grupos do localStorage substituem os do JS
+    // Mescla
     const allGroupsMap = new Map();
     originalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     const allGroups = Array.from(allGroupsMap.values());
     console.log(`📊 ${allGroups.length} grupos totais (após mescla)`);
 
-    // Carrega dados completos de cada grupo
+    // Carrega dados
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
@@ -271,24 +271,18 @@
         items: isEdit ? groupData.items : []
       };
 
-      // Salvando no localStorage
       const key = `${KEY}:group:${newId}`;
       localStorage.setItem(key, JSON.stringify(updatedData));
       
       console.log("💾 Salvou no localStorage:", key);
       console.log("📦 Dados salvos:", updatedData);
 
-      // Verificar se salvou
       const verify = localStorage.getItem(key);
       console.log("🔍 Verificação:", verify ? "✅ Salvo com sucesso!" : "❌ ERRO ao salvar!");
 
       showFeedback("✅ Material salvo com sucesso!", "success");
 
-      // Remover overlay
       overlay.remove();
-
-      // Recarregar página
-      console.log("🔄 Recarregando página...");
       
       setTimeout(() => {
         window.location.reload();
@@ -364,29 +358,55 @@
       card.style.background = "#252535";
       card.style.borderRadius = "12px";
       
-      // ✅ Mostrar badge de origem
+      // ✅ Badge de origem
       const sourceBadge = g.source === 'localStorage' ? '<span style="background:#22c55e; font-size:10px; padding:2px 6px; border-radius:4px; margin-left:8px;">NOVO</span>' : '';
 
+      // ✅ Ícone MAIOR (64px como era antes)
       card.innerHTML = `
-        <div class="head" style="padding:15px 20px;">
-          <h2 style="margin:0; font-size:18px; display:flex; align-items:center; gap:12px;">
-            <span class="gicon-wrap">
-              <a href="${g.iconHref || "#"}" target="_blank"><img class="gicon" src="${g.icon || ""}" style="width:32px; height:32px; object-fit:contain;" onerror="this.style.display='none'"></a>
-            </span>
-            <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block;"></span>
+        <div class="head" style="padding:15px 20px; display:flex; align-items:center; gap:15px;">
+          <span class="gicon-wrap" style="flex-shrink:0;">
+            <a href="${g.iconHref || "#"}" target="_blank">
+              <img class="gicon" src="${g.icon || ""}" style="width:64px; height:64px; object-fit:contain; border-radius:8px; background:#1a1a25; padding:4px;" onerror="this.style.display='none'">
+            </a>
+          </span>
+          <h2 class="group-name" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir as IAs">
+            <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block; margin-right:8px;"></span>
             ${g.name}
             ${sourceBadge}
           </h2>
-          <div class="actions" style="display:flex; gap:8px; margin-top:12px;">
-            <button class="btn" data-act="open-cover" style="font-size:12px; padding:6px 12px; background:#333;">📄 Capa</button>
-            <button class="btn" data-act="edit-material" style="font-size:12px; padding:6px 12px; background:#444;">✏️ Editar</button>
-            <button class="btn" data-act="export-disco" style="font-size:12px; padding:6px 12px; background:#333;">💾 Exportar</button>
+          <div class="actions" style="display:flex; gap:8px;">
+            <button class="btn" data-act="open-cover" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
+            <button class="btn" data-act="edit-material" style="font-size:12px; padding:8px 14px; background:#444; border-radius:6px;">✏️ Editar</button>
+            <button class="btn" data-act="export-disco" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">💾</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:none; gap:5px; padding:0 20px 20px 20px;"></div>
+        <div class="grid" data-role="grid" style="display:grid; gap:5px; padding:0 20px 20px 20px;">
+          ${(g.items || []).map((item) => `
+            <div class="item" style="display:flex; align-items:center; gap:10px; padding:10px; background:#1a1a25; border-radius:8px;">
+              <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
+              <div class="composite" style="flex:1; font-size:13px;">${item.code} | ${item.label}</div>
+              <div class="urlbox" style="flex:2;">
+                <input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333; padding:8px; border-radius:6px; font-size:12px;">
+              </div>
+              <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px; padding:8px 12px; border-radius:6px;">Abrir</a>
+            </div>
+          `).join('')}
+        </div>
       `;
 
-      // ✅ CORRIGIDO: Verificações de null antes de definir onclick
+      // ✅ Clique no NOME abre as IAs
+      const nameEl = card.querySelector(".group-name");
+      if (nameEl) {
+        nameEl.onclick = () => {
+          console.log("🖱️ Clicou no nome:", g.id);
+          const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
+          window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
+        };
+        // Cursor pointer para indicar que é clicável
+        nameEl.style.cursor = "pointer";
+      }
+
+      // ✅ Botão Editar
       const editBtn = card.querySelector("[data-act='edit-material']");
       if (editBtn) {
         editBtn.onclick = () => {
@@ -395,18 +415,16 @@
         };
       }
       
+      // ✅ Botão Capa
       const coverBtn = card.querySelector("[data-act='open-cover']");
       if (coverBtn) {
         coverBtn.onclick = () => {
           const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
-          if (g.items && g.items.length > 0) {
-            window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
-          } else {
-            showFeedback("⚠️ Este grupo não tem itens!", "error");
-          }
+          window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
         };
       }
       
+      // ✅ Botão Exportar
       const exportBtn = card.querySelector("[data-act='export-disco']");
       if (exportBtn) {
         exportBtn.onclick = () => {
@@ -422,31 +440,6 @@
         };
       }
 
-      const grid = card.querySelector("[data-role='grid']");
-      if (grid) {
-        (g.items || []).forEach((item) => {
-          const row = document.createElement("div");
-          row.className = "item";
-          row.style = "display: flex; align-items: center; gap: 10px; margin-bottom: 4px; padding:8px; background:#1a1a25; border-radius:6px;";
-          row.innerHTML = `
-            <div class="left" style="display:flex; align-items:center; gap:8px; flex: 1;">
-              <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
-              <div class="composite" style="font-size:12px;">${item.code} | ${item.label}</div>
-            </div>
-            <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333; padding:6px; border-radius:4px;"></div>
-            <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px; padding:6px 12px;">Abrir</a>
-          `;
-          grid.appendChild(row);
-        });
-      }
-
-      const toggleBtn = card.querySelector("[data-act='toggle']");
-      if (toggleBtn) {
-        toggleBtn.onclick = () => {
-          if (grid) grid.style.display = grid.style.display === "none" ? "grid" : "none";
-        };
-      }
-
       groupsEl.appendChild(card);
     });
   }
@@ -459,6 +452,12 @@
       @keyframes slideIn {
         from { opacity: 0; transform: translateX(50px); }
         to { opacity: 1; transform: translateX(0); }
+      }
+      .group-name:hover {
+        opacity: 0.8;
+      }
+      .group-name:active {
+        opacity: 0.6;
       }
     `;
     document.head.appendChild(style);
