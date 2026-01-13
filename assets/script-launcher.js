@@ -353,15 +353,16 @@
       
       const card = document.createElement("div");
       card.className = "card";
+      card.id = `card-${g.id}`;  // ✅ ID único para cada card
       card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
       card.style.marginBottom = "15px";
       card.style.background = "#252535";
       card.style.borderRadius = "12px";
       
-      // ✅ Badge de origem
+      // Badge de origem
       const sourceBadge = g.source === 'localStorage' ? '<span style="background:#22c55e; font-size:10px; padding:2px 6px; border-radius:4px; margin-left:8px;">NOVO</span>' : '';
 
-      // ✅ Ícone MAIOR (64px como era antes)
+      // ✅ Lista ESCONDIDA por padrão (display: none)
       card.innerHTML = `
         <div class="head" style="padding:15px 20px; display:flex; align-items:center; gap:15px;">
           <span class="gicon-wrap" style="flex-shrink:0;">
@@ -369,18 +370,18 @@
               <img class="gicon" src="${g.icon || ""}" style="width:64px; height:64px; object-fit:contain; border-radius:8px; background:#1a1a25; padding:4px;" onerror="this.style.display='none'">
             </a>
           </span>
-          <h2 class="group-name" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir as IAs">
+          <h2 class="group-name" data-id="${g.id}" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir/fechar as IAs">
             <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block; margin-right:8px;"></span>
             ${g.name}
             ${sourceBadge}
           </h2>
           <div class="actions" style="display:flex; gap:8px;">
-            <button class="btn" data-act="open-cover" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
-            <button class="btn" data-act="edit-material" style="font-size:12px; padding:8px 14px; background:#444; border-radius:6px;">✏️ Editar</button>
-            <button class="btn" data-act="export-disco" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">💾</button>
+            <button class="btn btn-cover" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
+            <button class="btn btn-edit" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#444; border-radius:6px;">✏️ Editar</button>
+            <button class="btn btn-export" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">💾</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:grid; gap:5px; padding:0 20px 20px 20px;">
+        <div class="grid" id="grid-${g.id}" style="display:none; gap:5px; padding:0 20px 20px 20px;">
           ${(g.items || []).map((item) => `
             <div class="item" style="display:flex; align-items:center; gap:10px; padding:10px; background:#1a1a25; border-radius:8px;">
               <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
@@ -394,40 +395,32 @@
         </div>
       `;
 
-      // ✅ Clique no NOME abre as IAs
-      const nameEl = card.querySelector(".group-name");
-      if (nameEl) {
-        nameEl.onclick = () => {
-          console.log("🖱️ Clicou no nome:", g.id);
+      // ✅ Botão Capa → abre a página de capa
+      const coverBtn = card.querySelector(".btn-cover");
+      if (coverBtn) {
+        coverBtn.onclick = (e) => {
+          e.stopPropagation();  // ✅ Impede propagação do clique
+          console.log("📄 Clicou em Capa:", g.id);
           const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
           window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
         };
-        // Cursor pointer para indicar que é clicável
-        nameEl.style.cursor = "pointer";
       }
 
       // ✅ Botão Editar
-      const editBtn = card.querySelector("[data-act='edit-material']");
+      const editBtn = card.querySelector(".btn-edit");
       if (editBtn) {
-        editBtn.onclick = () => {
+        editBtn.onclick = (e) => {
+          e.stopPropagation();
           console.log("✏️ Editando:", g.id);
           openModal("edit", g);
         };
       }
       
-      // ✅ Botão Capa
-      const coverBtn = card.querySelector("[data-act='open-cover']");
-      if (coverBtn) {
-        coverBtn.onclick = () => {
-          const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
-          window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
-        };
-      }
-      
       // ✅ Botão Exportar
-      const exportBtn = card.querySelector("[data-act='export-disco']");
+      const exportBtn = card.querySelector(".btn-export");
       if (exportBtn) {
-        exportBtn.onclick = () => {
+        exportBtn.onclick = (e) => {
+          e.stopPropagation();
           downloadFile(`${g.id}.group.json`, JSON.stringify({
             id: g.id, 
             name: g.name, 
@@ -438,6 +431,21 @@
           downloadFile(`${g.id}.items.json`, JSON.stringify({items: g.items || []}, null, 2));
           showFeedback("✅ Arquivos exportados!", "success");
         };
+      }
+
+      // ✅ Clique no NOME → Toggle da lista de IAs
+      const nameEl = card.querySelector(".group-name");
+      if (nameEl) {
+        nameEl.onclick = () => {
+          console.log("🖱️ Clicou no nome (toggle):", g.id);
+          const grid = card.querySelector(".grid");
+          if (grid) {
+            const isHidden = grid.style.display === "none";
+            grid.style.display = isHidden ? "grid" : "none";
+            console.log(`📋 Lista ${g.id}: ${isHidden ? 'ABERTA' : 'FECHADA'}`);
+          }
+        };
+        nameEl.style.cursor = "pointer";
       }
 
       groupsEl.appendChild(card);
