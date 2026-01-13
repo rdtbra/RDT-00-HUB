@@ -268,7 +268,15 @@
         icon: icon,
         iconHref: iconHref,
         collapsed: true,
-        items: isEdit ? groupData.items : []
+        items: isEdit ? groupData.items : [
+          {
+            code: "M01",
+            label: "Nova IA",
+            url: "",
+            checked: true
+          }
+        ]
+
       };
 
       const key = `${KEY}:group:${newId}`;
