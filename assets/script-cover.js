@@ -8,7 +8,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get("group");
-  const APP_ID = "Estudos";
+ 
+  // ✅ USA o KEY que já existe:
+  const KEY = "ia-launcher-config:AI-EMT-Equipes";
+
+  // Na linha que procura o grupo (onde está "Estudos"):
+  const localHeader = localStorage.getItem(`${KEY}:group:${groupId}`);
+
+  // E as chaves de items/descrição:
+  const LS_ITEMS_KEY = `${KEY}:items:${groupId}`;
+  const LS_DESC_KEY  = `${KEY}:desc:${groupId}`;
 
   // --- 1. Sincronização de Identidade ---
   function loadGroupData() {
