@@ -2346,6 +2346,13 @@ window.GROUPS = [
         "provider": "MyHUB.IA",
         "url": "https://myhub.ia.br/chat/38BdDbsJbtXAckVSoIp5BvXL2lc",
         "checked": true
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek R1",
+        "provider": "poe.com",
+        "url": "https://poe.com/chat/2zsnidrc3px11d2vsm",
+        "checked": true
       }
     ]
   }

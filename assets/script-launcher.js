@@ -375,7 +375,6 @@
       card.style.borderRadius = "12px";
       
       // Badge de origem
-      const sourceBadge = g.source === 'localStorage' ? '<span style="background:#22c55e; font-size:10px; padding:2px 6px; border-radius:4px; margin-left:8px;">NOVO</span>' : '';
 
       // ✅ Lista ESCONDIDA por padrão (display: none)
       card.innerHTML = `
@@ -388,7 +387,6 @@
           <h2 class="group-name" data-id="${g.id}" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir/fechar as IAs">
             <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block; margin-right:8px;"></span>
             ${g.name}
-            ${sourceBadge}
           </h2>
           <div class="actions" style="display:flex; gap:8px;">
             <button class="btn btn-cover" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
