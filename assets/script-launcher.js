@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Novos grupos aparecem!)
+ * Arquivo: script-launcher.js (CORRIGIDO: Verificações de null)
  * ============================================================
  */
 
@@ -155,14 +155,8 @@
 
     // ✅ CORRIGIDO: Mescla - grupos do localStorage substituem os do JS
     const allGroupsMap = new Map();
-    
-    // Primeiro, adiciona os do JS
     originalGroups.forEach(g => allGroupsMap.set(g.id, g));
-    
-    // Depois, substitui com os do localStorage (sobrescreve)
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
-    
-    // Converte para array
     const allGroups = Array.from(allGroupsMap.values());
     console.log(`📊 ${allGroups.length} grupos totais (após mescla)`);
 
@@ -392,51 +386,66 @@
         <div class="grid" data-role="grid" style="display:none; gap:5px; padding:0 20px 20px 20px;"></div>
       `;
 
-      card.querySelector("[data-act='edit-material']").onclick = () => {
-        console.log("✏️ Editando:", g.id);
-        openModal("edit", g);
-      };
+      // ✅ CORRIGIDO: Verificações de null antes de definir onclick
+      const editBtn = card.querySelector("[data-act='edit-material']");
+      if (editBtn) {
+        editBtn.onclick = () => {
+          console.log("✏️ Editando:", g.id);
+          openModal("edit", g);
+        };
+      }
       
-      card.querySelector("[data-act='open-cover']").onclick = () => {
-        const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
-        if (g.items && g.items.length > 0) {
-          window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
-        } else {
-          showFeedback("⚠️ Este grupo não tem itens!", "error");
-        }
-      };
+      const coverBtn = card.querySelector("[data-act='open-cover']");
+      if (coverBtn) {
+        coverBtn.onclick = () => {
+          const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
+          if (g.items && g.items.length > 0) {
+            window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
+          } else {
+            showFeedback("⚠️ Este grupo não tem itens!", "error");
+          }
+        };
+      }
       
-      card.querySelector("[data-act='export-disco']").onclick = () => {
-        downloadFile(`${g.id}.group.json`, JSON.stringify({
-          id: g.id, 
-          name: g.name, 
-          color: g.color, 
-          icon: g.icon, 
-          iconHref: g.iconHref
-        }, null, 2));
-        downloadFile(`${g.id}.items.json`, JSON.stringify({items: g.items || []}, null, 2));
-        showFeedback("✅ Arquivos exportados!", "success");
-      };
+      const exportBtn = card.querySelector("[data-act='export-disco']");
+      if (exportBtn) {
+        exportBtn.onclick = () => {
+          downloadFile(`${g.id}.group.json`, JSON.stringify({
+            id: g.id, 
+            name: g.name, 
+            color: g.color, 
+            icon: g.icon, 
+            iconHref: g.iconHref
+          }, null, 2));
+          downloadFile(`${g.id}.items.json`, JSON.stringify({items: g.items || []}, null, 2));
+          showFeedback("✅ Arquivos exportados!", "success");
+        };
+      }
 
       const grid = card.querySelector("[data-role='grid']");
-      (g.items || []).forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "item";
-        row.style = "display: flex; align-items: center; gap: 10px; margin-bottom: 4px; padding:8px; background:#1a1a25; border-radius:6px;";
-        row.innerHTML = `
-          <div class="left" style="display:flex; align-items:center; gap:8px; flex: 1;">
-            <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
-            <div class="composite" style="font-size:12px;">${item.code} | ${item.label}</div>
-          </div>
-          <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333; padding:6px; border-radius:4px;"></div>
-          <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px; padding:6px 12px;">Abrir</a>
-        `;
-        grid.appendChild(row);
-      });
+      if (grid) {
+        (g.items || []).forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "item";
+          row.style = "display: flex; align-items: center; gap: 10px; margin-bottom: 4px; padding:8px; background:#1a1a25; border-radius:6px;";
+          row.innerHTML = `
+            <div class="left" style="display:flex; align-items:center; gap:8px; flex: 1;">
+              <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
+              <div class="composite" style="font-size:12px;">${item.code} | ${item.label}</div>
+            </div>
+            <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333; padding:6px; border-radius:4px;"></div>
+            <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px; padding:6px 12px;">Abrir</a>
+          `;
+          grid.appendChild(row);
+        });
+      }
 
-      card.querySelector("[data-act='toggle']").onclick = () => {
-        grid.style.display = grid.style.display === "none" ? "grid" : "none";
-      };
+      const toggleBtn = card.querySelector("[data-act='toggle']");
+      if (toggleBtn) {
+        toggleBtn.onclick = () => {
+          if (grid) grid.style.display = grid.style.display === "none" ? "grid" : "none";
+        };
+      }
 
       groupsEl.appendChild(card);
     });
