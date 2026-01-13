@@ -2,19 +2,24 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: ID Obrigatório e Exato)
+ * Arquivo: script-launcher.js (DEBUG + CORREÇÃO)
  * ============================================================
  */
 
 (function () {
-  if (typeof KEY === "undefined") return;
+  console.log("🚀 script-launcher.js iniciado");
+  
+  if (typeof KEY === "undefined") {
+    console.error("❌ KEY não está definida!");
+    return;
+  }
 
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
+  console.log("📦 APP_ID:", APP_ID);
 
   // --- Lógica de Prioridade e Sincronização ---
   async function getGroupData(g) {
     const id = g.id;
-    // Prioridade 1: LocalStorage
     const localHeader = localStorage.getItem(`${KEY}:group:${id}`);
     const localItems = localStorage.getItem(`ia-launcher-config:${APP_ID}:items:${id}`);
     
@@ -24,7 +29,6 @@
       return { ...header, items: Array.isArray(items) ? items : (items.items || []) };
     }
 
-    // Prioridade 2: FileSystem
     try {
       const respH = await fetch(`descriptions/${id}.group.json`);
       if (respH.ok) {
@@ -36,9 +40,10 @@
           items: itemsData ? (Array.isArray(itemsData) ? itemsData : itemsData.items) : (g.items || [])
         };
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log("⚠️ fetch falhou para:", id);
+    }
 
-    // Prioridade 3: JS Original
     return g; 
   }
 
@@ -52,50 +57,52 @@
     URL.revokeObjectURL(a.href);
   }
 
-  // ✅ CORRIGIDO: Validação básica de slug (sem geração automática)
   function validateSlug(input) {
     const slug = (input || "").toString().trim();
-    if (!slug) return null; // Vazio
-    // Permite letras, números, hífen, underscore, ponto
+    if (!slug) return null;
     const valid = /^[a-zA-Z0-9][a-zA-Z0-9\-_.]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$/.test(slug);
     return valid ? slug : null;
   }
 
-  // ✅ Verifica se ID já existe
   function isIdUnique(newId) {
-    // Verifica nos grupos ativos
     const existsInActive = activeGroups.some(g => g.id === newId);
     if (existsInActive) return false;
     
-    // Verifica no localStorage
     const keys = Object.keys(localStorage);
     const existsInLS = keys.some(k => k === `${KEY}:group:${newId}`);
     return !existsInLS;
   }
 
-  // Feedback visual
   function showFeedback(msg, type = "info") {
+    console.log(`[${type.toUpperCase()}] ${msg}`);
+    
+    const existing = document.querySelector(".feedback-toast");
+    if (existing) existing.remove();
+
     const feedback = document.createElement("div");
+    feedback.className = "feedback-toast";
     feedback.style = `
       position: fixed;
       top: 20px;
       right: 20px;
-      padding: 15px 25px;
-      border-radius: 8px;
+      padding: 20px 30px;
+      border-radius: 12px;
       color: #fff;
       font-weight: bold;
       z-index: 10001;
       background: ${type === "error" ? "#ef4444" : "#22c55e"};
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       animation: slideIn 0.3s ease;
+      max-width: 350px;
     `;
-    feedback.innerText = msg;
+    feedback.innerHTML = msg;
     document.body.appendChild(feedback);
+
     setTimeout(() => {
       feedback.style.opacity = "0";
-      feedback.style.transform = "translateX(100px)";
+      feedback.style.transform = "translateX(50px)";
       setTimeout(() => feedback.remove(), 300);
-    }, 3000);
+    }, 4000);
   }
 
   // --- Inicialização ---
@@ -105,12 +112,29 @@
   const exportAllBtn = document.getElementById("exportAll") || document.getElementById("export"); 
   const resetBtn = document.getElementById("reset");
 
+  console.log("🎯 Elementos encontrados:", {
+    groupsEl: !!groupsEl,
+    addGroupBtn: !!addGroupBtn,
+    exportAllBtn: !!exportAllBtn,
+    resetBtn: !!resetBtn
+  });
+
   async function init() {
+    console.log("📋 init() chamada");
+    
     const openAllGhost = document.getElementById("openAll") || Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Abrir TUDO'));
-    if (openAllGhost) openAllGhost.remove();
+    if (openAllGhost) {
+      console.log("🗑️ Removendo botão ghost");
+      openAllGhost.remove();
+    }
 
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
+    console.log(`📥 Carregando ${originalGroups.length} grupos originais`);
+
     activeGroups = await Promise.all(originalGroups.map(g => getGroupData(g)));
+    console.log(`✅ ${activeGroups.length} grupos carregados`);
+    console.log("📋 IDs dos grupos:", activeGroups.map(g => g.id));
+
     render();
     setupActions();
   }
@@ -119,37 +143,61 @@
     const isEdit = mode === "edit";
     const oldId = isEdit ? groupData.id : "";
     
+    console.log(`📝 Abrindo modal: ${mode}`, isEdit ? groupData.id : "novo");
+
     const overlay = document.createElement("div");
-    overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
+    overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
     const modal = document.createElement("div");
-    modal.style = "background:var(--card-bg, #1e1e2e); padding:25px; border-radius:12px; width:100%; max-width:500px; border:1px solid #444; color:#fff; position:relative;";
+    modal.style = "background:#1e1e2e; padding:30px; border-radius:16px; width:100%; max-width:550px; border:1px solid #555; color:#fff; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.5);";
     
     modal.innerHTML = `
-      <button id="mCloseX" style="position:absolute; top:10px; right:10px; background:none; border:none; color:#888; cursor:pointer; font-size:24px;">&times;</button>
-      <h3 style="margin-top:0;">${isEdit ? "✏️ Editar Material" : "🚀 Novo Material"}</h3>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <label style="font-size:11px; color:#aaa;">NOME:</label>
-        <input id="mName" type="text" value="${isEdit ? groupData.name : ""}" placeholder="Ex: EMT-04-QE - Quantum Esencial" style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-        <label style="font-size:11px; color:#aaa;">ID (SLUG) - <span style="color:#ef4444;">OBRIGATÓRIO</span>:</label>
-        <input id="mId" type="text" value="${oldId}" placeholder="Ex: emt-04-qe" style="padding:8px; background:#111; border:1px solid #444; color:#8b86ff;">
-        <label style="font-size:11px; color:#aaa;">URL DO ÍCONE:</label>
-        <input id="mIcon" type="text" value="${isEdit ? (groupData.icon || "") : ""}" placeholder="https://..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-        <label style="font-size:11px; color:#aaa;">URL DO MATERIAL (REFERÊNCIA):</label>
-        <input id="mIconHref" type="text" value="${isEdit ? (groupData.iconHref || "") : ""}" placeholder="https://drive.google.com/..." style="padding:8px; background:#111; border:1px solid #444; color:#fff;">
-        <label style="font-size:11px; color:#aaa;">COR:</label>
-        <input id="mColor" type="color" value="${isEdit ? (groupData.color || "#8b86ff") : "#8b86ff"}" style="width:100%; height:35px; background:none; border:none; cursor:pointer;">
+      <button id="mCloseX" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#888; cursor:pointer; font-size:28px; line-height:1;">&times;</button>
+      <h2 style="margin:0 0 20px 0; color:#fff;">${isEdit ? "✏️ Editar Material" : "🚀 Novo Material"}</h2>
+      
+      <div style="display:flex; flex-direction:column; gap:15px;">
+        <div>
+          <label style="font-size:12px; color:#8b86ff; font-weight:bold;">NOME DO MATERIAL</label>
+          <input id="mName" type="text" value="${isEdit ? groupData.name : ""}" placeholder="Ex: EMT-37-EE - Estrutura Englobante" style="width:100%; padding:12px; background:#0d0d0d; border:1px solid #333; color:#fff; border-radius:8px; font-size:14px; box-sizing:border-box;">
+        </div>
+        
+        <div>
+          <label style="font-size:12px; color:#22c55e; font-weight:bold;">ID (SLUG) ⭐ OBRIGATÓRIO</label>
+          <input id="mId" type="text" value="${oldId}" placeholder="Ex: emt-37-ee" style="width:100%; padding:12px; background:#0d0d0d; border:1px solid #333; color:#8b86ff; border-radius:8px; font-size:14px; font-family:monospace; box-sizing:border-box;">
+        </div>
+        
+        <div>
+          <label style="font-size:12px; color:#aaa;">URL DO ÍCONE (opcional)</label>
+          <input id="mIcon" type="text" value="${isEdit ? (groupData.icon || "") : ""}" placeholder="https://..." style="width:100%; padding:12px; background:#0d0d0d; border:1px solid #333; color:#fff; border-radius:8px; font-size:14px; box-sizing:border-box;">
+        </div>
+        
+        <div>
+          <label style="font-size:12px; color:#aaa;">URL DO MATERIAL DE REFERÊNCIA (opcional)</label>
+          <input id="mIconHref" type="text" value="${isEdit ? (groupData.iconHref || "") : ""}" placeholder="https://drive.google.com/..." style="width:100%; padding:12px; background:#0d0d0d; border:1px solid #333; color:#fff; border-radius:8px; font-size:14px; box-sizing:border-box;">
+        </div>
+        
+        <div>
+          <label style="font-size:12px; color:#aaa;">COR</label>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <input id="mColor" type="color" value="${isEdit ? (groupData.color || "#8b86ff") : "#8b86ff"}" style="width:60px; height:40px; background:none; border:none; cursor:pointer;">
+            <span style="color:#666; font-size:12px;">Clique para escolher a cor</span>
+          </div>
+        </div>
       </div>
-      <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
-        <button id="mCancel" class="btn" style="background:#444;">Cancelar</button>
-        <button id="mSave" class="btn" style="background:#8b86ff; font-weight:bold;">Salvar</button>
+      
+      <div id="mError" style="color:#ef4444; font-size:13px; margin:15px 0; padding:10px; background:rgba(239,68,68,0.1); border-radius:8px; display:none; border-left:3px solid #ef4444;"></div>
+      
+      <div style="margin-top:25px; display:flex; gap:10px; justify-content:flex-end;">
+        <button id="mCancel" class="btn" style="background:#333; padding:12px 24px; border-radius:8px;">Cancelar</button>
+        <button id="mSave" class="btn" style="background:linear-gradient(135deg, #8b86ff, #6c63ff); padding:12px 30px; border-radius:8px; font-weight:bold;">💾 Salvar</button>
       </div>
-      <div id="mError" style="color:#ef4444; font-size:12px; margin-top:10px; display:none;"></div>
     `;
 
     document.body.appendChild(overlay);
     overlay.appendChild(modal);
 
     document.getElementById("mSave").onclick = () => {
+      console.log("🖱️ Botão Salvar clicado");
+      
       const name = document.getElementById("mName").value.trim();
       const idInput = document.getElementById("mId").value.trim();
       const icon = document.getElementById("mIcon").value.trim();
@@ -157,24 +205,22 @@
       const color = document.getElementById("mColor").value;
       const errorDiv = document.getElementById("mError");
 
-      // ✅ CORRIGIDO: Validações
+      console.log("📝 Dados preenchidos:", { name, idInput, icon, iconHref });
+
       errorDiv.style.display = "none";
 
-      // Nome obrigatório
       if (!name) {
         errorDiv.innerText = "⚠️ O nome é obrigatório!";
         errorDiv.style.display = "block";
         return;
       }
 
-      // ✅ ID obrigatório e exatamente como digitado
       if (!idInput) {
         errorDiv.innerText = "⚠️ O ID (slug) é obrigatório!";
         errorDiv.style.display = "block";
         return;
       }
 
-      // ✅ Valida formato do ID (não pode começar ou terminar com hífen, etc)
       const newId = validateSlug(idInput);
       if (!newId) {
         errorDiv.innerText = "⚠️ ID inválido! Use apenas letras, números, hífen (-), underscore (_) e ponto (.).";
@@ -182,22 +228,22 @@
         return;
       }
 
-      // ✅ Verifica unicidade do ID
       if (newId !== oldId && !isIdUnique(newId)) {
         errorDiv.innerText = `⚠️ O ID "${newId}" já existe! Escolha outro.`;
         errorDiv.style.display = "block";
         return;
       }
 
-      // Cria o objeto EXATAMENTE com os dados digitados
+      console.log("✅ Validação passou, salvando...");
+
       const updatedData = {
-        id: newId, // ✅ ID exato digitado pelo usuário
+        id: newId,
         name: name,
         color: color,
         icon: icon,
         iconHref: iconHref,
         collapsed: true,
-        items: isEdit ? groupData.items : [] // Preserva itens se for edição
+        items: isEdit ? groupData.items : []
       };
 
       // Migração se ID mudou
@@ -210,25 +256,54 @@
         localStorage.removeItem(`${KEY}:group:${oldId}`);
       }
 
-      // Salva no localStorage
-      localStorage.setItem(`${KEY}:group:${newId}`, JSON.stringify(updatedData));
+      // Salvando no localStorage
+      const key = `${KEY}:group:${newId}`;
+      localStorage.setItem(key, JSON.stringify(updatedData));
+      
+      console.log("💾 Salvou no localStorage:", key);
+      console.log("📦 Dados salvos:", updatedData);
 
-      showFeedback(isEdit ? "✅ Material atualizado!" : "✅ Novo material criado!", "success");
+      // Verificar se salvou
+      const verify = localStorage.getItem(key);
+      console.log("🔍 Verificação:", verify ? "✅ Salvo com sucesso!" : "❌ ERRO ao salvar!");
 
+      showFeedback("✅ Material salvo com sucesso!", "success");
+
+      // Remover overlay
+      overlay.remove();
+
+      // Recarregar página
+      console.log("🔄 Recarregando página...");
+      
       setTimeout(() => {
-        overlay.remove();
-        location.reload();
-      }, 500);
+        window.location.reload();
+      }, 1000);
     };
 
-    document.getElementById("mCancel").onclick = () => overlay.remove();
+    document.getElementById("mCancel").onclick = () => {
+      console.log("❌ Cancelado");
+      overlay.remove();
+    };
     document.getElementById("mCloseX").onclick = () => overlay.remove();
-    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    overlay.onclick = (e) => { 
+      if (e.target === overlay) {
+        console.log("❌ Fechou pelo overlay");
+        overlay.remove(); 
+      }
+    };
   }
 
   function setupActions() {
+    console.log("⚙️ setupActions()");
+    
     if (addGroupBtn) {
-      addGroupBtn.onclick = () => openModal("create");
+      console.log("✅ Botão +Grupo encontrado:", addGroupBtn.id);
+      addGroupBtn.onclick = () => {
+        console.log("🖱️ Clicou em +Grupo");
+        openModal("create");
+      };
+    } else {
+      console.error("❌ Botão addGroup NÃO encontrado!");
     }
 
     if (exportAllBtn) {
@@ -242,38 +317,60 @@
     if (resetBtn) resetBtn.onclick = () => { 
       if (confirm("Restaurar padrão?\n\n⚠️ Isso apagará todas as customizações!")) { 
         localStorage.clear(); 
-        location.reload(); 
+        window.location.reload(); 
       } 
     };
   }
 
   function render() {
-    if (!groupsEl) return;
+    console.log("🎨 render() chamada");
+    
+    if (!groupsEl) {
+      console.error("❌ groupsEl não encontrado!");
+      return;
+    }
+    
     groupsEl.innerHTML = "";
     
-    activeGroups.forEach((g) => {
+    if (activeGroups.length === 0) {
+      groupsEl.innerHTML = '<div style="text-align:center; padding:40px; color:#666;">Nenhum material encontrado</div>';
+      return;
+    }
+
+    console.log(`📋 Renderizando ${activeGroups.length} grupos`);
+    
+    activeGroups.forEach((g, index) => {
+      console.log(`  ${index + 1}. ${g.id}`);
+      
       const card = document.createElement("div");
       card.className = "card";
       card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
+      card.style.marginBottom = "15px";
+      card.style.background = "#252535";
+      card.style.borderRadius = "12px";
       
       card.innerHTML = `
-        <div class="head">
-          <h2 class="chev" style="cursor:pointer" data-act="toggle">
+        <div class="head" style="padding:15px 20px;">
+          <h2 style="margin:0; font-size:18px; display:flex; align-items:center; gap:12px;">
             <span class="gicon-wrap">
-              <a href="${g.iconHref || "#"}" target="_blank"><img class="gicon" src="${g.icon || ""}" onerror="this.style.display='none'"></a>
+              <a href="${g.iconHref || "#"}" target="_blank"><img class="gicon" src="${g.icon || ""}" style="width:32px; height:32px; object-fit:contain;" onerror="this.style.display='none'"></a>
             </span>
-            <span class="chip" style="background:${g.color}"></span> ${g.name}
+            <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block;"></span>
+            ${g.name}
           </h2>
-          <div class="actions">
-            <button class="btn" data-act="open-cover">Capa</button>
-            <button class="btn" data-act="edit-material">Editar</button>
-            <button class="btn" data-act="export-disco">Exportar</button>
+          <div class="actions" style="display:flex; gap:8px; margin-top:12px;">
+            <button class="btn" data-act="open-cover" style="font-size:12px; padding:6px 12px; background:#333;">📄 Capa</button>
+            <button class="btn" data-act="edit-material" style="font-size:12px; padding:6px 12px; background:#444;">✏️ Editar</button>
+            <button class="btn" data-act="export-disco" style="font-size:12px; padding:6px 12px; background:#333;">💾 Exportar</button>
           </div>
         </div>
-        <div class="grid" data-role="grid" style="display:none; gap:5px; padding:10px;"></div>
+        <div class="grid" data-role="grid" style="display:none; gap:5px; padding:0 20px 20px 20px;"></div>
       `;
 
-      card.querySelector("[data-act='edit-material']").onclick = () => openModal("edit", g);
+      card.querySelector("[data-act='edit-material']").onclick = () => {
+        console.log("✏️ Editando:", g.id);
+        openModal("edit", g);
+      };
       
       card.querySelector("[data-act='open-cover']").onclick = () => {
         const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
@@ -300,14 +397,14 @@
       (g.items || []).forEach((item) => {
         const row = document.createElement("div");
         row.className = "item";
-        row.style = "display: flex; align-items: center; gap: 10px; margin-bottom: 4px;";
+        row.style = "display: flex; align-items: center; gap: 10px; margin-bottom: 4px; padding:8px; background:#1a1a25; border-radius:6px;";
         row.innerHTML = `
           <div class="left" style="display:flex; align-items:center; gap:8px; flex: 1;">
             <input type="checkbox" ${item.checked !== false ? "checked" : ""}>
             <div class="composite" style="font-size:12px;">${item.code} | ${item.label}</div>
           </div>
-          <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333;"></div>
-          <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px;">Abrir</a>
+          <div class="urlbox" style="flex: 2;"><input class="url" type="text" value="${item.url || ""}" style="width:100%; background:#111; color:#ccc; border:1px solid #333; padding:6px; border-radius:4px;"></div>
+          <a class="btn" href="${item.url || "#"}" target="_blank" style="font-size:11px; padding:6px 12px;">Abrir</a>
         `;
         grid.appendChild(row);
       });
@@ -326,12 +423,13 @@
     style.id = "feedback-styles";
     style.innerHTML = `
       @keyframes slideIn {
-        from { opacity: 0; transform: translateX(100px); }
+        from { opacity: 0; transform: translateX(50px); }
         to { opacity: 1; transform: translateX(0); }
       }
     `;
     document.head.appendChild(style);
   }
 
+  console.log("✅ script-launcher.js carregado completamente");
   init();
 })();
