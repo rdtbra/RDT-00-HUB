@@ -1,3 +1,4 @@
+/** Backup Consolidado **/
 window.GROUPS = [
   {
     "id": "rdt-00-hub",
@@ -5,7 +6,6 @@ window.GROUPS = [
     "color": "#4f46e5",
     "icon": "assets/RDT-00-HUB.svg",
     "iconHref": "#",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -63,22 +63,21 @@ window.GROUPS = [
       },
       {
         "code": "REV",
-        "label": "L3-Lunaris-v1",
+        "label": "gemma-3-27b-it",
         "provider": "[HuggingFace]",
-        "url": "https://huggingface.co/chat/conversation/6934e7db62e2e96b2a996fb3",
+        "url": "https://huggingface.co/chat/conversation/6966bb33d32088359db12f3a",
         "checked": true,
         "img": "",
-        "TabTitle": "RDT-00-HUB|REV|L3-Lunaris-v1|HuggingFace"
+        "TabTitle": "RDT-00-HUB|REV|gemma-3-27b-it|HuggingFace"
       }
     ]
   },
-  {  
+  {
     "id": "prj-01-erp",
     "name": "PRJ-01-ERP - Simulação de ERP",
     "color": "#4f46e5",
     "icon": "assets/PRJ-01-ERP.png",
     "iconHref": "#",
-    "collapsed": true,
     "items": [
       {
         "code": "M01",
@@ -138,4 +137,4 @@ window.GROUPS = [
       }
     ]
   }
-]
+];
