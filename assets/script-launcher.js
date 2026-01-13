@@ -351,6 +351,7 @@ $
   // CSS animation
   if (!document.getElementById("feedback-styles")) {
     const style = document.createElement("style");
+    
     style.id = "feedback-styles";
     style.innerHTML = `
       @keyframes slideIn {

@@ -267,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
   (async () => {
     const items = loadItems();
     renderIAList(items);
+    
     await loadDescription();
 
     const openAllBtnTrigger = document.getElementById("openAllCover");
