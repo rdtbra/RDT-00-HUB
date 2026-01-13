@@ -2344,7 +2344,7 @@ window.GROUPS = [
         "code": "M01",
         "label": "Claude Sonnet 4",
         "provider": "MyHUB.IA",
-        "url": "https://myhub.ia.br/chat/38BdDbsJbtXAckVSoIp5BvXL2lc",
+        "url": "https://myhub.ia.br/chat/38BdYGK2zReI5lXeZJweE8CaKkl",
         "checked": true
       },
       {
