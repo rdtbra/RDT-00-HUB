@@ -1435,7 +1435,7 @@ window.GROUPS = [
     "name": "EMT-23-MA - Sterling - Linear Algebra for Dummies",
     "color": "#06b6d4",
     "icon": "https://img.perlego.com/book-covers/2770646/9780470538166_300_450.webp",
-    "iconHref": "https://ereader.perlego.com/1/book/2770646/21",
+    "iconHref": "https://ereader.perlego.com/1/book/2770646/39",
     "items": [
       {
         "code": "M01",
