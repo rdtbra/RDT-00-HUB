@@ -1370,7 +1370,7 @@ window.GROUPS = [
     "name": "EMT-22-MA - Sterling - Trigonometry for Dummies 3ed",
     "color": "#06b6d4",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394168552/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/trigonometry-for-dummies/9781394168552/cover.xhtml",
+    "iconHref": "https://learning.oreilly.com/library/view/trigonometry-for-dummies/9781394168552/c01.xhtml#h2-2",
     "items": [
       {
         "code": "M01",
@@ -2433,6 +2433,21 @@ window.GROUPS = [
         "label": "Kimi K2",
         "provider": "MyHUB.IA",
         "url": "https://myhub.ia.br/chat/38DYgiGr3MN7L4e47jccSnvcdit",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-40-en",
+    "name": "EMT-40-EN - Richards&Outros - Macroeconomics for Dummies",
+    "color": "#db0a3f",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119184423/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/macroeconomics-for-dummies/9781119184423/05_9781119184423-ch01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
         "checked": true
       }
     ]
