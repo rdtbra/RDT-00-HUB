@@ -2150,7 +2150,7 @@ window.GROUPS = [
     "name": "EMT-34-IA - Pierson - Data Science for Dummies 3ed",
     "color": "#0ea5e9",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119811558/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9781119811558/c01.xhtml",
+    "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9781119811558/c01.xhtml#h2-2",
     "items": [
       {
         "code": "M01",
