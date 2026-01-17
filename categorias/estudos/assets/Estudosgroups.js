@@ -2816,7 +2816,7 @@ window.GROUPS = [
     "id": "emt-65-fn",
     "name": "EMT-65-FN - Brealey - Princípios de Finanças Corporativas 12ed",
     "color": "#51b61b",
-    "icon": "assets/EMT-65-FN",
+    "icon": "assets/EMT-65-FN.png",
     "iconHref": "https://drive.google.com/open?id=1QJSn4L-xlU0ldXOCqYnVfwWuHpKMrq2H&usp=drive_fs",
     "items": [
       {
