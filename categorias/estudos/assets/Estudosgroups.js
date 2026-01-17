@@ -2511,5 +2511,20 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-42-cc",
+    "name": "EMT-42-CC - Holtzman - Managerial Accounting for Dummies 2ed",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394367498/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/managerial-accounting-for/9781394367498/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
