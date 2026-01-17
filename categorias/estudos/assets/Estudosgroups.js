@@ -2796,5 +2796,35 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-64-fi",
+    "name": "EMT-64-FN - Berk&DeMarzo - Corporate Finance 6ed GE",
+    "color": "#42a202",
+    "icon": "assets/EMT-64-FN.png",
+    "iconHref": "https://drive.google.com/open?id=1QMyjOa0oR2mYhTPlST1IHetHM3AUK6X6&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-65-fn",
+    "name": "EMT-65-FN - Brealey - Princípios de Finanças Corporativas 12ed",
+    "color": "#51b61b",
+    "icon": "assets/EMT-65-FN",
+    "iconHref": "https://drive.google.com/open?id=1QJSn4L-xlU0ldXOCqYnVfwWuHpKMrq2H&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
