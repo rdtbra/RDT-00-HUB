@@ -2541,5 +2541,125 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-47-ec",
+    "name": "EMT-47-EC - Ringstron - Microsoft 365 Excel for Dummies",
+    "color": "#0c731d",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394317103/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-excel/9781394317103/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-48-ec",
+    "name": "EMT-48-EC - Ringstron&Outros - Microsoft 365 Excel All-In-One for Dummies",
+    "color": "#1e8311",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394344635/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-excel/9781394344635/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-49-ec",
+    "name": "EMT-49-EC - Gookin - Microsoft 365 Word for Dummies 2ed",
+    "color": "#0c05d6",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394295449/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-word/9781394295449/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-50-ec",
+    "name": "EMT-50-EC - Gookin - Microsoft 365 Word for Professionals for Dummies 2ed",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394323869/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-word/9781394323869/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-51-ec",
+    "name": "EMT-51-EC - Ulrich&Cook - Microsoft 365 Access for Dummies 2ed",
+    "color": "#af0e16",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394295654/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-access/9781394295654/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-52-ec",
+    "name": "EMT-52-EC - Wempen -  Microsoft 365 Outlook for Dummies 2ed",
+    "color": "#0e08bf",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394295685/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-outlook/9781394295685/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-53-ec",
+    "name": "EMT-53-EC - Kusleika - Microsoft 365 Excel VBA Programming for Dummies 7ed",
+    "color": "#117412",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394292394/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-excel/9781394292394/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-54-ec",
+    "name": "EMT-54-EC - Reed - Microsoft 365 for Dummies",
+    "color": "#52aa31",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119828891/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/microsoft-365-for/9781119828891/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
