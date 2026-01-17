@@ -2661,5 +2661,95 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-55-eq",
+    "name": "EMT-55-EQ - Moore - Chemstry for Dummies",
+    "color": "#d30d63",
+    "icon": "https://img.perlego.com/book-covers/1013161/9781119297284_300_450.webp",
+    "iconHref": "http://ereader.perlego.com/1/book/1013161/5?page_number=16",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-56-eq",
+    "name": "EMT-56-EQ - Moore - Chemistry II for Dummies",
+    "color": "#e656b8",
+    "icon": "https://img.perlego.com/book-covers/1004100/9781118239469_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/1004100/5",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-57-eq",
+    "name": "EMT-57-EQ - Matson - Inorganic Chemistry for Dummies",
+    "color": "#d70f6f",
+    "icon": "https://img.perlego.com/book-covers/1001828/9781118228821_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/1001828/5",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-58-eq",
+    "name": "EMT-58-EQ - Hren&Outros - Chemistry All-in-One for Dummies",
+    "color": "#d6054e",
+    "icon": "https://img.perlego.com/book-covers/3766246/9781119908333_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/3766246/5?page_number=7",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-59-eq",
+    "name": "EMT-59-EQ - Winter - Organic Chemistry I for Dummies",
+    "color": "#da10a4",
+    "icon": "https://img.perlego.com/book-covers/1000850/9781119296577_300_450.webp",
+    "iconHref": "http://ereader.perlego.com/1/book/1000850/5?page_number=7",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-60-eq",
+    "name": "EMT-60-EQ - Moore - Organic Chemistry II for Dummies",
+    "color": "#f00f53",
+    "icon": "https://img.perlego.com/book-covers/3815892/9781119985198_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/3815892/5?page_number=7",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
