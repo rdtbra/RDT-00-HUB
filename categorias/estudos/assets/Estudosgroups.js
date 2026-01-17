@@ -2472,7 +2472,7 @@ window.GROUPS = [
     "name": "EMT-42-CC - Holtzman - Managerial Accounting for Dummies 2ed",
     "color": "#8b86ff",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394367498/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/managerial-accounting-for/9781394367498/c01.xhtml#h2-2",
+    "iconHref": "https://learning.oreilly.com/library/view/managerial-accounting-for/9781394367498/c01.xhtml",
     "items": [
       {
         "code": "M01",
@@ -2513,11 +2513,26 @@ window.GROUPS = [
     ]
   },
   {
-    "id": "emt-42-cc",
-    "name": "EMT-42-CC - Holtzman - Managerial Accounting for Dummies 2ed",
-    "color": "#8b86ff",
-    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394367498/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/managerial-accounting-for/9781394367498/c01.xhtml",
+    "id": "emt-45-ec",
+    "name": "EMT-45-EC - Gookin - Word 2019 for Dummies",
+    "color": "#0b04e7",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119514060/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/word-2019-for/9781119514060/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-46-ec",
+    "name": "EMT-46-EC - Lowe - Powerpoint 2019 for Dummies",
+    "color": "#e93001",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119514220/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/powerpoint-2019-for/9781119514220/c01.xhtml",
     "items": [
       {
         "code": "M01",
