@@ -2457,7 +2457,52 @@ window.GROUPS = [
     "name": "EMT-41-CC - Tracy&Tracy - Accounting for Dummies 7ed",
     "color": "#8b86ff",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119837527/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/accounting-for-dummies/9781119837527/c01.xhtml",
+    "iconHref": "https://learning.oreilly.com/library/view/accounting-for-dummies/9781119837527/c01.xhtml#h2-2",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-42-cc",
+    "name": "EMT-42-CC - Holtzman - Managerial Accounting for Dummies 2ed",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781394367498/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/managerial-accounting-for/9781394367498/c01.xhtml#h2-2",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-43-ec",
+    "name": "EMT-43-EC - Harvey - Excel 2019 All-In-One for Dummes",
+    "color": "#0cc65c",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119517948/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/excel-2019-all-in-one/9781119517948/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-44-ec",
+    "name": "EMT-44-EC - Harvey - Excel 2019 for Dummies",
+    "color": "#17962d",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119513322/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/excel-2019-for/9781119513322/c01.xhtml",
     "items": [
       {
         "code": "M01",
