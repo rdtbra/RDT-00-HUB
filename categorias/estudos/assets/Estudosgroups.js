@@ -2451,5 +2451,20 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-41-cc",
+    "name": "EMT-41-CC - Tracy&Tracy - Accounting for Dummies 7ed",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781119837527/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/accounting-for-dummies/9781119837527/c01.xhtml",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
