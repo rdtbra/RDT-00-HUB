@@ -2751,5 +2751,35 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-61-bi",
+    "name": "EMT-61-BI - Kratz - Biology for Dummies 3ed",
+    "color": "#ecdb18",
+    "icon": "https://img.perlego.com/book-covers/991566/9781119345381_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/991566/5?page_number=7",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-62-bi",
+    "name": "EMT-62-BI - Kratz - Molecular&Cell Biology for Dummies 2ed",
+    "color": "#f4ed1f",
+    "icon": "https://img.perlego.com/book-covers/1584638/9781119748663_300_450.webp",
+    "iconHref": "https://ereader.perlego.com/1/book/1584638/5?page_number=7",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
