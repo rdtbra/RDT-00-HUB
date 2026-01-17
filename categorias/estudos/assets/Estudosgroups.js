@@ -2781,5 +2781,20 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-63-em",
+    "name": "EMT-63-EM - Beer&Johnston - Mechanics of Materials 8ed",
+    "color": "#d14205",
+    "icon": "assets/EMT-63-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1RZCQZ2hF19kPXSZ2Iv6OpuKifx8COIuh&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
