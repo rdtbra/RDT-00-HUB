@@ -2976,5 +2976,20 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-76-cc",
+    "name": "EMT-76-CC - Montoto - Contabilidade Geral Avançada Esquematizado",
+    "color": "#0da00f",
+    "icon": "assets/EMT-76-CC.png",
+    "iconHref": "https://drive.google.com/open?id=1PW5smujzYQ5_xV5mNjbUk8GeHVuO7DF1&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
