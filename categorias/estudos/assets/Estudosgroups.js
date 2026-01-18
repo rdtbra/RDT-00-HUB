@@ -3336,5 +3336,69 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-100-ad",
+    "name": "EMT-100-AD - Chiavenato - Administração teoria, processo e prática 6ed",
+    "color": "#130dbf",
+    "icon": "assets/EMT-100-AD.png",
+    "iconHref": "https://drive.google.com/open?id=1QHAmzSokQAeYv5uqhXE4-p2auLNW_p--&usp=drive_fs",
+    "order": 1768756084739,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-101-ec",
+    "name": "EMT-101-EC - Chinnathambi - Learning React A Hands-On Guide to Building Web Applications Using React and Redux",
+    "color": "#f41010",
+    "icon": "assets/EMT-101-EC.png",
+    "iconHref": "https://drive.google.com/open?id=1TTWKcJ9RV3S293sVqmK5Q2iPgV2bWJSk&usp=drive_fs",
+    "order": 1768756202707,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "EMT-102-EC",
+    "name": "EMT-102-EC - Chollet - Deep Learning with Python 2ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-102-EC.png",
+    "iconHref": "https://drive.google.com/open?id=1SGpKv-QZgLH6QiYACvWLoY5-F7NAp0G8&usp=drive_fs",
+    "order": 1768756254500,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-103-ec",
+    "name": "EMT-103-EC - Friesen - Java Threads and the Concurrency Utilities",
+    "color": "#00a832",
+    "icon": "assets/EMT-103-EC.png",
+    "iconHref": "https://drive.google.com/open?id=1U8imPDDYL9A76ABN26HAtuxEgQmPIlvy&usp=drive_fs",
+    "order": 1768756356764,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
