@@ -3058,7 +3058,6 @@ window.GROUPS = [
     "color": "#1cce28",
     "icon": "assets/EMT-81-ES.png",
     "iconHref": "https://drive.google.com/open?id=1qNBjm0g9Z2yXT-tNP_6lvKFXhm5Zvi-V&usp=drive_fs",
-    "order": 1768751721169,
     "items": [
       {
         "code": "M01",
@@ -3074,7 +3073,6 @@ window.GROUPS = [
     "color": "#11b62c",
     "icon": "assets/EMT-82-ES.png",
     "iconHref": "https://drive.google.com/open?id=1Ub1hOC-90rXTf7Dk3CUDJCj7vSBH9rz3&usp=drive_fs",
-    "order": 1768751793442,
     "items": [
       {
         "code": "M01",
@@ -3090,7 +3088,6 @@ window.GROUPS = [
     "color": "#e33139",
     "icon": "assets/EMT-83-EC.png",
     "iconHref": "https://drive.google.com/open?id=1VJdS-V2fmNH46fWuKXgrnqddIjz24edZ&usp=drive_fs",
-    "order": 1768752062395,
     "items": [
       {
         "code": "M01",
@@ -3106,7 +3103,6 @@ window.GROUPS = [
     "color": "#c10651",
     "icon": "assets/EMT-84-EC.png",
     "iconHref": "https://drive.google.com/open?id=1UhOmobahYOyNJNs-2woKZ2CgCRJxgdkl&usp=drive_fs",
-    "order": 1768752120932,
     "items": [
       {
         "code": "M01",
@@ -3122,7 +3118,6 @@ window.GROUPS = [
     "color": "#8b86ff",
     "icon": "assets/EMT-85-EQ.png",
     "iconHref": "https://drive.google.com/open?id=1Rp5zNRnGMdZ4TMFYmClTPuf86E47kyOs&usp=drive_fs",
-    "order": 1768752222908,
     "items": [
       {
         "code": "M01",
@@ -3138,7 +3133,6 @@ window.GROUPS = [
     "color": "#efd215",
     "icon": "assets/EMT-86-EC.png",
     "iconHref": "https://drive.google.com/open?id=1TWRbmXfHaODWHSUPFr4biQ_V-B3zUXJC&usp=drive_fs",
-    "order": 1768752391781,
     "items": [
       {
         "code": "M01",
@@ -3154,7 +3148,6 @@ window.GROUPS = [
     "color": "#0e07df",
     "icon": "assets/EMT-87-EC.png",
     "iconHref": "https://drive.google.com/open?id=1SKrxTE2L5QMYvsEzAZ2EhMPH4-GWJUGW&usp=drive_fs",
-    "order": 1768752491982,
     "items": [
       {
         "code": "M01",
@@ -3170,7 +3163,6 @@ window.GROUPS = [
     "color": "#0d05f0",
     "icon": "assets/EMT-88-EC.png",
     "iconHref": "https://drive.google.com/open?id=1V9W1Z8TAW5xozJqJGJDAd-jTrDkKDAlP&usp=drive_fs",
-    "order": 1768752568198,
     "items": [
       {
         "code": "M01",
@@ -3186,7 +3178,6 @@ window.GROUPS = [
     "color": "#17bab7",
     "icon": "assets/EMT-89-IA.png",
     "iconHref": "https://drive.google.com/open?id=1S1ku7U_F84YCpwl7dzrowXbO1x8RxnDM&usp=drive_fs",
-    "order": 1768752624175,
     "items": [
       {
         "code": "M01",
@@ -3202,7 +3193,6 @@ window.GROUPS = [
     "color": "#141094",
     "icon": "assets/EMT-90-EC.png",
     "iconHref": "https://drive.google.com/open?id=1UatXD1Mzx7o7AWBLDJ_mvH8S69K1Pdyn&usp=drive_fs",
-    "order": 1768752719431,
     "items": [
       {
         "code": "M01",
@@ -3218,7 +3208,6 @@ window.GROUPS = [
     "color": "#e42301",
     "icon": "assets/EMT-91-EC.png",
     "iconHref": "https://drive.google.com/open?id=1UZj_5cd8v7mp7Joao1ZbtH4nClGTrcj2&usp=drive_fs",
-    "order": 1768752772720,
     "items": [
       {
         "code": "M01",
@@ -3234,7 +3223,6 @@ window.GROUPS = [
     "color": "#097b0b",
     "icon": "assets/EMT-92-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QhOXtnk8JqKi6cS1y8pDdwC15_cDpcVb&usp=drive_fs",
-    "order": 1768752834623,
     "items": [
       {
         "code": "M01",
@@ -3250,7 +3238,6 @@ window.GROUPS = [
     "color": "#097b0b",
     "icon": "assets/EMT-93-MA.png",
     "iconHref": "https://drive.google.com/open?id=1QfonOVHTgViDYI7zEacdssupZWh-OAfT&usp=drive_fs",
-    "order": 1768752834623,
     "items": [
       {
         "code": "M01",
@@ -3266,7 +3253,6 @@ window.GROUPS = [
     "color": "#050099",
     "icon": "assets/EMT-94-EC.png",
     "iconHref": "https://drive.google.com/open?id=1PRB-y_cEUDzs2Bv-ZV1c4rY74LrQNuvo&usp=drive_fs",
-    "order": 1768752932552,
     "items": [
       {
         "code": "M01",
@@ -3282,7 +3268,6 @@ window.GROUPS = [
     "color": "#e5dd06",
     "icon": "assets/EMT-95-EE.png",
     "iconHref": "https://drive.google.com/open?id=1RQgz5I1PZm9y1-S64X14qDTxHvHpaTqd&usp=drive_fs",
-    "order": 1768753023321,
     "items": [
       {
         "code": "M01",
@@ -3298,7 +3283,6 @@ window.GROUPS = [
     "color": "#8b86ff",
     "icon": "assets/EMT-96-ES.png",
     "iconHref": "https://drive.google.com/open?id=1SbzdaP9ouFFmKVrBTps-XqiyR_NsXc2x&usp=drive_fs",
-    "order": 1768753075034,
     "items": [
       {
         "code": "M01",
@@ -3314,7 +3298,6 @@ window.GROUPS = [
     "color": "#0b791e",
     "icon": "assets/EMT-97-EC.png",
     "iconHref": "https://drive.google.com/open?id=1TvBuR8HXurLZ0cwOEBJCFUZGrVMKlikG&usp=drive_fs",
-    "order": 1768753145266,
     "items": [
       {
         "code": "M01",
@@ -3330,7 +3313,6 @@ window.GROUPS = [
     "color": "#177d3e",
     "icon": "assets/EMT-98-EC.png",
     "iconHref": "https://drive.google.com/open?id=1TsMGCYD0C3vLkNi_anY2K6zy6alk-LDa&usp=drive_fs",
-    "order": 1768753185938,
     "items": [
       {
         "code": "M01",
@@ -3346,7 +3328,6 @@ window.GROUPS = [
     "color": "#0700cc",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780735639904/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/windows-r-via-c-c/9780735639904/ch01.html",
-    "order": 1768753361803,
     "items": [
       {
         "code": "M01",
