@@ -2846,7 +2846,7 @@ window.GROUPS = [
     "id": "emt-67-ec",
     "name": "EMT-67-EC - Hamad - AutoCAD 2025 Beginning and Intermediate",
     "color": "#f00024",
-    "icon": "assets/EM-67-EC.png",
+    "icon": "assets/EMT-67-EC.png",
     "iconHref": "https://drive.google.com/open?id=1Rhqy5skr8cob4dlxy3HYUx_J3HFe3y2-&usp=drive_fs",
     "items": [
       {
