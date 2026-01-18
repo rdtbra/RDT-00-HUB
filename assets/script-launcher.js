@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Chaves padronizadas)
+ * Arquivo: script-launcher.js (CORRIGIDO: Ordenar apenas localStorage)
  * ============================================================
  */
 
@@ -69,10 +69,10 @@
     }, 4000);
   }
 
-  // ✅ Busca grupos do localStorage
+  // ✅ CORREÇÃO: Busca grupos do localStorage + ordenação
   function getLocalGroups() {
     const groups = [];
-    const prefix = `${STORAGE_PREFIX}:group:`; // ✅ CORREÇÃO: Usar prefixo padronizado
+    const prefix = `${STORAGE_PREFIX}:group:`;
     
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith(prefix)) {
@@ -87,7 +87,8 @@
       }
     });
     
-    return groups;
+    // ✅ CORREÇÃO: Ordena por order (menor = mais antigo = primeiro, maior = mais recente = último)
+    return groups.sort((a, b) => (a.order || 0) - (b.order || 0));
   }
 
   // --- Lógica de Sincronização ---
@@ -148,22 +149,22 @@
       openAllGhost.remove();
     }
 
-    // Grupos do JS original
+    // Grupos do JS original (ordem original mantida)
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     console.log(`📥 ${originalGroups.length} grupos do JS original`);
 
-    // Grupos do localStorage
+    // Grupos do localStorage (ordenados por order)
     const localGroups = getLocalGroups();
     console.log(`📥 ${localGroups.length} grupos do localStorage`);
 
-    // Mescla
+    // Mescla: JS original primeiro, depois localStorage
     const allGroupsMap = new Map();
     originalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     const allGroups = Array.from(allGroupsMap.values());
     console.log(`📊 ${allGroups.length} grupos totais (após mescla)`);
 
-    // Carrega dados
+    // Carrega dados (SEM ordenação - mantém ordem original)
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
@@ -264,6 +265,7 @@
 
       console.log("✅ Validação passou, salvando...");
 
+      // ✅ CORREÇÃO: Adiciona campo order
       const updatedData = {
         id: newId,
         name: name,
@@ -271,6 +273,7 @@
         icon: icon,
         iconHref: iconHref,
         collapsed: true,
+        order: isEdit ? groupData.order : Date.now(),  // ✅ Usa order antigo se editar, ou cria novo se for criar
         items: isEdit ? groupData.items : [
           {
             code: "M01",
