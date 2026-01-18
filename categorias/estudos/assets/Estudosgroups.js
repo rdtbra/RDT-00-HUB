@@ -2798,7 +2798,7 @@ window.GROUPS = [
     ]
   },
   {
-    "id": "emt-64-fi",
+    "id": "emt-64-fn",
     "name": "EMT-64-FN - Berk&DeMarzo - Corporate Finance 6ed GE",
     "color": "#42a202",
     "icon": "assets/EMT-64-FN.png",
@@ -2818,6 +2818,156 @@ window.GROUPS = [
     "color": "#51b61b",
     "icon": "assets/EMT-65-FN.png",
     "iconHref": "https://drive.google.com/open?id=1QJSn4L-xlU0ldXOCqYnVfwWuHpKMrq2H&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-66-em",
+    "name": "EMT-66-EM - Hibbeler - Mechanics of Materials in SI Units 10ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-66-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1RZzV1JhzMbARTKMhLUmk090iyT5CM-H1&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-67-ec",
+    "name": "EMT-67-EC - Hamad - AutoCAD 2025 Beginning and Intermediate",
+    "color": "#f00024",
+    "icon": "assets/EM-67-EC.png",
+    "iconHref": "https://drive.google.com/open?id=1Rhqy5skr8cob4dlxy3HYUx_J3HFe3y2-&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-68-em",
+    "name": "EMT-68-EM - CADFolks - SolidWorks 2025 Step-By-Step Guide",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-68-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1RjJAN5LsPLYW33i8KI07ICYC5l9YKqlq&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-69-fs",
+    "name": "EMT-69-FS - Cutnell&Johnson - Physics 11ed",
+    "color": "#0f07f2",
+    "icon": "assets/EMT-69-FS.png",
+    "iconHref": "https://drive.google.com/open?id=1UJinmrx83VXiXIWPGcLogEnoSH6ap4xm&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-70-fs",
+    "name": "EMT-70-FS - Halliday&Resnick - Fundamentals of Physics EE 12ed",
+    "color": "#0800ff",
+    "icon": "assets/EMT-70-FS.png",
+    "iconHref": "https://drive.google.com/open?id=1UN2u9a79sWKokosrZsPc7MZe1ftigd-x&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-71-cc",
+    "name": "EMT-71-CC - Garrison&Outros - Managerial Accounting 17ed",
+    "color": "#52e57e",
+    "icon": "assets/EMT-71-CC.png",
+    "iconHref": "https://drive.google.com/open?id=1PxHeglLu1G_m6l8KRJBgj-DEopBwm1IH&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-72-cc",
+    "name": "EMT-72-CC - Horngren&Outros - Cost Accounting - A Managerial Emphasis 15ed GE",
+    "color": "#05fa36",
+    "icon": "assets/EMT-72-CC.png",
+    "iconHref": "https://drive.google.com/open?id=1Q5byrS568_NAWreneJrZvjL0g-o50nbA&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-73-en",
+    "name": "EMT-73-EN - Gujarati - Econometria Básica 5ed",
+    "color": "#3ba800",
+    "icon": "assets/EMT-73-EN.png",
+    "iconHref": "https://drive.google.com/open?id=1SeE0jFRs3bmQkG8DbuUVQqnJ94KZZCZp&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-74-cc",
+    "name": "EMT-74-CC - Kieso&Outros - Accounting Principles 12ed",
+    "color": "#0be023",
+    "icon": "assets/EMT-74-CC.png",
+    "iconHref": "https://drive.google.com/open?id=1PrtdbZWA-BNGga77efLNva4VKEYAMtHz&usp=drive_fs",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-75-ec",
+    "name": "EMT-75-EC - Knuth - The Art of Computer Programming V1: Fundamental Algorithms 3ed",
+    "color": "#f00fd2",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780321635754/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/art-of-computer/9780321635754/ch01.xhtml#ch01lev1sec1",
     "items": [
       {
         "code": "M01",
