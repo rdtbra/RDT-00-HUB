@@ -3026,7 +3026,7 @@ window.GROUPS = [
     "id": "emt-79-ee",
     "name": "EMT-79-EE - Malvino&Outros - Electronic Principles 9ed",
     "color": "#8b86ff",
-    "icon": "assets/EM-79-EE.png",
+    "icon": "assets/EMT-79-EE.png",
     "iconHref": "https://drive.google.com/open?id=1RHlp8M5i4YuRrEqnIVkMcIJ4gIWiRV1V&usp=drive_fs",
     "items": [
       {
