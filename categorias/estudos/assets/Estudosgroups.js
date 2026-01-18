@@ -3355,21 +3355,5 @@ window.GROUPS = [
         "checked": true
       }
     ]
-  },
-  {
-    "id": "emt-98-ec",
-    "name": "EMT-98-EC - Richter - Windows via C/C++ 5ed",
-    "color": "#0700cc",
-    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780735639904/200w/",
-    "iconHref": "https://learning.oreilly.com/library/view/windows-r-via-c-c/9780735639904/ch01.html",
-    "order": 1768753361803,
-    "items": [
-      {
-        "code": "M01",
-        "label": "Nova IA",
-        "url": "",
-        "checked": true
-      }
-    ]
   }
 ];
