@@ -2994,7 +2994,7 @@ window.GROUPS = [
   },
   {
     "id": "emt-77-es",
-    "name": "EMT-77-ES - Kruschke - Doing Bayesian Data Analysis 2ed - OReilly",
+    "name": "EMT-77-ES - Kruschke - Doing Bayesian Data Analysis 2ed",
     "color": "#cbf401",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780124058880/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/doing-bayesian-data/9780124058880/B9780124058880000015.xhtml",
@@ -3009,7 +3009,7 @@ window.GROUPS = [
   },
   {
     "id": "emt-78-es",
-    "name": "EMT-78-ES - Kurt - Bayesian Statistics the Fun Way - OReilly",
+    "name": "EMT-78-ES - Kurt - Bayesian Statistics the Fun Way",
     "color": "#f5ed0a",
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781098122492/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/bayesian-statistics-the/9781098122492/xhtml/ch01.xhtml",
