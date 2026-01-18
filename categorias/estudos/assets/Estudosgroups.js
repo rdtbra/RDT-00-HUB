@@ -3400,5 +3400,21 @@ window.GROUPS = [
         "checked": true
       }
     ]
+  },
+  {
+    "id": "emt-104-ec",
+    "name": "EMT-104-EC - Russinovich&Outros - Windows Internals 7ed P1",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-104-EC.png",
+    "iconHref": "https://drive.google.com/open?id=1VTmsRTvUG4q4kyUY_Eq73BFp2CN2wtKu&usp=drive_fs",
+    "order": 1768761329033,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
   }
 ];
