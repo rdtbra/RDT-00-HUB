@@ -1,8 +1,4 @@
-// ============================================================================
-// Pessoalgroups.js
-// Grupos do launcher de Desenvolvimento (DV)
-// ============================================================================
-
+/** Backup Consolidado - 19/01/2026, 14:37:08 **/
 window.GROUPS = [
   {
     "id": "llm-conversacionallic",
@@ -10,7 +6,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/LLMs-ConversacionalLic.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -35,7 +30,7 @@ window.GROUPS = [
         "url": "https://gemini.google.com",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "",
         "label": "AdaptaONE",
@@ -67,7 +62,7 @@ window.GROUPS = [
         "url": "https://myhub.ia.br/chat",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "",
         "label": "Tess.AI",
@@ -131,7 +126,7 @@ window.GROUPS = [
         "url": "https://openrouter.ai/chat",
         "checked": true,
         "img": ""
-      },      
+      },
       {
         "code": "",
         "label": "NotebookLM",
@@ -139,7 +134,7 @@ window.GROUPS = [
         "url": "https://notebooklm.google.com",
         "checked": true,
         "img": ""
-      },      
+      },
       {
         "code": "",
         "label": "WolframAlpha",
@@ -147,8 +142,9 @@ window.GROUPS = [
         "url": "https://www.wolframalpha.com",
         "checked": true,
         "img": ""
-      }      
-    ]
+      }
+    ],
+    "order": 1
   },
   {
     "id": "llm-conversacional",
@@ -156,8 +152,7 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/LLMs-Conversacional.svg",
     "iconHref": "",
-    "collapsed": true,
-    "items": [     
+    "items": [
       {
         "code": "",
         "label": "Claude",
@@ -197,7 +192,7 @@ window.GROUPS = [
         "url": "https://m365.cloud.microsoft/chat/?auth=2",
         "checked": true,
         "img": ""
-      },	
+      },
       {
         "code": "",
         "label": "Mistral",
@@ -254,7 +249,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 2
   },
   {
     "id": "llm-som-imagem-video",
@@ -262,8 +258,7 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/LLMs-som-imagem-video.svg",
     "iconHref": "",
-    "collapsed": true,
-    "items": [     
+    "items": [
       {
         "code": "",
         "label": "ElevenLabs",
@@ -279,7 +274,7 @@ window.GROUPS = [
         "url": "https://www.midjourney.com/",
         "checked": true,
         "img": ""
-      }, 
+      },
       {
         "code": "",
         "label": "Kling AI",
@@ -304,14 +299,14 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	    {
+      {
         "code": "",
         "label": "Luma",
         "provider": "",
         "url": "https://dream-machine.lumalabs.ai/account",
         "checked": true,
         "img": ""
-      },      
+      },
       {
         "code": "",
         "label": "Synthesia.io",
@@ -336,7 +331,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 3
   },
   {
     "id": "produtividade",
@@ -344,9 +340,8 @@ window.GROUPS = [
     "color": "#6b7280",
     "icon": "assets/Produtividade.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
-	    {
+      {
         "code": "Notion",
         "label": "Boot Cognitivo",
         "provider": "",
@@ -354,23 +349,23 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	    {
+      {
         "code": "Notion",
         "label": "Terefas Gerais",
         "provider": "",
         "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2bbdfc26ac7e80758f7f000c5fe7d378",
         "checked": true,
         "img": ""
-      },      
-	    {
+      },
+      {
         "code": "Notion",
         "label": "Terefas Gerais - Investigação",
         "provider": "",
         "url": "https://www.notion.so/2badfc26ac7e808082b5e19f1a04968e?v=2dcdfc26ac7e80928548000cd83ac2d3",
         "checked": true,
         "img": ""
-      },      
-	    {
+      },
+      {
         "code": "Notion",
         "label": "Tarefas Gerais - Arquitetura",
         "provider": "",
@@ -378,7 +373,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	    {
+      {
         "code": "Notion",
         "label": "Tarefas Gerais - Planejamento",
         "provider": "",
@@ -386,7 +381,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	    {
+      {
         "code": "Notion",
         "label": "Tarefas Gerais - Pronto para Execução",
         "provider": "",
@@ -394,7 +389,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-	    {
+      {
         "code": "Notion",
         "label": "Tarefas Gerais - Backlog",
         "provider": "",
@@ -402,7 +397,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       },
-      	    {
+      {
         "code": "Notion",
         "label": "Atividades de Tarefas - Andamento",
         "provider": "",
@@ -418,15 +413,15 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 4
   },
   {
     "id": "produtos-avaliar",
     "name": "Produtos a Avaliar",
-    "color": "#3b82f6",  
+    "color": "#3b82f6",
     "icon": "assets/Produtos-Avaliar.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -443,7 +438,7 @@ window.GROUPS = [
         "url": "https://labs.google/",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "",
         "label": "Lucidchart",
@@ -556,15 +551,15 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
-  },  
+    ],
+    "order": 5
+  },
   {
     "id": "chatgpt-saude-financas",
     "name": "ChatGPT Saúde, Finanças",
     "color": "#4f46e5",
     "icon": "assets/ChatGPT-Conversas.png",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -590,15 +585,15 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
-  },  
+    ],
+    "order": 6
+  },
   {
     "id": "MEPCD",
     "name": "MEPDCD",
     "color": "#8b5cf6",
     "icon": "assets/MEPCD.png",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "MEPCD|M01|gpt-oss-120b|HuggingFace",
@@ -607,7 +602,7 @@ window.GROUPS = [
         "url": "https://huggingface.co/chat/conversation/69234941f0bcb3333f38ff76",
         "checked": true,
         "img": ""
-      },	
+      },
       {
         "code": "MEPCD|M02|Sabiá 3.1|Inner.AI",
         "label": "Inner - Sabiá 3.1",
@@ -647,7 +642,7 @@ window.GROUPS = [
         "url": "https://chatgpt.com/g/g-p-68aa75d3e5948191877f11e7cad88ea9/c/69001337-154c-8332-83f4-df8d6172eb19",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "MEPCD|REV|Qwen QwQ|Inner.AI",
         "label": "Inner - Qwen QwQ",
@@ -656,7 +651,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 7
   },
   {
     "id": "youtube",
@@ -664,7 +660,6 @@ window.GROUPS = [
     "color": "#ef4444",
     "icon": "assets/Youtube.svg",
     "iconHref": "https://www.yotube.com",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -674,7 +669,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 8
   },
   {
     "id": "github",
@@ -682,7 +678,6 @@ window.GROUPS = [
     "color": "#6b7280",
     "icon": "assets/Github.svg",
     "iconHref": "https://github.com/rdtbra?tab=repositories",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -692,7 +687,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 9
   },
   {
     "id": "leitura",
@@ -700,7 +696,6 @@ window.GROUPS = [
     "color": "#f59e0b",
     "icon": "assets/Leitura-Tecnica.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -717,8 +712,17 @@ window.GROUPS = [
         "url": "https://www.perlego.com/home",
         "checked": true,
         "img": ""
+      },
+      {
+        "code": "",
+        "label": "Amazon Kindle",
+        "provider": "",
+        "url": "https://ler.amazon.com.br/kindle-library",
+        "checked": true,
+        "img": ""
       }
-    ]
+    ],
+    "order": 10
   },
   {
     "id": "leituraNãoTecnica",
@@ -726,7 +730,6 @@ window.GROUPS = [
     "color": "#f59e0b",
     "icon": "assets/Leitura-nao-Tecnica.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -744,7 +747,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 11
   },
   {
     "id": "cursos",
@@ -752,7 +756,6 @@ window.GROUPS = [
     "color": "#3b82f6",
     "icon": "assets/Plataformas-Cursos.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -810,7 +813,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 12
   },
   {
     "id": "universidades",
@@ -818,7 +822,6 @@ window.GROUPS = [
     "color": "#14b8a6",
     "icon": "assets/Universidades.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -852,7 +855,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 13
   },
   {
     "id": "redes-sociais",
@@ -860,7 +864,6 @@ window.GROUPS = [
     "color": "#ec4899",
     "icon": "assets/Redes-Sociais.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -909,8 +912,9 @@ window.GROUPS = [
         "url": "https://linkedin.com",
         "checked": true,
         "img": ""
-      }	  
-    ]
+      }
+    ],
+    "order": 14
   },
   {
     "id": "xadrez",
@@ -918,7 +922,6 @@ window.GROUPS = [
     "color": "#f59e0b",
     "icon": "assets/Xadrez.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -943,7 +946,7 @@ window.GROUPS = [
         "url": "https://www.youtube.com/@GothamChess",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "",
         "label": "PowerplayChess",
@@ -983,7 +986,7 @@ window.GROUPS = [
         "url": "https://www.youtube.com/c/GMLuisPauloSupi",
         "checked": true,
         "img": ""
-      },	  
+      },
       {
         "code": "",
         "label": "Lichess",
@@ -999,8 +1002,9 @@ window.GROUPS = [
         "url": "https://chesstempo.com/chess-tactics/",
         "checked": true,
         "img": ""
-      }   
-    ]
+      }
+    ],
+    "order": 15
   },
   {
     "id": "AINews",
@@ -1008,7 +1012,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/AI-News.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -1121,8 +1124,9 @@ window.GROUPS = [
         "url": "https://www.powerfulai.tools/?filter=",
         "checked": true,
         "img": ""
-      }      
-    ]
+      }
+    ],
+    "order": 16
   },
   {
     "id": "News",
@@ -1130,7 +1134,6 @@ window.GROUPS = [
     "color": "#0ea5e9",
     "icon": "assets/News.svg",
     "iconHref": "",
-    "collapsed": true,
     "items": [
       {
         "code": "",
@@ -1164,6 +1167,7 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 17
   }
 ];
