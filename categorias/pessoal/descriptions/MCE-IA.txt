@@ -1,0 +1,4 @@
+2026.01.19 - Alterei o nome de MEPCD-IA para MCE-IA.
+-------------
+
+Preciso substituir nas IAs selecionadas em seus locais de origem.
