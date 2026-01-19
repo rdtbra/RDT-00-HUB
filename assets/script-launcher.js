@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração)
+ * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração + Order embaixo)
  * ============================================================
  */
 
@@ -422,10 +422,12 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
               <img class="gicon" src="${g.icon || ""}" style="width:64px; height:64px; object-fit:contain; border-radius:8px; background:#1a1a25; padding:4px;" onerror="this.style.display='none'">
             </a>
           </span>
-          <h2 class="group-name" data-id="${g.id}" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir/fechar as IAs">
-            <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block; margin-right:8px;"></span>
-            ${g.name}
-            ${g.order ? `<span style="color:#666; font-size:12px; margin-left:8px;">#${g.order}</span>` : ''}
+          <h2 class="group-name" data-id="${g.id}" style="margin:0; flex:1; cursor:pointer; color:#fff; display:flex; flex-direction:column;" title="Clique para abrir/fechar as IAs">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"};"></span>
+              <span style="font-size:18px;">${g.name}</span>
+            </div>
+            ${g.order ? `<span style="color:#666; font-size:12px; margin-left:16px; margin-top:2px;">#${g.order}</span>` : ''}
           </h2>
           <div class="actions" style="display:flex; gap:8px;">
             <button class="btn btn-cover" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
