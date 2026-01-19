@@ -1,4 +1,4 @@
-/** Backup Consolidado **/
+/** Backup Consolidado - 18/01/2026, 22:13:13 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -63,7 +63,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329034
   },
   {
     "id": "emt-02-fs",
@@ -128,7 +129,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329035
   },
   {
     "id": "emt-03-ma",
@@ -193,7 +195,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329036
   },
   {
     "id": "emt-04-ma",
@@ -258,7 +261,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329037
   },
   {
     "id": "emt-05-ee",
@@ -323,7 +327,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329038
   },
   {
     "id": "emt-06-ee",
@@ -388,7 +393,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329039
   },
   {
     "id": "emt-07-em",
@@ -453,7 +459,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329040
   },
   {
     "id": "emt-08-ma",
@@ -518,7 +525,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329041
   },
   {
     "id": "emt-09-ec",
@@ -583,7 +591,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329042
   },
   {
     "id": "emt-10-ec",
@@ -648,7 +657,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329043
   },
   {
     "id": "emt-11-es",
@@ -713,7 +723,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329044
   },
   {
     "id": "emt-12-ec",
@@ -778,7 +789,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329045
   },
   {
     "id": "emt-13-ec",
@@ -843,7 +855,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329046
   },
   {
     "id": "emt-14-es",
@@ -908,7 +921,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329047
   },
   {
     "id": "emt-15-ma",
@@ -973,7 +987,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329048
   },
   {
     "id": "emt-16-ec",
@@ -1038,7 +1053,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329049
   },
   {
     "id": "emt-17-ee",
@@ -1103,7 +1119,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329050
   },
   {
     "id": "emt-18-ma",
@@ -1168,7 +1185,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329051
   },
   {
     "id": "emt-19-ec",
@@ -1233,7 +1251,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329052
   },
   {
     "id": "emt-20-cd",
@@ -1298,7 +1317,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329053
   },
   {
     "id": "emt-21-ma",
@@ -1363,7 +1383,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329054
   },
   {
     "id": "emt-22-ma",
@@ -1428,7 +1449,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329055
   },
   {
     "id": "emt-23-ma",
@@ -1493,7 +1515,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329056
   },
   {
     "id": "emt-24-ma",
@@ -1558,7 +1581,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329057
   },
   {
     "id": "emt-25-ma",
@@ -1623,7 +1647,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329058
   },
   {
     "id": "emt-26-ma",
@@ -1688,7 +1713,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329059
   },
   {
     "id": "emt-27-ma",
@@ -1753,7 +1779,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329060
   },
   {
     "id": "emt-28-em",
@@ -1818,7 +1845,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329061
   },
   {
     "id": "emt-29-fs",
@@ -1883,7 +1911,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329062
   },
   {
     "id": "emt-30-fs",
@@ -1948,7 +1977,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329063
   },
   {
     "id": "emt-31-em",
@@ -2013,7 +2043,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329064
   },
   {
     "id": "emt-32-ia",
@@ -2078,7 +2109,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329065
   },
   {
     "id": "emt-33-ia",
@@ -2143,7 +2175,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329066
   },
   {
     "id": "emt-34-ia",
@@ -2208,7 +2241,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329067
   },
   {
     "id": "emt-35-ia",
@@ -2273,7 +2307,8 @@ window.GROUPS = [
         "checked": true,
         "img": ""
       }
-    ]
+    ],
+    "order": 1768761329068
   },
   {
     "id": "emt-36-cd",
@@ -2331,7 +2366,8 @@ window.GROUPS = [
         "url": "https://web.chatboxai.app/session/0f822158-30bf-49eb-bcdb-e0999dbbdfa8",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329069
   },
   {
     "id": "emt-37-ee",
@@ -2354,7 +2390,8 @@ window.GROUPS = [
         "url": "https://poe.com/chat/2zsnidrc3px11d2vsm",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329070
   },
   {
     "id": "emt-38-ee",
@@ -2377,7 +2414,8 @@ window.GROUPS = [
         "url": "https://app.innerai.com/projects/0fb002d8-0727-4afe-a28d-3939e16f836f?sessionId=e35502d6-b467-404f-855f-1818a3b084f9",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329071
   },
   {
     "id": "emt-39-en",
@@ -2435,7 +2473,8 @@ window.GROUPS = [
         "url": "https://myhub.ia.br/chat/38DYgiGr3MN7L4e47jccSnvcdit",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329072
   },
   {
     "id": "emt-40-en",
@@ -2450,7 +2489,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329073
   },
   {
     "id": "emt-41-cc",
@@ -2465,7 +2505,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329074
   },
   {
     "id": "emt-42-cc",
@@ -2480,7 +2521,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329075
   },
   {
     "id": "emt-43-ec",
@@ -2495,7 +2537,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329076
   },
   {
     "id": "emt-44-ec",
@@ -2510,7 +2553,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329077
   },
   {
     "id": "emt-45-ec",
@@ -2525,7 +2569,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329078
   },
   {
     "id": "emt-46-ec",
@@ -2540,7 +2585,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329079
   },
   {
     "id": "emt-47-ec",
@@ -2555,7 +2601,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329080
   },
   {
     "id": "emt-48-ec",
@@ -2570,7 +2617,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329081
   },
   {
     "id": "emt-49-ec",
@@ -2585,7 +2633,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329082
   },
   {
     "id": "emt-50-ec",
@@ -2600,7 +2649,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329083
   },
   {
     "id": "emt-51-ec",
@@ -2615,7 +2665,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329084
   },
   {
     "id": "emt-52-ec",
@@ -2630,7 +2681,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329085
   },
   {
     "id": "emt-53-ec",
@@ -2645,7 +2697,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329086
   },
   {
     "id": "emt-54-ec",
@@ -2660,7 +2713,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329087
   },
   {
     "id": "emt-55-eq",
@@ -2675,7 +2729,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329088
   },
   {
     "id": "emt-56-eq",
@@ -2690,7 +2745,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329089
   },
   {
     "id": "emt-57-eq",
@@ -2705,7 +2761,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329090
   },
   {
     "id": "emt-58-eq",
@@ -2720,7 +2777,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329091
   },
   {
     "id": "emt-59-eq",
@@ -2735,7 +2793,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329092
   },
   {
     "id": "emt-60-eq",
@@ -2750,7 +2809,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329093
   },
   {
     "id": "emt-61-bi",
@@ -2765,7 +2825,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329094
   },
   {
     "id": "emt-62-bi",
@@ -2780,7 +2841,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329095
   },
   {
     "id": "emt-63-em",
@@ -2795,7 +2857,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329096
   },
   {
     "id": "emt-64-fn",
@@ -2810,7 +2873,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329097
   },
   {
     "id": "emt-65-fn",
@@ -2825,7 +2889,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329098
   },
   {
     "id": "emt-66-em",
@@ -2840,7 +2905,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329099
   },
   {
     "id": "emt-67-ec",
@@ -2855,7 +2921,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329100
   },
   {
     "id": "emt-68-em",
@@ -2870,7 +2937,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329101
   },
   {
     "id": "emt-69-fs",
@@ -2885,7 +2953,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329102
   },
   {
     "id": "emt-70-fs",
@@ -2900,7 +2969,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329103
   },
   {
     "id": "emt-71-cc",
@@ -2915,7 +2985,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329104
   },
   {
     "id": "emt-72-cc",
@@ -2930,7 +3001,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329105
   },
   {
     "id": "emt-73-en",
@@ -2945,7 +3017,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329106
   },
   {
     "id": "emt-74-cc",
@@ -2960,7 +3033,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329107
   },
   {
     "id": "emt-75-ec",
@@ -2975,7 +3049,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329108
   },
   {
     "id": "emt-76-cc",
@@ -2990,7 +3065,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329109
   },
   {
     "id": "emt-77-es",
@@ -3005,7 +3081,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329110
   },
   {
     "id": "emt-78-es",
@@ -3020,7 +3097,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329111
   },
   {
     "id": "emt-79-ee",
@@ -3035,7 +3113,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329112
   },
   {
     "id": "emt-80-ee",
@@ -3050,7 +3129,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329113
   },
   {
     "id": "emt-81-es",
@@ -3065,7 +3145,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329114
   },
   {
     "id": "emt-82-es",
@@ -3080,7 +3161,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329115
   },
   {
     "id": "emt-83-ec",
@@ -3095,7 +3177,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329116
   },
   {
     "id": "emt-84-ec",
@@ -3110,7 +3193,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329117
   },
   {
     "id": "emt-85-eq",
@@ -3125,7 +3209,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329118
   },
   {
     "id": "emt-86-ec",
@@ -3140,7 +3225,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329119
   },
   {
     "id": "emt-87-ec",
@@ -3155,7 +3241,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329120
   },
   {
     "id": "emt-88-ec",
@@ -3170,7 +3257,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329121
   },
   {
     "id": "emt-89-ia",
@@ -3185,7 +3273,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329122
   },
   {
     "id": "emt-90-ec",
@@ -3200,7 +3289,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329123
   },
   {
     "id": "emt-91-ec",
@@ -3215,7 +3305,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329124
   },
   {
     "id": "emt-92-ma",
@@ -3230,7 +3321,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329125
   },
   {
     "id": "emt-93-ma",
@@ -3245,7 +3337,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329126
   },
   {
     "id": "emt-94-ec",
@@ -3260,7 +3353,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329127
   },
   {
     "id": "emt-95-ee",
@@ -3275,7 +3369,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329128
   },
   {
     "id": "emt-96-es",
@@ -3290,7 +3385,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329129
   },
   {
     "id": "emt-97-ec",
@@ -3305,7 +3401,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329130
   },
   {
     "id": "emt-98-ec",
@@ -3320,7 +3417,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329131
   },
   {
     "id": "emt-99-ec",
@@ -3335,7 +3433,8 @@ window.GROUPS = [
         "url": "",
         "checked": true
       }
-    ]
+    ],
+    "order": 1768761329132
   },
   {
     "id": "emt-100-ad",
@@ -3408,6 +3507,22 @@ window.GROUPS = [
     "icon": "assets/EMT-104-EC.png",
     "iconHref": "https://drive.google.com/open?id=1VTmsRTvUG4q4kyUY_Eq73BFp2CN2wtKu&usp=drive_fs",
     "order": 1768761329033,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-105-ma",
+    "name": "EMT-105-MA - Sullivan - Precalculus 11ed",
+    "color": "#03bf32",
+    "icon": "assets/EMT-105-MA.png",
+    "iconHref": "https://drive.google.com/open?id=1T6JfU8A9dCjS2Q1W1cOkA--ifAiFgtO-&usp=drive_fs",
+    "order": 1768785172110,
     "items": [
       {
         "code": "M01",
