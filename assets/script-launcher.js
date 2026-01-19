@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Ordenar apenas localStorage)
+ * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração)
  * ============================================================
  */
 
@@ -69,7 +69,7 @@
     }, 4000);
   }
 
-  // ✅ CORREÇÃO: Busca grupos do localStorage + ordenação
+  // --- Busca grupos do localStorage ---
   function getLocalGroups() {
     const groups = [];
     const prefix = `${STORAGE_PREFIX}:group:`;
@@ -87,7 +87,7 @@
       }
     });
     
-    // ✅ CORREÇÃO: Ordena por order (menor = mais antigo = primeiro, maior = mais recente = último)
+    // Ordena por order (menor = mais antigo = primeiro)
     return groups.sort((a, b) => (a.order || 0) - (b.order || 0));
   }
 
@@ -149,26 +149,45 @@
       openAllGhost.remove();
     }
 
-    // Grupos do JS original (ordem original mantida)
+    // Grupos do JS original
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     console.log(`📥 ${originalGroups.length} grupos do JS original`);
 
-    // Grupos do localStorage (ordenados por order)
+    // Grupos do localStorage
     const localGroups = getLocalGroups();
     console.log(`📥 ${localGroups.length} grupos do localStorage`);
 
-    // Mescla: JS original primeiro, depois localStorage
+    // ✅ CORREÇÃO: Encontrar maior order do JS para numeração sequencial
+    const maxOrderJS = originalGroups.reduce((max, g) => {
+      const order = g.order !== undefined ? Number(g.order) : -1;
+      return order > max ? order : max;
+    }, 0);
+    console.log(`📊 Maior order do JS: ${maxOrderJS}`);
+
+    // ✅ CORREÇÃO: Numera grupos JS que não têm order
+    let nextOrder = maxOrderJS + 1;
+    const numberedOriginalGroups = originalGroups.map(g => {
+      if (g.order !== undefined) {
+        return g;
+      }
+      // Atribui order sequencial
+      const numbered = { ...g, order: nextOrder };
+      nextOrder++;
+      return numbered;
+    });
+
+    // Mescla: JS original (já numerado) primeiro, depois localStorage
     const allGroupsMap = new Map();
-    originalGroups.forEach(g => allGroupsMap.set(g.id, g));
+    numberedOriginalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     const allGroups = Array.from(allGroupsMap.values());
-    console.log(`📊 ${allGroups.length} grupos totais (após mescla)`);
+    console.log(`📊 ${allGroups.length} grupos totais (após mescla e numeração)`);
 
-    // Carrega dados (SEM ordenação - mantém ordem original)
+    // Carrega dados
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
-    console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [${g.source || '?'}]`));
+    console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [order:${g.order}]`));
 
     render();
     setupActions();
@@ -265,7 +284,14 @@
 
       console.log("✅ Validação passou, salvando...");
 
-      // ✅ CORREÇÃO: Adiciona campo order
+      // ✅ CORREÇÃO: Remove entrada antiga se ID mudou
+      if (isEdit && oldId !== newId) {
+        console.log("🗑️ Removendo entrada antiga:", `${STORAGE_PREFIX}:group:${oldId}`);
+        localStorage.removeItem(`${STORAGE_PREFIX}:group:${oldId}`);
+        localStorage.removeItem(`${STORAGE_PREFIX}:items:${oldId}`);
+      }
+
+      // ✅ CORREÇÃO: Usa Date.now() para novos itens do localStorage
       const updatedData = {
         id: newId,
         name: name,
@@ -273,7 +299,7 @@
         icon: icon,
         iconHref: iconHref,
         collapsed: true,
-        order: isEdit ? groupData.order : Date.now(),  // ✅ Usa order antigo se editar, ou cria novo se for criar
+        order: isEdit ? groupData.order : Date.now(),
         items: isEdit ? groupData.items : [
           {
             code: "M01",
@@ -284,11 +310,10 @@
         ]
       };
 
-      // ✅ CORREÇÃO: Usar prefixo padronizado para ambas as chaves
+      // ✅ Usa prefixo padronizado
       const key = `${STORAGE_PREFIX}:group:${newId}`;
       localStorage.setItem(key, JSON.stringify(updatedData));
 
-      // ✅ CORREÇÃO: Items também com mesmo prefixo
       const itemsKey = `${STORAGE_PREFIX}:items:${newId}`;
       localStorage.setItem(itemsKey, JSON.stringify(updatedData.items || []));
 
@@ -335,8 +360,21 @@
 
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        const cleanGroups = activeGroups.map(({ collapsed, source, ...rest }) => rest);
-        const content = `/** Backup Consolidado **/\nwindow.GROUPS = ${JSON.stringify(cleanGroups, null, 2)};`;
+        // ✅ CORREÇÃO: Exporta com numeração sequencial
+        const groupsWithOrder = activeGroups.map((g, index) => {
+          const { collapsed, source, ...rest } = g;
+          return {
+            ...rest,
+            //order: index + 1  // Já vem com order correto do init()
+          };
+        });
+        
+        const content = `/** Backup Consolidado - ${new Date().toLocaleString()} **/
+window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
+        
+        console.log("📤 Exportando", groupsWithOrder.length, "grupos");
+        console.log("📋 Ordens:", groupsWithOrder.map(g => `${g.id}: ${g.order}`).join(', '));
+        
         downloadFile("estudos-groups.js", content, "text/javascript");
       };
     }
@@ -367,19 +405,16 @@
     console.log(`📋 Renderizando ${activeGroups.length} grupos`);
     
     activeGroups.forEach((g, index) => {
-      console.log(`  ${index + 1}. ${g.id} [${g.source || '?'}]`);
+      console.log(`  ${index + 1}. ${g.id} [order:${g.order}]`);
       
       const card = document.createElement("div");
       card.className = "card";
-      card.id = `card-${g.id}`;  // ✅ ID único para cada card
+      card.id = `card-${g.id}`;
       card.style.borderLeft = `5px solid ${g.color || "#8b86ff"}`;
       card.style.marginBottom = "15px";
       card.style.background = "#252535";
       card.style.borderRadius = "12px";
       
-      // Badge de origem
-
-      // ✅ Lista ESCONDIDA por padrão (display: none)
       card.innerHTML = `
         <div class="head" style="padding:15px 20px; display:flex; align-items:center; gap:15px;">
           <span class="gicon-wrap" style="flex-shrink:0;">
@@ -390,6 +425,7 @@
           <h2 class="group-name" data-id="${g.id}" style="margin:0; font-size:18px; flex:1; cursor:pointer; color:#fff;" title="Clique para abrir/fechar as IAs">
             <span class="chip" style="width:8px; height:8px; border-radius:50%; background:${g.color || "#8b86ff"}; display:inline-block; margin-right:8px;"></span>
             ${g.name}
+            ${g.order ? `<span style="color:#666; font-size:12px; margin-left:8px;">#${g.order}</span>` : ''}
           </h2>
           <div class="actions" style="display:flex; gap:8px;">
             <button class="btn btn-cover" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
@@ -411,18 +447,16 @@
         </div>
       `;
 
-      // ✅ Botão Capa → abre a página de capa
       const coverBtn = card.querySelector(".btn-cover");
       if (coverBtn) {
         coverBtn.onclick = (e) => {
-          e.stopPropagation();  // ✅ Impede propagação do clique
+          e.stopPropagation();
           console.log("📄 Clicou em Capa:", g.id);
           const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
           window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
         };
       }
 
-      // ✅ Botão Editar
       const editBtn = card.querySelector(".btn-edit");
       if (editBtn) {
         editBtn.onclick = (e) => {
@@ -432,7 +466,6 @@
         };
       }
       
-      // ✅ Botão Exportar
       const exportBtn = card.querySelector(".btn-export");
       if (exportBtn) {
         exportBtn.onclick = (e) => {
@@ -449,7 +482,6 @@
         };
       }
 
-      // ✅ Clique no NOME → Toggle da lista de IAs
       const nameEl = card.querySelector(".group-name");
       if (nameEl) {
         nameEl.onclick = () => {
@@ -468,7 +500,6 @@
     });
   }
 
-  // CSS animation
   if (!document.getElementById("feedback-styles")) {
     const style = document.createElement("style");
     style.id = "feedback-styles";
