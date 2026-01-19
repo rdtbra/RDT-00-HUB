@@ -1,4 +1,4 @@
-/** Backup Consolidado - 19/01/2026, 14:37:08 **/
+/** Backup Consolidado - 19/01/2026, 14:41:16 **/
 window.GROUPS = [
   {
     "id": "llm-conversacionallic",
@@ -589,22 +589,23 @@ window.GROUPS = [
     "order": 6
   },
   {
-    "id": "MEPCD",
-    "name": "MEPDCD",
-    "color": "#8b5cf6",
-    "icon": "assets/MEPCD.png",
+    "id": "MCE-IA",
+    "name": "MCE-IA",
+    "color": "#b22d01",
+    "icon": "assets/MCE-IA.png",
     "iconHref": "",
+    "order": 7,
     "items": [
       {
-        "code": "MEPCD|M01|gpt-oss-120b|HuggingFace",
-        "label": "gpt-oss-120b - MEPCD",
+        "code": "MCE-IA|M01|gpt-oss-120b|HuggingFace",
+        "label": "gpt-oss-120b",
         "provider": "",
         "url": "https://huggingface.co/chat/conversation/69234941f0bcb3333f38ff76",
         "checked": true,
         "img": ""
       },
       {
-        "code": "MEPCD|M02|Sabiá 3.1|Inner.AI",
+        "code": "MCE-IA|M02|Sabiá 3.1|Inner.AI",
         "label": "Inner - Sabiá 3.1",
         "provider": "",
         "url": "https://app.innerai.com/projects/4aa3e3d1-9ebd-4060-bc79-fb69ba98c499?sessionId=c3cdf193-9942-4451-9242-52849ff11a1e",
@@ -612,7 +613,7 @@ window.GROUPS = [
         "img": ""
       },
       {
-        "code": "MEPCD|M03|Gemini 2.5 Pro|Inner.AI",
+        "code": "MCE-IA|M03|Gemini 2.5 Pro|Inner.AI",
         "label": "Inner - Gemini 2.5 Pro",
         "provider": "",
         "url": "https://app.innerai.com/projects/52863ffa-ca49-49b5-bd89-00d07c03a06d?sessionId=240ae05c-a43b-4135-981d-5651f10374ed",
@@ -620,7 +621,7 @@ window.GROUPS = [
         "img": ""
       },
       {
-        "code": "MEPCD|M04|Mistral Large 2|Inner.AI",
+        "code": "MCE-IA|M04|Mistral Large 2|Inner.AI",
         "label": "Inner - Mistral Large 2",
         "provider": "",
         "url": "https://app.innerai.com/projects/93381bcb-129e-4810-8c2c-de4b5a7f6212?sessionId=af2190fc-c2e1-414c-8fa6-0a7a88f142d6",
@@ -628,7 +629,7 @@ window.GROUPS = [
         "img": ""
       },
       {
-        "code": "MEPCD|M05|Llama 4|Inner.AI",
+        "code": "MCE-IA|M05|Llama 4|Inner.AI",
         "label": "Inner - Llama 4 Scout",
         "provider": "",
         "url": "https://app.innerai.com/projects/d6968cce-fe56-4794-b07f-5876137aeaa9?sessionId=7c98f232-4f7a-495f-b7e9-d4c17ed2c152",
@@ -636,23 +637,22 @@ window.GROUPS = [
         "img": ""
       },
       {
-        "code": "MEPCD|SUP|GPT 5|openAI",
-        "label": "MEPCD|SUP|GPT 5|openAI",
+        "code": "MCE-IA|SUP|GPT 5|openAI",
+        "label": "MCE-IA|SUP|GPT 5|openAI",
         "provider": "",
         "url": "https://chatgpt.com/g/g-p-68aa75d3e5948191877f11e7cad88ea9/c/69001337-154c-8332-83f4-df8d6172eb19",
         "checked": true,
         "img": ""
       },
       {
-        "code": "MEPCD|REV|Qwen QwQ|Inner.AI",
+        "code": "MCE-IA|REV|Qwen QwQ|Inner.AI",
         "label": "Inner - Qwen QwQ",
         "provider": "",
         "url": "https://app.innerai.com/projects/0f8ea742-4f54-4b45-8914-6df649993947?sessionId=bae3c612-00f2-4a32-b1a1-3fa018121d36",
         "checked": true,
         "img": ""
       }
-    ],
-    "order": 7
+    ]
   },
   {
     "id": "youtube",
