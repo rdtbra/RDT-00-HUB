@@ -1,4 +1,4 @@
-/** Backup Consolidado - 19/01/2026, 10:16:52 **/
+/** Backup Consolidado - 19/01/2026, 16:03:35 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3507,6 +3507,38 @@ window.GROUPS = [
     "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780128112175/200w/",
     "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9780128112175/B978012811216800001X.xhtml",
     "order": 1768828605780,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-108-es",
+    "name": "EMT-108-ES - Rumsey - Statistics for Dummies 2ed (2011)",
+    "color": "#0d789c",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780470911082/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/statistics-for-dummies-r/9780470911082/10_chapter-01.html#ch1",
+    "order": 1768848402091,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-109-cd",
+    "name": "EMT-109-CD - Sharda&Outros - Business intelligence analytics and data science a managerial perspective 4ed",
+    "color": "#808080",
+    "icon": "assets/EMT-109-CD.png",
+    "iconHref": "https://drive.google.com/open?id=1RvvEKpyt2AbDUcD8pQHNWSzLYtbNWnXc&usp=drive_fs",
+    "order": 1768849338233,
     "items": [
       {
         "code": "M01",
