@@ -1,4 +1,4 @@
-/** Backup Consolidado - 18/01/2026, 22:18:01 **/
+/** Backup Consolidado - 19/01/2026, 10:16:52 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3475,6 +3475,38 @@ window.GROUPS = [
     "icon": "assets/EMT-105-MA.png",
     "iconHref": "https://drive.google.com/open?id=1T6JfU8A9dCjS2Q1W1cOkA--ifAiFgtO-&usp=drive_fs",
     "order": 1768785172110,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-106-ee",
+    "name": "EMT-106-EE - Dorf&Svoboda - Introduction to Electric Circuits 9ed",
+    "color": "#05990f",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9781118477502/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/introduction-to-electric/9781118477502/08_chap01.html",
+    "order": 1768827318356,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-107-es",
+    "name": "EMT-107-ES - Fávero&Outros - Data Science for Business and Decision Making",
+    "color": "#8b86ff",
+    "icon": "https://learning.oreilly.com/covers/urn:orm:book:9780128112175/200w/",
+    "iconHref": "https://learning.oreilly.com/library/view/data-science-for/9780128112175/B978012811216800001X.xhtml",
+    "order": 1768828605780,
     "items": [
       {
         "code": "M01",
