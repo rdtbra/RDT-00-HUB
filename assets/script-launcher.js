@@ -2,7 +2,13 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Reset marca excluídos como afterReset=true)
+ * Arquivo: script-launcher.js (COMPLETO E CORRIGIDO)
+ * 
+ * Mudanças:
+ * ✅ Botão Restaurar Padrão discreto
+ * ✅ Botão mostra TOTAL de excluídos
+ * ✅ Modal com seleção múltipla
+ * ✅ Badge mostra status de cada item (recuperável/não recuperável)
  * ============================================================
  */
 
@@ -17,7 +23,7 @@
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
   console.log("📦 APP_ID:", APP_ID);
   
-  // ✅ Prefixo único para todas as operações
+  // Prefixo único para todas as operações
   const STORAGE_PREFIX = `ia-launcher-config:${APP_ID}`;
 
   // --- Helpers ---
@@ -69,7 +75,7 @@
     }, 4000);
   }
 
-  // --- Sistema de Exclusão com Flag de Restauração ---
+  // --- Sistema de Exclusão com Flag afterReset ---
   function getExcludedGroups() {
     try {
       const excluded = localStorage.getItem(`${STORAGE_PREFIX}:excludedGroups`);
@@ -84,11 +90,10 @@
     localStorage.setItem(`${STORAGE_PREFIX}:excludedGroups`, JSON.stringify(groups));
   }
 
-  // Adiciona novo excluído (marca todos os anteriores como "não recuperáveis")
   function addExcludedGroup(groupId) {
     const excluded = getExcludedGroups();
     
-    // ✅Marca todos os anteriores como "afterReset" = true (não recuperáveis)
+    // Marca todos os anteriores como "afterReset" = true (não recuperáveis)
     const updated = excluded.map(item => {
       if (typeof item === "string") {
         return { id: item, afterReset: true };
@@ -114,13 +119,14 @@
     console.log(`♻️ Restaurado: ${groupId}`);
   }
 
-  // ✅ Retorna apenas os itens recuperáveis (afterReset === false)
-  function getRecoverableGroups() {
+  function markAllAsAfterReset() {
     const excluded = getExcludedGroups();
-    return excluded.filter(item => {
-      const afterReset = typeof item === "string" ? false : item.afterReset;
-      return afterReset === false;
+    const marked = excluded.map(item => {
+      const id = typeof item === "string" ? item : item.id;
+      return { id: id, afterReset: true };
     });
+    saveExcludedGroups(marked);
+    console.log("✅ Todos marcados como afterReset: true");
   }
 
   // --- Busca grupos do localStorage ---
@@ -141,7 +147,6 @@
       }
     });
     
-    // Ordena por order (menor = mais antigo = primeiro)
     return groups.sort((a, b) => (a.order || 0) - (b.order || 0));
   }
 
@@ -149,7 +154,6 @@
   async function getGroupData(g) {
     const id = g.id;
     
-    // Prioridade 1: LocalStorage
     const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
     const localItems = localStorage.getItem(`${STORAGE_PREFIX}:items:${id}`);
     
@@ -163,7 +167,6 @@
       };
     }
 
-    // Prioridade 2: FileSystem
     try {
       const respH = await fetch(`descriptions/${id}.group.json`);
       if (respH.ok) {
@@ -178,7 +181,6 @@
       }
     } catch (e) {}
 
-    // Prioridade 3: JS Original
     return { ...g, source: 'javascript' };
   }
 
@@ -274,11 +276,9 @@
     confirmBtn.onclick = () => {
       console.log("✅ Confirmed deletion:", groupId);
       
-      // Remove do localStorage
       localStorage.removeItem(`${STORAGE_PREFIX}:group:${groupId}`);
       localStorage.removeItem(`${STORAGE_PREFIX}:items:${groupId}`);
       
-      // Adiciona à lista de excluídos (marca os anteriores como não recuperáveis)
       addExcludedGroup(groupId);
       
       showFeedback("✅ Material excluído com sucesso!", "success");
@@ -295,7 +295,7 @@
     };
   }
 
-  // --- Modal de Restauração ---
+  // --- Modal de Restauração (NOVO: com seleção múltipla) ---
   function openRestoreModal(excludedGroupsList) {
     console.log("♻️ Abrindo modal de restauração:", excludedGroupsList);
 
@@ -303,59 +303,90 @@
     overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
     
     const modal = document.createElement("div");
-    modal.style = "background:#1e1e2e; padding:30px; border-radius:16px; width:100%; max-width:450px; border:1px solid #22c55e; color:#fff; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.5);";
+    modal.style = "background:#1e1e2e; padding:30px; border-radius:16px; width:100%; max-width:550px; border:1px solid #22c55e; color:#fff; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.5); max-height:80vh; display:flex; flex-direction:column;";
     
     const groupsHtml = excludedGroupsList.map(g => `
       <div class="restore-item" data-id="${g.id}" style="
         display:flex; 
         align-items:center; 
-        justify-content:space-between;
+        gap:12px;
         padding:12px; 
         background:#1a1a25; 
         border-radius:8px; 
         margin-bottom:8px;
-      ">
-        <span>${g.name || g.id}</span>
-        <button class="restore-btn" data-id="${g.id}" style="
-          background:#22c55e; 
-          border:none; 
-          padding:8px 16px; 
-          border-radius:6px; 
-          color:#fff; 
-          cursor:pointer;
-          font-size:12px;
-        ">♻️ Restaurar</button>
+        border:1px solid #333;
+        cursor:pointer;
+        transition:all 0.2s;
+      " onclick="event.target.tagName !== 'INPUT' && this.querySelector('input').click()">
+        <input type="checkbox" class="restore-checkbox" data-id="${g.id}" style="width:20px; height:20px; cursor:pointer; flex-shrink:0;">
+        <div style="flex:1;">
+          <div style="font-weight:bold; color:#fff;">${g.name || g.id}</div>
+          <div style="font-size:11px; color:#666;">ID: ${g.id}</div>
+        </div>
+        <span class="status-badge" style="
+          font-size:10px; 
+          padding:4px 8px; 
+          border-radius:4px;
+          background:${g.afterReset ? 'rgba(239,68,68,0.2); color:#ff6666;' : 'rgba(34,197,94,0.2); color:#22c55e;'};
+          white-space:nowrap;
+        ">
+          ${g.afterReset ? '⚠️ Não recuperável' : '✅ Recuperável'}
+        </span>
       </div>
     `).join('');
 
     modal.innerHTML = `
       <button id="restoreClose" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#666; cursor:pointer; font-size:28px; line-height:1;">&times;</button>
       
-      <div style="text-align:center;">
-        <div style="font-size:48px; margin-bottom:15px;">♻️</div>
-        <h2 style="margin:0 0 10px 0; color:#22c55e;">Materiais Excluídos</h2>
-        <p style="color:#aaa; margin-bottom:20px;">
-          ${excludedGroupsList.length} material(is) disponível(eis) para restauração
+      <div style="text-align:center; margin-bottom:20px;">
+        <div style="font-size:48px; margin-bottom:10px;">♻️</div>
+        <h2 style="margin:0 0 5px 0; color:#22c55e;">Materiais Excluídos</h2>
+        <p style="color:#aaa; font-size:14px;">
+          Selecione os itens que deseja restaurar
         </p>
-        
-        <div style="background:rgba(34,197,94,0.1); padding:12px; border-radius:8px; margin-bottom:20px; border-left:3px solid #22c55e;">
-          <p style="margin:0; font-size:12px; color:#88ff88;">
-            💡 Estes são os materiais excluídos após o último "Restaurar Padrão"
-          </p>
-        </div>
-        
-        <div style="max-height:300px; overflow-y:auto; margin-bottom:20px;">
-          ${excludedGroupsList.length > 0 ? groupsHtml : '<p style="color:#666;">Nenhum material disponível</p>'}
-        </div>
-        
-        <button id="restoreCloseBtn" style="
+      </div>
+      
+      <div style="flex:1; overflow-y:auto; margin-bottom:20px; max-height:400px;">
+        ${excludedGroupsList.length > 0 ? groupsHtml : '<p style="color:#666; text-align:center;">Nenhum material excluído</p>'}
+      </div>
+      
+      <div style="background:rgba(34,197,94,0.1); padding:12px; border-radius:8px; margin-bottom:15px; border-left:3px solid #22c55e;">
+        <p style="margin:0; font-size:12px; color:#88ff88;">
+          💡 <strong>Dica:</strong> Selecione um ou mais itens para restaurar
+        </p>
+      </div>
+      
+      <div style="display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;">
+        <button id="restoreSelectAll" style="
           background:#333; 
-          padding:12px 24px; 
-          border-radius:8px; 
-          color:#fff; 
+          padding:10px 16px; 
+          border-radius:6px; 
+          color:#ccc; 
           border:none; 
           cursor:pointer;
-        ">Fechar</button>
+          font-size:13px;
+        ">Selecionar Todos</button>
+        
+        <div style="display:flex; gap:10px;">
+          <button id="restoreCloseBtn" style="
+            background:#333; 
+            padding:10px 16px; 
+            border-radius:6px; 
+            color:#fff; 
+            border:none; 
+            cursor:pointer;
+          ">Fechar</button>
+          <button id="restoreSelectedBtn" disabled style="
+            background:#22c55e; 
+            padding:10px 20px; 
+            border-radius:6px; 
+            color:#fff; 
+            border:none; 
+            cursor:not-allowed;
+            font-weight:bold;
+            opacity:0.5;
+          ">♻️ Restaurar Selecionados</button>
+        </div>
       </div>
     `;
 
@@ -366,29 +397,48 @@
     document.getElementById("restoreCloseBtn").onclick = overlay.remove;
     overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
-    // Restaurar individualmente
-    modal.querySelectorAll(".restore-btn").forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.dataset.id;
-        console.log("♻️ Restaurando:", id);
-        removeExcludedGroup(id);
-        
-        // Remove da UI
-        const item = modal.querySelector(`.restore-item[data-id="${id}"]`);
-        if (item) item.remove();
-        
-        showFeedback("✅ Material restaurado!", "success");
-        
-        // Recarrega se não houver mais
-        const remaining = modal.querySelectorAll(".restore-item").length;
-        if (remaining === 0) {
-          setTimeout(() => {
-            overlay.remove();
-            window.location.reload();
-          }, 1000);
-        }
-      };
+    // Selecionar todos
+    const checkboxes = modal.querySelectorAll(".restore-checkbox");
+    const selectAllBtn = document.getElementById("restoreSelectAll");
+    const restoreBtn = document.getElementById("restoreSelectedBtn");
+    
+    selectAllBtn.onclick = () => {
+      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+      checkboxes.forEach(cb => cb.checked = !allChecked);
+      updateRestoreButton();
+    };
+    
+    function updateRestoreButton() {
+      const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+      restoreBtn.textContent = `♻️ Restaurar ${checked} Item(ns)`;
+      restoreBtn.disabled = checked === 0;
+      restoreBtn.style.cursor = checked > 0 ? "pointer" : "not-allowed";
+      restoreBtn.style.opacity = checked > 0 ? "1" : "0.5";
+    }
+    
+    checkboxes.forEach(cb => {
+      cb.onchange = updateRestoreButton;
     });
+
+    // Restaurar selecionados
+    restoreBtn.onclick = () => {
+      const checkedIds = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.dataset.id);
+      
+      if (checkedIds.length === 0) return;
+      
+      console.log("♻️ Restaurando:", checkedIds);
+      
+      checkedIds.forEach(id => removeExcludedGroup(id));
+      
+      showFeedback(`✅ ${checkedIds.length} material(is) restaurado(s)!`, "success");
+      
+      setTimeout(() => {
+        overlay.remove();
+        window.location.reload();
+      }, 1000);
+    };
   }
 
   // --- Inicialização ---
@@ -412,41 +462,34 @@
       openAllGhost.remove();
     }
 
-    // Grupos do JS original
     const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
     console.log(`📥 ${originalGroups.length} grupos do JS original`);
 
-    // Grupos do localStorage
     const localGroups = getLocalGroups();
     console.log(`📥 ${localGroups.length} grupos do localStorage`);
 
-    // ✅ Encontrar maior order do JS para numeração sequencial
     const maxOrderJS = originalGroups.reduce((max, g) => {
       const order = g.order !== undefined ? Number(g.order) : -1;
       return order > max ? order : max;
     }, 0);
     console.log(`📊 Maior order do JS: ${maxOrderJS}`);
 
-    // ✅ Numera grupos JS que não têm order
     let nextOrder = maxOrderJS + 1;
     const numberedOriginalGroups = originalGroups.map(g => {
       if (g.order !== undefined) {
         return g;
       }
-      // Atribui order sequencial
       const numbered = { ...g, order: nextOrder };
       nextOrder++;
       return numbered;
     });
 
-    // Mescla: JS original (já numerado) primeiro, depois localStorage
     const allGroupsMap = new Map();
     numberedOriginalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
     console.log(`📊 ${allGroups.length} grupos totais (após mescla e numeração)`);
 
-    // ✅ Filtra grupos excluídos (usa array completo para filtrar)
     const allExcluded = getExcludedGroups();
     const excludedIds = allExcluded.map(item => typeof item === "string" ? item : item.id);
     
@@ -456,14 +499,13 @@
       console.log(`📊 ${allGroups.length} grupos após filtro de exclusão`);
     }
 
-    // Carrega dados
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
     console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [order:${g.order}]`));
 
-    render(allExcluded);
-    setupActions(allExcluded);
+    render();
+    setupActions();
   }
 
   function openModal(mode, groupData = null) {
@@ -557,13 +599,11 @@
 
       console.log("✅ Validação passou, salvando...");
 
-      // Remove entrada antiga se ID mudou
       if (isEdit && oldId !== newId) {
         console.log("🗑️ Removendo entrada antiga:", `${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:items:${oldId}`);
         
-        // Se estava excluído, transfere a exclusão para o novo ID
         const allExcluded = getExcludedGroups();
         const index = allExcluded.findIndex(item => {
           const id = typeof item === "string" ? item : item.id;
@@ -576,7 +616,6 @@
         }
       }
 
-      // Usa Date.now() para novos itens do localStorage
       const updatedData = {
         id: newId,
         name: name,
@@ -595,7 +634,6 @@
         ]
       };
 
-      // Usa prefixo padronizado
       const key = `${STORAGE_PREFIX}:group:${newId}`;
       localStorage.setItem(key, JSON.stringify(updatedData));
 
@@ -605,7 +643,6 @@
       console.log("💾 Salvou no localStorage:", key);
       console.log("📦 Dados salvos:", updatedData);
 
-      // Remove da lista de excluídos se existir
       const allExcluded = getExcludedGroups();
       const wasExcluded = allExcluded.some(item => {
         const id = typeof item === "string" ? item : item.id;
@@ -640,7 +677,7 @@
     };
   }
 
-  function setupActions(allExcluded) {
+  function setupActions() {
     console.log("⚙️ setupActions()");
     
     if (addGroupBtn) {
@@ -655,12 +692,10 @@
 
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        // ✅ Exporta com numeração sequencial (grupos excluídos já filtrados)
         const groupsWithOrder = activeGroups.map((g) => {
           const { collapsed, source, ...rest } = g;
           return {
             ...rest,
-            //order: g.order já está correto
           };
         });
         
@@ -679,16 +714,8 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         if (confirm("⚠️ Restaurar padrão?\n\nIsso apagará TODAS as customizações!")) {
           console.log("🔄 Restaurando padrão...");
           
-          // ✅ Marca todos os excluídos como "não recuperáveis"
-          const excluded = getExcludedGroups();
-          const marked = excluded.map(item => {
-            const id = typeof item === "string" ? item : item.id;
-            return { id: id, afterReset: true };
-          });
-          saveExcludedGroups(marked);
-          console.log("✅ Todos marcados como afterReset: true");
+          markAllAsAfterReset();
           
-          // Limpa customizações (MAS NÃO limpa excludedGroups!)
           Object.keys(localStorage).forEach(key => {
             if (key.startsWith(`${STORAGE_PREFIX}:group:`) || 
                 key.startsWith(`${STORAGE_PREFIX}:items:`)) {
@@ -702,36 +729,31 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       };
     }
 
-    // ✅ Botão Restaurar Excluídos (só mostra os recuperáveis)
-    const recoverableGroups = getRecoverableGroups();
     const restoreBtn = document.getElementById("restoreExcluded");
     
-    if (restoreBtn && recoverableGroups.length === 0) {
-      restoreBtn.style.display = "none";
-    } else if (restoreBtn && recoverableGroups.length > 0) {
-      restoreBtn.style.display = "inline-block";
+    if (restoreBtn) {
       restoreBtn.onclick = () => {
         console.log("♻️ Clicou em Restaurar Excluídos");
         
-        // Busca nomes dos grupos recuperáveis
-        Promise.all(recoverableGroups.map(async (item) => {
+        const excludedGroups = getExcludedGroups();
+        
+        Promise.all(excludedGroups.map(async (item) => {
           const id = typeof item === "string" ? item : item.id;
+          const afterReset = typeof item === "string" ? false : item.afterReset;
           
-          // Tenta buscar do localStorage primeiro
           const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
           if (localHeader) {
             const data = JSON.parse(localHeader);
-            return { id, name: data.name };
+            return { id, name: data.name, afterReset };
           }
           
-          // Depois do JS original
           const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
           const original = originalGroups.find(g => g.id === id);
           if (original) {
-            return { id, name: original.name };
+            return { id, name: original.name, afterReset };
           }
           
-          return { id, name: id };
+          return { id, name: id, afterReset };
         })).then(groups => {
           openRestoreModal(groups);
         });
@@ -739,7 +761,7 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
     }
   }
 
-  function render(allExcluded) {
+  function render() {
     console.log("🎨 render() chamada");
     
     if (!groupsEl) {
@@ -749,34 +771,35 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
     
     groupsEl.innerHTML = "";
     
-    // ✅ Botão Restaurar Padrão no topo
-    const resetContainer = document.createElement("div");
-    resetContainer.style = "margin-bottom:20px; text-align:center;";
-    resetContainer.innerHTML = `
+    const actionBar = document.createElement("div");
+    actionBar.style = "display:flex; gap:10px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;";
+    
+    actionBar.innerHTML = `
       <button id="resetTop" style="
-        background:linear-gradient(135deg, #ef4444, #dc2626);
-        color:#fff;
-        border:none;
-        padding:12px 24px;
+        background:#444;
+        color:#ccc;
+        border:1px solid #555;
+        padding:10px 18px;
         border-radius:8px;
         cursor:pointer;
-        font-weight:bold;
-        font-size:14px;
-        box-shadow:0 4px 15px rgba(239,68,68,0.3);
+        font-size:13px;
+        transition:all 0.2s;
       ">
         🔄 Restaurar Padrão
       </button>
     `;
-    groupsEl.appendChild(resetContainer);
     
-    // Copia o evento do botão original
+    groupsEl.appendChild(actionBar);
+    
     if (resetBtn) {
-      resetContainer.querySelector("#resetTop").onclick = resetBtn.onclick;
+      actionBar.querySelector("#resetTop").onclick = resetBtn.onclick;
+      resetBtn.style.display = "none";
     }
     
-    // ✅ Botão Restaurar Excluídos (apenas se houver recuperáveis)
-    const recoverableGroups = getRecoverableGroups();
-    if (recoverableGroups.length > 0) {
+    const allExcluded = getExcludedGroups();
+    const totalExcluded = allExcluded.length;
+    
+    if (totalExcluded > 0) {
       const restoreContainer = document.createElement("div");
       restoreContainer.style = "margin-bottom:20px; text-align:center;";
       restoreContainer.innerHTML = `
@@ -791,7 +814,7 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
           font-size:14px;
           box-shadow:0 4px 15px rgba(34,197,94,0.3);
         ">
-          ♻️ Restaurar ${recoverableGroups.length} Material(is) Excluído(s)
+          ♻️ Restaurar ${totalExcluded} Material(is) Excluído(s)
         </button>
       `;
       groupsEl.appendChild(restoreContainer);
@@ -885,7 +908,6 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         };
       }
 
-      // ✅ Botão Excluir
       const deleteBtn = card.querySelector(".btn-delete");
       if (deleteBtn) {
         deleteBtn.onclick = (e) => {
@@ -930,6 +952,10 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       .btn-delete:hover {
         background: #441111 !important;
         color: #ff8888 !important;
+      }
+      .restore-item:hover {
+        border-color: #22c55e !important;
+        background: #1f1f30 !important;
       }
     `;
     document.head.appendChild(style);
