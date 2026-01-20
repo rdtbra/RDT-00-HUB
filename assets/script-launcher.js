@@ -2,12 +2,11 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (FINALMENTE CORRIGIDO!)
+ * Arquivo: script-launcher.js (RESTAURAÇÃO CORRIGIDA!)
  * 
- * Regra:
- * ✅ Itens com afterReset: true NÃO aparecem na página
- * ✅ Itens com afterReset: true NÃO podem ser restaurados
- * ✅ Botão só aparece para itens com afterReset: false
+ * Correção:
+ * ✅ "Restaurar" agora remove o item da lista de excluídos
+ * ✅ Item volta a aparecer na página normalmente
  * ============================================================
  */
 
@@ -107,6 +106,7 @@
       return id !== groupId;
     });
     saveExcludedGroups(filtered);
+    console.log(`♻️ Removido da lista de excluídos: ${groupId}`);
   }
 
   function markAllAsAfterReset() {
@@ -119,7 +119,6 @@
     console.log(`🔄 ${marked.length} itens marcados como "não recuperáveis"`);
   }
 
-  // ✅ NOVA: Retorna apenas itens com afterReset: false
   function getActiveExcludedGroups() {
     const excluded = getExcludedGroups();
     return excluded.filter(item => {
@@ -128,8 +127,6 @@
     });
   }
 
-  // ✅ NOVA: Retorna TODOS os IDs excluídos (para filtrar da página)
-  // Isso inclui tanto afterReset: false quanto true
   function getAllExcludedIds() {
     const excluded = getExcludedGroups();
     return excluded.map(item => typeof item === "string" ? item : item.id);
@@ -353,6 +350,8 @@
       if (checkedIds.length === 0) return;
       
       console.log("♻️ Restaurando:", checkedIds);
+      
+      // ✅ Remove os itens selecionados da lista de excluídos
       checkedIds.forEach(id => removeExcludedGroup(id));
       
       showFeedback(`✅ ${checkedIds.length} material(is) restaurado(s)!`, "success");
@@ -390,7 +389,6 @@
       }
     });
     
-    // ✅ MARCA TODOS OS EXCLUÍDOS COMO "afterReset: true"
     markAllAsAfterReset();
     
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
@@ -422,7 +420,6 @@
     
     const computedStyle = window.getComputedStyle(importBtn);
     
-    // --- Botão Restaurar Padrão ---
     const resetBtn = document.createElement("button");
     resetBtn.id = "resetNextToImport";
     resetBtn.textContent = "🔄 Restaurar Padrão";
@@ -443,7 +440,6 @@
     importBtn.parentNode.insertBefore(resetBtn, importBtn.nextSibling);
     console.log("✅ Botão Restaurar Padrão inserido");
     
-    // --- Botão Restaurar Excluídos (se houver itens com afterReset: false) ---
     const activeExcluded = getActiveExcludedGroups();
     const totalExcluded = activeExcluded.length;
     
@@ -530,8 +526,6 @@
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
 
-    // ✅ USA getAllExcludedIds() PARA FILTRAR TODOS OS EXCLUÍDOS
-    // Isso inclui tanto afterReset: false quanto true
     const allExcludedIds = getAllExcludedIds();
     
     if (allExcludedIds.length > 0) {
