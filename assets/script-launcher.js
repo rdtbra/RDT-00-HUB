@@ -2,11 +2,11 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (RESTAURAÇÃO CORRIGIDA!)
+ * Arquivo: script-launcher.js (RESTAURAÇÃO COMPLETAMENTE CORRIGIDA!)
  * 
  * Correção:
- * ✅ "Restaurar" agora remove o item da lista de excluídos
- * ✅ Item volta a aparecer na página normalmente
+ * ✅ "Restaurar" agora RECONSTRÓI os dados do item
+ * ✅ O item volta a aparecer na página
  * ============================================================
  */
 
@@ -183,6 +183,50 @@
     return { ...g, source: 'javascript' };
   }
 
+  // ✅ NOVA: Recupera dados originais de um grupo
+  async function restoreGroupData(groupId) {
+    console.log(`🔄 Restaurando dados do grupo: ${groupId}`);
+    
+    // 1. Tenta buscar do sistema de arquivos
+    try {
+      const respH = await fetch(`descriptions/${groupId}.group.json`);
+      if (respH.ok) {
+        const header = await respH.json();
+        const respI = await fetch(`descriptions/${groupId}.items.json`);
+        const itemsData = respI.ok ? await respI.json() : { items: [] };
+        
+        // Salva no localStorage
+        localStorage.setItem(`${STORAGE_PREFIX}:group:${groupId}`, JSON.stringify(header));
+        localStorage.setItem(`${STORAGE_PREFIX}:items:${groupId}`, JSON.stringify(itemsData.items || []));
+        
+        console.log(`✅ Restaurado do sistema de arquivos: ${groupId}`);
+        return { ...header, items: itemsData.items || [] };
+      }
+    } catch (e) {
+      console.warn(`⚠️ Não foi possível restaurar do sistema de arquivos: ${e}`);
+    }
+    
+    // 2. Se não encontrou no sistema de arquivos, busca no JS original
+    const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
+    const original = originalGroups.find(g => g.id === groupId);
+    
+    if (original) {
+      const header = { ...original };
+      delete header.items;
+      const items = original.items || [];
+      
+      // Salva no localStorage
+      localStorage.setItem(`${STORAGE_PREFIX}:group:${groupId}`, JSON.stringify(header));
+      localStorage.setItem(`${STORAGE_PREFIX}:items:${groupId}`, JSON.stringify(items));
+      
+      console.log(`✅ Restaurado do JS original: ${groupId}`);
+      return { ...header, items };
+    }
+    
+    console.error(`❌ Não foi possível restaurar: ${groupId}`);
+    return null;
+  }
+
   // --- Modal de Exclusão ---
   function openDeleteModal(groupData) {
     const groupId = groupData.id;
@@ -275,7 +319,7 @@
     document.getElementById("deleteCancel").onclick = () => overlay.remove();
   }
 
-  // --- Modal de Restauração ---
+  // --- Modal de Restauração (CORRIGIDO) ---
   function openRestoreModal(excludedGroupsList) {
     console.log("♻️ Abrindo modal de restauração:", excludedGroupsList);
 
@@ -345,14 +389,21 @@
     
     checkboxes.forEach(cb => cb.onchange = updateRestoreButton);
 
-    restoreBtn.onclick = () => {
+    // ✅ CORRIGIDO: Restauração completa com reconstrução dos dados
+    restoreBtn.onclick = async () => {
       const checkedIds = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.dataset.id);
       if (checkedIds.length === 0) return;
       
       console.log("♻️ Restaurando:", checkedIds);
       
-      // ✅ Remove os itens selecionados da lista de excluídos
-      checkedIds.forEach(id => removeExcludedGroup(id));
+      // Para cada item selecionado, reconstrua os dados e remova da lista de excluídos
+      for (const groupId of checkedIds) {
+        // Remove da lista de excluídos
+        removeExcludedGroup(groupId);
+        
+        // Reconstrói os dados no localStorage
+        await restoreGroupData(groupId);
+      }
       
       showFeedback(`✅ ${checkedIds.length} material(is) restaurado(s)!`, "success");
       
