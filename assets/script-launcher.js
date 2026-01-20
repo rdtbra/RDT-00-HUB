@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração + Order embaixo)
+ * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração + Order embaixo + Excluir)
  * ============================================================
  */
 
@@ -433,6 +433,7 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
             <button class="btn btn-cover" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">📄 Capa</button>
             <button class="btn btn-edit" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#444; border-radius:6px;">✏️ Editar</button>
             <button class="btn btn-export" data-id="${g.id}" style="font-size:12px; padding:8px 14px; background:#333; border-radius:6px;">💾</button>
+            <button class="btn btn-delete" data-id="${g.id}" data-name="${g.name}" style="font-size:12px; padding:8px 14px; background:#331111; border:1px solid #ff4444; border-radius:6px; color:#ff6666;">🗑️</button>
           </div>
         </div>
         <div class="grid" id="grid-${g.id}" style="display:none; gap:5px; padding:0 20px 20px 20px;">
@@ -484,6 +485,42 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         };
       }
 
+      // ✅ NOVO: Botão Excluir
+      const deleteBtn = card.querySelector(".btn-delete");
+      if (deleteBtn) {
+        deleteBtn.onclick = (e) => {
+          e.stopPropagation();
+          console.log("🗑️ Clicou em Excluir:", g.id);
+          
+          const groupName = g.name;
+          const groupId = g.id;
+          
+          // Confirmação com input de texto
+          const userInput = prompt(
+            `⚠️ Tem certeza que deseja EXCLUIR "${groupName}"?\n\n` +
+            `⚠️ Esta ação NÃO pode ser desfeita!\n\n` +
+            `Digite "EXCLUIR" (em maiúsculas) para confirmar:`
+          );
+          
+          if (userInput === "EXCLUIR") {
+            console.log("✅ Confirmado! Removendo:", groupId);
+            
+            // Remove do localStorage
+            localStorage.removeItem(`${STORAGE_PREFIX}:group:${groupId}`);
+            localStorage.removeItem(`${STORAGE_PREFIX}:items:${groupId}`);
+            
+            showFeedback("✅ Grupo excluído com sucesso!", "success");
+            
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else if (userInput !== null && userInput !== "") {
+            showFeedback("❌ Texto de confirmação incorreto! Exclusão cancelada.", "error");
+          }
+          // Se userInput === null, foi cancelado silenciosamente
+        };
+      }
+
       const nameEl = card.querySelector(".group-name");
       if (nameEl) {
         nameEl.onclick = () => {
@@ -515,6 +552,10 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       }
       .group-name:active {
         opacity: 0.6;
+      }
+      .btn-delete:hover {
+        background: #441111 !important;
+        color: #ff8888 !important;
       }
     `;
     document.head.appendChild(style);
