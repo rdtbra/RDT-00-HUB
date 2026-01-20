@@ -1,4 +1,4 @@
-/** Backup Consolidado - 19/01/2026, 16:03:35 **/
+/** Backup Consolidado - 19/01/2026, 21:14:33 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3539,6 +3539,22 @@ window.GROUPS = [
     "icon": "assets/EMT-109-CD.png",
     "iconHref": "https://drive.google.com/open?id=1RvvEKpyt2AbDUcD8pQHNWSzLYtbNWnXc&usp=drive_fs",
     "order": 1768849338233,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "emt-110-ee",
+    "name": "EMT-110-EE - Capuano&Idoeta - Elementos de Eletrônica Digital 42ed",
+    "color": "#18f293",
+    "icon": "assets/EMT-110-EE.png",
+    "iconHref": "https://read.amazon.in/?asin=B07QP8BD3W&ref_=kwl_kr_sea_5",
+    "order": 1768868064329,
     "items": [
       {
         "code": "M01",
