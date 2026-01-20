@@ -1,4 +1,4 @@
-/** Backup Consolidado - 20/01/2026, 11:10:49 **/
+/** Backup Consolidado - 20/01/2026, 15:14:49 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3581,12 +3581,12 @@ window.GROUPS = [
     ]
   },
   {
-    "id": "teste",
-    "name": "TESTE",
-    "color": "#8b86ff",
+    "id": "MUITO-CHATO",
+    "name": "MUITO CHATO",
+    "color": "#09049a",
     "icon": "",
     "iconHref": "",
-    "order": 1768918240358,
+    "order": 1768932875156,
     "items": [
       {
         "code": "M01",
