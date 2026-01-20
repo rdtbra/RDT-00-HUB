@@ -1,4 +1,4 @@
-/** Backup Consolidado - 19/01/2026, 21:14:33 **/
+/** Backup Consolidado - 20/01/2026, 00:34:56 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3555,6 +3555,22 @@ window.GROUPS = [
     "icon": "assets/EMT-110-EE.png",
     "iconHref": "https://read.amazon.in/?asin=B07QP8BD3W&ref_=kwl_kr_sea_5",
     "order": 1768868064329,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "ent-111-ee",
+    "name": "EMT-111-EE - Sedra&Outros - Microelectronic Circuits 8ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-111-EE.png",
+    "iconHref": "https://drive.google.com/open?id=14p0Q7Ebf9BZtzO4CPGnVzRdLxGZ4AeuD&usp=drive_fs",
+    "order": 1768880082384,
     "items": [
       {
         "code": "M01",
