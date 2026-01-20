@@ -1,4 +1,4 @@
-/** Backup Consolidado - 20/01/2026, 15:14:49 **/
+/** Backup Consolidado - 20/01/2026, 16:10:33 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3571,22 +3571,6 @@ window.GROUPS = [
     "icon": "assets/EMT-111-EE.png",
     "iconHref": "https://drive.google.com/open?id=14p0Q7Ebf9BZtzO4CPGnVzRdLxGZ4AeuD&usp=drive_fs",
     "order": 1768880082384,
-    "items": [
-      {
-        "code": "M01",
-        "label": "Nova IA",
-        "url": "",
-        "checked": true
-      }
-    ]
-  },
-  {
-    "id": "MUITO-CHATO",
-    "name": "MUITO CHATO",
-    "color": "#09049a",
-    "icon": "",
-    "iconHref": "",
-    "order": 1768932875156,
     "items": [
       {
         "code": "M01",
