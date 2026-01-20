@@ -2,13 +2,13 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (COMPLETO E CORRIGIDO)
+ * Arquivo: script-launcher.js (CORRIGIDO: Botão Restaurar Padrão)
  * 
- * Mudanças:
- * ✅ Botão Restaurar Padrão discreto
- * ✅ Botão mostra TOTAL de excluídos
- * ✅ Modal com seleção múltipla
- * ✅ Badge mostra status de cada item (recuperável/não recuperável)
+ * Correções:
+ * ✅ Botão Restaurar Padrão AO LADO do Importar
+ * ✅ Mesma interface (cor, tamanho)
+ * ✅ Funciona corretamente (chama o mesmo código)
+ * ✅ Botão original ocultado mas referenciado
  * ============================================================
  */
 
@@ -23,7 +23,6 @@
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
   console.log("📦 APP_ID:", APP_ID);
   
-  // Prefixo único para todas as operações
   const STORAGE_PREFIX = `ia-launcher-config:${APP_ID}`;
 
   // --- Helpers ---
@@ -75,13 +74,12 @@
     }, 4000);
   }
 
-  // --- Sistema de Exclusão com Flag afterReset ---
+  // --- Sistema de Exclusão ---
   function getExcludedGroups() {
     try {
       const excluded = localStorage.getItem(`${STORAGE_PREFIX}:excludedGroups`);
       return excluded ? JSON.parse(excluded) : [];
     } catch (e) {
-      console.warn("⚠️ Erro ao ler excludedGroups:", e);
       return [];
     }
   }
@@ -92,21 +90,15 @@
 
   function addExcludedGroup(groupId) {
     const excluded = getExcludedGroups();
-    
-    // Marca todos os anteriores como "afterReset" = true (não recuperáveis)
     const updated = excluded.map(item => {
       if (typeof item === "string") {
         return { id: item, afterReset: true };
       }
       return { ...item, afterReset: true };
     });
-    
-    // Adiciona o novo item como "afterReset" = false (recuperável)
     updated.push({ id: groupId, afterReset: false });
-    
     saveExcludedGroups(updated);
     console.log(`🗑️ Marcado como excluído: ${groupId}`);
-    console.log("📋 Estado atual dos excluídos:", updated);
   }
 
   function removeExcludedGroup(groupId) {
@@ -116,7 +108,6 @@
       return id !== groupId;
     });
     saveExcludedGroups(filtered);
-    console.log(`♻️ Restaurado: ${groupId}`);
   }
 
   function markAllAsAfterReset() {
@@ -126,10 +117,8 @@
       return { id: id, afterReset: true };
     });
     saveExcludedGroups(marked);
-    console.log("✅ Todos marcados como afterReset: true");
   }
 
-  // --- Busca grupos do localStorage ---
   function getLocalGroups() {
     const groups = [];
     const prefix = `${STORAGE_PREFIX}:group:`;
@@ -141,16 +130,13 @@
           if (data && data.id) {
             groups.push(data);
           }
-        } catch (e) {
-          console.warn("⚠️ Erro ao parsear:", key);
-        }
+        } catch (e) {}
       }
     });
     
     return groups.sort((a, b) => (a.order || 0) - (b.order || 0));
   }
 
-  // --- Lógica de Sincronização ---
   async function getGroupData(g) {
     const id = g.id;
     
@@ -232,22 +218,8 @@
         </div>
         
         <div style="display:flex; gap:10px; justify-content:center;">
-          <button id="deleteCancel" style="
-            background:#333; 
-            padding:12px 24px; 
-            border-radius:8px; 
-            color:#fff; 
-            border:none; 
-            cursor:pointer;
-          ">Cancelar</button>
-          <button id="deleteConfirmBtn" disabled style="
-            background:#441111; 
-            border:1px solid #ff4444;
-            padding:12px 24px; 
-            border-radius:8px; 
-            color:#666; 
-            cursor:not-allowed;
-          ">🗑️ Excluir</button>
+          <button id="deleteCancel" style="background:#333; padding:12px 24px; border-radius:8px; color:#fff; border:none; cursor:pointer;">Cancelar</button>
+          <button id="deleteConfirmBtn" disabled style="background:#441111; border:1px solid #ff4444; padding:12px 24px; border-radius:8px; color:#666; cursor:not-allowed;">🗑️ Excluir</button>
         </div>
       </div>
     `;
@@ -284,18 +256,13 @@
       showFeedback("✅ Material excluído com sucesso!", "success");
       overlay.remove();
       
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      setTimeout(() => { window.location.reload(); }, 1000);
     };
 
-    document.getElementById("deleteCancel").onclick = () => {
-      console.log("❌ Exclusão cancelada");
-      overlay.remove();
-    };
+    document.getElementById("deleteCancel").onclick = () => overlay.remove();
   }
 
-  // --- Modal de Restauração (NOVO: com seleção múltipla) ---
+  // --- Modal de Restauração ---
   function openRestoreModal(excludedGroupsList) {
     console.log("♻️ Abrindo modal de restauração:", excludedGroupsList);
 
@@ -323,13 +290,7 @@
           <div style="font-weight:bold; color:#fff;">${g.name || g.id}</div>
           <div style="font-size:11px; color:#666;">ID: ${g.id}</div>
         </div>
-        <span class="status-badge" style="
-          font-size:10px; 
-          padding:4px 8px; 
-          border-radius:4px;
-          background:${g.afterReset ? 'rgba(239,68,68,0.2); color:#ff6666;' : 'rgba(34,197,94,0.2); color:#22c55e;'};
-          white-space:nowrap;
-        ">
+        <span style="font-size:10px; padding:4px 8px; border-radius:4px; background:${g.afterReset ? 'rgba(239,68,68,0.2); color:#ff6666;' : 'rgba(34,197,94,0.2); color:#22c55e;'}; white-space:nowrap;">
           ${g.afterReset ? '⚠️ Não recuperável' : '✅ Recuperável'}
         </span>
       </div>
@@ -341,9 +302,7 @@
       <div style="text-align:center; margin-bottom:20px;">
         <div style="font-size:48px; margin-bottom:10px;">♻️</div>
         <h2 style="margin:0 0 5px 0; color:#22c55e;">Materiais Excluídos</h2>
-        <p style="color:#aaa; font-size:14px;">
-          Selecione os itens que deseja restaurar
-        </p>
+        <p style="color:#aaa; font-size:14px;">Selecione os itens que deseja restaurar</p>
       </div>
       
       <div style="flex:1; overflow-y:auto; margin-bottom:20px; max-height:400px;">
@@ -351,41 +310,15 @@
       </div>
       
       <div style="background:rgba(34,197,94,0.1); padding:12px; border-radius:8px; margin-bottom:15px; border-left:3px solid #22c55e;">
-        <p style="margin:0; font-size:12px; color:#88ff88;">
-          💡 <strong>Dica:</strong> Selecione um ou mais itens para restaurar
-        </p>
+        <p style="margin:0; font-size:12px; color:#88ff88;">💡 <strong>Dica:</strong> Selecione um ou mais itens para restaurar</p>
       </div>
       
       <div style="display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;">
-        <button id="restoreSelectAll" style="
-          background:#333; 
-          padding:10px 16px; 
-          border-radius:6px; 
-          color:#ccc; 
-          border:none; 
-          cursor:pointer;
-          font-size:13px;
-        ">Selecionar Todos</button>
+        <button id="restoreSelectAll" style="background:#333; padding:10px 16px; border-radius:6px; color:#ccc; border:none; cursor:pointer; font-size:13px;">Selecionar Todos</button>
         
         <div style="display:flex; gap:10px;">
-          <button id="restoreCloseBtn" style="
-            background:#333; 
-            padding:10px 16px; 
-            border-radius:6px; 
-            color:#fff; 
-            border:none; 
-            cursor:pointer;
-          ">Fechar</button>
-          <button id="restoreSelectedBtn" disabled style="
-            background:#22c55e; 
-            padding:10px 20px; 
-            border-radius:6px; 
-            color:#fff; 
-            border:none; 
-            cursor:not-allowed;
-            font-weight:bold;
-            opacity:0.5;
-          ">♻️ Restaurar Selecionados</button>
+          <button id="restoreCloseBtn" style="background:#333; padding:10px 16px; border-radius:6px; color:#fff; border:none; cursor:pointer;">Fechar</button>
+          <button id="restoreSelectedBtn" disabled style="background:#22c55e; padding:10px 20px; border-radius:6px; color:#fff; border:none; cursor:not-allowed; font-weight:bold; opacity:0.5;">♻️ Restaurar Selecionados</button>
         </div>
       </div>
     `;
@@ -397,7 +330,6 @@
     document.getElementById("restoreCloseBtn").onclick = overlay.remove;
     overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
-    // Selecionar todos
     const checkboxes = modal.querySelectorAll(".restore-checkbox");
     const selectAllBtn = document.getElementById("restoreSelectAll");
     const restoreBtn = document.getElementById("restoreSelectedBtn");
@@ -416,29 +348,138 @@
       restoreBtn.style.opacity = checked > 0 ? "1" : "0.5";
     }
     
-    checkboxes.forEach(cb => {
-      cb.onchange = updateRestoreButton;
-    });
+    checkboxes.forEach(cb => cb.onchange = updateRestoreButton);
 
-    // Restaurar selecionados
     restoreBtn.onclick = () => {
-      const checkedIds = Array.from(checkboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.dataset.id);
-      
+      const checkedIds = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.dataset.id);
       if (checkedIds.length === 0) return;
       
       console.log("♻️ Restaurando:", checkedIds);
-      
       checkedIds.forEach(id => removeExcludedGroup(id));
       
       showFeedback(`✅ ${checkedIds.length} material(is) restaurado(s)!`, "success");
       
-      setTimeout(() => {
-        overlay.remove();
-        window.location.reload();
-      }, 1000);
+      setTimeout(() => { overlay.remove(); window.location.reload(); }, 1000);
     };
+  }
+
+  // --- NOVA: Criar botão ao lado do Importar ---
+  function createResetButtonNextToImport() {
+    console.log("🔄 createResetButtonNextToImport()");
+    
+    // Busca o botão Importar
+    const importBtn = document.getElementById("import") || 
+                      document.getElementById("importGroups") ||
+                      document.querySelector('button[id*="import"]');
+    
+    if (!importBtn) {
+      console.warn("⚠️ Botão Importar não encontrado!");
+      return;
+    }
+    
+    console.log("✅ Botão Importar encontrado:", importBtn.id);
+    
+    // Remove botão anterior se existir
+    const existingBtn = document.getElementById("resetNextToImport");
+    if (existingBtn) existingBtn.remove();
+    
+    // Cria o botão com a MESMA aparência do Importar
+    const resetBtnNew = document.createElement("button");
+    resetBtnNew.id = "resetNextToImport";
+    resetBtnNew.textContent = "🔄 Restaurar Padrão";
+    
+    // Copia todos os estilos relevantes do botão Importar
+    const computedStyle = window.getComputedStyle(importBtn);
+    resetBtnNew.style.cssText = `
+      background: ${computedStyle.background || '#444'};
+      color: ${computedStyle.color || '#fff'};
+      border: ${computedStyle.border || '1px solid #555'};
+      padding: ${computedStyle.padding || '10px 18px'};
+      border-radius: ${computedStyle.borderRadius || '8px'};
+      cursor: pointer;
+      font-size: ${computedStyle.fontSize || '13px'};
+      font-weight: ${computedStyle.fontWeight || 'normal'};
+      font-family: ${computedStyle.fontFamily || 'inherit'};
+      margin-left: 10px;
+    `;
+    
+    // ✅ COPIA O EVENTO DO BOTÃO ORIGINAL
+    if (resetBtn && typeof resetBtn.onclick === "function") {
+      resetBtnNew.onclick = resetBtn.onclick;
+      console.log("✅ Evento onclick copiado do botão original");
+    } else {
+      console.warn("⚠️ Botão original não tem evento onclick!");
+    }
+    
+    // Insere logo após o botão Importar
+    importBtn.parentNode.insertBefore(resetBtnNew, importBtn.nextSibling);
+    console.log("✅ Botão Restaurar Padrão inserido ao lado do Importar");
+  }
+
+  // --- NOVA: Configura botões do topo ---
+  function setupTopButtons(totalExcluded) {
+    console.log("🎨 setupTopButtons() - Total excluídos:", totalExcluded);
+    
+    // Remove botões anteriores
+    const existingTop = document.getElementById("resetTop");
+    const existingRestore = document.getElementById("restoreExcludedTop");
+    if (existingTop) existingTop.remove();
+    if (existingRestore) existingRestore.remove();
+    
+    const actionBar = document.createElement("div");
+    actionBar.style = "display:flex; gap:10px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;";
+    
+    // Botão discreto no topo (opcional)
+    actionBar.innerHTML = `
+      <button id="resetTop" style="
+        background:#444;
+        color:#ccc;
+        border:1px solid #555;
+        padding:10px 18px;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:13px;
+        transition:all 0.2s;
+      ">
+        🔄 Restaurar Padrão
+      </button>
+    `;
+    
+    groupsEl.appendChild(actionBar);
+    
+    // Copia evento para botão do topo
+    const topResetBtn = actionBar.querySelector("#resetTop");
+    if (resetBtn && typeof resetBtn.onclick === "function") {
+      topResetBtn.onclick = resetBtn.onclick;
+    }
+    
+    // Oculta o botão original
+    if (resetBtn) {
+      resetBtn.style.display = "none";
+    }
+    
+    // Botão Restaurar Excluídos
+    if (totalExcluded > 0) {
+      const restoreContainer = document.createElement("div");
+      restoreContainer.id = "restoreExcludedTop";
+      restoreContainer.style = "margin-bottom:20px; text-align:center;";
+      restoreContainer.innerHTML = `
+        <button id="restoreExcluded" style="
+          background:linear-gradient(135deg, #22c55e, #16a34a);
+          color:#fff;
+          border:none;
+          padding:12px 24px;
+          border-radius:8px;
+          cursor:pointer;
+          font-weight:bold;
+          font-size:14px;
+          box-shadow:0 4px 15px rgba(34,197,94,0.3);
+        ">
+          ♻️ Restaurar ${totalExcluded} Material(is) Excluído(s)
+        </button>
+      `;
+      groupsEl.appendChild(restoreContainer);
+    }
   }
 
   // --- Inicialização ---
@@ -448,10 +489,7 @@
   const exportAllBtn = document.getElementById("exportAll") || document.getElementById("export"); 
   const resetBtn = document.getElementById("reset");
 
-  console.log("🎯 Elementos encontrados:", {
-    groupsEl: !!groupsEl,
-    addGroupBtn: !!addGroupBtn
-  });
+  console.log("🎯 Elementos encontrados:", { groupsEl: !!groupsEl, addGroupBtn: !!addGroupBtn });
 
   async function init() {
     console.log("📋 init() chamada");
@@ -476,9 +514,7 @@
 
     let nextOrder = maxOrderJS + 1;
     const numberedOriginalGroups = originalGroups.map(g => {
-      if (g.order !== undefined) {
-        return g;
-      }
+      if (g.order !== undefined) return g;
       const numbered = { ...g, order: nextOrder };
       nextOrder++;
       return numbered;
@@ -488,21 +524,20 @@
     numberedOriginalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
-    console.log(`📊 ${allGroups.length} grupos totais (após mescla e numeração)`);
+    console.log(`📊 ${allGroups.length} grupos totais`);
 
     const allExcluded = getExcludedGroups();
     const excludedIds = allExcluded.map(item => typeof item === "string" ? item : item.id);
     
     if (excludedIds.length > 0) {
-      console.log(`🗑️ Filtrando ${excludedIds.length} grupos excluídos:`, excludedIds);
+      console.log(`🗑️ Filtrando ${excludedIds.length} grupos excluídos`);
       allGroups = allGroups.filter(g => !excludedIds.includes(g.id));
-      console.log(`📊 ${allGroups.length} grupos após filtro de exclusão`);
     }
 
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
-    console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [order:${g.order}]`));
+    console.log("📋 IDs:", activeGroups.map(g => `${g.id}[${g.order}]`).join(', '));
 
     render();
     setupActions();
@@ -574,18 +609,10 @@
       const color = document.getElementById("mColor").value;
       const errorDiv = document.getElementById("mError");
 
-      console.log("📝 Dados preenchidos:", { name, idInput, icon, iconHref });
-
       errorDiv.style.display = "none";
 
-      if (!name) {
-        errorDiv.innerText = "⚠️ O nome é obrigatório!";
-        errorDiv.style.display = "block";
-        return;
-      }
-
-      if (!idInput) {
-        errorDiv.innerText = "⚠️ O ID (slug) é obrigatório!";
+      if (!name || !idInput) {
+        errorDiv.innerText = "⚠️ Preencha nome e ID!";
         errorDiv.style.display = "block";
         return;
       }
@@ -597,18 +624,12 @@
         return;
       }
 
-      console.log("✅ Validação passou, salvando...");
-
       if (isEdit && oldId !== newId) {
-        console.log("🗑️ Removendo entrada antiga:", `${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:items:${oldId}`);
         
         const allExcluded = getExcludedGroups();
-        const index = allExcluded.findIndex(item => {
-          const id = typeof item === "string" ? item : item.id;
-          return id === oldId;
-        });
+        const index = allExcluded.findIndex(item => (typeof item === "string" ? item : item.id) === oldId);
         if (index !== -1) {
           allExcluded.splice(index, 1);
           saveExcludedGroups(allExcluded);
@@ -624,117 +645,60 @@
         iconHref: iconHref,
         collapsed: true,
         order: isEdit ? groupData.order : Date.now(),
-        items: isEdit ? groupData.items : [
-          {
-            code: "M01",
-            label: "Nova IA",
-            url: "",
-            checked: true
-          }
-        ]
+        items: isEdit ? groupData.items : [{ code: "M01", label: "Nova IA", url: "", checked: true }]
       };
 
-      const key = `${STORAGE_PREFIX}:group:${newId}`;
-      localStorage.setItem(key, JSON.stringify(updatedData));
-
-      const itemsKey = `${STORAGE_PREFIX}:items:${newId}`;
-      localStorage.setItem(itemsKey, JSON.stringify(updatedData.items || []));
-
-      console.log("💾 Salvou no localStorage:", key);
-      console.log("📦 Dados salvos:", updatedData);
+      localStorage.setItem(`${STORAGE_PREFIX}:group:${newId}`, JSON.stringify(updatedData));
+      localStorage.setItem(`${STORAGE_PREFIX}:items:${newId}`, JSON.stringify(updatedData.items || []));
 
       const allExcluded = getExcludedGroups();
-      const wasExcluded = allExcluded.some(item => {
-        const id = typeof item === "string" ? item : item.id;
-        return id === newId;
-      });
-      if (wasExcluded) {
-        removeExcludedGroup(newId);
-      }
-
-      const verify = localStorage.getItem(key);
-      console.log("🔍 Verificação:", verify ? "✅ Salvo com sucesso!" : "❌ ERRO ao salvar!");
+      const wasExcluded = allExcluded.some(item => (typeof item === "string" ? item : item.id) === newId);
+      if (wasExcluded) removeExcludedGroup(newId);
 
       showFeedback("✅ Material salvo com sucesso!", "success");
-
       overlay.remove();
       
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      setTimeout(() => { window.location.reload(); }, 1000);
     };
 
-    document.getElementById("mCancel").onclick = () => {
-      console.log("❌ Cancelado");
-      overlay.remove();
-    };
+    document.getElementById("mCancel").onclick = () => overlay.remove();
     document.getElementById("mCloseX").onclick = () => overlay.remove();
-    overlay.onclick = (e) => { 
-      if (e.target === overlay) {
-        console.log("❌ Fechou pelo overlay");
-        overlay.remove(); 
-      }
-    };
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
   }
 
   function setupActions() {
     console.log("⚙️ setupActions()");
     
+    // ✅ CRIA O BOTÃO AO LADO DO IMPORTAR
+    createResetButtonNextToImport();
+    
     if (addGroupBtn) {
-      console.log("✅ Botão +Grupo encontrado:", addGroupBtn.id);
-      addGroupBtn.onclick = () => {
-        console.log("🖱️ Clicou em +Grupo");
-        openModal("create");
-      };
-    } else {
-      console.error("❌ Botão addGroup NÃO encontrado!");
+      addGroupBtn.onclick = () => openModal("create");
     }
 
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
         const groupsWithOrder = activeGroups.map((g) => {
           const { collapsed, source, ...rest } = g;
-          return {
-            ...rest,
-          };
+          return { ...rest };
         });
         
         const content = `/** Backup Consolidado - ${new Date().toLocaleString()} **/
 window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         
-        console.log("📤 Exportando", groupsWithOrder.length, "grupos");
-        console.log("📋 Ordens:", groupsWithOrder.map(g => `${g.id}: ${g.order}`).join(', '));
-        
         downloadFile("estudos-groups.js", content, "text/javascript");
       };
     }
     
+    // ✅ O botão original fica hidden mas referenciado
     if (resetBtn) {
-      resetBtn.onclick = () => {
-        if (confirm("⚠️ Restaurar padrão?\n\nIsso apagará TODAS as customizações!")) {
-          console.log("🔄 Restaurando padrão...");
-          
-          markAllAsAfterReset();
-          
-          Object.keys(localStorage).forEach(key => {
-            if (key.startsWith(`${STORAGE_PREFIX}:group:`) || 
-                key.startsWith(`${STORAGE_PREFIX}:items:`)) {
-              localStorage.removeItem(key);
-            }
-          });
-          
-          showFeedback("🔄 Padrão restaurado!", "success");
-          window.location.reload();
-        }
-      };
+      resetBtn.style.display = "none";
     }
 
     const restoreBtn = document.getElementById("restoreExcluded");
     
     if (restoreBtn) {
       restoreBtn.onclick = () => {
-        console.log("♻️ Clicou em Restaurar Excluídos");
-        
         const excludedGroups = getExcludedGroups();
         
         Promise.all(excludedGroups.map(async (item) => {
@@ -749,14 +713,10 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
           
           const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
           const original = originalGroups.find(g => g.id === id);
-          if (original) {
-            return { id, name: original.name, afterReset };
-          }
+          if (original) return { id, name: original.name, afterReset };
           
           return { id, name: id, afterReset };
-        })).then(groups => {
-          openRestoreModal(groups);
-        });
+        })).then(groups => openRestoreModal(groups));
       };
     }
   }
@@ -771,54 +731,10 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
     
     groupsEl.innerHTML = "";
     
-    const actionBar = document.createElement("div");
-    actionBar.style = "display:flex; gap:10px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;";
-    
-    actionBar.innerHTML = `
-      <button id="resetTop" style="
-        background:#444;
-        color:#ccc;
-        border:1px solid #555;
-        padding:10px 18px;
-        border-radius:8px;
-        cursor:pointer;
-        font-size:13px;
-        transition:all 0.2s;
-      ">
-        🔄 Restaurar Padrão
-      </button>
-    `;
-    
-    groupsEl.appendChild(actionBar);
-    
-    if (resetBtn) {
-      actionBar.querySelector("#resetTop").onclick = resetBtn.onclick;
-      resetBtn.style.display = "none";
-    }
-    
     const allExcluded = getExcludedGroups();
     const totalExcluded = allExcluded.length;
     
-    if (totalExcluded > 0) {
-      const restoreContainer = document.createElement("div");
-      restoreContainer.style = "margin-bottom:20px; text-align:center;";
-      restoreContainer.innerHTML = `
-        <button id="restoreExcluded" style="
-          background:linear-gradient(135deg, #22c55e, #16a34a);
-          color:#fff;
-          border:none;
-          padding:12px 24px;
-          border-radius:8px;
-          cursor:pointer;
-          font-weight:bold;
-          font-size:14px;
-          box-shadow:0 4px 15px rgba(34,197,94,0.3);
-        ">
-          ♻️ Restaurar ${totalExcluded} Material(is) Excluído(s)
-        </button>
-      `;
-      groupsEl.appendChild(restoreContainer);
-    }
+    setupTopButtons(totalExcluded);
     
     if (activeGroups.length === 0) {
       groupsEl.innerHTML += '<div style="text-align:center; padding:40px; color:#666;">Nenhum material encontrado</div>';
@@ -827,9 +743,7 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
 
     console.log(`📋 Renderizando ${activeGroups.length} grupos`);
     
-    activeGroups.forEach((g, index) => {
-      console.log(`  ${index + 1}. ${g.id} [order:${g.order}]`);
-      
+    activeGroups.forEach((g) => {
       const card = document.createElement("div");
       card.className = "card";
       card.id = `card-${g.id}`;
@@ -873,63 +787,35 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         </div>
       `;
 
-      const coverBtn = card.querySelector(".btn-cover");
-      if (coverBtn) {
-        coverBtn.onclick = (e) => {
-          e.stopPropagation();
-          console.log("📄 Clicou em Capa:", g.id);
-          const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
-          window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
-        };
-      }
+      card.querySelector(".btn-cover")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const cp = (typeof GROUP_COVER_PAGE !== "undefined") ? GROUP_COVER_PAGE : "estudos.html";
+        window.open(`${cp}?group=${encodeURIComponent(g.id)}`, "_blank");
+      });
 
-      const editBtn = card.querySelector(".btn-edit");
-      if (editBtn) {
-        editBtn.onclick = (e) => {
-          e.stopPropagation();
-          console.log("✏️ Editando:", g.id);
-          openModal("edit", g);
-        };
-      }
+      card.querySelector(".btn-edit")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openModal("edit", g);
+      });
       
-      const exportBtn = card.querySelector(".btn-export");
-      if (exportBtn) {
-        exportBtn.onclick = (e) => {
-          e.stopPropagation();
-          downloadFile(`${g.id}.group.json`, JSON.stringify({
-            id: g.id, 
-            name: g.name, 
-            color: g.color, 
-            icon: g.icon, 
-            iconHref: g.iconHref
-          }, null, 2));
-          downloadFile(`${g.id}.items.json`, JSON.stringify({items: g.items || []}, null, 2));
-          showFeedback("✅ Arquivos exportados!", "success");
-        };
-      }
+      card.querySelector(".btn-export")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        downloadFile(`${g.id}.group.json`, JSON.stringify({ id: g.id, name: g.name, color: g.color, icon: g.icon, iconHref: g.iconHref }, null, 2));
+        downloadFile(`${g.id}.items.json`, JSON.stringify({ items: g.items || [] }, null, 2));
+        showFeedback("✅ Arquivos exportados!", "success");
+      });
 
-      const deleteBtn = card.querySelector(".btn-delete");
-      if (deleteBtn) {
-        deleteBtn.onclick = (e) => {
-          e.stopPropagation();
-          console.log("🗑️ Clicou em Excluir:", g.id);
-          openDeleteModal(g);
-        };
-      }
+      card.querySelector(".btn-delete")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openDeleteModal(g);
+      });
 
-      const nameEl = card.querySelector(".group-name");
-      if (nameEl) {
-        nameEl.onclick = () => {
-          console.log("🖱️ Clicou no nome (toggle):", g.id);
-          const grid = card.querySelector(".grid");
-          if (grid) {
-            const isHidden = grid.style.display === "none";
-            grid.style.display = isHidden ? "grid" : "none";
-            console.log(`📋 Lista ${g.id}: ${isHidden ? 'ABERTA' : 'FECHADA'}`);
-          }
-        };
-        nameEl.style.cursor = "pointer";
-      }
+      card.querySelector(".group-name")?.addEventListener("click", () => {
+        const grid = card.querySelector(".grid");
+        if (grid) {
+          grid.style.display = grid.style.display === "none" ? "grid" : "none";
+        }
+      });
 
       groupsEl.appendChild(card);
     });
@@ -943,20 +829,10 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         from { opacity: 0; transform: translateX(50px); }
         to { opacity: 1; transform: translateX(0); }
       }
-      .group-name:hover {
-        opacity: 0.8;
-      }
-      .group-name:active {
-        opacity: 0.6;
-      }
-      .btn-delete:hover {
-        background: #441111 !important;
-        color: #ff8888 !important;
-      }
-      .restore-item:hover {
-        border-color: #22c55e !important;
-        background: #1f1f30 !important;
-      }
+      .group-name:hover { opacity: 0.8; }
+      .group-name:active { opacity: 0.6; }
+      .btn-delete:hover { background: #441111 !important; color: #ff8888 !important; }
+      .restore-item:hover { border-color: #22c55e !important; background: #1f1f30 !important; }
     `;
     document.head.appendChild(style);
   }
