@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (COMPLETO: Duplicação + Numeração + Order + Excluir + Restaurar)
+ * Arquivo: script-launcher.js (CORRIGIDO: Restaurar Padrão preserva excluídos)
  * ============================================================
  */
 
@@ -630,12 +630,26 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       };
     }
     
-    if (resetBtn) resetBtn.onclick = () => { 
-      if (confirm("Restaurar padrão?\n\n⚠️ Isso apagará todas as customizações!")) { 
-        localStorage.clear(); 
-        window.location.reload(); 
-      } 
-    };
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        if (confirm("Restaurar padrão?\n\n⚠️ Isso apagará todas as customizações!")) {
+          // ✅ SALVA a lista de excluídos ANTES de limpar
+          const excluded = getExcludedGroups();
+          console.log("💾 Salvando lista de excluídos:", excluded);
+          
+          // Limpa tudo
+          localStorage.clear();
+          
+          // ✅ RESTAURA a lista de excluídos
+          if (excluded.length > 0) {
+            localStorage.setItem(`${STORAGE_PREFIX}:excludedGroups`, JSON.stringify(excluded));
+            console.log("✅ Lista de excluídos restaurada:", excluded);
+          }
+          
+          window.location.reload();
+        }
+      };
+    }
 
     // ✅ Botão Restaurar Excluídos
     const restoreBtn = document.getElementById("restoreExcluded");
