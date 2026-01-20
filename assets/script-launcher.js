@@ -2,12 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (VERSÃO SIMPLIFICADA!)
- * 
- * Regras:
- * ✅ Excluir = adicionar na lista de bloqueados
- * ✅ Restaurar = remover da lista de bloqueados
- * ✅ Itens excluídos não aparecem na página
+ * Arquivo: script-launcher.js (CORRIGIDO!)
  * ============================================================
  */
 
@@ -73,61 +68,72 @@
     }, 4000);
   }
 
-  // --- Sistema de Exclusão (SIMPLIFICADO!) ---
-  function getExcludedIds() {
+  // --- Sistema de Exclusão (CORRIGIDO!) ---
+  
+  function getExcludedGroups() {
     try {
-      const data = localStorage.getItem(`${STORAGE_PREFIX}:excludedIds`);
-      return data ? JSON.parse(data) : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function saveExcludedIds(ids) {
-    localStorage.setItem(`${STORAGE_PREFIX}:excludedIds`, JSON.stringify(ids));
-  }
-
-  function addExcludedId(groupId) {
-    const excluded = getExcludedIds();
-    if (!excluded.includes(groupId)) {
-      excluded.push(groupId);
-      saveExcludedIds(excluded);
-      console.log(`🗑️ Marcado como excluído: ${groupId}`);
-    }
-  }
-
-  function removeExcludedId(groupId) {
-    const excluded = getExcludedIds();
-    const filtered = excluded.filter(id => id !== groupId);
-    saveExcludedIds(filtered);
-    console.log(`♻️ Removido da lista de excluídos: ${groupId}`);
-  }
-
-  // ✅ NOVA: Marca todos como "depois do reset"
-  function markAllAsAfterReset() {
-    const excluded = getExcludedIds();
-    // Converte para formato com flag afterReset
-    const marked = excluded.map(id => ({ id: id, afterReset: true }));
-    localStorage.setItem(`${STORAGE_PREFIX}:excludedIds`, JSON.stringify(marked));
-    console.log(`🔄 ${excluded.length} itens marcados como afterReset`);
-  }
-
-  // ✅ Retorna IDs que podem ser restaurados (afterReset !== true)
-  function getRestorableIds() {
-    const data = localStorage.getItem(`${STORAGE_PREFIX}:excludedIds`);
-    if (!data) return [];
-    
-    try {
+      const data = localStorage.getItem(`${STORAGE_PREFIX}:excludedGroups`);
+      if (!data) return [];
+      
       const parsed = JSON.parse(data);
-      // Se for array de strings (formato antigo)
+      
+      // Se for array de strings (formato antigo), converte
       if (typeof parsed[0] === "string") {
-        return parsed;
+        return parsed.map(id => ({ id: id, afterReset: false }));
       }
-      // Se for array de objetos (formato novo com afterReset)
-      return parsed.filter(item => !item.afterReset).map(item => item.id);
+      
+      return parsed;
     } catch (e) {
       return [];
     }
+  }
+
+  function saveExcludedGroups(groups) {
+    localStorage.setItem(`${STORAGE_PREFIX}:excludedGroups`, JSON.stringify(groups));
+  }
+
+  // Adiciona um grupo à lista de excluídos
+  function addExcludedGroup(groupId) {
+    const excluded = getExcludedGroups();
+    
+    // Se já existe, não duplica
+    if (excluded.some(item => item.id === groupId)) return;
+    
+    excluded.push({ id: groupId, afterReset: false });
+    saveExcludedGroups(excluded);
+    console.log(`🗑️ Excluído: ${groupId}`);
+  }
+
+  // Remove um grupo da lista de excluídos
+  function removeExcludedGroup(groupId) {
+    const excluded = getExcludedGroups();
+    const filtered = excluded.filter(item => item.id !== groupId);
+    saveExcludedGroups(filtered);
+    console.log(`♻️ Restaurado: ${groupId}`);
+  }
+
+  // ✅ MARCA TODOS OS EXCLUÍDOS COMO afterReset = true (NÃO restauráveis!)
+  function markAllAsAfterReset() {
+    const excluded = getExcludedGroups();
+    
+    const marked = excluded.map(item => {
+      return { id: item.id, afterReset: true };
+    });
+    
+    saveExcludedGroups(marked);
+    console.log(`🔄 ${marked.length} itens marcados como afterReset=true`);
+  }
+
+  // Retorna os IDs que podem ser restaurados (afterReset !== true)
+  function getRestorableIds() {
+    const excluded = getExcludedGroups();
+    return excluded.filter(item => !item.afterReset).map(item => item.id);
+  }
+
+  // Retorna TODOS os IDs excluídos (para filtrar da renderização)
+  function getAllExcludedIds() {
+    const excluded = getExcludedGroups();
+    return excluded.map(item => item.id);
   }
 
   function getLocalGroups() {
@@ -181,7 +187,7 @@
     return { ...g, source: 'javascript' };
   }
 
-  // --- Modal de Exclusão (SIMPLIFICADO!) ---
+  // --- Modal de Exclusão ---
   function openDeleteModal(groupData) {
     const groupId = groupData.id;
     const groupName = groupData.name;
@@ -259,8 +265,8 @@
     confirmBtn.onclick = () => {
       console.log("✅ Confirmed deletion:", groupId);
       
-      // ✅ SÓ ADICIONA NA LISTA DE EXCLUÍDOS - NÃO DELETA NADA!
-      addExcludedId(groupId);
+      // Só adiciona na lista de excluídos - NÃO deleta localStorage!
+      addExcludedGroup(groupId);
       
       showFeedback("✅ Material excluído com sucesso!", "success");
       overlay.remove();
@@ -271,7 +277,7 @@
     document.getElementById("deleteCancel").onclick = () => overlay.remove();
   }
 
-  // --- Modal de Restauração (SIMPLIFICADO!) ---
+  // --- Modal de Restauração ---
   function openRestoreModal(excludedGroupsList) {
     console.log("♻️ Abrindo modal de restauração:", excludedGroupsList);
 
@@ -341,14 +347,13 @@
     
     checkboxes.forEach(cb => cb.onchange = updateRestoreButton);
 
-    // ✅ RESTAURAÇÃO SIMPLIFICADA: só remove da lista!
     restoreBtn.onclick = () => {
       const checkedIds = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.dataset.id);
       if (checkedIds.length === 0) return;
       
       console.log("♻️ Restaurando:", checkedIds);
       
-      checkedIds.forEach(id => removeExcludedId(id));
+      checkedIds.forEach(id => removeExcludedGroup(id));
       
       showFeedback(`✅ ${checkedIds.length} material(is) restaurado(s)!`, "success");
       
@@ -386,7 +391,7 @@
       }
     });
     
-    // ✅ Marca todos os excluídos como afterReset (não restauráveis)
+    // ✅ MARCA TODOS OS EXCLUÍDOS COMO afterReset = true
     markAllAsAfterReset();
     
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
@@ -438,9 +443,11 @@
     importBtn.parentNode.insertBefore(resetBtn, importBtn.nextSibling);
     console.log("✅ Botão Restaurar Padrão inserido");
     
-    // ✅ Usa getRestorableIds() para só mostrar os restauráveis
+    // ✅ Usa getRestorableIds() - só mostra os que podem ser restaurados
     const restorableIds = getRestorableIds();
     const totalRestorable = restorableIds.length;
+    
+    console.log(`📋 Itens restauráveis: ${totalRestorable}`, restorableIds);
     
     if (totalRestorable > 0) {
       const restoreBtn = document.createElement("button");
@@ -523,12 +530,12 @@
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
 
-    // ✅ FILTRA SÓ PELOS EXCLUÍDOS (getExcludedIds)
-    const excludedIds = getExcludedIds();
+    // ✅ Filtra pelos IDs que estão na lista de excluídos
+    const allExcludedIds = getAllExcludedIds();
     
-    if (excludedIds.length > 0) {
-      allGroups = allGroups.filter(g => !excludedIds.includes(g.id));
-      console.log(`🚫 ${excludedIds.length} grupos filtrados (excluídos)`);
+    if (allExcludedIds.length > 0) {
+      allGroups = allGroups.filter(g => !allExcludedIds.includes(g.id));
+      console.log(`🚫 ${allExcludedIds.length} grupos filtrados (excluídos)`, allExcludedIds);
     }
 
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
@@ -536,7 +543,9 @@
     console.log(`✅ ${activeGroups.length} grupos carregados`);
 
     render();
-    setupActions();
+    
+    // ✅ CHAMADO DEPOIS do render - para garantir que os grupos foram processados
+    createButtonsNextToImport();
   }
 
   function openModal(mode, groupData = null) {
@@ -632,10 +641,10 @@
       localStorage.setItem(`${STORAGE_PREFIX}:group:${newId}`, JSON.stringify(updatedData));
       localStorage.setItem(`${STORAGE_PREFIX}:items:${newId}`, JSON.stringify(updatedData.items || []));
 
-      // ✅ Se estava excluído, remove da lista de excluídos
-      const excludedIds = getExcludedIds();
-      if (excludedIds.includes(newId)) {
-        removeExcludedId(newId);
+      // ✅ Se estava excluído, remove da lista
+      const excluded = getExcludedGroups();
+      if (excluded.some(item => item.id === newId)) {
+        removeExcludedGroup(newId);
       }
 
       showFeedback("✅ Material salvo com sucesso!", "success");
@@ -651,8 +660,6 @@
 
   function setupActions() {
     console.log("⚙️ setupActions()");
-    
-    createButtonsNextToImport();
     
     if (addGroupBtn) {
       addGroupBtn.onclick = () => openModal("create");
