@@ -544,7 +544,10 @@
 
     render();
     
-    // ✅ CHAMADO DEPOIS do render - para garantir que os grupos foram processados
+    // ✅ CONFIGURA OS BOTÕES NATIVOS
+    setupActions();
+    
+    // ✅ CRIA OS NOVOS BOTÕES (Restaurar Padrão, Restaurar Excluídos)
     createButtonsNextToImport();
   }
 
