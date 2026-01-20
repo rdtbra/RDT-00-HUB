@@ -2,13 +2,12 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Botão Restaurar Padrão)
+ * Arquivo: script-launcher.js (CORRIGIDO - Final)
  * 
  * Correções:
- * ✅ Botão Restaurar Padrão AO LADO do Importar
- * ✅ Mesma interface (cor, tamanho)
- * ✅ Confirmação antes de restaurar
- * ✅ Remove todas as customizações
+ * ✅ Apenas 1 botão Restaurar Padrão (ao lado do Importar)
+ * ✅ Botão verde ao lado do Restaurar Padrão
+ * ✅ Contagem zera ao restaurar padrão
  * ============================================================
  */
 
@@ -117,6 +116,12 @@
       return { id: id, afterReset: true };
     });
     saveExcludedGroups(marked);
+  }
+
+  // ✅ NOVA: Limpa completamente os excluídos (zera contagem)
+  function clearAllExcluded() {
+    localStorage.removeItem(`${STORAGE_PREFIX}:excludedGroups`);
+    console.log("🗑️ Contagem de excluídos zerada");
   }
 
   function getLocalGroups() {
@@ -363,11 +368,11 @@
     };
   }
 
-  // --- FUNÇÃO COMPLETA DE RESTAURAR PADRÃO ---
+  // --- FUNÇÃO DE RESTAURAR PADRÃO (COM CONFIRMAÇÃO) ---
   function performReset() {
     console.log("🔄 performReset() - Iniciando restauração de padrão");
     
-    // ✅ PERGUNTA DE CONFIRMAÇÃO
+    // Pergunta de confirmação
     const confirmacao = confirm(
       "⚠️ ATENÇÃO!\n\n" +
       "Tem certeza que deseja RESTAURAR O PADRÃO?\n\n" +
@@ -386,10 +391,7 @@
     
     console.log("✅ Usuário confirmou - executando restauração...");
     
-    // ✅ MARCA TODOS OS EXCLUÍDOS COMO afterReset = true
-    markAllAsAfterReset();
-    
-    // ✅ REMOVE TODAS AS CUSTOMIZAÇÕES DO localStorage
+    // Remove todas as customizações do localStorage
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith(`${STORAGE_PREFIX}:group:`) || 
           key.startsWith(`${STORAGE_PREFIX}:items:`)) {
@@ -397,7 +399,9 @@
       }
     });
     
-    // ✅ FEEDBACK E RECARREGA
+    // ✅ ZERA A CONTAGEM DE EXCLUÍDOS
+    clearAllExcluded();
+    
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
     
     setTimeout(() => {
@@ -405,9 +409,9 @@
     }, 1000);
   }
 
-  // --- Criar botão ao lado do Importar ---
-  function createResetButtonNextToImport() {
-    console.log("🔄 createResetButtonNextToImport()");
+  // --- Criar botões AO LADO DO IMPORTAR ---
+  function createButtonsNextToImport() {
+    console.log("🔄 createButtonsNextToImport()");
     
     // Busca o botão Importar
     const importBtn = document.getElementById("import") || 
@@ -421,18 +425,20 @@
     
     console.log("✅ Botão Importar encontrado:", importBtn.id);
     
-    // Remove botão anterior se existir
-    const existingBtn = document.getElementById("resetNextToImport");
-    if (existingBtn) existingBtn.remove();
+    // Remove botões anteriores se existirem
+    const existingReset = document.getElementById("resetNextToImport");
+    const existingRestore = document.getElementById("restoreExcludedNextToImport");
+    if (existingReset) existingReset.remove();
+    if (existingRestore) existingRestore.remove();
     
-    // Cria o botão com a MESMA aparência do Importar
-    const resetBtnNew = document.createElement("button");
-    resetBtnNew.id = "resetNextToImport";
-    resetBtnNew.textContent = "🔄 Restaurar Padrão";
-    
-    // Copia todos os estilos relevantes do botão Importar
+    // Copia estilos do botão Importar
     const computedStyle = window.getComputedStyle(importBtn);
-    resetBtnNew.style.cssText = `
+    
+    // --- Botão Restaurar Padrão ---
+    const resetBtn = document.createElement("button");
+    resetBtn.id = "resetNextToImport";
+    resetBtn.textContent = "🔄 Restaurar Padrão";
+    resetBtn.style.cssText = `
       background: ${computedStyle.background || '#444'};
       color: ${computedStyle.color || '#fff'};
       border: ${computedStyle.border || '1px solid #555'};
@@ -444,75 +450,59 @@
       font-family: ${computedStyle.fontFamily || 'inherit'};
       margin-left: 10px;
     `;
+    resetBtn.onclick = performReset;
     
-    // ✅ USA A FUNÇÃO performReset() QUE TEM A CONFIRMAÇÃO!
-    resetBtnNew.onclick = performReset;
-    console.log("✅ Função performReset() vinculada ao botão");
+    // Insere após o Importar
+    importBtn.parentNode.insertBefore(resetBtn, importBtn.nextSibling);
+    console.log("✅ Botão Restaurar Padrão inserido");
     
-    // Insere logo após o botão Importar
-    importBtn.parentNode.insertBefore(resetBtnNew, importBtn.nextSibling);
-    console.log("✅ Botão Restaurar Padrão inserido ao lado do Importar");
-  }
-
-  // --- Configura botões do topo ---
-  function setupTopButtons(totalExcluded) {
-    console.log("🎨 setupTopButtons() - Total excluídos:", totalExcluded);
+    // --- Botão Restaurar Excluídos (se houver) ---
+    const allExcluded = getExcludedGroups();
+    const totalExcluded = allExcluded.length;
     
-    const existingTop = document.getElementById("resetTop");
-    const existingRestore = document.getElementById("restoreExcludedTop");
-    if (existingTop) existingTop.remove();
-    if (existingRestore) existingRestore.remove();
-    
-    const actionBar = document.createElement("div");
-    actionBar.style = "display:flex; gap:10px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;";
-    
-    actionBar.innerHTML = `
-      <button id="resetTop" style="
-        background:#444;
-        color:#ccc;
-        border:1px solid #555;
-        padding:10px 18px;
-        border-radius:8px;
-        cursor:pointer;
-        font-size:13px;
-        transition:all 0.2s;
-      ">
-        🔄 Restaurar Padrão
-      </button>
-    `;
-    
-    groupsEl.appendChild(actionBar);
-    
-    // Usa a mesma função com confirmação
-    const topResetBtn = actionBar.querySelector("#resetTop");
-    topResetBtn.onclick = performReset;
-    
-    // Oculta o botão original
-    if (resetBtn) {
-      resetBtn.style.display = "none";
-    }
-    
-    // Botão Restaurar Excluídos
     if (totalExcluded > 0) {
-      const restoreContainer = document.createElement("div");
-      restoreContainer.id = "restoreExcludedTop";
-      restoreContainer.style = "margin-bottom:20px; text-align:center;";
-      restoreContainer.innerHTML = `
-        <button id="restoreExcluded" style="
-          background:linear-gradient(135deg, #22c55e, #16a34a);
-          color:#fff;
-          border:none;
-          padding:12px 24px;
-          border-radius:8px;
-          cursor:pointer;
-          font-weight:bold;
-          font-size:14px;
-          box-shadow:0 4px 15px rgba(34,197,94,0.3);
-        ">
-          ♻️ Restaurar ${totalExcluded} Material(is) Excluído(s)
-        </button>
+      const restoreBtn = document.createElement("button");
+      restoreBtn.id = "restoreExcludedNextToImport";
+      restoreBtn.textContent = `♻️ Restaurar ${totalExcluded} Excluído(s)`;
+      
+      // ✅ Estilo discreto, não "escandaloso"
+      restoreBtn.style.cssText = `
+        background: ${computedStyle.background || '#444'};
+        color: ${computedStyle.color || '#fff'};
+        border: ${computedStyle.border || '1px solid #555'};
+        padding: ${computedStyle.padding || '10px 18px'};
+        border-radius: ${computedStyle.borderRadius || '8px'};
+        cursor: pointer;
+        font-size: ${computedStyle.fontSize || '13px'};
+        font-weight: ${computedStyle.fontWeight || 'normal'};
+        font-family: ${computedStyle.fontFamily || 'inherit'};
+        margin-left: 10px;
       `;
-      groupsEl.appendChild(restoreContainer);
+      
+      restoreBtn.onclick = () => {
+        const excludedGroups = getExcludedGroups();
+        
+        Promise.all(excludedGroups.map(async (item) => {
+          const id = typeof item === "string" ? item : item.id;
+          const afterReset = typeof item === "string" ? false : item.afterReset;
+          
+          const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
+          if (localHeader) {
+            const data = JSON.parse(localHeader);
+            return { id, name: data.name, afterReset };
+          }
+          
+          const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
+          const original = originalGroups.find(g => g.id === id);
+          if (original) return { id, name: original.name, afterReset };
+          
+          return { id, name: id, afterReset };
+        })).then(groups => openRestoreModal(groups));
+      };
+      
+      // Insere após o botão Restaurar Padrão
+      resetBtn.parentNode.insertBefore(restoreBtn, resetBtn.nextSibling);
+      console.log("✅ Botão Restaurar Excluídos inserido");
     }
   }
 
@@ -697,8 +687,8 @@
   function setupActions() {
     console.log("⚙️ setupActions()");
     
-    // ✅ CRIA O BOTÃO AO LADO DO IMPORTAR
-    createResetButtonNextToImport();
+    // ✅ CRIA OS BOTÕES AO LADO DO IMPORTAR
+    createButtonsNextToImport();
     
     if (addGroupBtn) {
       addGroupBtn.onclick = () => openModal("create");
@@ -718,34 +708,9 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       };
     }
     
-    // ✅ O botão original fica hidden
+    // Oculta o botão original
     if (resetBtn) {
       resetBtn.style.display = "none";
-    }
-
-    const restoreBtn = document.getElementById("restoreExcluded");
-    
-    if (restoreBtn) {
-      restoreBtn.onclick = () => {
-        const excludedGroups = getExcludedGroups();
-        
-        Promise.all(excludedGroups.map(async (item) => {
-          const id = typeof item === "string" ? item : item.id;
-          const afterReset = typeof item === "string" ? false : item.afterReset;
-          
-          const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
-          if (localHeader) {
-            const data = JSON.parse(localHeader);
-            return { id, name: data.name, afterReset };
-          }
-          
-          const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
-          const original = originalGroups.find(g => g.id === id);
-          if (original) return { id, name: original.name, afterReset };
-          
-          return { id, name: id, afterReset };
-        })).then(groups => openRestoreModal(groups));
-      };
     }
   }
 
@@ -758,11 +723,6 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
     }
     
     groupsEl.innerHTML = "";
-    
-    const allExcluded = getExcludedGroups();
-    const totalExcluded = allExcluded.length;
-    
-    setupTopButtons(totalExcluded);
     
     if (activeGroups.length === 0) {
       groupsEl.innerHTML += '<div style="text-align:center; padding:40px; color:#666;">Nenhum material encontrado</div>';
