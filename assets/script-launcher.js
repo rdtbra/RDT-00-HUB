@@ -2,12 +2,12 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO - Final)
+ * Arquivo: script-launcher.js (CORRIGIDO - AGORA SIM!)
  * 
  * Correções:
- * ✅ "Restaurar Padrão" marca itens como "afterReset: true"
- * ✅ Itens marcados NÃO voltam para a lista de itens
- * ✅ Contagem é mantida (itens aparecem como "não recuperáveis")
+ * ✅ "Restaurar Padrão" marca todos como "afterReset: true"
+ * ✅ Botão só mostra/Conta itens com "afterReset: false"
+ * ✅ Itens com "afterReset: true" ficam congelados e invisíveis
  * ============================================================
  */
 
@@ -109,7 +109,8 @@
     saveExcludedGroups(filtered);
   }
 
-  // ✅ CORRIGIDO: Marca todos como "afterReset: true" (não recuperáveis)
+  // ✅ CORRIGIDO: Marca todos como "afterReset: true"
+  // NÃO apaga! Apenas congela os itens
   function markAllAsAfterReset() {
     const excluded = getExcludedGroups();
     const marked = excluded.map(item => {
@@ -118,6 +119,15 @@
     });
     saveExcludedGroups(marked);
     console.log(`🔄 ${marked.length} itens marcados como "não recuperáveis"`);
+  }
+
+  // ✅ NOVA: Retorna apenas itens com afterReset: false
+  function getActiveExcludedGroups() {
+    const excluded = getExcludedGroups();
+    return excluded.filter(item => {
+      const afterReset = typeof item === "string" ? false : item.afterReset;
+      return afterReset === false;
+    });
   }
 
   function getLocalGroups() {
@@ -285,18 +295,12 @@
         border:1px solid #333;
         cursor:pointer;
         transition:all 0.2s;
-        ${g.afterReset ? 'opacity:0.5;' : ''}
       " onclick="event.target.tagName !== 'INPUT' && this.querySelector('input').click()">
-        <input type="checkbox" class="restore-checkbox" data-id="${g.id}" 
-          ${g.afterReset ? 'disabled' : ''} 
-          style="width:20px; height:20px; cursor:pointer; flex-shrink:0;">
+        <input type="checkbox" class="restore-checkbox" data-id="${g.id}" style="width:20px; height:20px; cursor:pointer; flex-shrink:0;">
         <div style="flex:1;">
           <div style="font-weight:bold; color:#fff;">${g.name || g.id}</div>
           <div style="font-size:11px; color:#666;">ID: ${g.id}</div>
         </div>
-        <span style="font-size:10px; padding:4px 8px; border-radius:4px; background:${g.afterReset ? 'rgba(239,68,68,0.2); color:#ff6666;' : 'rgba(34,197,94,0.2); color:#22c55e;'}; white-space:nowrap;">
-          ${g.afterReset ? '⚠️ Não recuperável' : '✅ Recuperável'}
-        </span>
       </div>
     `).join('');
 
@@ -313,17 +317,9 @@
         ${excludedGroupsList.length > 0 ? groupsHtml : '<p style="color:#666; text-align:center;">Nenhum material excluído</p>'}
       </div>
       
-      <div style="background:rgba(34,197,94,0.1); padding:12px; border-radius:8px; margin-bottom:15px; border-left:3px solid #22c55e;">
-        <p style="margin:0; font-size:12px; color:#88ff88;">💡 <strong>Dica:</strong> Selecione um ou mais itens para restaurar</p>
-      </div>
-      
-      <div style="display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;">
-        <button id="restoreSelectAll" style="background:#333; padding:10px 16px; border-radius:6px; color:#ccc; border:none; cursor:pointer; font-size:13px;">Selecionar Todos</button>
-        
-        <div style="display:flex; gap:10px;">
-          <button id="restoreCloseBtn" style="background:#333; padding:10px 16px; border-radius:6px; color:#fff; border:none; cursor:pointer;">Fechar</button>
-          <button id="restoreSelectedBtn" disabled style="background:#22c55e; padding:10px 20px; border-radius:6px; color:#fff; border:none; cursor:not-allowed; font-weight:bold; opacity:0.5;">♻️ Restaurar Selecionados</button>
-        </div>
+      <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <button id="restoreCloseBtn" style="background:#333; padding:10px 16px; border-radius:6px; color:#fff; border:none; cursor:pointer;">Fechar</button>
+        <button id="restoreSelectedBtn" disabled style="background:#22c55e; padding:10px 20px; border-radius:6px; color:#fff; border:none; cursor:not-allowed; font-weight:bold; opacity:0.5;">♻️ Restaurar Selecionados</button>
       </div>
     `;
 
@@ -334,15 +330,8 @@
     document.getElementById("restoreCloseBtn").onclick = overlay.remove;
     overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
-    const checkboxes = modal.querySelectorAll(".restore-checkbox:not([disabled])");
-    const selectAllBtn = document.getElementById("restoreSelectAll");
+    const checkboxes = modal.querySelectorAll(".restore-checkbox");
     const restoreBtn = document.getElementById("restoreSelectedBtn");
-    
-    selectAllBtn.onclick = () => {
-      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-      checkboxes.forEach(cb => cb.checked = !allChecked);
-      updateRestoreButton();
-    };
     
     function updateRestoreButton() {
       const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
@@ -400,6 +389,7 @@
     
     // ✅ MARCA TODOS OS EXCLUÍDOS COMO "afterReset: true"
     // Isso impede que eles voltem para a lista de itens
+    // E o botão não vai mais mostrá-los porque só conta afterReset: false
     markAllAsAfterReset();
     
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
@@ -456,9 +446,10 @@
     importBtn.parentNode.insertBefore(resetBtn, importBtn.nextSibling);
     console.log("✅ Botão Restaurar Padrão inserido");
     
-    // --- Botão Restaurar Excluídos (se houver) ---
-    const allExcluded = getExcludedGroups();
-    const totalExcluded = allExcluded.length;
+    // --- Botão Restaurar Excluídos (se houver itens com afterReset: false) ---
+    // ✅ USA getActiveExcludedGroups() QUE SÓ RETORNA afterReset: false
+    const activeExcluded = getActiveExcludedGroups();
+    const totalExcluded = activeExcluded.length;
     
     if (totalExcluded > 0) {
       const restoreBtn = document.createElement("button");
@@ -480,23 +471,22 @@
       `;
       
       restoreBtn.onclick = () => {
-        const excludedGroups = getExcludedGroups();
+        const excludedGroups = activeExcluded;
         
         Promise.all(excludedGroups.map(async (item) => {
           const id = typeof item === "string" ? item : item.id;
-          const afterReset = typeof item === "string" ? false : item.afterReset;
           
           const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
           if (localHeader) {
             const data = JSON.parse(localHeader);
-            return { id, name: data.name, afterReset };
+            return { id, name: data.name };
           }
           
           const originalGroups = (typeof DEFAULT_GROUPS !== "undefined") ? DEFAULT_GROUPS : (window.GROUPS || []);
           const original = originalGroups.find(g => g.id === id);
-          if (original) return { id, name: original.name, afterReset };
+          if (original) return { id, name: original.name };
           
-          return { id, name: id, afterReset };
+          return { id, name: id };
         })).then(groups => openRestoreModal(groups));
       };
       
@@ -548,7 +538,8 @@
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
 
-    const allExcluded = getExcludedGroups();
+    // ✅ USA getActiveExcludedGroups() PARA FILTRAR
+    const allExcluded = getActiveExcludedGroups(); // <-- só afterReset: false
     const excludedIds = allExcluded.map(item => typeof item === "string" ? item : item.id);
     
     if (excludedIds.length > 0) {
@@ -646,7 +637,7 @@
         localStorage.removeItem(`${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:items:${oldId}`);
         
-        const allExcluded = getExcludedGroups();
+        const allExcluded = getActiveExcludedGroups();
         const index = allExcluded.findIndex(item => (typeof item === "string" ? item : item.id) === oldId);
         if (index !== -1) {
           allExcluded.splice(index, 1);
@@ -669,8 +660,8 @@
       localStorage.setItem(`${STORAGE_PREFIX}:group:${newId}`, JSON.stringify(updatedData));
       localStorage.setItem(`${STORAGE_PREFIX}:items:${newId}`, JSON.stringify(updatedData.items || []));
 
-      const allExcluded = getExcludedGroups();
-      const wasExcluded = allExcluded.some(item => (typeof item === "string" ? item : item.id) === newId);
+      const activeExcluded = getActiveExcludedGroups();
+      const wasExcluded = activeExcluded.some(item => (typeof item === "string" ? item : item.id) === newId);
       if (wasExcluded) removeExcludedGroup(newId);
 
       showFeedback("✅ Material salvo com sucesso!", "success");
@@ -820,7 +811,6 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       .group-name:hover { opacity: 0.8; }
       .group-name:active { opacity: 0.6; }
       .btn-delete:hover { background: #441111 !important; color: #ff8888 !important; }
-      .restore-item:hover { border-color: #22c55e !important; background: #1f1f30 !important; }
     `;
     document.head.appendChild(style);
   }
