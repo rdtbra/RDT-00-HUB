@@ -5,9 +5,9 @@
  * Arquivo: script-launcher.js (CORRIGIDO - Final)
  * 
  * Correções:
- * ✅ Apenas 1 botão Restaurar Padrão (ao lado do Importar)
- * ✅ Botão verde ao lado do Restaurar Padrão
- * ✅ Contagem zera ao restaurar padrão
+ * ✅ "Restaurar Padrão" marca itens como "afterReset: true"
+ * ✅ Itens marcados NÃO voltam para a lista de itens
+ * ✅ Contagem é mantida (itens aparecem como "não recuperáveis")
  * ============================================================
  */
 
@@ -109,6 +109,7 @@
     saveExcludedGroups(filtered);
   }
 
+  // ✅ CORRIGIDO: Marca todos como "afterReset: true" (não recuperáveis)
   function markAllAsAfterReset() {
     const excluded = getExcludedGroups();
     const marked = excluded.map(item => {
@@ -116,12 +117,7 @@
       return { id: id, afterReset: true };
     });
     saveExcludedGroups(marked);
-  }
-
-  // ✅ NOVA: Limpa completamente os excluídos (zera contagem)
-  function clearAllExcluded() {
-    localStorage.removeItem(`${STORAGE_PREFIX}:excludedGroups`);
-    console.log("🗑️ Contagem de excluídos zerada");
+    console.log(`🔄 ${marked.length} itens marcados como "não recuperáveis"`);
   }
 
   function getLocalGroups() {
@@ -289,8 +285,11 @@
         border:1px solid #333;
         cursor:pointer;
         transition:all 0.2s;
+        ${g.afterReset ? 'opacity:0.5;' : ''}
       " onclick="event.target.tagName !== 'INPUT' && this.querySelector('input').click()">
-        <input type="checkbox" class="restore-checkbox" data-id="${g.id}" style="width:20px; height:20px; cursor:pointer; flex-shrink:0;">
+        <input type="checkbox" class="restore-checkbox" data-id="${g.id}" 
+          ${g.afterReset ? 'disabled' : ''} 
+          style="width:20px; height:20px; cursor:pointer; flex-shrink:0;">
         <div style="flex:1;">
           <div style="font-weight:bold; color:#fff;">${g.name || g.id}</div>
           <div style="font-size:11px; color:#666;">ID: ${g.id}</div>
@@ -335,7 +334,7 @@
     document.getElementById("restoreCloseBtn").onclick = overlay.remove;
     overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
-    const checkboxes = modal.querySelectorAll(".restore-checkbox");
+    const checkboxes = modal.querySelectorAll(".restore-checkbox:not([disabled])");
     const selectAllBtn = document.getElementById("restoreSelectAll");
     const restoreBtn = document.getElementById("restoreSelectedBtn");
     
@@ -379,7 +378,7 @@
       "Isso irá:\n" +
       "• Remover TODAS as customizações\n" +
       "• Excluir todos os materiais criados por você\n" +
-      "• Voltar para a configuração original\n\n" +
+      "• Os materiais excluídos NÃO poderão mais ser restaurados\n\n" +
       "Esta ação NÃO pode ser desfeita!\n\n" +
       "Deseja continuar?"
     );
@@ -399,8 +398,9 @@
       }
     });
     
-    // ✅ ZERA A CONTAGEM DE EXCLUÍDOS
-    clearAllExcluded();
+    // ✅ MARCA TODOS OS EXCLUÍDOS COMO "afterReset: true"
+    // Isso impede que eles voltem para a lista de itens
+    markAllAsAfterReset();
     
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
     
@@ -465,7 +465,7 @@
       restoreBtn.id = "restoreExcludedNextToImport";
       restoreBtn.textContent = `♻️ Restaurar ${totalExcluded} Excluído(s)`;
       
-      // ✅ Estilo discreto, não "escandaloso"
+      // Estilo discreto, igual ao Importar
       restoreBtn.style.cssText = `
         background: ${computedStyle.background || '#444'};
         color: ${computedStyle.color || '#fff'};
@@ -687,7 +687,7 @@
   function setupActions() {
     console.log("⚙️ setupActions()");
     
-    // ✅ CRIA OS BOTÕES AO LADO DO IMPORTAR
+    // CRIA OS BOTÕES AO LADO DO IMPORTAR
     createButtonsNextToImport();
     
     if (addGroupBtn) {
