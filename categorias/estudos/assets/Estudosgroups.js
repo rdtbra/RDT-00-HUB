@@ -1,4 +1,4 @@
-/** Backup Consolidado - 20/01/2026, 10:54:58 **/
+/** Backup Consolidado - 20/01/2026, 11:10:49 **/
 window.GROUPS = [
   {
     "id": "emt-01-es",
@@ -3571,6 +3571,22 @@ window.GROUPS = [
     "icon": "assets/EMT-111-EE.png",
     "iconHref": "https://drive.google.com/open?id=14p0Q7Ebf9BZtzO4CPGnVzRdLxGZ4AeuD&usp=drive_fs",
     "order": 1768880082384,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "teste",
+    "name": "TESTE",
+    "color": "#8b86ff",
+    "icon": "",
+    "iconHref": "",
+    "order": 1768918240358,
     "items": [
       {
         "code": "M01",
