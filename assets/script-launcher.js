@@ -2,7 +2,7 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO: Duplicação + Numeração + Order embaixo + Excluir)
+ * Arquivo: script-launcher.js (COMPLETO: Duplicação + Numeração + Order + Excluir + Restaurar)
  * ============================================================
  */
 
@@ -17,7 +17,7 @@
   const APP_ID = (window.LAUNCHER_APP_ID || "AI-EMT-Equipes").trim();
   console.log("📦 APP_ID:", APP_ID);
   
-  // ✅ CORREÇÃO: Prefixo único para todas as operações
+  // ✅ Prefixo único para todas as operações
   const STORAGE_PREFIX = `ia-launcher-config:${APP_ID}`;
 
   // --- Helpers ---
@@ -67,6 +67,33 @@
       feedback.style.transform = "translateX(50px)";
       setTimeout(() => feedback.remove(), 300);
     }, 4000);
+  }
+
+  // --- Sistema de Exclusão ---
+  function getExcludedGroups() {
+    try {
+      const excluded = localStorage.getItem(`${STORAGE_PREFIX}:excludedGroups`);
+      return excluded ? JSON.parse(excluded) : [];
+    } catch (e) {
+      console.warn("⚠️ Erro ao ler excludedGroups:", e);
+      return [];
+    }
+  }
+
+  function addExcludedGroup(groupId) {
+    const excluded = getExcludedGroups();
+    if (!excluded.includes(groupId)) {
+      excluded.push(groupId);
+      localStorage.setItem(`${STORAGE_PREFIX}:excludedGroups`, JSON.stringify(excluded));
+      console.log(`🗑️ Marcado como excluído: ${groupId}`);
+    }
+  }
+
+  function removeExcludedGroup(groupId) {
+    const excluded = getExcludedGroups();
+    const filtered = excluded.filter(id => id !== groupId);
+    localStorage.setItem(`${STORAGE_PREFIX}:excludedGroups`, JSON.stringify(filtered));
+    console.log(`♻️ Restaurado: ${groupId}`);
   }
 
   // --- Busca grupos do localStorage ---
@@ -128,6 +155,209 @@
     return { ...g, source: 'javascript' };
   }
 
+  // --- Modal de Exclusão ---
+  function openDeleteModal(groupData) {
+    const groupId = groupData.id;
+    const groupName = groupData.name;
+    
+    console.log("🗑️ Abrindo modal de exclusão:", groupId);
+
+    const overlay = document.createElement("div");
+    overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
+    
+    const modal = document.createElement("div");
+    modal.style = "background:#1e1e2e; padding:30px; border-radius:16px; width:100%; max-width:450px; border:1px solid #ff4444; color:#fff; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.5);";
+    
+    modal.innerHTML = `
+      <div style="text-align:center;">
+        <div style="font-size:48px; margin-bottom:15px;">🗑️</div>
+        <h2 style="margin:0 0 10px 0; color:#ff6666;">Excluir Material?</h2>
+        <p style="color:#aaa; margin-bottom:25px;">
+          Você está prestes a excluir:<br>
+          <strong style="color:#fff; font-size:16px;">${groupName}</strong>
+        </p>
+        
+        <div style="background:rgba(239,68,68,0.1); padding:15px; border-radius:8px; margin-bottom:25px; border-left:3px solid #ef4444;">
+          <p style="margin:0; font-size:13px; color:#ff8888;">
+            ⚠️ <strong>Esta ação é irreversível!</strong><br>
+            O material será removido da visualização e não aparecerá na exportação.
+          </p>
+        </div>
+        
+        <div style="margin-bottom:20px;">
+          <label style="font-size:12px; color:#8b86ff; font-weight:bold;">DIGITE "EXCLUIR" PARA CONFIRMAR</label>
+          <input id="deleteConfirm" type="text" placeholder="EXCLUIR" style="
+            width:100%; 
+            padding:12px; 
+            background:#0d0d0d; 
+            border:2px solid #333; 
+            color:#ff6666; 
+            border-radius:8px; 
+            font-size:16px; 
+            font-weight:bold;
+            text-align:center;
+            text-transform:uppercase;
+            box-sizing:border-box;
+            margin-top:8px;
+          ">
+        </div>
+        
+        <div style="display:flex; gap:10px; justify-content:center;">
+          <button id="deleteCancel" style="
+            background:#333; 
+            padding:12px 24px; 
+            border-radius:8px; 
+            color:#fff; 
+            border:none; 
+            cursor:pointer;
+          ">Cancelar</button>
+          <button id="deleteConfirmBtn" disabled style="
+            background:#441111; 
+            border:1px solid #ff4444;
+            padding:12px 24px; 
+            border-radius:8px; 
+            color:#666; 
+            cursor:not-allowed;
+          ">🗑️ Excluir</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    overlay.appendChild(modal);
+
+    const input = document.getElementById("deleteConfirm");
+    const confirmBtn = document.getElementById("deleteConfirmBtn");
+
+    input.addEventListener("input", () => {
+      const val = input.value.trim().toUpperCase();
+      if (val === "EXCLUIR") {
+        confirmBtn.disabled = false;
+        confirmBtn.style.cursor = "pointer";
+        confirmBtn.style.color = "#ff8888";
+        confirmBtn.style.background = "#661111";
+      } else {
+        confirmBtn.disabled = true;
+        confirmBtn.style.cursor = "not-allowed";
+        confirmBtn.style.color = "#666";
+        confirmBtn.style.background = "#441111";
+      }
+    });
+
+    confirmBtn.onclick = () => {
+      console.log("✅ Confirmed deletion:", groupId);
+      
+      // Remove do localStorage
+      localStorage.removeItem(`${STORAGE_PREFIX}:group:${groupId}`);
+      localStorage.removeItem(`${STORAGE_PREFIX}:items:${groupId}`);
+      
+      // Adiciona à lista de excluídos
+      addExcludedGroup(groupId);
+      
+      showFeedback("✅ Material excluído com sucesso!", "success");
+      overlay.remove();
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    };
+
+    document.getElementById("deleteCancel").onclick = () => {
+      console.log("❌ Exclusão cancelada");
+      overlay.remove();
+    };
+  }
+
+  // --- Modal de Restauração ---
+  function openRestoreModal(excludedGroupsList) {
+    console.log("♻️ Abrindo modal de restauração:", excludedGroupsList);
+
+    const overlay = document.createElement("div");
+    overlay.style = "position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;";
+    
+    const modal = document.createElement("div");
+    modal.style = "background:#1e1e2e; padding:30px; border-radius:16px; width:100%; max-width:450px; border:1px solid #22c55e; color:#fff; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.5);";
+    
+    const groupsHtml = excludedGroupsList.map(g => `
+      <div class="restore-item" data-id="${g.id}" style="
+        display:flex; 
+        align-items:center; 
+        justify-content:space-between;
+        padding:12px; 
+        background:#1a1a25; 
+        border-radius:8px; 
+        margin-bottom:8px;
+      ">
+        <span>${g.name}</span>
+        <button class="restore-btn" data-id="${g.id}" style="
+          background:#22c55e; 
+          border:none; 
+          padding:8px 16px; 
+          border-radius:6px; 
+          color:#fff; 
+          cursor:pointer;
+          font-size:12px;
+        ">♻️ Restaurar</button>
+      </div>
+    `).join('');
+
+    modal.innerHTML = `
+      <button id="restoreClose" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#666; cursor:pointer; font-size:28px; line-height:1;">&times;</button>
+      
+      <div style="text-align:center;">
+        <div style="font-size:48px; margin-bottom:15px;">♻️</div>
+        <h2 style="margin:0 0 10px 0; color:#22c55e;">Materiais Excluídos</h2>
+        <p style="color:#aaa; margin-bottom:20px;">
+          ${excludedGroupsList.length} material(is) ocultado(s)
+        </p>
+        
+        <div style="max-height:300px; overflow-y:auto; margin-bottom:20px;">
+          ${excludedGroupsList.length > 0 ? groupsHtml : '<p style="color:#666;">Nenhum material excluído</p>'}
+        </div>
+        
+        <button id="restoreCloseBtn" style="
+          background:#333; 
+          padding:12px 24px; 
+          border-radius:8px; 
+          color:#fff; 
+          border:none; 
+          cursor:pointer;
+        ">Fechar</button>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    overlay.appendChild(modal);
+
+    document.getElementById("restoreClose").onclick = overlay.remove;
+    document.getElementById("restoreCloseBtn").onclick = overlay.remove;
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+
+    // Restaurar individualmente
+    modal.querySelectorAll(".restore-btn").forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        console.log("♻️ Restaurando:", id);
+        removeExcludedGroup(id);
+        
+        // Remove da UI
+        const item = modal.querySelector(`.restore-item[data-id="${id}"]`);
+        if (item) item.remove();
+        
+        showFeedback("✅ Material restaurado!", "success");
+        
+        // Recarrega se não houver mais
+        const remaining = modal.querySelectorAll(".restore-item").length;
+        if (remaining === 0) {
+          setTimeout(() => {
+            overlay.remove();
+            window.location.reload();
+          }, 1000);
+        }
+      };
+    });
+  }
+
   // --- Inicialização ---
   let activeGroups = [];
   const groupsEl = document.getElementById("groups");
@@ -157,14 +387,14 @@
     const localGroups = getLocalGroups();
     console.log(`📥 ${localGroups.length} grupos do localStorage`);
 
-    // ✅ CORREÇÃO: Encontrar maior order do JS para numeração sequencial
+    // ✅ Encontrar maior order do JS para numeração sequencial
     const maxOrderJS = originalGroups.reduce((max, g) => {
       const order = g.order !== undefined ? Number(g.order) : -1;
       return order > max ? order : max;
     }, 0);
     console.log(`📊 Maior order do JS: ${maxOrderJS}`);
 
-    // ✅ CORREÇÃO: Numera grupos JS que não têm order
+    // ✅ Numera grupos JS que não têm order
     let nextOrder = maxOrderJS + 1;
     const numberedOriginalGroups = originalGroups.map(g => {
       if (g.order !== undefined) {
@@ -180,8 +410,16 @@
     const allGroupsMap = new Map();
     numberedOriginalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
-    const allGroups = Array.from(allGroupsMap.values());
+    let allGroups = Array.from(allGroupsMap.values());
     console.log(`📊 ${allGroups.length} grupos totais (após mescla e numeração)`);
+
+    // ✅ Filtra grupos excluídos
+    const excludedGroups = getExcludedGroups();
+    if (excludedGroups.length > 0) {
+      console.log(`🗑️ Filtrando ${excludedGroups.length} grupos excluídos:`, excludedGroups);
+      allGroups = allGroups.filter(g => !excludedGroups.includes(g.id));
+      console.log(`📊 ${allGroups.length} grupos após filtro de exclusão`);
+    }
 
     // Carrega dados
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
@@ -189,8 +427,8 @@
     console.log(`✅ ${activeGroups.length} grupos carregados`);
     console.log("📋 IDs dos grupos:", activeGroups.map(g => `${g.id} [order:${g.order}]`));
 
-    render();
-    setupActions();
+    render(excludedGroups);
+    setupActions(excludedGroups);
   }
 
   function openModal(mode, groupData = null) {
@@ -284,14 +522,21 @@
 
       console.log("✅ Validação passou, salvando...");
 
-      // ✅ CORREÇÃO: Remove entrada antiga se ID mudou
+      // Remove entrada antiga se ID mudou
       if (isEdit && oldId !== newId) {
         console.log("🗑️ Removendo entrada antiga:", `${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:group:${oldId}`);
         localStorage.removeItem(`${STORAGE_PREFIX}:items:${oldId}`);
+        
+        // Se estava excluído, transfere a exclusão para o novo ID
+        const excluded = getExcludedGroups();
+        if (excluded.includes(oldId)) {
+          removeExcludedGroup(oldId);
+          addExcludedGroup(newId);
+        }
       }
 
-      // ✅ CORREÇÃO: Usa Date.now() para novos itens do localStorage
+      // Usa Date.now() para novos itens do localStorage
       const updatedData = {
         id: newId,
         name: name,
@@ -310,7 +555,7 @@
         ]
       };
 
-      // ✅ Usa prefixo padronizado
+      // Usa prefixo padronizado
       const key = `${STORAGE_PREFIX}:group:${newId}`;
       localStorage.setItem(key, JSON.stringify(updatedData));
 
@@ -319,6 +564,12 @@
 
       console.log("💾 Salvou no localStorage:", key);
       console.log("📦 Dados salvos:", updatedData);
+
+      // Remove da lista de excluídos se existir
+      const excluded = getExcludedGroups();
+      if (excluded.includes(newId)) {
+        removeExcludedGroup(newId);
+      }
 
       const verify = localStorage.getItem(key);
       console.log("🔍 Verificação:", verify ? "✅ Salvo com sucesso!" : "❌ ERRO ao salvar!");
@@ -345,7 +596,7 @@
     };
   }
 
-  function setupActions() {
+  function setupActions(excludedGroups) {
     console.log("⚙️ setupActions()");
     
     if (addGroupBtn) {
@@ -360,12 +611,12 @@
 
     if (exportAllBtn) {
       exportAllBtn.onclick = () => {
-        // ✅ CORREÇÃO: Exporta com numeração sequencial
-        const groupsWithOrder = activeGroups.map((g, index) => {
+        // ✅ Exporta com numeração sequencial (grupos excluídos já filtrados)
+        const groupsWithOrder = activeGroups.map((g) => {
           const { collapsed, source, ...rest } = g;
           return {
             ...rest,
-            //order: index + 1  // Já vem com order correto do init()
+            //order: g.order já está correto
           };
         });
         
@@ -385,9 +636,18 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         window.location.reload(); 
       } 
     };
+
+    // ✅ Botão Restaurar Excluídos
+    const restoreBtn = document.getElementById("restoreExcluded");
+    if (restoreBtn) {
+      restoreBtn.onclick = () => {
+        console.log("♻️ Clicou em Restaurar Excluídos");
+        openRestoreModal(excludedGroups);
+      };
+    }
   }
 
-  function render() {
+  function render(excludedGroups) {
     console.log("🎨 render() chamada");
     
     if (!groupsEl) {
@@ -396,9 +656,31 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
     }
     
     groupsEl.innerHTML = "";
+
+    // ✅ Botão Restaurar Excluídos
+    if (excludedGroups.length > 0) {
+      const restoreContainer = document.createElement("div");
+      restoreContainer.style = "margin-bottom:20px; text-align:center;";
+      restoreContainer.innerHTML = `
+        <button id="restoreExcluded" style="
+          background:linear-gradient(135deg, #22c55e, #16a34a);
+          color:#fff;
+          border:none;
+          padding:12px 24px;
+          border-radius:8px;
+          cursor:pointer;
+          font-weight:bold;
+          font-size:14px;
+          box-shadow:0 4px 15px rgba(34,197,94,0.3);
+        ">
+          ♻️ Restaurar ${excludedGroups.length} Material(is) Excluído(s)
+        </button>
+      `;
+      groupsEl.appendChild(restoreContainer);
+    }
     
     if (activeGroups.length === 0) {
-      groupsEl.innerHTML = '<div style="text-align:center; padding:40px; color:#666;">Nenhum material encontrado</div>';
+      groupsEl.innerHTML += '<div style="text-align:center; padding:40px; color:#666;">Nenhum material encontrado</div>';
       return;
     }
 
@@ -485,39 +767,13 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
         };
       }
 
-      // ✅ NOVO: Botão Excluir
+      // ✅ Botão Excluir
       const deleteBtn = card.querySelector(".btn-delete");
       if (deleteBtn) {
         deleteBtn.onclick = (e) => {
           e.stopPropagation();
           console.log("🗑️ Clicou em Excluir:", g.id);
-          
-          const groupName = g.name;
-          const groupId = g.id;
-          
-          // Confirmação com input de texto
-          const userInput = prompt(
-            `⚠️ Tem certeza que deseja EXCLUIR "${groupName}"?\n\n` +
-            `⚠️ Esta ação NÃO pode ser desfeita!\n\n` +
-            `Digite "EXCLUIR" (em maiúsculas) para confirmar:`
-          );
-          
-          if (userInput === "EXCLUIR") {
-            console.log("✅ Confirmado! Removendo:", groupId);
-            
-            // Remove do localStorage
-            localStorage.removeItem(`${STORAGE_PREFIX}:group:${groupId}`);
-            localStorage.removeItem(`${STORAGE_PREFIX}:items:${groupId}`);
-            
-            showFeedback("✅ Grupo excluído com sucesso!", "success");
-            
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
-          } else if (userInput !== null && userInput !== "") {
-            showFeedback("❌ Texto de confirmação incorreto! Exclusão cancelada.", "error");
-          }
-          // Se userInput === null, foi cancelado silenciosamente
+          openDeleteModal(g);
         };
       }
 
