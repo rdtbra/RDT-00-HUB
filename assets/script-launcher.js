@@ -7,8 +7,8 @@
  * Correções:
  * ✅ Botão Restaurar Padrão AO LADO do Importar
  * ✅ Mesma interface (cor, tamanho)
- * ✅ Funciona corretamente (chama o mesmo código)
- * ✅ Botão original ocultado mas referenciado
+ * ✅ Confirmação antes de restaurar
+ * ✅ Remove todas as customizações
  * ============================================================
  */
 
@@ -363,7 +363,49 @@
     };
   }
 
-  // --- NOVA: Criar botão ao lado do Importar ---
+  // --- FUNÇÃO COMPLETA DE RESTAURAR PADRÃO ---
+  function performReset() {
+    console.log("🔄 performReset() - Iniciando restauração de padrão");
+    
+    // ✅ PERGUNTA DE CONFIRMAÇÃO
+    const confirmacao = confirm(
+      "⚠️ ATENÇÃO!\n\n" +
+      "Tem certeza que deseja RESTAURAR O PADRÃO?\n\n" +
+      "Isso irá:\n" +
+      "• Remover TODAS as customizações\n" +
+      "• Excluir todos os materiais criados por você\n" +
+      "• Voltar para a configuração original\n\n" +
+      "Esta ação NÃO pode ser desfeita!\n\n" +
+      "Deseja continuar?"
+    );
+    
+    if (!confirmacao) {
+      console.log("❌ Usuário cancelou a restauração");
+      return;
+    }
+    
+    console.log("✅ Usuário confirmou - executando restauração...");
+    
+    // ✅ MARCA TODOS OS EXCLUÍDOS COMO afterReset = true
+    markAllAsAfterReset();
+    
+    // ✅ REMOVE TODAS AS CUSTOMIZAÇÕES DO localStorage
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith(`${STORAGE_PREFIX}:group:`) || 
+          key.startsWith(`${STORAGE_PREFIX}:items:`)) {
+        localStorage.removeItem(key);
+      }
+    });
+    
+    // ✅ FEEDBACK E RECARREGA
+    showFeedback("🔄 Padrão restaurado com sucesso!", "success");
+    
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  }
+
+  // --- Criar botão ao lado do Importar ---
   function createResetButtonNextToImport() {
     console.log("🔄 createResetButtonNextToImport()");
     
@@ -403,24 +445,19 @@
       margin-left: 10px;
     `;
     
-    // ✅ COPIA O EVENTO DO BOTÃO ORIGINAL
-    if (resetBtn && typeof resetBtn.onclick === "function") {
-      resetBtnNew.onclick = resetBtn.onclick;
-      console.log("✅ Evento onclick copiado do botão original");
-    } else {
-      console.warn("⚠️ Botão original não tem evento onclick!");
-    }
+    // ✅ USA A FUNÇÃO performReset() QUE TEM A CONFIRMAÇÃO!
+    resetBtnNew.onclick = performReset;
+    console.log("✅ Função performReset() vinculada ao botão");
     
     // Insere logo após o botão Importar
     importBtn.parentNode.insertBefore(resetBtnNew, importBtn.nextSibling);
     console.log("✅ Botão Restaurar Padrão inserido ao lado do Importar");
   }
 
-  // --- NOVA: Configura botões do topo ---
+  // --- Configura botões do topo ---
   function setupTopButtons(totalExcluded) {
     console.log("🎨 setupTopButtons() - Total excluídos:", totalExcluded);
     
-    // Remove botões anteriores
     const existingTop = document.getElementById("resetTop");
     const existingRestore = document.getElementById("restoreExcludedTop");
     if (existingTop) existingTop.remove();
@@ -429,7 +466,6 @@
     const actionBar = document.createElement("div");
     actionBar.style = "display:flex; gap:10px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;";
     
-    // Botão discreto no topo (opcional)
     actionBar.innerHTML = `
       <button id="resetTop" style="
         background:#444;
@@ -447,11 +483,9 @@
     
     groupsEl.appendChild(actionBar);
     
-    // Copia evento para botão do topo
+    // Usa a mesma função com confirmação
     const topResetBtn = actionBar.querySelector("#resetTop");
-    if (resetBtn && typeof resetBtn.onclick === "function") {
-      topResetBtn.onclick = resetBtn.onclick;
-    }
+    topResetBtn.onclick = performReset;
     
     // Oculta o botão original
     if (resetBtn) {
@@ -510,7 +544,6 @@
       const order = g.order !== undefined ? Number(g.order) : -1;
       return order > max ? order : max;
     }, 0);
-    console.log(`📊 Maior order do JS: ${maxOrderJS}`);
 
     let nextOrder = maxOrderJS + 1;
     const numberedOriginalGroups = originalGroups.map(g => {
@@ -524,20 +557,17 @@
     numberedOriginalGroups.forEach(g => allGroupsMap.set(g.id, g));
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
-    console.log(`📊 ${allGroups.length} grupos totais`);
 
     const allExcluded = getExcludedGroups();
     const excludedIds = allExcluded.map(item => typeof item === "string" ? item : item.id);
     
     if (excludedIds.length > 0) {
-      console.log(`🗑️ Filtrando ${excludedIds.length} grupos excluídos`);
       allGroups = allGroups.filter(g => !excludedIds.includes(g.id));
     }
 
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
     
     console.log(`✅ ${activeGroups.length} grupos carregados`);
-    console.log("📋 IDs:", activeGroups.map(g => `${g.id}[${g.order}]`).join(', '));
 
     render();
     setupActions();
@@ -600,8 +630,6 @@
     overlay.appendChild(modal);
 
     document.getElementById("mSave").onclick = () => {
-      console.log("🖱️ Botão Salvar clicado");
-      
       const name = document.getElementById("mName").value.trim();
       const idInput = document.getElementById("mId").value.trim();
       const icon = document.getElementById("mIcon").value.trim();
@@ -690,7 +718,7 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       };
     }
     
-    // ✅ O botão original fica hidden mas referenciado
+    // ✅ O botão original fica hidden
     if (resetBtn) {
       resetBtn.style.display = "none";
     }
