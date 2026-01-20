@@ -2,12 +2,12 @@
  * ============================================================
  * RDT-00-HUB / HUB Pessoal
  * ------------------------------------------------------------
- * Arquivo: script-launcher.js (CORRIGIDO - AGORA SIM!)
+ * Arquivo: script-launcher.js (FINALMENTE CORRIGIDO!)
  * 
- * Correções:
- * ✅ "Restaurar Padrão" marca todos como "afterReset: true"
- * ✅ Botão só mostra/Conta itens com "afterReset: false"
- * ✅ Itens com "afterReset: true" ficam congelados e invisíveis
+ * Regra:
+ * ✅ Itens com afterReset: true NÃO aparecem na página
+ * ✅ Itens com afterReset: true NÃO podem ser restaurados
+ * ✅ Botão só aparece para itens com afterReset: false
  * ============================================================
  */
 
@@ -109,8 +109,6 @@
     saveExcludedGroups(filtered);
   }
 
-  // ✅ CORRIGIDO: Marca todos como "afterReset: true"
-  // NÃO apaga! Apenas congela os itens
   function markAllAsAfterReset() {
     const excluded = getExcludedGroups();
     const marked = excluded.map(item => {
@@ -128,6 +126,13 @@
       const afterReset = typeof item === "string" ? false : item.afterReset;
       return afterReset === false;
     });
+  }
+
+  // ✅ NOVA: Retorna TODOS os IDs excluídos (para filtrar da página)
+  // Isso inclui tanto afterReset: false quanto true
+  function getAllExcludedIds() {
+    const excluded = getExcludedGroups();
+    return excluded.map(item => typeof item === "string" ? item : item.id);
   }
 
   function getLocalGroups() {
@@ -356,11 +361,10 @@
     };
   }
 
-  // --- FUNÇÃO DE RESTAURAR PADRÃO (COM CONFIRMAÇÃO) ---
+  // --- FUNÇÃO DE RESTAURAR PADRÃO ---
   function performReset() {
     console.log("🔄 performReset() - Iniciando restauração de padrão");
     
-    // Pergunta de confirmação
     const confirmacao = confirm(
       "⚠️ ATENÇÃO!\n\n" +
       "Tem certeza que deseja RESTAURAR O PADRÃO?\n\n" +
@@ -379,7 +383,6 @@
     
     console.log("✅ Usuário confirmou - executando restauração...");
     
-    // Remove todas as customizações do localStorage
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith(`${STORAGE_PREFIX}:group:`) || 
           key.startsWith(`${STORAGE_PREFIX}:items:`)) {
@@ -388,8 +391,6 @@
     });
     
     // ✅ MARCA TODOS OS EXCLUÍDOS COMO "afterReset: true"
-    // Isso impede que eles voltem para a lista de itens
-    // E o botão não vai mais mostrá-los porque só conta afterReset: false
     markAllAsAfterReset();
     
     showFeedback("🔄 Padrão restaurado com sucesso!", "success");
@@ -403,7 +404,6 @@
   function createButtonsNextToImport() {
     console.log("🔄 createButtonsNextToImport()");
     
-    // Busca o botão Importar
     const importBtn = document.getElementById("import") || 
                       document.getElementById("importGroups") ||
                       document.querySelector('button[id*="import"]');
@@ -415,13 +415,11 @@
     
     console.log("✅ Botão Importar encontrado:", importBtn.id);
     
-    // Remove botões anteriores se existirem
     const existingReset = document.getElementById("resetNextToImport");
     const existingRestore = document.getElementById("restoreExcludedNextToImport");
     if (existingReset) existingReset.remove();
     if (existingRestore) existingRestore.remove();
     
-    // Copia estilos do botão Importar
     const computedStyle = window.getComputedStyle(importBtn);
     
     // --- Botão Restaurar Padrão ---
@@ -442,12 +440,10 @@
     `;
     resetBtn.onclick = performReset;
     
-    // Insere após o Importar
     importBtn.parentNode.insertBefore(resetBtn, importBtn.nextSibling);
     console.log("✅ Botão Restaurar Padrão inserido");
     
     // --- Botão Restaurar Excluídos (se houver itens com afterReset: false) ---
-    // ✅ USA getActiveExcludedGroups() QUE SÓ RETORNA afterReset: false
     const activeExcluded = getActiveExcludedGroups();
     const totalExcluded = activeExcluded.length;
     
@@ -456,7 +452,6 @@
       restoreBtn.id = "restoreExcludedNextToImport";
       restoreBtn.textContent = `♻️ Restaurar ${totalExcluded} Excluído(s)`;
       
-      // Estilo discreto, igual ao Importar
       restoreBtn.style.cssText = `
         background: ${computedStyle.background || '#444'};
         color: ${computedStyle.color || '#fff'};
@@ -471,9 +466,7 @@
       `;
       
       restoreBtn.onclick = () => {
-        const excludedGroups = activeExcluded;
-        
-        Promise.all(excludedGroups.map(async (item) => {
+        Promise.all(activeExcluded.map(async (item) => {
           const id = typeof item === "string" ? item : item.id;
           
           const localHeader = localStorage.getItem(`${STORAGE_PREFIX}:group:${id}`);
@@ -490,7 +483,6 @@
         })).then(groups => openRestoreModal(groups));
       };
       
-      // Insere após o botão Restaurar Padrão
       resetBtn.parentNode.insertBefore(restoreBtn, resetBtn.nextSibling);
       console.log("✅ Botão Restaurar Excluídos inserido");
     }
@@ -538,12 +530,13 @@
     localGroups.forEach(g => allGroupsMap.set(g.id, g));
     let allGroups = Array.from(allGroupsMap.values());
 
-    // ✅ USA getActiveExcludedGroups() PARA FILTRAR
-    const allExcluded = getActiveExcludedGroups(); // <-- só afterReset: false
-    const excludedIds = allExcluded.map(item => typeof item === "string" ? item : item.id);
+    // ✅ USA getAllExcludedIds() PARA FILTRAR TODOS OS EXCLUÍDOS
+    // Isso inclui tanto afterReset: false quanto true
+    const allExcludedIds = getAllExcludedIds();
     
-    if (excludedIds.length > 0) {
-      allGroups = allGroups.filter(g => !excludedIds.includes(g.id));
+    if (allExcludedIds.length > 0) {
+      allGroups = allGroups.filter(g => !allExcludedIds.includes(g.id));
+      console.log(`🚫 ${allExcludedIds.length} grupos filtrados (excluídos)`);
     }
 
     activeGroups = await Promise.all(allGroups.map(g => getGroupData(g)));
@@ -678,7 +671,6 @@
   function setupActions() {
     console.log("⚙️ setupActions()");
     
-    // CRIA OS BOTÕES AO LADO DO IMPORTAR
     createButtonsNextToImport();
     
     if (addGroupBtn) {
@@ -699,7 +691,6 @@ window.GROUPS = ${JSON.stringify(groupsWithOrder, null, 2)};`;
       };
     }
     
-    // Oculta o botão original
     if (resetBtn) {
       resetBtn.style.display = "none";
     }
