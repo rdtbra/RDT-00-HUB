@@ -1,4 +1,4 @@
-/** Backup Consolidado - 19/01/2026, 14:41:16 **/
+/** Backup Consolidado - 26/01/2026, 21:51:19 **/
 window.GROUPS = [
   {
     "id": "llm-conversacionallic",
@@ -342,6 +342,142 @@ window.GROUPS = [
     "iconHref": "",
     "items": [
       {
+        "code": "",
+        "label": "00 - Planejamento",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKoNTIY=/?share_link_id=246845117472",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "01 - Execução",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKB5XHU=/?share_link_id=188975988358",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "02 - Estudo de Material Técnico",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKAN-5k=/?share_link_id=570868687077",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "03 - Análise de Fontes",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKAZ8uA=/?share_link_id=168594156765",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "04 - Projetos",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHSMdI=/?share_link_id=62884669335",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "05 - Cursos",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKAZEjQ=/?share_link_id=161230052108",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "06 - Universidades",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKAJMHM=/?share_link_id=456751361807",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "07 - Desenvolvimento",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHmwuo=/?share_link_id=286550910220",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "08 - Beyond",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHEdpg=/?share_link_id=885055318000",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "09 - SDC",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKBLVeM=/?share_link_id=598961453475",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "10 - Finanças",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKBERSE=/?share_link_id=241576805923",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "11 - Saúde",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHbw9E=/?share_link_id=374852191533",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "12 - Casa",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHSN3Y=/?share_link_id=762169629200",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "13 - Arrumações",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHRnJs=/?share_link_id=958432879753",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "14 - Entretenimento",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHJPzk=/?share_link_id=447957531502",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "15 - Games",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHY_pY=/?share_link_id=852643342645",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "16 - Métodos",
+        "provider": "",
+        "url": "https://miro.com/app/board/uXjVGKHQJuk=/?share_link_id=377004450948",
+        "checked": true,
+        "img": ""
+      },
+      {
         "code": "Notion",
         "label": "Boot Cognitivo",
         "provider": "",
@@ -402,14 +538,6 @@ window.GROUPS = [
         "label": "Atividades de Tarefas - Andamento",
         "provider": "",
         "url": "https://www.notion.so/2bfdfc26ac7e80c2bbd4cab0c0713369?v=2dcdfc26ac7e8063a6b9000cb51d4559",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
-        "label": "Miro",
-        "provider": "",
-        "url": "https://www.miro.com",
         "checked": true,
         "img": ""
       }
