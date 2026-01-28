@@ -3581,10 +3581,74 @@ window.GROUPS = [
     ]
   },
   {
-    "id": "ent-112-bi",
-    "name": "EMT-112-BI - Windelspecht&Mader - Essentials Of Biology 7ed",
+    "id": "ent-112-EM",
+    "name": "EMT-112-EM - Beer&Johnston - Mecânica Vetorial para Engenheiros - Estática 9ed",
     "color": "#8b86ff",
-    "icon": "assets/EMT-112-BI.png",
+    "icon": "assets/EMT-112-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1bPXQ6F4EWmj7kH6BXbMXqzX646nJJlU9&usp=drive_fs",
+    "order": 1768880082385,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "ent-113-EM",
+    "name": "EMT-113-EM - Beer&Johnston - Mecânica Vetorial para Engenheiros - Dinâmica 9ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-113-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1l_pRV2QplybPyaXhSY622wXWy4uWLD8W&usp=drive_fs",
+    "order": 1768880082386,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "ent-114-EM",
+    "name": "EMT-114-EM - Çengel&Cymbala - Mecânica dos Fluidos Fundamentos e Aplicações",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-114-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1CS-uyLeE1Ghkn3WyBJYnHGk1_3L36aOS&usp=drive_fs",
+    "order": 1768880082387,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "ent-115-EM",
+    "name": "EMT-115-EM - Çengel&Ghajar - Transferência de Calor e Massa Uma Abordagem Prática",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-115-EM.png",
+    "iconHref": "https://drive.google.com/open?id=1ldahOlQw3wAk0UrQAU7_AjscAR2lhkMu&usp=drive_fs",
+    "order": 1768880082388,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "ent-116-bi",
+    "name": "EMT-116-BI - Windelspecht&Mader - Essentials Of Biology 7ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-116-BI.png",
     "iconHref": "https://drive.google.com/open?id=1Rs6m0Ch953VjS_73w7CASI8v3SgEVrBR&usp=drive_fs",
     "order": 1768880082390,
     "items": [
