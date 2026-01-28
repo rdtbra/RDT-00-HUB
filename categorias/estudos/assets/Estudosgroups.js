@@ -3579,5 +3579,21 @@ window.GROUPS = [
         "checked": true
       }
     ]
-  }
+  },
+  {
+    "id": "ent-112-bi",
+    "name": "EMT-112-BI - Windelspecht&Mader - Essentials Of Biology 7ed",
+    "color": "#8b86ff",
+    "icon": "assets/EMT-112-BI.png",
+    "iconHref": "https://drive.google.com/open?id=1Rs6m0Ch953VjS_73w7CASI8v3SgEVrBR&usp=drive_fs",
+    "order": 1768880082390,
+    "items": [
+      {
+        "code": "M01",
+        "label": "Nova IA",
+        "url": "",
+        "checked": true
+      }
+    ]
+  }  
 ];
