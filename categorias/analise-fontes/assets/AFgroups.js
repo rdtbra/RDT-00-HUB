@@ -1,453 +1,1343 @@
-// ============================================================================
-// AFgroups.js
-// Estrutura completa para todos os 20 grupos AF
-// description = name (como solicitado)
-// ============================================================================
-
+/** Backup Consolidado - 12/02/2026, 20:54:14 **/
 window.GROUPS = [
-
-  // ---------------------------------------------------------------------------
-  // AF-01-IB6 – InterBase 6
-  // ---------------------------------------------------------------------------
   {
-    id: "af-01-ib6",
-    name: "AF-01-IB6 - InterBase 6",
-    description: "AF-01-IB6 - InterBase 6",
-    color: "#4f46e5",
-    icon: "assets/AF-01-IB6.png",
-    iconHref: "https://github.com/rdtbra/AF-01-IB6",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Perplexity",        provider: "AdaptaONE",   url: "https://app.adapta.one/chats/8f391a6f-bb1d-40a9-974e-5e0128b1726c", checked: true, img: "" },
-      { code: "M02", label: "Gemini 2.5 Pro",    provider: "AdaptaONE",   url: "https://app.adapta.one/chats/8418189c-4f8b-4085-bdc7-5c6dae3d243f", checked: true, img: "" },
-      { code: "M03", label: "DeepSeek R1",       provider: "AdaptaONE",   url: "https://app.adapta.one/chats/4275da05-1436-4b1a-802b-c9129c20255e", checked: true, img: "" },
-      { code: "M04", label: "Claude 4.5 Sonnet", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a4583-4fa1-705f-b816-b571d2ddbf53", checked: true, img: "" },
-      { code: "M05", label: "GPT-4.1-mini",      provider: "openAI",      url: "https://chatgpt.com/g/g-p-676c4cf9ee6c8191b3e3307b8e4e9346/c/69078edc-e974-832d-8b78-a6d44fd68c33", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",             provider: "openAI",      url: "https://chatgpt.com/g/g-p-676c4cf9ee6c8191b3e3307b8e4e9346/c/68c76489-02f0-8004-b9b6-40a45b42d0b6", checked: true, img: "" },
-      { code: "REV", label: "Grok 3",            provider: "Inner.IA",    url: "https://app.innerai.com/projects/b17b1c90-4726-4f48-9f1b-320b55133cf1?sessionId=a1487813-e3e4-4c44-afb0-d5a843dc0b1f", checked: true, img: "" }
-    ]
+    "id": "af-01-ib6",
+    "name": "AF-01-IB6 - InterBase 6",
+    "description": "AF-01-IB6 - InterBase 6",
+    "color": "#4f46e5",
+    "icon": "assets/AF-01-IB6.png",
+    "iconHref": "https://github.com/rdtbra/AF-01-IB6",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Perplexity",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/8f391a6f-bb1d-40a9-974e-5e0128b1726c",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Gemini 2.5 Pro",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/8418189c-4f8b-4085-bdc7-5c6dae3d243f",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "DeepSeek R1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/4275da05-1436-4b1a-802b-c9129c20255e",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a4583-4fa1-705f-b816-b571d2ddbf53",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "GPT-4.1-mini",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-676c4cf9ee6c8191b3e3307b8e4e9346/c/69078edc-e974-832d-8b78-a6d44fd68c33",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-676c4cf9ee6c8191b3e3307b8e4e9346/c/68c76489-02f0-8004-b9b6-40a45b42d0b6",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Grok 3",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/b17b1c90-4726-4f48-9f1b-320b55133cf1?sessionId=a1487813-e3e4-4c44-afb0-d5a843dc0b1f",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 1
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-02-LIN – Linux Kernel
-  // ---------------------------------------------------------------------------
   {
-    id: "af-02-lin",
-    name: "AF-02-LIN - Linux Kernel",
-    description: "AF-02-LIN - Linux Kernel",
-    color: "#0ea5e9",
-    icon: "assets/AF-02-LIN.png",
-    iconHref: "https://github.com/rdtbra/AF-02-LIN",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT-4o",        provider: "AdaptaONE",   url: "https://app.adapta.one/chats/46df1696-b0e3-4544-9c62-8cf7e098b747", checked: true, img: "" },
-      { code: "M02", label: "DeepSeek V3",   provider: "AdaptaONE",   url: "https://app.adapta.one/chats/aefeb6df-6e9c-4f0f-a7ca-0809607bbaae", checked: true, img: "" },
-      { code: "M03", label: "Qwen3 Max",     provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a4bcb-7a3a-732e-8ef6-9700c56a488f", checked: true, img: "" },
-      { code: "M04", label: "Grok 4 Fast",   provider: "Inner.IA",    url: "https://app.innerai.com/projects/f1d298c6-71a7-4c3f-b324-c4636f9d37b6?sessionId=22bfd770-f319-4c78-9d70-773d701fe477", checked: true, img: "" },
-      { code: "M05", label: "Claude 4.5 Sonnet", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a4bcf-bbb0-7038-9977-1982ffa96cd9", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",         provider: "openAI",      url: "https://chatgpt.com/g/g-p-68a3c7a502c08191b80a2c8c31dd1e48/c/68c76488-5824-8004-b833-63b822f4eb18", checked: true, img: "" },
-      { code: "REV", label: "Claude 4.5 Haiku", provider: "AdaptaONE26", url: "https://app.innerai.com/projects/f1d298c6-71a7-4c3f-b324-c4636f9d37b6?sessionId=83ad21d0-4a54-44cb-bf2e-e9b1966d3a75", checked: true, img: "" }
-    ]
+    "id": "af-02-lin",
+    "name": "AF-02-LIN - Linux Kernel",
+    "description": "AF-02-LIN - Linux Kernel",
+    "color": "#0ea5e9",
+    "icon": "assets/AF-02-LIN.png",
+    "iconHref": "https://github.com/rdtbra/AF-02-LIN",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-4o",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/46df1696-b0e3-4544-9c62-8cf7e098b747",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/aefeb6df-6e9c-4f0f-a7ca-0809607bbaae",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Qwen3 Max",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a4bcb-7a3a-732e-8ef6-9700c56a488f",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Grok 4 Fast",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/f1d298c6-71a7-4c3f-b324-c4636f9d37b6?sessionId=22bfd770-f319-4c78-9d70-773d701fe477",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a4bcf-bbb0-7038-9977-1982ffa96cd9",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a3c7a502c08191b80a2c8c31dd1e48/c/68c76488-5824-8004-b833-63b822f4eb18",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Claude 4.5 Haiku",
+        "provider": "AdaptaONE26",
+        "url": "https://app.innerai.com/projects/f1d298c6-71a7-4c3f-b324-c4636f9d37b6?sessionId=83ad21d0-4a54-44cb-bf2e-e9b1966d3a75",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 2
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-03-OWA – Open Watcom
-  // ---------------------------------------------------------------------------
   {
-    id: "af-03-owa",
-    name: "AF-03-OWA - Open Watcom",
-    description: "AF-03-OWA - Open Watcom",
-    color: "#06b6d4",
-    icon: "assets/AF-03-OWA.png",
-    iconHref: "https://github.com/rdtbra/AF-03-OWA",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Sabiá 3",                   provider: "AdaptaONE", url: "https://app.adapta.one/chats/648921a5-37f8-4bc9-ba1e-ad773c59a805", checked: true, img: "" },
-      { code: "M02", label: "Deepseek 3.1",              provider: "Inner.IA",  url: "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=ef3387fa-87a1-48b6-abd6-c84f69adf63a", checked: true, img: "" },
-      { code: "M03", label: "Gemini 2.5 Flash",          provider: "Inner.AI",  url: "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=f1de474f-6919-4363-91c3-7b7ddbd3b787", checked: true, img: "" },
-      { code: "M04", label: "Claude 4.5 Sonnet Thinking",provider: "AdaptaONE", url: "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=f40fb306-afe1-47a4-bb20-e8e4214871b4", checked: true, img: "" },
-      { code: "M05", label: "GPT-4.1",                   provider: "AdaptaONE", url: "https://app.adapta.one/chats/0d87b25e-91c8-4da7-bcec-e0ddebf8c3e5", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",                     provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a524dc7660819186a9ae79d805a0c0/c/6909497b-db04-832a-b5b8-c6574d31cc99", checked: true, img: "" },
-      { code: "REV", label: "GPT o4-mini",               provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a524dc7660819186a9ae79d805a0c0/c/69094c58-d7a8-832f-bdec-990d0337084f", checked: true, img: "" }
-    ]
+    "id": "af-03-owa",
+    "name": "AF-03-OWA - Open Watcom",
+    "description": "AF-03-OWA - Open Watcom",
+    "color": "#06b6d4",
+    "icon": "assets/AF-03-OWA.png",
+    "iconHref": "https://github.com/rdtbra/AF-03-OWA",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Sabiá 3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/648921a5-37f8-4bc9-ba1e-ad773c59a805",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Deepseek 3.1",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=ef3387fa-87a1-48b6-abd6-c84f69adf63a",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Gemini 2.5 Flash",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=f1de474f-6919-4363-91c3-7b7ddbd3b787",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4.5 Sonnet Thinking",
+        "provider": "AdaptaONE",
+        "url": "https://app.innerai.com/projects/ef7dfb63-b464-4962-86de-5da33b87b5c5?sessionId=f40fb306-afe1-47a4-bb20-e8e4214871b4",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "GPT-4.1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/0d87b25e-91c8-4da7-bcec-e0ddebf8c3e5",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a524dc7660819186a9ae79d805a0c0/c/6909497b-db04-832a-b5b8-c6574d31cc99",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "GPT o4-mini",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a524dc7660819186a9ae79d805a0c0/c/69094c58-d7a8-832f-bdec-990d0337084f",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 3
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-04-PGS – PostgreSQL
-  // ---------------------------------------------------------------------------
   {
-    id: "af-04-pgs",
-    name: "AF-04-PGS - PostgreSQL",
-    description: "AF-04-PGS - PostgreSQL",
-    color: "#8b5cf6",
-    icon: "assets/AF-04-PGS.png",
-    iconHref: "https://github.com/rdtbra/AF-04-PGS",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT OSS",           provider: "Inner.AI",  url: "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=c76787c2-6397-4b9d-b5d4-249c7028c8f7", checked: true, img: "" },
-      { code: "M02", label: "DeepSeek R1",       provider: "AdaptaONE", url: "https://app.adapta.one/chats/84f70863-2df9-49dd-8db8-4654352a8822", checked: true, img: "" },
-      { code: "M03", label: "Gemini 2.5 Pro",    provider: "Inner.AI",  url: "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=8055f46c-01ac-4fd9-ad1a-d5ebef5918bc", checked: true, img: "" },
-      { code: "M04", label: "Grok 4",            provider: "AdaptaONE", url: "https://app.adapta.one/chats/7a4c7c97-5750-4013-95e3-bd8680eaf2df", checked: true, img: "" },
-      { code: "M05", label: "Llama 4",           provider: "AdaptaONE", url: "https://app.adapta.one/chats/982e28d0-dd31-4bd9-ace0-5f50e2884530", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",             provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a63e00b9048191a8f1a8c5bea8bacf/c/68c7648d-b248-8004-9105-d028dbd41ac0", checked: true, img: "" },
-      { code: "REV", label: "Amazon Nova Premier", provider: "Inner.IA", url: "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=9c136a97-7e38-45ea-a35e-1c26f489493e", checked: true, img: "" }
-    ]
+    "id": "af-04-pgs",
+    "name": "AF-04-PGS - PostgreSQL",
+    "description": "AF-04-PGS - PostgreSQL",
+    "color": "#8b5cf6",
+    "icon": "assets/AF-04-PGS.png",
+    "iconHref": "https://github.com/rdtbra/AF-04-PGS",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT OSS",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=c76787c2-6397-4b9d-b5d4-249c7028c8f7",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek R1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/84f70863-2df9-49dd-8db8-4654352a8822",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Gemini 2.5 Pro",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=8055f46c-01ac-4fd9-ad1a-d5ebef5918bc",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/7a4c7c97-5750-4013-95e3-bd8680eaf2df",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Llama 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/982e28d0-dd31-4bd9-ace0-5f50e2884530",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a63e00b9048191a8f1a8c5bea8bacf/c/68c7648d-b248-8004-9105-d028dbd41ac0",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/a56781b9-d0ec-49ed-aff8-28ea3e163753?sessionId=9c136a97-7e38-45ea-a35e-1c26f489493e",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 4
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-05-OPI – OpenIngress
-  // ---------------------------------------------------------------------------
   {
-    id: "af-05-opi",
-    name: "AF-05-OPI - OpenIngress",
-    description: "AF-05-OPI - OpenIngress",
-    color: "#f97316",
-    icon: "assets/AF-05-OPI.png",
-    iconHref: "https://github.com/rdtbra/AF-05-OPI",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "DeepSeek V3",        provider: "AdaptaONE", url: "https://app.adapta.one/chats/c59c7772-adea-4044-8865-1ebe2c78e156", checked: true, img: "" },
-      { code: "M02", label: "Claude 4.5 Haiku",   provider: "Inner.IA",  url: "https://app.innerai.com/projects/ab713891-7f8f-4b2d-8e5b-08d3f0430250?sessionId=ada0807a-467b-4f7e-9baa-8a6834467cf1", checked: true, img: "" },
-      { code: "M03", label: "Qwen3 Max",          provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a4c85-e985-721e-bca0-4aa0e8b4a6fb", checked: true, img: "" },
-      { code: "M04", label: "o3",                 provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/690955bc-e55c-8326-84d6-c122e4ea8d8b", checked: true, img: "" },
-      { code: "M05", label: "Gemini 2.5 Flash",   provider: "AdaptaONE", url: "https://app.adapta.one/chats/14547b4f-214d-4d34-b01d-72f88c32a6bc", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",              provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/6909573a-fac0-8325-889d-9aa8ffdac745", checked: true, img: "" },
-      { code: "REV", label: "o4-mini-high",       provider: "openAI",    url: "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/690957bf-3ff0-8325-b602-430a38e43deb", checked: true, img: "" }
-    ]
+    "id": "af-05-opi",
+    "name": "AF-05-OPI - OpenIngress",
+    "description": "AF-05-OPI - OpenIngress",
+    "color": "#f97316",
+    "icon": "assets/AF-05-OPI.png",
+    "iconHref": "https://github.com/rdtbra/AF-05-OPI",
+    "items": [
+      {
+        "code": "M01",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/c59c7772-adea-4044-8865-1ebe2c78e156",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Haiku",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/ab713891-7f8f-4b2d-8e5b-08d3f0430250?sessionId=ada0807a-467b-4f7e-9baa-8a6834467cf1",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Qwen3 Max",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a4c85-e985-721e-bca0-4aa0e8b4a6fb",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "o3",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/690955bc-e55c-8326-84d6-c122e4ea8d8b",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Gemini 2.5 Flash",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/14547b4f-214d-4d34-b01d-72f88c32a6bc",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/6909573a-fac0-8325-889d-9aa8ffdac745",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "o4-mini-high",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-68a63e1a738c8191a9419eae54bae18e-af-05-opi/c/690957bf-3ff0-8325-b602-430a38e43deb",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 5
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-06-HAR – Harbour
-  // ---------------------------------------------------------------------------
   {
-    id: "af-06-har",
-    name: "AF-06-HAR - Harbour",
-    description: "AF-06-HAR - Harbour",
-    color: "#22c55e",
-    icon: "assets/AF-06-HAR.png",
-    iconHref: "https://github.com/rdtbra/AF-06-HAR",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Llama 4",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/f6c194d7-b720-4059-bac2-a6a551286663", checked: true, img: "" },
-      { code: "M02", label: "Perplexity",       provider: "AdaptaONE",   url: "https://app.adapta.one/chats/d8a27099-e500-4518-b1c1-c43423855d05", checked: true, img: "" },
-      { code: "M03", label: "DeepSeek R1",      provider: "AdaptaONE",   url: "https://app.adapta.one/chats/2be8a9f1-3229-4e85-9672-0b8721a79a7b", checked: true, img: "" },
-      { code: "M04", label: "Claude 4.5 Sonnet",provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6978-3e61-710e-a990-f2a9d3cae836", checked: true, img: "" },
-      { code: "M05", label: "GPT OSS+",         provider: "AdaptaONE",   url: "https://app.adapta.one/chats/34f18183-5ed7-47c8-a061-a183e57ac2a0", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",            provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910c2d4c214819185e14d4b33a3018a-af-06-har/c/6910c2e2-5f00-8326-bd10-97c4e3d10832", checked: true, img: "" },
-      { code: "REV", label: "GPT-4o",           provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910c2d4c214819185e14d4b33a3018a-af-06-har/c/6910c328-eac0-832e-b837-1c9d888cfc64", checked: true, img: "" }
-    ]
+    "id": "af-06-har",
+    "name": "AF-06-HAR - Harbour",
+    "description": "AF-06-HAR - Harbour",
+    "color": "#22c55e",
+    "icon": "assets/AF-06-HAR.png",
+    "iconHref": "https://github.com/rdtbra/AF-06-HAR",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Llama 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/f6c194d7-b720-4059-bac2-a6a551286663",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Perplexity",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/d8a27099-e500-4518-b1c1-c43423855d05",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "DeepSeek R1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/2be8a9f1-3229-4e85-9672-0b8721a79a7b",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6978-3e61-710e-a990-f2a9d3cae836",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "GPT OSS+",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/34f18183-5ed7-47c8-a061-a183e57ac2a0",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910c2d4c214819185e14d4b33a3018a-af-06-har/c/6910c2e2-5f00-8326-bd10-97c4e3d10832",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "GPT-4o",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910c2d4c214819185e14d4b33a3018a-af-06-har/c/6910c328-eac0-832e-b837-1c9d888cfc64",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 6
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-07-GNM – GNumeric
-  // ---------------------------------------------------------------------------
   {
-    id: "af-07-gnm",
-    name: "AF-07-GNM - GNumeric",
-    description: "AF-07-GNM - GNumeric",
-    color: "#eab308",
-    icon: "assets/AF-07-GNM.png",
-    iconHref: "https://github.com/rdtbra/AF-07-GNM",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Grok 4",           provider: "AdaptaONE",   url: "https://app.adapta.one/chats/93d20d5e-07ec-477d-83fa-38232e2f852c", checked: true, img: "" },
-      { code: "M02", label: "Gemini 2.5 Flash", provider: "AdaptaONE",   url: "https://app.adapta.one/chats/9bf44357-6b4f-4da0-a001-d5a02a05eb7d", checked: true, img: "" },
-      { code: "M03", label: "DeepSeek V3",      provider: "AdaptaONE",   url: "https://app.adapta.one/chats/afcfe395-97fe-4f6c-9eae-316846836f96", checked: true, img: "" },
-      { code: "M04", label: "Claude 4 Sonnet",  provider: "AdaptaONE",   url: "https://app.adapta.one/chats/602757f1-8299-42f5-82cd-d5a20f662c51", checked: true, img: "" },
-      { code: "M05", label: "GPT 4o-mini",      provider: "AdaptaONE",   url: "https://app.adapta.one/chats/0331ad6e-ddc4-4741-9df9-7dfa5d3f1660", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",            provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910c8b5d2f8819193267c9e223b871a-af-07-gnm/c/6910c8ce-7728-8333-84c7-49388cf19ee1", checked: true, img: "" },
-      { code: "REV", label: "Llama 4 Maverick", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a03-a781-73bc-b561-a0da03d9e1f1", checked: true, img: "" }
-    ]
+    "id": "af-07-gnm",
+    "name": "AF-07-GNM - GNumeric",
+    "description": "AF-07-GNM - GNumeric",
+    "color": "#eab308",
+    "icon": "assets/AF-07-GNM.png",
+    "iconHref": "https://github.com/rdtbra/AF-07-GNM",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/93d20d5e-07ec-477d-83fa-38232e2f852c",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Gemini 2.5 Flash",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/9bf44357-6b4f-4da0-a001-d5a02a05eb7d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/afcfe395-97fe-4f6c-9eae-316846836f96",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4 Sonnet",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/602757f1-8299-42f5-82cd-d5a20f662c51",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "GPT 4o-mini",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/0331ad6e-ddc4-4741-9df9-7dfa5d3f1660",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910c8b5d2f8819193267c9e223b871a-af-07-gnm/c/6910c8ce-7728-8333-84c7-49388cf19ee1",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Llama 4 Maverick",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a03-a781-73bc-b561-a0da03d9e1f1",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 7
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-11-FBS – FreeBSD
-  // ---------------------------------------------------------------------------
   {
-    id: "af-11-fbs",
-    name: "AF-11-FBS - FreeBSD",
-    description: "AF-11-FBS - FreeBSD",
-    color: "#84cc16",
-    icon: "assets/AF-11-FBS.png",
-    iconHref: "https://github.com/rdtbra/AF-11-FBS",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Kimi K2",           provider: "AdaptaONE", url: "https://app.adapta.one/chats/c2371cee-4627-4fec-919e-e7c12d025c71", checked: true, img: "" },
-      { code: "M02", label: "DeepSeek V3",       provider: "AdaptaONE", url: "https://app.adapta.one/chats/e8ceccfe-3d0c-4355-aba2-b8d738125b2e", checked: true, img: "" },
-      { code: "M03", label: "Claude 4.5 Haiku",  provider: "Inner.IA",  url: "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=6e8e6735-6300-41ea-aab3-a728a668fe91", checked: true, img: "" },
-      { code: "M04", label: "Gemini 2.5 Pro",    provider: "AdaptaONE", url: "https://app.adapta.one/chats/1488bbed-22a3-4e20-a722-d9fcf437ae18", checked: true, img: "" },
-      { code: "M05", label: "Llama 4 Scout",     provider: "Inner.IA",  url: "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=dcb276b5-a789-4a3c-be34-5fb02d52c454", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",             provider: "openAI",    url: "https://chatgpt.com/g/g-p-6910cb61c8fc819194f3d8ea7160f517-af-11-fbs/c/6910cb70-681c-8331-9d34-5dd704b39d9b", checked: true, img: "" },
-      { code: "REV", label: "Grok 3",            provider: "Inner.IA",  url: "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=e891cefa-5843-42eb-ba0f-d460b4882b03", checked: true, img: "" }
-    ]
+    "id": "af-11-fbs",
+    "name": "AF-11-FBS - FreeBSD",
+    "description": "AF-11-FBS - FreeBSD",
+    "color": "#84cc16",
+    "icon": "assets/AF-11-FBS.png",
+    "iconHref": "https://github.com/rdtbra/AF-11-FBS",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Kimi K2",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/c2371cee-4627-4fec-919e-e7c12d025c71",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/e8ceccfe-3d0c-4355-aba2-b8d738125b2e",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Claude 4.5 Haiku",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=6e8e6735-6300-41ea-aab3-a728a668fe91",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Gemini 2.5 Pro",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/1488bbed-22a3-4e20-a722-d9fcf437ae18",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Llama 4 Scout",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=dcb276b5-a789-4a3c-be34-5fb02d52c454",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910cb61c8fc819194f3d8ea7160f517-af-11-fbs/c/6910cb70-681c-8331-9d34-5dd704b39d9b",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Grok 3",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/3c3f8846-4f64-4904-b66a-3dfcce972b0a?sessionId=e891cefa-5843-42eb-ba0f-d460b4882b03",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 8
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-12-GCC – GCC
-  // ---------------------------------------------------------------------------
   {
-    id: "af-12-gcc",
-    name: "AF-12-GCC - GCC",
-    description: "AF-12-GCC - GCC",
-    color: "#ef4444",
-    icon: "assets/AF-12-GCC.png",
-    iconHref: "https://github.com/rdtbra/AF-12-GCC",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "DeepSeek R1",    provider: "AdaptaONE",   url: "https://app.adapta.one/chats/7cc5dbd3-10b8-495e-aa77-8e7785757439", checked: true, img: "" },
-      { code: "M02", label: "GPT 4o",        provider: "AdaptaONE",   url: "https://app.adapta.one/chats/02a00bf0-43fc-4e57-aa93-227b26e060b8", checked: true, img: "" },
-      { code: "M03", label: "Qwen3 Max",     provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a69a4-6d8d-7768-9389-97313273dd57", checked: true, img: "" },
-      { code: "M04", label: "Claude 4 Sonnet", provider: "AdaptaONE", url: "https://app.adapta.one/chats/dc84eec2-1428-4307-8a7b-29f93e18d5c9", checked: true, img: "" },
-      { code: "M05", label: "Perplexity",    provider: "AdaptaONE",   url: "https://app.adapta.one/chats/4f49eb0b-7dd3-4561-aef6-7ad171d59f2a", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",         provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910ce8b-ab28-8331-ac1c-f62adbc0a689", checked: true, img: "" },
-      { code: "REV", label: "Gemini 2.5 Pro",provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a69a9-d727-773d-ae7e-6551a725d90b", checked: true, img: "" }
-    ]
+    "id": "af-12-gcc",
+    "name": "AF-12-GCC - GCC",
+    "description": "AF-12-GCC - GCC",
+    "color": "#ef4444",
+    "icon": "assets/AF-12-GCC.png",
+    "iconHref": "https://github.com/rdtbra/AF-12-GCC",
+    "items": [
+      {
+        "code": "M01",
+        "label": "DeepSeek R1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/7cc5dbd3-10b8-495e-aa77-8e7785757439",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "GPT 4o",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/02a00bf0-43fc-4e57-aa93-227b26e060b8",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Qwen3 Max",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a69a4-6d8d-7768-9389-97313273dd57",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4 Sonnet",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/dc84eec2-1428-4307-8a7b-29f93e18d5c9",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Perplexity",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/4f49eb0b-7dd3-4561-aef6-7ad171d59f2a",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910ce8b-ab28-8331-ac1c-f62adbc0a689",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Gemini 2.5 Pro",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a69a9-d727-773d-ae7e-6551a725d90b",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 9
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-13-GVI – GVim
-  // ---------------------------------------------------------------------------
   {
-    id: "af-13-gvi",
-    name: "AF-13-GVI - GVim",
-    description: "AF-13-GVI - GVim",
-    color: "#a855f7",
-    icon: "assets/AF-13-GVI.png",
-    iconHref: "https://github.com/rdtbra/AF-13-GVI",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT OSS+",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/23389d9f-d948-46f3-8016-130add9ea9f4", checked: true, img: "" },
-      { code: "M02", label: "Deepseek 3.1",      provider: "Inner.IA",    url: "https://app.innerai.com/projects/c0a31c4e-c5b6-49ee-b1cf-b2a19db927a3?sessionId=4215b083-4df1-491b-8f2c-adfea1fe04ea", checked: true, img: "" },
-      { code: "M03", label: "Gemini 2.5 Flash",  provider: "AdaptaONE",   url: "https://app.adapta.one/chats/ecaa0cc1-5846-450c-82f8-d6df3764d6eb", checked: true, img: "" },
-      { code: "M04", label: "Claude 4.5 Sonnet", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a69b2-8234-720d-854f-97367e67c008", checked: true, img: "" },
-      { code: "M05", label: "Mistral Large 2",   provider: "Inner.IA",    url: "https://app.innerai.com/projects/c0a31c4e-c5b6-49ee-b1cf-b2a19db927a3?sessionId=71b6e7c4-bfd2-4132-871d-967163ef67c5", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",             provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed/c/6910d1d3-be48-832e-816d-f5c3ceecabc1", checked: true, img: "" },
-      { code: "REV", label: "GPT 4.1",           provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910d253-d8c8-832c-b572-50254e325195", checked: true, img: "" }
-    ]
+    "id": "af-13-gvi",
+    "name": "AF-13-GVI - GVim",
+    "description": "AF-13-GVI - GVim",
+    "color": "#a855f7",
+    "icon": "assets/AF-13-GVI.png",
+    "iconHref": "https://github.com/rdtbra/AF-13-GVI",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT OSS+",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/23389d9f-d948-46f3-8016-130add9ea9f4",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Deepseek 3.1",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/c0a31c4e-c5b6-49ee-b1cf-b2a19db927a3?sessionId=4215b083-4df1-491b-8f2c-adfea1fe04ea",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Gemini 2.5 Flash",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ecaa0cc1-5846-450c-82f8-d6df3764d6eb",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a69b2-8234-720d-854f-97367e67c008",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Mistral Large 2",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/c0a31c4e-c5b6-49ee-b1cf-b2a19db927a3?sessionId=71b6e7c4-bfd2-4132-871d-967163ef67c5",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed/c/6910d1d3-be48-832e-816d-f5c3ceecabc1",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "GPT 4.1",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910d253-d8c8-832c-b572-50254e325195",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 10
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-14-7ZI – 7-Zip
-  // ---------------------------------------------------------------------------
   {
-    id: "af-14-7zi",
-    name: "AF-14-7ZI - 7-Zip",
-    description: "AF-14-7ZI - 7-Zip",
-    color: "#3b82f6",
-    icon: "assets/AF-14-7ZI.png",
-    iconHref: "https://github.com/rdtbra/AF-14-7ZI",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Claude 4 Sonnet",   provider: "AdaptaONE", url: "https://app.adapta.one/chats/805e7cb5-5f3c-4b8e-a0ef-bc49ec1dbb29", checked: true, img: "" },
-      { code: "M02", label: "DeepSeek V3",       provider: "AdaptaONE", url: "https://app.adapta.one/chats/a20af9ad-5e3f-4811-9484-718a54fe8c4c", checked: true, img: "" },
-      { code: "M03", label: "Gemini 2.5 Pro",    provider: "AdaptaONE", url: "https://app.adapta.one/chats/f25492c8-17d1-407b-b62b-3b60f6d105bd", checked: true, img: "" },
-      { code: "M04", label: "Grok 4",            provider: "AdaptaONE", url: "https://app.adapta.one/chats/15fb071b-8aa9-44f8-8466-e3d9be0f515c", checked: true, img: "" },
-      { code: "M05", label: "Qwen QwQ",          provider: "Inner.IA",  url: "https://app.innerai.com/projects/839b7a6c-77d2-4094-bbb5-8663537ec8a3?sessionId=56c4aee9-f3c5-4f4a-bf84-c750ff4afa82", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",             provider: "openAI",    url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910d459-d744-8327-b440-16b080a3cd51", checked: true, img: "" },
-      { code: "REV", label: "Amazon Nova Premier", provider: "Inner.IA", url: "https://app.innerai.com/projects/839b7a6c-77d2-4094-bbb5-8663537ec8a3?sessionId=42216684-5737-4479-87c1-9c0a627070e0", checked: true, img: "" }
-    ]
+    "id": "af-14-7zi",
+    "name": "AF-14-7ZI - 7-Zip",
+    "description": "AF-14-7ZI - 7-Zip",
+    "color": "#3b82f6",
+    "icon": "assets/AF-14-7ZI.png",
+    "iconHref": "https://github.com/rdtbra/AF-14-7ZI",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Claude 4 Sonnet",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/805e7cb5-5f3c-4b8e-a0ef-bc49ec1dbb29",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/a20af9ad-5e3f-4811-9484-718a54fe8c4c",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Gemini 2.5 Pro",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/f25492c8-17d1-407b-b62b-3b60f6d105bd",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/15fb071b-8aa9-44f8-8466-e3d9be0f515c",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Qwen QwQ",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/839b7a6c-77d2-4094-bbb5-8663537ec8a3?sessionId=56c4aee9-f3c5-4f4a-bf84-c750ff4afa82",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910d459-d744-8327-b440-16b080a3cd51",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/839b7a6c-77d2-4094-bbb5-8663537ec8a3?sessionId=42216684-5737-4479-87c1-9c0a627070e0",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 11
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-15-GRU – GRUB
-  // ---------------------------------------------------------------------------
   {
-    id: "af-15-gru",
-    name: "AF-15-GRU - GRUB",
-    description: "AF-15-GRU - GRUB",
-    color: "#f59e0b",
-    icon: "assets/AF-15-GRU.png",
-    iconHref: "https://github.com/rdtbra/AF-15-GRU",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "DeepSeek V3",  provider: "AdaptaONE", url: "https://app.adapta.one/chats/c5cb4cfd-b544-40af-b936-8919efe3d1dd", checked: true, img: "" },
-      { code: "M02", label: "Claude 4 Sonnet", provider: "AdaptaONE", url: "https://app.adapta.one/chats/79902f6b-4f74-4cc6-8bf4-49e181fb3270", checked: true, img: "" },
-      { code: "M03", label: "GPT 4.1",     provider: "AdaptaONE", url: "https://app.adapta.one/chats/98de0a63-5752-413d-a56b-9dba8ec333c2", checked: true, img: "" },
-      { code: "M04", label: "Llama 4",     provider: "AdaptaONE", url: "https://app.adapta.one/chats/e7643baf-2a27-49b4-b4df-a3cbba195ce4", checked: true, img: "" },
-      { code: "M05", label: "Perplexity",  provider: "AdaptaONE", url: "https://app.adapta.one/chats/5a9fb6c7-3d23-463c-965a-11c8828f93fe", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",       provider: "openAI",    url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910df0e-2aa0-8327-ac08-f5cbcfa0b610", checked: true, img: "" },
-      { code: "REV", label: "o4-mini-high",provider: "openAI",    url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910df3f-2fcc-832b-ae3d-1c7ceeb3e7c1", checked: true, img: "" }
-    ]
+    "id": "af-15-gru",
+    "name": "AF-15-GRU - GRUB",
+    "description": "AF-15-GRU - GRUB",
+    "color": "#f59e0b",
+    "icon": "assets/AF-15-GRU.png",
+    "iconHref": "https://github.com/rdtbra/AF-15-GRU",
+    "items": [
+      {
+        "code": "M01",
+        "label": "DeepSeek V3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/c5cb4cfd-b544-40af-b936-8919efe3d1dd",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4 Sonnet",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/79902f6b-4f74-4cc6-8bf4-49e181fb3270",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "GPT 4.1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/98de0a63-5752-413d-a56b-9dba8ec333c2",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Llama 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/e7643baf-2a27-49b4-b4df-a3cbba195ce4",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Perplexity",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/5a9fb6c7-3d23-463c-965a-11c8828f93fe",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910df0e-2aa0-8327-ac08-f5cbcfa0b610",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "o4-mini-high",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910df3f-2fcc-832b-ae3d-1c7ceeb3e7c1",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 12
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-16-BLN – Blender
-  // ---------------------------------------------------------------------------
   {
-    id: "af-16-bln",
-    name: "AF-16-BLN - Blender",
-    description: "AF-16-BLN - Blender",
-    color: "#10b981",
-    icon: "assets/AF-16-BLN.png",
-    iconHref: "https://github.com/rdtbra/AF-16-BLN",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "4.1-mini",         provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e1d8-efe8-832c-920c-a523c3447946", checked: true, img: "" },
-      { code: "M02", label: "Claude 4.5 Sonnet",provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a69f6-7fbf-758b-9de2-07fa7ad49afc", checked: true, img: "" },
-      { code: "M03", label: "GPT o3",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/cc5286b6-e766-44ad-97c0-814543edffb8", checked: true, img: "" },
-      { code: "M04", label: "Grok 4",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/c25887b1-71ed-4afd-bebe-ea4b122da0ff", checked: true, img: "" },
-      { code: "M05", label: "Llama 4 Scout",   provider: "Inner.IA",    url: "https://app.innerai.com/projects/7fa010c6-b16b-4414-a496-7ce3055eeace?sessionId=4e51f551-4bc3-4269-8ea1-df432d5f0cdc", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",           provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e1a0-03dc-832b-9c70-807c9bf085d7", checked: true, img: "" },
-      { code: "REV", label: "o4-mini",         provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e206-4578-832b-a351-d8bddf97bc8b", checked: true, img: "" }
-    ]
+    "id": "af-16-bln",
+    "name": "AF-16-BLN - Blender",
+    "description": "AF-16-BLN - Blender",
+    "color": "#10b981",
+    "icon": "assets/AF-16-BLN.png",
+    "iconHref": "https://github.com/rdtbra/AF-16-BLN",
+    "items": [
+      {
+        "code": "M01",
+        "label": "4.1-mini",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e1d8-efe8-832c-920c-a523c3447946",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Sonnet",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a69f6-7fbf-758b-9de2-07fa7ad49afc",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "GPT o3",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/cc5286b6-e766-44ad-97c0-814543edffb8",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Grok 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/c25887b1-71ed-4afd-bebe-ea4b122da0ff",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Llama 4 Scout",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/7fa010c6-b16b-4414-a496-7ce3055eeace?sessionId=4e51f551-4bc3-4269-8ea1-df432d5f0cdc",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e1a0-03dc-832b-9c70-807c9bf085d7",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "o4-mini",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e206-4578-832b-a351-d8bddf97bc8b",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 13
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-17-R – R
-  // 
-  // ---------------------------------------------------------------------------
   {
-    id: "﻿af-17-r",
-    name: "﻿AF-17-R - R",
-    description: "﻿AF-17-R - R",
-    color: "#14b8a6",
-    icon: "assets/AF-17-R.png",
-    iconHref: "https://github.com/rdtbra/AF-17-R",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT 4.1",              provider: "AdaptaONE", url: "https://app.adapta.one/chats/722d08f6-2126-49c5-9db9-fde7a7aee775", checked: true, img: "" },
-      { code: "M02", label: "Sabiá 3.1",            provider: "Inner.AI",  url: "https://app.innerai.com/projects/7a3137c6-a786-4fde-a4da-15619a71d2d0?sessionId=bde1d200-5aff-4176-9940-715f96a103ad", checked: true, img: "" },
-      { code: "M03", label: "Kimi K2",              provider: "AdaptaONE", url: "https://app.adapta.one/chats/4b787c02-de33-439e-88c2-c48eac0e4b23", checked: true, img: "" },
-      { code: "M04", label: "o3",                   provider: "AdaptaONE", url: "https://agent.adapta.one/agentic-chat/019a6a08-f4af-72c8-9a26-39e0cfe789ab", checked: true, img: "" },
-      { code: "M05", label: "Perplexity",           provider: "AdaptaONE", url: "https://agent.adapta.one/agentic-chat/019a6a05-e955-77eb-af64-b437deada01d", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",                provider: "openAI",    url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e704-e408-8329-92b4-ad570f4ea7ad", checked: true, img: "" },
-      { code: "REV", label: "Llama 4 Maverick Scout", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a03-3b1b-772e-a91d-a1d1bc36ec32", checked: true, img: "" }
-    ]
+    "id": "﻿af-17-r",
+    "name": "﻿AF-17-R - R",
+    "description": "﻿AF-17-R - R",
+    "color": "#14b8a6",
+    "icon": "assets/AF-17-R.png",
+    "iconHref": "https://github.com/rdtbra/AF-17-R",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT 4.1",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/722d08f6-2126-49c5-9db9-fde7a7aee775",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Sabiá 3.1",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/7a3137c6-a786-4fde-a4da-15619a71d2d0?sessionId=bde1d200-5aff-4176-9940-715f96a103ad",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Kimi K2",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/4b787c02-de33-439e-88c2-c48eac0e4b23",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "o3",
+        "provider": "AdaptaONE",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a08-f4af-72c8-9a26-39e0cfe789ab",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Perplexity",
+        "provider": "AdaptaONE",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a05-e955-77eb-af64-b437deada01d",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910e704-e408-8329-92b4-ad570f4ea7ad",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Llama 4 Maverick Scout",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a03-3b1b-772e-a91d-a1d1bc36ec32",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 14
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-22-FBD – Firebird
-  // ---------------------------------------------------------------------------
   {
-    id: "af-22-fbd",
-    name: "AF-22-FBD - Firebird",
-    description: "AF-22-FBD - Firebird",
-    color: "#6366f1",
-    icon: "assets/AF-22-FBD.png",
-    iconHref: "https://github.com/rdtbra/AF-22-FBD",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT-5",           provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a21-5756-7769-aaa9-89c2bccc8382", checked: true, img: "" },
-      { code: "M02", label: "Claude 4 Sonnet", provider: "AdaptaONE",   url: "https://app.adapta.one/chats/ee5b74c8-b752-49b5-85fd-200fe574b8cb", checked: true, img: "" },
-      { code: "M03", label: "Grok 4 Fast",     provider: "Inner.AI",    url: "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=8adad054-6c01-404f-81ee-1cabe7451d37", checked: true, img: "" },
-      { code: "M04", label: "Qwen QwQ",        provider: "Inner.IA",    url: "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=63a6dd17-8a0d-47dd-8b08-b8c77322c433", checked: true, img: "" },
-      { code: "M05", label: "GPT OSS",         provider: "Inner.AI",    url: "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=10188c32-295c-4d26-bf2a-02565f31e5ed", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",           provider: "openAI",      url: "https://chatgpt.com/c/6910ec03-9774-832a-957b-933d7da3951a", checked: true, img: "" },
-      { code: "REV", label: "Perplexity",      provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a1e-098f-73bd-8df1-f74aac7f1661", checked: true, img: "" }
-    ]
+    "id": "af-22-fbd",
+    "name": "AF-22-FBD - Firebird",
+    "description": "AF-22-FBD - Firebird",
+    "color": "#6366f1",
+    "icon": "assets/AF-22-FBD.png",
+    "iconHref": "https://github.com/rdtbra/AF-22-FBD",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-5",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a21-5756-7769-aaa9-89c2bccc8382",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4 Sonnet",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/ee5b74c8-b752-49b5-85fd-200fe574b8cb",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Grok 4 Fast",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=8adad054-6c01-404f-81ee-1cabe7451d37",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Qwen QwQ",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=63a6dd17-8a0d-47dd-8b08-b8c77322c433",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "GPT OSS",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/f533d405-5abc-41b4-8970-84137279df31?sessionId=10188c32-295c-4d26-bf2a-02565f31e5ed",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/c/6910ec03-9774-832a-957b-933d7da3951a",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Perplexity",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a1e-098f-73bd-8df1-f74aac7f1661",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 15
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-23-LBO – LibreOffice
-  // ---------------------------------------------------------------------------
   {
-    id: "af-23-lbo",
-    name: "AF-23-LBO - LibreOffice",
-    description: "AF-23-LBO - LibreOffice",
-    color: "#f43f5e",
-    icon: "assets/AF-23-LBO.png",
-    iconHref: "https://github.com/rdtbra/AF-23-LBO",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT 4o",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/228ee4f1-d5b8-4b30-a7a2-091e836f840b", checked: true, img: "" },
-      { code: "M02", label: "DeepSeek 3.1",    provider: "Inner.IA",    url: "https://app.innerai.com/projects/e5f088a0-98f8-4666-978e-fa0396ef1fd4?sessionId=01e0d07c-0896-45d9-ac1a-8048444f4304", checked: true, img: "" },
-      { code: "M03", label: "o3",              provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a27-2da1-741a-9a08-48140bfa1e5e", checked: true, img: "" },
-      { code: "M04", label: "Grok 3",          provider: "Inner.IA",    url: "https://app.innerai.com/projects/e5f088a0-98f8-4666-978e-fa0396ef1fd4?sessionId=d6d12389-fada-4bfb-ae26-d7af6e619b94", checked: true, img: "" },
-      { code: "M05", label: "Gemini 2.5 Flash",provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a29-8c86-73fb-8ab4-3ffd5751229c", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",           provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f031-c464-8333-81e6-529283602c28", checked: true, img: "" },
-      { code: "REV", label: "GPT-4o",          provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f081-8a10-832d-be94-83e7afdbf628", checked: true, img: "" }
-    ]
+    "id": "af-23-lbo",
+    "name": "AF-23-LBO - LibreOffice",
+    "description": "AF-23-LBO - LibreOffice",
+    "color": "#f43f5e",
+    "icon": "assets/AF-23-LBO.png",
+    "iconHref": "https://github.com/rdtbra/AF-23-LBO",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT 4o",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/228ee4f1-d5b8-4b30-a7a2-091e836f840b",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "DeepSeek 3.1",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/e5f088a0-98f8-4666-978e-fa0396ef1fd4?sessionId=01e0d07c-0896-45d9-ac1a-8048444f4304",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "o3",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a27-2da1-741a-9a08-48140bfa1e5e",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Grok 3",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/e5f088a0-98f8-4666-978e-fa0396ef1fd4?sessionId=d6d12389-fada-4bfb-ae26-d7af6e619b94",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Gemini 2.5 Flash",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a29-8c86-73fb-8ab4-3ffd5751229c",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f031-c464-8333-81e6-529283602c28",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "GPT-4o",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f081-8a10-832d-be94-83e7afdbf628",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 16
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-24-AOO – Apache OpenOffice
-  // ---------------------------------------------------------------------------
   {
-    id: "af-24-aoo",
-    name: "AF-24-AOO - Apache OpenOffice",
-    description: "AF-24-AOO - Apache OpenOffice",
-    color: "#06d6a0",
-    icon: "assets/AF-24-AOO.png",
-    iconHref: "https://github.com/rdtbra/AF-24-AOO",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Gemini 2.5 Flash", provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a3b-5e9d-7579-bd2b-fa7ee397f0ff", checked: true, img: "" },
-      { code: "M02", label: "Llama 4",          provider: "AdaptaONE",   url: "https://app.adapta.one/chats/5984b6d6-7001-4e08-be6e-6dba1593d002", checked: true, img: "" },
-      { code: "M03", label: "GPT-5",            provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a34-54ab-70dd-8b06-98ab3ed36ec6", checked: true, img: "" },
-      { code: "M04", label: "Qwen3 Max",        provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a38-8377-7385-acf5-c96f7f556311", checked: true, img: "" },
-      { code: "M05", label: "Mistral Large 2",  provider: "Inner.IA",    url: "https://app.innerai.com/projects/4a5ef1c5-6073-45b8-8f2b-ec17d54ace7a?sessionId=38309357-eae8-4fd6-a9d8-c4b137340e82", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",            provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f43d-2fdc-832e-87fe-25ceaa4b45a2", checked: true, img: "" },
-      { code: "REV", label: "Amazon Nova Premier", provider: "Inner.IA", url: "https://app.innerai.com/projects/4a5ef1c5-6073-45b8-8f2b-ec17d54ace7a?sessionId=731f389f-84f3-428a-8699-57e13f6d0c51", checked: true, img: "" }
-    ]
+    "id": "af-24-aoo",
+    "name": "AF-24-AOO - Apache OpenOffice",
+    "description": "AF-24-AOO - Apache OpenOffice",
+    "color": "#06d6a0",
+    "icon": "assets/AF-24-AOO.png",
+    "iconHref": "https://github.com/rdtbra/AF-24-AOO",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Gemini 2.5 Flash",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a3b-5e9d-7579-bd2b-fa7ee397f0ff",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Llama 4",
+        "provider": "AdaptaONE",
+        "url": "https://app.adapta.one/chats/5984b6d6-7001-4e08-be6e-6dba1593d002",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "GPT-5",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a34-54ab-70dd-8b06-98ab3ed36ec6",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Qwen3 Max",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a38-8377-7385-acf5-c96f7f556311",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Mistral Large 2",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/4a5ef1c5-6073-45b8-8f2b-ec17d54ace7a?sessionId=38309357-eae8-4fd6-a9d8-c4b137340e82",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f43d-2fdc-832e-87fe-25ceaa4b45a2",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Amazon Nova Premier",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/4a5ef1c5-6073-45b8-8f2b-ec17d54ace7a?sessionId=731f389f-84f3-428a-8699-57e13f6d0c51",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 17
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-39-FPS – Free Pascal
-  // ---------------------------------------------------------------------------
   {
-    id: "af-39-fps",
-    name: "AF-39-FPS - Free Pascal",
-    description: "AF-39-FPS - Free Pascal",
-    color: "#ff9770",
-    icon: "assets/AF-39-FPS.png",
-    iconHref: "https://github.com/rdtbra/AF-39-FPS",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "GPT-4o",        provider: "AdaptaONE",   url: "https://agent.adapta.one/agentic-chat/019a6a41-e6b4-7189-80bc-92e7d09ba5b6", checked: true, img: "" },
-      { code: "M02", label: "Grok-4",        provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a44-ac6e-70d8-b2ed-34cd64e433da", checked: true, img: "" },
-      { code: "M03", label: "GPT5-mini",     provider: "Inner.AI",    url: "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=64f7ba46-a46e-420a-aa69-4c8f851a9410", checked: true, img: "" },
-      { code: "M04", label: "Perplexity Sonar", provider: "Inner.AI", url: "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=ad57994a-7f74-4d38-a5d2-dd9059b9b9f4", checked: true, img: "" },
-      { code: "M05", label: "Command R",     provider: "Inner.AI",    url: "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=0976a052-9c84-487d-ab3f-112983440434", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",         provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f93f-632c-832c-b6e1-d510ec4d6f52", checked: true, img: "" },
-      { code: "REV", label: "GPT OSS",       provider: "Inner.AI",    url: "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=acf9ff5e-0b2b-43bd-bbc2-0941602453ab", checked: true, img: "" }
-    ]
+    "id": "af-39-fps",
+    "name": "AF-39-FPS - Free Pascal",
+    "description": "AF-39-FPS - Free Pascal",
+    "color": "#ff9770",
+    "icon": "assets/AF-39-FPS.png",
+    "iconHref": "https://github.com/rdtbra/AF-39-FPS",
+    "items": [
+      {
+        "code": "M01",
+        "label": "GPT-4o",
+        "provider": "AdaptaONE",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a41-e6b4-7189-80bc-92e7d09ba5b6",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Grok-4",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a44-ac6e-70d8-b2ed-34cd64e433da",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "GPT5-mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=64f7ba46-a46e-420a-aa69-4c8f851a9410",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Perplexity Sonar",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=ad57994a-7f74-4d38-a5d2-dd9059b9b9f4",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Command R",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=0976a052-9c84-487d-ab3f-112983440434",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6910f93f-632c-832c-b6e1-d510ec4d6f52",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "GPT OSS",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/1a0ebb40-694f-49a5-b8f8-a4bfa3588b5b?sessionId=acf9ff5e-0b2b-43bd-bbc2-0941602453ab",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 18
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-50-OWA – Open Watcom 2
-  // ---------------------------------------------------------------------------
   {
-    id: "af-50-owa",
-    name: "AF-50-OWA - Open Watcom 2",
-    description: "AF-50-OWA - Open Watcom 2",
-    color: "#ffd166",
-    icon: "assets/AF-50-OWA.png",
-    iconHref: "https://github.com/rdtbra/AF-50-OWA",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Grok-4",          provider: "AdaptaONE26", url: "https://agent.adapta.one/agentic-chat/019a6a51-bb95-7164-93f5-cec313b19718", checked: true, img: "" },
-      { code: "M02", label: "Claude 4.5 Haiku",provider: "Inner.AI",    url: "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=3f3ea290-7329-4110-856d-8cf6b9146de5", checked: true, img: "" },
-      { code: "M03", label: "Llama 4 Scout",   provider: "Inner.AI",    url: "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=c7c45811-53e8-4fce-8a10-19b0da2efbff", checked: true, img: "" },
-      { code: "M04", label: "Kimi K2",         provider: "Inner.AI",    url: "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=01f10518-0f85-44eb-99bb-997a86747f6a", checked: true, img: "" },
-      { code: "M05", label: "DeepSeek R1",     provider: "Inner.AI",    url: "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=b0bcac5f-a45c-4b60-9049-9dfb90323bac", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",           provider: "openAI",      url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed/c/68c76494-d5a4-8004-9b31-a87ec4e77219", checked: true, img: "" },
-      { code: "REV", label: "Mistral Large 2", provider: "Inner.IA",    url: "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=728e3670-2b20-4dc7-8b59-c716929d4f0f", checked: true, img: "" }
-    ]
+    "id": "af-50-owa",
+    "name": "AF-50-OWA - Open Watcom 2",
+    "description": "AF-50-OWA - Open Watcom 2",
+    "color": "#ffd166",
+    "icon": "assets/AF-50-OWA.png",
+    "iconHref": "https://github.com/rdtbra/AF-50-OWA",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Grok-4",
+        "provider": "AdaptaONE26",
+        "url": "https://agent.adapta.one/agentic-chat/019a6a51-bb95-7164-93f5-cec313b19718",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Claude 4.5 Haiku",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=3f3ea290-7329-4110-856d-8cf6b9146de5",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "Llama 4 Scout",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=c7c45811-53e8-4fce-8a10-19b0da2efbff",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "Kimi K2",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=01f10518-0f85-44eb-99bb-997a86747f6a",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "DeepSeek R1",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=b0bcac5f-a45c-4b60-9049-9dfb90323bac",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed/c/68c76494-d5a4-8004-9b31-a87ec4e77219",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Mistral Large 2",
+        "provider": "Inner.IA",
+        "url": "https://app.innerai.com/projects/5f42014c-37d2-40a2-b33b-5a3462f345d5?sessionId=728e3670-2b20-4dc7-8b59-c716929d4f0f",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 19
   },
-
-  // ---------------------------------------------------------------------------
-  // AF-52-LLV – LLVM
-  // 
-  // ---------------------------------------------------------------------------
   {
-    id: "﻿af-52-llv",
-    name: "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
-    description: "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
-    color: "#118ab2",
-    icon: "assets/AF-52-LLV.png",
-    iconHref: "https://github.com/rdtbra/AF-52-LLV",
-    collapsed: true,
-    items: [
-      { code: "M01", label: "Claude 4.5 Haiku",           provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=6427d798-f288-4496-bea6-ec2349c18aa7", checked: true, img: "" },
-      { code: "M02", label: "Llama 4 Maverick",           provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=876bd50c-74f5-4fef-9f25-140a0c2813ed", checked: true, img: "" },
-      { code: "M03", label: "GPT-5 Mini",                 provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=ce7f90e0-13a6-4530-9ad0-da262938c039", checked: true, img: "" },
-      { code: "M04", label: "o3",                         provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=89872b7e-5dfd-43f5-bc7d-1efe9a3317ae", checked: true, img: "" },
-      { code: "M05", label: "Claude 4.5 Sonnet Thinking", provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=4492a554-bf81-453c-a611-45fb413f2b3b", checked: true, img: "" },
-      { code: "SUP", label: "GPT-5",                      provider: "openAI",   url: "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6911028f-f6b4-8331-825d-bd9799aacf75", checked: true, img: "" },
-      { code: "REV", label: "Sabiá 3.1",                  provider: "Inner.AI", url: "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=16083a89-4f84-485a-95ab-5b0c6ac919de", checked: true, img: "" }
-    ]
+    "id": "﻿af-52-llv",
+    "name": "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
+    "description": "﻿AF-52-LLV - Low Level Virtual Machine (LLVM)",
+    "color": "#118ab2",
+    "icon": "assets/AF-52-LLV.png",
+    "iconHref": "https://github.com/rdtbra/AF-52-LLV",
+    "items": [
+      {
+        "code": "M01",
+        "label": "Claude 4.5 Haiku",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=6427d798-f288-4496-bea6-ec2349c18aa7",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M02",
+        "label": "Llama 4 Maverick",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=876bd50c-74f5-4fef-9f25-140a0c2813ed",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M03",
+        "label": "GPT-5 Mini",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=ce7f90e0-13a6-4530-9ad0-da262938c039",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M04",
+        "label": "o3",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=89872b7e-5dfd-43f5-bc7d-1efe9a3317ae",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "M05",
+        "label": "Claude 4.5 Sonnet Thinking",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=4492a554-bf81-453c-a611-45fb413f2b3b",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "SUP",
+        "label": "GPT-5",
+        "provider": "openAI",
+        "url": "https://chatgpt.com/g/g-p-6910ce7ec670819189e00b85d30906ed-ai-af-equipes/c/6911028f-f6b4-8331-825d-bd9799aacf75",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "REV",
+        "label": "Sabiá 3.1",
+        "provider": "Inner.AI",
+        "url": "https://app.innerai.com/projects/d5646c6b-eea1-4de6-864f-e11a23d60a52?sessionId=16083a89-4f84-485a-95ab-5b0c6ac919de",
+        "checked": true,
+        "img": ""
+      }
+    ],
+    "order": 20
   }
 ];
-// ============================================================================
-// Fim de AFgroups.js
-// ============================================================================
