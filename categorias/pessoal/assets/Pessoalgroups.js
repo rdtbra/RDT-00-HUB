@@ -17,14 +17,6 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "Perplexity",
-        "provider": "Perplexity.AI",
-        "url": "https://perplexity.ai",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "Gemini",
         "provider": "Google",
         "url": "https://gemini.google.com",
@@ -36,6 +28,14 @@ window.GROUPS = [
         "label": "Claude",
         "provider": "Anthropic",
         "url": "https://claude.ai",
+        "checked": true,
+        "img": ""
+      },
+      {
+        "code": "",
+        "label": "Perplexity",
+        "provider": "Perplexity.AI",
+        "url": "https://perplexity.ai",
         "checked": true,
         "img": ""
       },
