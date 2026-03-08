@@ -33,9 +33,9 @@ window.GROUPS = [
       },
       {
         "code": "",
-        "label": "AdaptaONE",
-        "provider": "Adapta.org",
-        "url": "https://app.adapta.one/chats",
+        "label": "Claude",
+        "provider": "Anthropic",
+        "url": "https://claude.ai",
         "checked": true,
         "img": ""
       },
