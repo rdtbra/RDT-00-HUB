@@ -155,14 +155,6 @@ window.GROUPS = [
     "items": [
       {
         "code": "",
-        "label": "Claude",
-        "provider": "Anthropic",
-        "url": "https://claude.ai",
-        "checked": true,
-        "img": ""
-      },
-      {
-        "code": "",
         "label": "Grok",
         "provider": "",
         "url": "https://grok.com",
